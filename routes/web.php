@@ -25,8 +25,8 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('login', [UserController::class, 'loginform'])->name('r.login');
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('r.dashboard');
 
-    Route::resource('user', UserController::class);
-
+    
 });
 
+Route::resource('users', UserController::class);
 Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
