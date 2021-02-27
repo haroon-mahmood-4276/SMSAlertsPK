@@ -21,23 +21,23 @@
 
             <thead>
                 <tr class="bg-UNi">
-                    <th scope="col">Full Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col" style="width: 10%;" class="text-center"><a href="{{ route('users.create') }}"><i
+                    <th scope="col">Company Name</th>
+                    <th scope="col">Group Name</th>
+                    <th scope="col" style="width: 10%;" class="text-center"><a href="{{ route('groups.create') }}"><i
                                 class="fas fa-plus">+</i></a>
                     </th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach ($Users as $User)
+                @foreach ($Groups as $Group)
                 <tr>
-                    <td class="align-middle">{{ $User->first_name }} {{ $User->last_name }}</td>
-                    <td class="align-middle">{{ $User->email }}</td>
+                    <td class="align-middle">{{ $Group->company_name }}</td>
+                    <td class="align-middle">{{ $Group->name }}</td>
                     <td class="link text-center align-middle">
-                        <a class="btn btn-UNi float-left" href="{{ route('users.edit', ['user' => $User->id]) }}"><i
+                        <a class="btn btn-UNi float-left" href="{{ route('groups.edit', ['group' => $Group->id]) }}"><i
                                 class="fas fa-pen-fancy">asd</i></a>
-                        <form method="POST" action="{{ route('users.destroy', ['user' => $User->id]) }}">
+                        <form method="POST" action="{{ route('groups.destroy', ['group' => $Group->id]) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" onclick="return confirm('Are you sure?')"

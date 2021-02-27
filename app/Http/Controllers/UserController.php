@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         $Users = User::all();
-        return view('User.index', ['Users' => $Users]);
+        return view('user.index', ['Users' => $Users]);
     }
 
     /**
@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('User.create');
+        return view('user.create');
     }
 
     /**
@@ -92,7 +92,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $User = User::find($id);
-        return view('User.edit', ['User' => $User]);
+        return view('user.edit', ['User' => $User]);
     }
 
     /**
@@ -194,7 +194,7 @@ class UserController extends Controller
         } else {
             return with('AlertType', 'danger')->with('AlertMsg', 'Something went wrong. Err Code: 0x00001');
         }
-        return view('User.dashboard', ['User' => $User]);
+        return view('user.dashboard', ['User' => $User]);
     }
 
     public function logout()
