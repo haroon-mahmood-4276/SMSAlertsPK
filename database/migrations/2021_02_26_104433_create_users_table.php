@@ -20,6 +20,13 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 50);
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('company_name');
+            $table->string('company_mask_id', 30);
+            $table->char('company_nature');
+            $table->string('company_email')->unique();
+            $table->string('mobile_1');
+            $table->string('mobile_2')->nullable;
+            $table->integer('no_of_sms');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });

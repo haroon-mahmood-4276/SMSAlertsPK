@@ -21,6 +21,13 @@ class Users extends Seeder
                 'last_name' => 'Mahmood',
                 'email' => 'abc@abc.com',
                 'password' => Hash::make('123456789'),
+                'company_name' => 'ABC',
+                'company_mask_id' => 'ABC',
+                'company_nature'=>'A',
+                'company_email' => 'abc@abc.com',
+                'mobile_1' => '923001234567',
+                'mobile_2' =>  '923001234567',
+                'no_of_sms' => 0,
             ]
         ]);
     }

@@ -39,10 +39,17 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|string|min:1|max:50',
-            'last_name' => 'required|string|min:1|max:50',
-            'email' => 'required|email',
-            'password' => 'required|min:5|max:12'
+            'first_name' => 'bail|required|alpha|between:1,50',
+            'last_name' => 'bail|required|alpha|between:1,50',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'between:5,15',
+            'company_name' => 'required|alpha|between:1,50',
+            'company_mask_id' => 'required|max:11',
+            'company_nature' => 'required',
+            'company_email' => 'required|email|unique:users,company_email',
+            'mobile_1' => 'required|digits:12',
+            'mobile_2' => 'nullable||digits:12',
+            'no_of_sms' => 'required|integer',
         ]);
 
         $User = new User;
@@ -50,6 +57,13 @@ class UserController extends Controller
         $User->last_name = $request->last_name;
         $User->email = $request->email;
         $User->password = Hash::make($request->password);
+        $User->company_name = $request->company_name;
+        $User->company_mask_id = $request->company_mask_id;
+        $User->company_nature = $request->company_nature;
+        $User->company_email = $request->company_email;
+        $User->mobile_1 = $request->mobile_1;
+        $User->mobile_2 = $request->mobile_2;
+        $User->no_of_sms = $request->no_of_sms;
 
         if ($User->save()) {
             return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
@@ -91,10 +105,17 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'first_name' => 'required|string|min:1|max:50',
-            'last_name' => 'required|string|min:1|max:50',
-            'email' => 'required|email',
-            'password' => 'nullable|min:5|max:12'
+            'first_name' => 'bail|required|alpha|between:1,50',
+            'last_name' => 'bail|required|alpha|between:1,50',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'between:5,15',
+            'company_name' => 'required|alpha|between:1,50',
+            'company_mask_id' => 'required|max:11',
+            'company_nature' => 'required',
+            'company_email' => 'required|email|unique:users,company_email',
+            'mobile_1' => 'required|digits:12',
+            'mobile_2' => 'nullable||digits:12',
+            'no_of_sms' => 'required|integer',
         ]);
 
         $User = User::find($id);
@@ -104,6 +125,13 @@ class UserController extends Controller
         if (Str::length($request->password) > 0) {
             $User->password = Hash::make($request->password);
         }
+        $User->company_name = $request->company_name;
+        $User->company_mask_id = $request->company_mask_id;
+        $User->company_nature = $request->company_nature;
+        $User->company_email = $request->company_email;
+        $User->mobile_1 = $request->mobile_1;
+        $User->mobile_2 = $request->mobile_2;
+        $User->no_of_sms = $request->no_of_sms;
 
         if ($User->save()) {
             return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
