@@ -16,16 +16,14 @@
     @endif
 
 
-    <form action="{{route('groups.update', ['group' => $Group->id])}}" method="POST">
+    <form action="{{route('sections.store')}}" method="POST">
         @csrf
-        @method('PATCH')
         <div class="mb-3">
             <label for="company_name" class="form-label">Company</label>
             <select class="form-select" name="company_name" id="company_name">
-                <option value="">Select</option>
+                <option value="" >Select</option>
                 @foreach ($Companies as $Company)
-                <option value="{{$Company->id}}" {{ ($Company->id == $Group->user_id ? 'selected':'') }}>
-                    {{$Company->company_name}}</option>
+                <option value="{{$Company->id}}" {{ ($Company->id == old('company_name') ? 'selected':'') }}>{{$Company->company_name}}</option>    
                 @endforeach
             </select>
             @error('company_name')
@@ -33,9 +31,22 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label for="name" class="form-label">Group Name</label>
+            <label for="group_name" class="form-label">Group</label>
+            <select class="form-select" name="group_name" id="group_name">
+                <option value="">Select</option>
+                @foreach ($Groups as $Group)
+                <option value="{{$Group->id}}" {{ ($Group->id == old('group_name') ? 'selected':'') }}>
+                    {{$Group->name}}</option>
+                @endforeach
+            </select>
+            @error('group_name')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Section Name</label>
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
-                value="{{$Group->name}}" placeholder="name">
+                value="{{old('name')}}" placeholder="name">
             @error('name')
             <span class="text-danger">{{$message}}</span>
             @enderror

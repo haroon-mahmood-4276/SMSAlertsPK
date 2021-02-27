@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +32,5 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
 Route::resource('users', UserController::class);
 Route::resource('groups', GroupController::class);
+Route::resource('sections', SectionController::class);
 Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

@@ -19,7 +19,7 @@
     <form action="{{route('groups.store')}}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="company_name" class="form-label">Company Nature</label>
+            <label for="company_name" class="form-label">Company</label>
             <select class="form-select" name="company_name" id="company_name">
                 <option value="" >Select</option>
                 @foreach ($Companies as $Company)
