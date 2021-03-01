@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/authentication.css') }}">
         <link rel="stylesheet" href="{{ asset('css/alert/sweetalert2.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/font-awesome/css/fontawesome-all.min.css') }}">
 
     </head>
 
@@ -49,6 +50,12 @@
                                 <h5 class="font-medium m-b-0 m-t-40">Sign In to Account</h5>
                                 <small>Just login to your account</small>
                             </div>
+                            @if (Session::get('AlertType') && Session::get('AlertMsg'))
+                            <div class="{{Session::get('AlertType')}}-alert-bar p-15 m-b-20 white-text">
+                               {{Session::get('AlertMsg')}}
+                            </div> 
+                            @endif
+                           
                             <!-- Form -->
                             <div class="row">
                                 <form class="col s12" action="{{route('r.login')}}" method="POST">
@@ -77,31 +84,6 @@
                                             <button class="btn-large w100 blue accent-4" type="submit">Login</button>
                                         </div>
                                     </div>
-                                    <div class="row m-t-15">
-                                        <div class="col s12">
-                                            <a href="#" class="link" id="sa-success">Forgot Password?</a>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 m6 l3">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <h5 class="card-title">Success Message <small>(Click on image)</small></h5>
-                                                    <img src="{{ asset('images/alert/alert3.png') }}" alt="alert" class="responsive-img model_img"
-                                                        id="sa-success">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col s12 m6 l3">
-                                            <div class="card">
-                                                <div class="card-content">
-                                                    <h5 class="card-title">Warning Message <small>(Click on image)</small></h5>
-                                                    <img src="{{ asset('images/alert/alert4.png') }}" alt="alert" class="responsive-img model_img"
-                                                        id="sa-warning">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -117,6 +99,7 @@
         {{-- Alertjs --}}
         <script src="{{ asset('js/alert/sweetalert2.min.js') }}"></script>
         <script src="{{ asset('js/alert/sweet-alert.init.js') }}"></script>
+        </script>
         <script>
             $('.tooltipped').tooltip();
 
