@@ -7,7 +7,10 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>@yield('PageTitle') - SMS4Everyone</title>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
+        
+        @yield('BeforeCommonCss')
+<link href="../../dist/css/style.css" rel="stylesheet">
+        @yield('AfterCommonCss')
 
     </head>
 
@@ -30,6 +33,11 @@
             </div>
 
             {{ View::make('shared.footer') }}
+
+
+            @yield('BeforeCommonJs')
+            
+            @yield('AfterCommonJs')
         </div>
 
     </body>
