@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             Users::class,
             Groups::class,
             Sections::class,
+            MobileDatas::class,
         ]);
     }
 }
