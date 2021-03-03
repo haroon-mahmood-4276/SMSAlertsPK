@@ -189,6 +189,7 @@ class UserController extends Controller
 
     public function dashboard()
     {
+        return view('user.dashboard');
         if (session()->has('user_id') && session()->has('company_nature')) {
             $User = User::find(session('user_id'));
         } else {

@@ -9,7 +9,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         
         @yield('BeforeCommonCss')
-<link href="../../dist/css/style.css" rel="stylesheet">
+        <link href="{{ asset('dist/css/style.css')}}" rel="stylesheet">
         @yield('AfterCommonCss')
 
     </head>
@@ -27,6 +27,9 @@
                 {{ View::make('shared.header') }}
             </div>
 
+            <div>
+                {{ View::make('shared.sidebar') }}
+            </div>
 
             <div>
                 @yield('content')
@@ -36,7 +39,13 @@
 
 
             @yield('BeforeCommonJs')
-            
+            <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+            <script src="{{ asset('dist/js/materialize.min.js')}}"></script>
+            <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js')}}"></script>
+            <script src="{{ asset('dist/js/app.js')}}"></script>
+            <script src="{{ asset('dist/js/app.init.js')}}"></script>
+            <script src="{{ asset('dist/js/app-style-switcher.js')}}"></script>
+            <script src="{{ asset('dist/js/custom.min.js')}}"></script>
             @yield('AfterCommonJs')
         </div>
 

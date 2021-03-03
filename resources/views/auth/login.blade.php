@@ -9,10 +9,9 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-        <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/authentication.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/alert/sweetalert2.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/font-awesome/css/fontawesome-all.min.css') }}">
+
+        <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('dist/css/pages/authentication.css') }}" rel="stylesheet">
 
     </head>
 
@@ -30,12 +29,12 @@
             </div>
 
             <div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
-                style="background:url({{ asset('images/auth/auth-bg2.jpg') }}) no-repeat left center;">
+                style="background:url({{ asset('assets/images/big/auth-bg2.jpg') }}) no-repeat left center;">
                 <div class="container">
                     <div class="row">
                         <div class="col s12 l8 m6 demo-text">
-                            <span class="db"><img src="{{ asset('images/logo/logo-icon.png') }}" alt="logo" /></span>
-                            <span class="db"><img src="{{ asset('images/logo/logo-text.png') }}" alt="logo" /></span>
+                            <span class="db"><img src="{{ asset('assets/images/logo-icon.png') }}" alt="logo" /></span>
+                            <span class="db"><img src="{{ asset('assets/images/logo-text.png') }}" alt="logo" /></span>
                             <h1 class="font-light m-t-40">Welcome to the <span class="font-medium black-text">SMS 4
                                     Everyone Login</span></h1>
                             <p>This is just a demo text which you can change as per your requeirment, so change once you
@@ -52,10 +51,10 @@
                             </div>
                             @if (Session::get('AlertType') && Session::get('AlertMsg'))
                             <div class="{{Session::get('AlertType')}}-alert-bar p-15 m-b-20 white-text">
-                               {{Session::get('AlertMsg')}}
-                            </div> 
+                                {{Session::get('AlertMsg')}}
+                            </div>
                             @endif
-                           
+
                             <!-- Form -->
                             <div class="row">
                                 <form class="col s12" action="{{route('r.login')}}" method="POST">
@@ -92,20 +91,14 @@
             </div>
         </div>
 
-        {{-- Corejs --}}
-        <script src="{{ asset('js/jquery.min.js') }}"></script>
-        <script src="{{ asset('js/materialize.min.js') }}"></script>
+        <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
 
-        {{-- Alertjs --}}
-        <script src="{{ asset('js/alert/sweetalert2.min.js') }}"></script>
-        <script src="{{ asset('js/alert/sweet-alert.init.js') }}"></script>
-        </script>
         <script>
             $('.tooltipped').tooltip();
-
-            $(function() {
-                $(".preloader").fadeOut();
-            });
+        $(function() {
+            $(".preloader").fadeOut();
+        });
         </script>
     </body>
 
