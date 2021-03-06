@@ -4,17 +4,17 @@ Author: Wrappixel
 Email: niravjoshi87@gmail.com
 File: js
 */
-$(function() {
+$(function () {
     "use strict";
 
     // ============================================================== 
     // sales ratio
     // ============================================================== 
     var chart = new Chartist.Line('#sales', {
-        labels: ['0', '4', '8', '12', '16', '20', '24', '30'],
+        labels: ['0', '4', '8', '12', '16', '20', '24', '30', '40'],
         series: [
-            [0, 2, 5.5, 2, 14, 1, 8, 1],
-            [0, 8, 2, 7, 3, 4, 0, 10]
+            [0, 2, 5.5, 2, 14, 1, 8, 1, 13],
+            [0, 8, 2, 7, 3, 4, 0, 10, 0]
         ]
     }, {
         high: 15,
@@ -27,7 +27,7 @@ $(function() {
         axisY: {
             onlyInteger: true,
             offset: 20,
-            labelInterpolationFnc: function(value) {
+            labelInterpolationFnc: function (value) {
                 return (value / 1) + 'k';
             }
         }
@@ -36,7 +36,7 @@ $(function() {
     // Offset x1 a tiny amount so that the straight stroke gets a bounding box
     // Straight lines don't get a bounding box 
     // Last remark on -> http://www.w3.org/TR/SVG11/coords.html#ObjectBoundingBox
-    chart.on('draw', function(ctx) {
+    chart.on('draw', function (ctx) {
         if (ctx.type === 'area') {
             ctx.element.attr({
                 x1: ctx.x1 + 0.001
@@ -45,7 +45,7 @@ $(function() {
     });
 
     // Create the gradient definition on created event (always after chart re-render)
-    chart.on('created', function(ctx) {
+    chart.on('created', function (ctx) {
         var defs = ctx.svg.elem('defs');
         defs.elem('linearGradient', {
             id: 'gradient',
@@ -65,8 +65,8 @@ $(function() {
 
     var chart = [chart];
 
-    var sparklineLogin = function() {
-        $('.spark-count').sparkline([4, 5, 0, 10, 9, 12, 4, 9, 4, 5, 3, 10, 9, 12, 10, 9], {
+    var sparklineLogin = function () {
+        $('.spark-count').sparkline([4, 5, 5, 10, 9, 12, 4, 9, 4, 5, 3, 10, 9, 12, 10, 9], {
             type: 'bar',
             width: '100%',
             height: '70',
@@ -76,7 +76,7 @@ $(function() {
             barColor: '#a880fa'
         });
 
-        $('.spark-count2').sparkline([20, 40, 30], {
+        $('.spark-count2').sparkline([20, 40, 10], {
             type: 'pie',
             height: '80',
             resize: true,

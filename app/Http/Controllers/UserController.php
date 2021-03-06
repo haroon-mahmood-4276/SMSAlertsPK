@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
+use App\Models\Section;
 use App\Models\User;
+use App\Models\MobileDatas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -173,10 +176,10 @@ class UserController extends Controller
         ]);
 
         $User = User::where('email', '=', $request->email)->first();
+        // return $User;
         if ($User) {
             if (Hash::check($request->password, $User->password)) {
-                $request->session()->put('user_id', $User->id);
-                $request->session()->put('company_nature', 'B');
+                $request->session()->put('Data', $User);
                 return redirect()->route('r.dashboard');
             } else {
                 return back()->with('AlertType', 'danger')->with('AlertMsg', 'Incorrect Password.');
@@ -189,20 +192,24 @@ class UserController extends Controller
 
     public function dashboard()
     {
-        return view('user.dashboard');
-        if (session()->has('user_id') && session()->has('company_nature')) {
-            $User = User::find(session('user_id'));
+        if (session()->has('Data')) {
+            $UserId = session('Data.id');
+            $GroupCount = Group::where('user_id', '=', $UserId)->count();
+            $SectionCount = Section::where('user_id', '=', $UserId)->count();
+            $MobileDatasCount = MobileDatas::where('user_id', '=', $UserId)->count();
+            // return "asdasd";
+            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
         } else {
-            return with('AlertType', 'danger')->with('AlertMsg', 'Something went wrong. Err Code: 0x00001');
+            session()->flash('AlertType', 'danger');
+            session()->flash('AlertMsg', 'Something went wrong. Err Code: 0x00001');
+            return view('user.dashboard');
         }
-        return view('user.dashboard', ['User' => $User]);
     }
 
     public function logout()
     {
-        if (Session()->has('user_id') && Session()->has('company_nature')) {
-            Session()->forget('user_id');
-            Session()->forget('company_nature');
+        if (session()->has('Data')) {
+            Session()->forget('Data');
         }
         return redirect()->route('r.login');
     }

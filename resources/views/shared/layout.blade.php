@@ -7,9 +7,10 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>@yield('PageTitle') - SMS4Everyone</title>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        
+
         @yield('BeforeCommonCss')
         <link href="{{ asset('dist/css/style.css')}}" rel="stylesheet">
+        {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
         @yield('AfterCommonCss')
 
     </head>
@@ -19,7 +20,7 @@
             <div class="preloader">
                 <div class="loader">
                     <div class="loader__figure"></div>
-                    <p class="loader__label">SMS 4 Every</p>
+                    <p class="loader__label">SMS 4 Everyone</p>
                 </div>
             </div>
 
@@ -28,26 +29,24 @@
             </div>
 
             <div>
-                {{ View::make('shared.sidebar') }}
+                {{ View::make('shared.leftsidebar') }}
             </div>
 
             <div>
                 @yield('content')
             </div>
 
-            {{ View::make('shared.footer') }}
+            <div>
+                {{ View::make('shared.footer') }}
+            </div>
 
-
-            @yield('BeforeCommonJs')
-            <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
-            <script src="{{ asset('dist/js/materialize.min.js')}}"></script>
-            <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js')}}"></script>
-            <script src="{{ asset('dist/js/app.js')}}"></script>
-            <script src="{{ asset('dist/js/app.init.js')}}"></script>
-            <script src="{{ asset('dist/js/app-style-switcher.js')}}"></script>
-            <script src="{{ asset('dist/js/custom.min.js')}}"></script>
-            @yield('AfterCommonJs')
+            <div>
+                {{ View::make('shared.rightsidebar') }}
+            </div>
+            
         </div>
+
+        @yield('Js')
 
     </body>
 
