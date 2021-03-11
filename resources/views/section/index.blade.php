@@ -45,8 +45,8 @@
                             <thead>
                                 <tr>
                                     <th data-sort-initial="true" data-toggle="true">No</th>
-                                    <th>Group Name</th>
                                     <th>Section Name</th>
+                                    <th>Group Name</th>
                                     <th>Status</th>
                                     <th data-sort-ignore="true" class="min-width text-left">Actions</th>
                                 </tr>
@@ -79,12 +79,14 @@
                                 <tr>
                                     <td>{{++$Count}}</td>
                                     <td>{{$Section->name}}</td>
+                                    <td>{{$Section->group_name}}</td>
                                     <td><span class="label label-table label-success">Active</span> </td>
                                     <td>
                                         <a href="{{route("groups.edit", ['group'=>$Section->id])}}" type="button"
                                             class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                 class="material-icons">edit</i></a>
-                                        <form method="POST" action="{{route("groups.destroy", ['group'=>$Section->id])}}">
+                                        <form method="POST"
+                                            action="{{route("groups.destroy", ['group'=>$Section->id])}}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" onclick="return confirm('Are you sure?')"
