@@ -1,7 +1,7 @@
 <aside class="left-sidebar">
-    <ul id="slide-out" class="sidenav">
+    <ul id="slide-out" class="sidenav ">
         <li>
-            <ul class="collapsible">
+            <ul class="collapsible m-t-40">
                 {{-- <li class="small-cap"><span class="hide-menu">PERSONAL</span></li> --}}
                 <li>
                     <a href="{{route('r.dashboard')}}"
