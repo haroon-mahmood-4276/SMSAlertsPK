@@ -17,9 +17,8 @@ class SectionController extends Controller
     public function index()
     {
         $Sections = Section::select('id', 'name');
-        $Sections = $Sections->addSelect(['company_name' => User::select('company_name')->whereColumn('id', '=', 'sections.user_id')]);
         $Sections = $Sections->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'sections.group_id')])->orderBy('group_name')->get();
-        // return $Sections;
+        return $Sections;
         return view('section.index', ['Sections' => $Sections]);
     }
 

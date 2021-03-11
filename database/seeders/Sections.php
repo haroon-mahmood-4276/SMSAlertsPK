@@ -17,7 +17,7 @@ class Sections extends Seeder
         DB::table('sections')->insert([
             [
                 'user_id' => '2',
-                'group_id' => '2',
+                'group_id' => '1',
                 'name' => 'Blue',
             ],
             [
@@ -27,7 +27,7 @@ class Sections extends Seeder
             ],
             [
                 'user_id' => '2',
-                'group_id' => '2',
+                'group_id' => '3',
                 'name' => 'Red',
             ],
             [
