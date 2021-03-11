@@ -30,8 +30,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        $Companies = User::select('id', 'company_name')->get();
-        return view('group.create', ['Companies' => $Companies]);
+        return view('group.create');
     }
 
     /**
@@ -43,12 +42,11 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'company_name' => 'required',
             'name' => 'bail|required|between:1,50',
         ]);
 
         $Groups = new Group;
-        $Groups->user_id = $request->company_name;
+        $Groups->user_id = session('Data.id');
         $Groups->name = $request->name;
 
         if ($Groups->save()) {
@@ -76,9 +74,8 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        $Companies = User::select('id', 'company_name')->get();
         $Groups = Group::find($id);
-        return view('group.edit', ['Group' => $Groups, 'Companies' => $Companies]);
+        return view('group.edit', ['Group' => $Groups]);
     }
 
     /**
@@ -91,12 +88,10 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'company_name' => 'required',
             'name' => 'bail|required|between:1,50',
         ]);
 
         $Groups = Group::find($id);
-        $Groups->user_id = $request->company_name;
         $Groups->name = $request->name;
 
         if ($Groups->save()) {
@@ -114,12 +109,12 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        $Groups = User::find($id);
+        $Groups = Group::find($id);
 
         if ($Groups->delete()) {
-            return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleteed.');
+            return redirect()->route('groups.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleteed.');
         } else {
-            return redirect()->route('users.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleteed.');
+            return redirect()->route('groups.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleteed.');
         }
     }
 }

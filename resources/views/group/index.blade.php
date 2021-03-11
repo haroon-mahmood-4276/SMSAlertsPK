@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Groups List')
+@section('PageTitle', @(session('Data.company_nature') == 'B') ? 'Group' : 'Classes'.' List')
 
 @section('BeforeCommonCss')
 
@@ -13,12 +13,10 @@
 
 @section('content')
 <div class="page-wrapper">
-    <!-- ============================================================== -->
-    <!-- Title and breadcrumb -->
-    <!-- ============================================================== -->
     <div class="page-titles">
         <div class="d-flex align-items-center">
             <h3 class="font-medium m-b-0">{{(session('Data.company_nature') == 'B') ? 'Groups' : 'Classes'}}</h3>
+            {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
             <div class="custom-breadcrumb ml-auto">
                 <a href="{{route('r.dashboard')}}" class="breadcrumb">Dashboard</a>
                 <a href="javascript:void(0)"
@@ -32,43 +30,39 @@
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
-                        <div class="col s12 l6">
-                            Show &nbsp;
-                            <div class="input-field inline">
-                                <select id="demo-show-entries">
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                    <option value="30">30</option>
-                                    <option value="35">35</option>
-                                    <option value="40">40</option>
-                                    <option value="45">45</option>
-                                    <option value="50">50</option>
-                                </select>
+                        @if (Session::has("AlertType") && Session::has("AlertMsg"))
+                        <div class="row">
+                            <div class="col l12 m12 s12 m-5">
+                                <div class="{{Session::get("AlertType")}}-alert-bar p-15 m-b-20 white-text">
+                                    {{Session::get("AlertMsg")}}
+                                </div>
                             </div>
-                            &nbsp; entries
                         </div>
-                        <table id="demo-foo-pagination" class="table table-bordered table-hover toggle-circle"
-                            data-page-size="10">
+                        @endif
+
+                        <table id="demo-foo-addrow2"
+                            class="table table-bordered responsive-table table-hover toggle-circle" data-page-size="10">
                             <thead>
                                 <tr>
-                                    <th data-sort-initial="true" data-toggle="true">First Name</th>
-                                    <th>Last Name</th>
-                                    <th data-hide="phone">Job Title</th>
-                                    <th data-hide="phone">DOB</th>
-                                    <th data-hide="phone">Status</th>
-                                    <th data-sort-ignore="true" class="min-width">Delete</th>
+                                    <th data-sort-initial="true" data-toggle="true">No</th>
+                                    <th>
+                                        {{(Session::get('Data.company_nature') == 'B') ? 'Group' : 'Class'}} Name
+                                    </th>
+                                    <th>Status</th>
+                                    <th data-sort-ignore="true" class="min-width text-left">Actions</th>
                                 </tr>
                             </thead>
-                            <div class="m-t-40">
+                            <div class="m-t-5">
                                 <div class="d-flex">
                                     <div class="mr-auto">
                                         <div class="form-group">
-                                            <button id="demo-btn-addrow" class="btn btn-small"><i class="icon wb-plus"
-                                                    aria-hidden="true"></i>Add New Row
-                                            </button>
-                                            <small>New row will be added in last page.</small> </div>
+                                            <a href="{{route("groups.create")}}" class="btn btn-small"><i
+                                                    class="icon wb-plus waves-effect waves-light"
+                                                    aria-hidden="true"></i>Add New
+                                                {{(Session::get('Data.company_nature') == 'B') ? 'Group' : 'Class'}}
+                                            </a>
+                                            {{-- <small>New row will be added in last page.</small> --}}
+                                        </div>
                                     </div>
                                     <div class="ml-auto">
                                         <div class="form-group">
@@ -79,29 +73,32 @@
                                 </div>
                             </div>
                             <tbody>
+                                @php
+                                $Count = 0;
+                                @endphp
+                                @foreach ($Groups as $Group)
                                 <tr>
-                                    <td>
-                                        <div class="chip">
-                                            <img src="../../assets/images/users/5.jpg" alt="Contact Person"> Jane Doe
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="chip">
-                                            <img src="../../assets/images/users/5.jpg" alt="Contact Person"> Jane Doe
-                                        </div>
-                                    </td>
-                                    <td>Airline Transport Pilot</td>
-                                    <td>3 Oct 2017</td>
+                                    <td>{{++$Count}}</td>
+                                    <td>{{$Group->name}}</td>
                                     <td><span class="label label-table label-success">Active</span> </td>
                                     <td>
-                                        <button type="button" class="btn btn-small btn-outline delete-row-btn"><i
-                                                class="ti-close" aria-hidden="true"></i></button>
+                                        <a href="{{route("groups.edit", ['group'=>$Group->id])}}" type="button"
+                                            class="btn btn-small blue m-5 left waves-effect waves-light"><i
+                                                class="material-icons">edit</i></a>
+                                        <form method="POST" action="{{route("groups.destroy", ['group'=>$Group->id])}}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" onclick="return confirm('Are you sure?')"
+                                                class="btn btn-small red m-5 left waves-effect waves-light"><i
+                                                    class="material-icons">delete_sweep</i></button>
+                                        </form>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="4">
                                         <div class="text-right">
                                             <ul class="pagination">
                                             </ul>
@@ -115,7 +112,6 @@
             </div>
         </div>
     </div>
-
 </div>
 @endsection
 

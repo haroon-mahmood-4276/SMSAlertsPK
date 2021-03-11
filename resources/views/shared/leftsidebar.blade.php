@@ -18,7 +18,7 @@
                 <li>
                     <a href="{{route('sections.index')}}"
                         class="collapsible-header {{ Request::is(route('sections.index')) ? 'active' : null }}"><i
-                            class="material-icons">groups</i>
+                            class="material-icons">device_hub</i>
                         <span class="hide-menu"> Section Management</span></a>
                 </li>
                 @endif
