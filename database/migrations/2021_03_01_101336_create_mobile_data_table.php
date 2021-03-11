@@ -19,12 +19,14 @@ class CreateMobileDataTable extends Migration
             $table->unsignedBigInteger('group_id')->nullable();
             $table->unsignedBigInteger('section_id')->nullable();
             $table->id();
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
-            $table->string('parent_mobile_1');
-            $table->string('parent_mobile_2')->nullable();
+            $table->string('student_first_name', 50);
+            $table->string('student_last_name', 50);
             $table->string('student_mobile_1');
             $table->string('student_mobile_2')->nullable();
+            $table->string('parent_first_name', 50);
+            $table->string('parent_last_name', 50);
+            $table->string('parent_mobile_1');
+            $table->string('parent_mobile_2')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->foreign('user_id')->references('id')->on('users');

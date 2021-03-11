@@ -19,16 +19,29 @@ class Users extends Seeder
             [
                 'first_name' => 'Haroon',
                 'last_name' => 'Mahmood',
-                'email' => 'abc@abc.com',
+                'email' => 'haroon@abc.com',
                 'password' => Hash::make('123456789'),
                 'company_name' => 'ABC',
                 'company_mask_id' => 'ABC',
-                'company_nature'=>'A',
-                'company_email' => 'abc@abc.com',
+                'company_nature' => 'B',
+                'company_email' => 'haroon@abc.com',
                 'mobile_1' => '923001234567',
                 'mobile_2' =>  '923001234567',
-                'no_of_sms' => 0,
-            ]
+                'no_of_sms' => 100,
+            ],
+            [
+                'first_name' => 'Nasir',
+                'last_name' => 'Mahmood',
+                'email' => 'nasir@abc.com',
+                'password' => Hash::make('123456789'),
+                'company_name' => 'ABC1',
+                'company_mask_id' => 'ABC1',
+                'company_nature' => 'S',
+                'company_email' => 'nasir@abc.com',
+                'mobile_1' => '923001234567',
+                'mobile_2' =>  '923001234567',
+                'no_of_sms' => 150,
+            ],
         ]);
     }
 }
