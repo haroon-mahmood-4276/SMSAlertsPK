@@ -27,7 +27,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col s12">
+            <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
                         @if (Session::has("AlertType") && Session::has("AlertMsg"))

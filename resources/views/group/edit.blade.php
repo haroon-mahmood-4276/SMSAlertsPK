@@ -12,7 +12,7 @@
 @section('content')
 <div class="page-wrapper">
     <div class="row">
-        <div class="col l12">
+        <div class="col l12 m12 s12">
             <div class="card">
                 <div class="card-content">
                     <h5 class="card-title activator">Edit
