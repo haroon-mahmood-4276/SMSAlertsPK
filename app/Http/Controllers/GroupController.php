@@ -15,10 +15,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $Groups = Group::select('id', 'name');
-        $Groups = $Groups->addSelect(['company_name' => User::select('company_name')->whereColumn('id', '=', 'groups.user_id')])->orderBy('company_name')->get();
-
-        // $Groups= Group::find(1)->user;
+        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         // return $Groups;
         return view('group.index', ['Groups' => $Groups]);
     }
