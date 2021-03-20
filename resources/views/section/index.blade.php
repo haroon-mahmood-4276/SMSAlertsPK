@@ -15,12 +15,12 @@
 <div class="page-wrapper">
     <div class="page-titles">
         <div class="d-flex align-items-center">
-            <h3 class="font-medium m-b-0">{{(session('Data.company_nature') == 'B') ? 'Groups' : 'Classes'}}</h3>
+            <h3 class="font-medium m-b-0">Sections</h3>
             {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
             <div class="custom-breadcrumb ml-auto">
                 <a href="{{route('r.dashboard')}}" class="breadcrumb">Dashboard</a>
                 <a href="javascript:void(0)"
-                    class="breadcrumb">{{(session('Data.company_nature') == 'B') ? 'Groups' : 'Classes'}}</a>
+                    class="breadcrumb">Sections</a>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                                 <tr>
                                     <th data-sort-initial="true" data-toggle="true">No</th>
                                     <th>Section Name</th>
-                                    <th>Group Name</th>
+                                    <th>Class Name</th>
                                     <th>Status</th>
                                     <th data-sort-ignore="true" class="min-width text-left">Actions</th>
                                 </tr>
@@ -55,10 +55,9 @@
                                 <div class="d-flex">
                                     <div class="mr-auto">
                                         <div class="form-group">
-                                            <a href="{{route("groups.create")}}" class="btn btn-small"><i
+                                            <a href="{{route("sections.create")}}" class="btn btn-small"><i
                                                     class="icon wb-plus waves-effect waves-light"
-                                                    aria-hidden="true"></i>Add New
-                                                {{(Session::get('Data.company_nature') == 'B') ? 'Group' : 'Class'}}
+                                                    aria-hidden="true"></i>Add New Section</a>
                                             </a>
                                             {{-- <small>New row will be added in last page.</small> --}}
                                         </div>
@@ -82,11 +81,11 @@
                                     <td>{{$Section->group_name}}</td>
                                     <td><span class="label label-table label-success">Active</span> </td>
                                     <td>
-                                        <a href="{{route("groups.edit", ['group'=>$Section->id])}}" type="button"
+                                        <a href="{{route("sections.edit", ['section' => $Section->id])}}" type="button"
                                             class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                 class="material-icons">edit</i></a>
                                         <form method="POST"
-                                            action="{{route("groups.destroy", ['group'=>$Section->id])}}">
+                                            action="{{route("sections.destroy", ['section' => $Section->id])}}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" onclick="return confirm('Are you sure?')"
@@ -99,7 +98,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="4">
+                                    <td colspan="5">
                                         <div class="text-right">
                                             <ul class="pagination">
                                             </ul>

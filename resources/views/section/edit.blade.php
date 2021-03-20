@@ -1,60 +1,81 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Create Section')
+@section('PageTitle', 'Edit Section')
 
+@section('BeforeCommonCss')
+
+@endsection
+
+@section('AfterCommonCss')
+@endsection
 
 @section('content')
-<div class="container mb-5 card">
-
-    @if (Session::get('AlertType') && Session::get('AlertMsg'))
-    <div class="alerts">
-        <div class="alert alert-{{Session::get('AlertType')}} alert-dismissible fade show" role="alert">
-            {{Session::get('AlertMsg')}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="page-wrapper">
+    <div class="row">
+        <div class="col l12 m12 s12">
+            <div class="card">
+                <div class="card-content">
+                    <h5 class="card-title activator">Create Section</h5>
+                    <form action="{{route('sections.update', [ 'section' => $Section->id ])}}" class="formValidate" id="formValidate" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        @if (Session::get("AlertType") && Session::get("AlertMsg"))
+                        <div class="row">
+                            <div class="col l12 m12 s12 m-5">
+                                <div class="{{Session::get("AlertType")}}-alert-bar p-15 m-b-20 white-text">
+                                    {{Session::get("AlertMsg")}}
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="mb-3">
+                            <label for="group_name" class="form-label">Group</label>
+                            <select class="form-select" name="group_name" id="group_name">
+                                <option value="">Select</option>
+                                @foreach ($Groups as $Group)
+                                <option value="{{$Group->id}}"
+                                    {{ ($Group->id == $Section->group_id ) ? 'selected':'' }}>{{$Group->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('group_name')
+                            <span style="color: red">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Section Name</label>
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                id="name" value="{{$Section->name}}" placeholder="Section Name">
+                            @error('name')
+                            <span style="color: red">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button class="btn waves-effect waves-light right submit" type="submit"
+                                    name="action">Submit
+                                </button>
+                                <a href="{{ route('sections.index') }}"
+                                    class="btn waves-effect red waves-light right m-r-10">Back to Section
+                                    List</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-    @endif
-
-
-    <form action="{{route('sections.update', ['section' => $Section->id])}}" method="POST">
-        @csrf
-        @method('PATCH')
-        <div class="mb-3">
-            <label for="company_name" class="form-label">Company</label>
-            <select class="form-select" name="company_name" id="company_name">
-                <option value="">Select</option>
-                @foreach ($Companies as $Company)
-                <option value="{{$Company->id}}" {{ ($Company->id == $Section->user_id ? 'selected':'') }}>
-                    {{$Company->company_name}}</option>
-                @endforeach
-            </select>
-            @error('company_name')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="group_name" class="form-label">Group</label>
-            <select class="form-select" name="group_name" id="group_name">
-                <option value="">Select</option>
-                @foreach ($Groups as $Group)
-                <option value="{{$Group->id}}" {{ ($Group->id == $Section->group_id ? 'selected':'') }}>
-                    {{$Group->name}}</option>
-                @endforeach
-            </select>
-            @error('group_name')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="name" class="form-label">Section Name</label>
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name"
-                value="{{$Section->name}}" placeholder="name">
-            @error('name')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
 </div>
+
+
+@endsection
+
+@section('Js')
+<script src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('dist/js/materialize.min.js')}}"></script>
+<script src="{{asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js')}}"></script>
+<script src="{{asset('dist/js/app.js')}}"></script>
+<script src="{{asset('dist/js/app.init.js')}}"></script>
+<script src="{{asset('dist/js/app-style-switcher.js')}}"></script>
+<script src="{{asset('dist/js/custom.min.js')}}"></script>
 
 @endsection

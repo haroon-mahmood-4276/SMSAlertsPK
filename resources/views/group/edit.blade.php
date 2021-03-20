@@ -46,6 +46,8 @@
                                 <button class="btn waves-effect waves-light right submit" type="submit"
                                     name="action">Submit
                                 </button>
+                                <a href="{{ route('groups.index') }}" class="btn waves-effect red waves-light right m-r-10">Back to {{(session('Data.company_nature') == 'B' ? 'Groups' : 'Classes')}}
+                                    List</a>
                             </div>
                         </div>
                     </form>

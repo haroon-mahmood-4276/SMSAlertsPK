@@ -29,9 +29,8 @@ class SectionController extends Controller
      */
     public function create()
     {
-        $Companies = User::select('id', 'company_name')->get();
-        $Groups = Group::select('id', 'name')->get();
-        return view('section.create', ['Companies' => $Companies, 'Groups' => $Groups]);
+        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        return view('section.create', ['Groups' => $Groups]);
     }
 
     /**
@@ -43,13 +42,12 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'company_name' => 'required',
             'group_name' => 'required',
             'name' => 'bail|required|between:1,50',
         ]);
 
         $Sections = new Section;
-        $Sections->user_id = $request->company_name;
+        $Sections->user_id = session('Data.id');
         $Sections->group_id = $request->group_name;
         $Sections->name = $request->name;
 
@@ -79,10 +77,9 @@ class SectionController extends Controller
      */
     public function edit($id)
     {
-        $Companies = User::select('id', 'company_name')->get();
-        $Groups = Group::select('id', 'name')->get();
+        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         $Sections = Section::find($id);
-        return view('section.edit', [ 'Companies' => $Companies, 'Groups' => $Groups, 'Section' => $Sections]);
+        return view('section.edit', ['Groups' => $Groups, 'Section' => $Sections]);
     }
 
     /**
@@ -95,13 +92,11 @@ class SectionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'company_name' => 'required',
             'group_name' => 'required',
             'name' => 'bail|required|between:1,50',
         ]);
 
         $Sections = Section::find($id);
-        $Sections->user_id = $request->company_name;
         $Sections->group_id = $request->group_name;
         $Sections->name = $request->name;
 
@@ -121,7 +116,7 @@ class SectionController extends Controller
     public function destroy($id)
     {
         $Sections = Section::find($id);
-     
+
         if ($Sections->delete()) {
             return redirect()->route('sections.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
         } else {
