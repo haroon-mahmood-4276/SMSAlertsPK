@@ -23,6 +23,9 @@ class CreateMobileDataTable extends Migration
             $table->string('student_last_name', 50);
             $table->string('student_mobile_1');
             $table->string('student_mobile_2')->nullable();
+            $table->string('DOB', 10);
+            $table->string('CNIC', 15);
+            $table->string('Gender', 1);
             $table->string('parent_first_name', 50);
             $table->string('parent_last_name', 50);
             $table->string('parent_mobile_1');
