@@ -17,8 +17,8 @@ class MobileDataController extends Controller
      */
     public function index()
     {
-        $MobileDatas = MobileDatas::select('id', 'first_name', 'last_name', 'parent_mobile_1', 'parent_mobile_2', 'student_mobile_1', 'student_mobile_2');
-        $MobileDatas = $MobileDatas->addSelect(['company_name' => MobileDatas::select('company_name')->whereColumn('id', '=', 'mobiledatas.user_id')]);
+        $MobileDatas = MobileDatas::select('id', 'roll_no',  'student_first_name', 'student_last_name', 'student_mobile_1', 'student_mobile_2', 'DOB', 'CNIC', 'Gender', 'parent_first_name', 'parent_last_name', 'parent_mobile_1', 'parent_mobile_2')->where('user_id', '=', session('Data.id'));
+        // $MobileDatas = $MobileDatas->addSelect(['company_name' => User::select('company_name')->whereColumn('id', '=', 'mobiledatas.user_id')]);
         $MobileDatas = $MobileDatas->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'mobiledatas.group_id')]);
         $MobileDatas = $MobileDatas->addSelect(['section_name' => Section::select('name')->whereColumn('id', '=', 'mobiledatas.section_id')])->orderBy('section_name')->get();
         // return $MobileDatas;
@@ -32,10 +32,9 @@ class MobileDataController extends Controller
      */
     public function create()
     {
-        $Companies = User::select('id', 'company_name')->get();
-        $Groups = Group::select('id', 'name')->get();
-        $Sections = Section::select('id', 'name')->get();
-        return view('mobiledata.create', ['Companies' => $Companies, 'Groups' => $Groups, 'Sections' => $Sections]);
+        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        $Sections = Section::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        return view('mobiledata.create', ['Groups' => $Groups, 'Sections' => $Sections]);
     }
 
     /**
@@ -47,32 +46,44 @@ class MobileDataController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'bail|required|alpha|between:1,50',
-            'last_name' => 'bail|required|alpha|between:1,50',
-            'company_name' => 'required',
-            'group_name' => 'required',
-            'section_name' => 'required',
+            'roll_no' => 'bail|required|alpha_num|between:1,5',
+            'student_first_name' => 'bail|required|alpha|between:1,50',
+            'student_last_name' => 'bail|required|alpha|between:1,50',
+            'student_mobile_1' => 'bail|required|numeric|digits:12',
+            'student_mobile_2' => 'bail|numeric|digits:12',
+            'DOB' => 'bail|required',
+            'CNIC' => 'bail|required',
+            'gender' => 'required',
+            'parent_first_name' => 'bail|required|alpha|between:1,50',
+            'parent_last_name' => 'bail|required|alpha|between:1,50',
             'parent_mobile_1' => 'required|digits:12',
-            'parent_mobile_2' => 'nullable||digits:12',
-            'student_mobile_1' => 'required|digits:12',
-            'student_mobile_2' => 'nullable||digits:12',
+            'parent_mobile_2' => 'nullable|digits:12',
+            'group' => 'required',
+            'section' => 'required',
         ]);
 
+        //dd($request->input());
         $MobileDatas = new MobileDatas;
-        $MobileDatas->first_name = $request->first_name;
-        $MobileDatas->last_name = $request->last_name;
-        $MobileDatas->company_name = $request->company_name;
-        $MobileDatas->group_name = $request->group_name;
-        $MobileDatas->section_name = $request->section_name;
-        $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
-        $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
+        $MobileDatas->roll_no = $request->roll_no;
+        $MobileDatas->student_first_name = $request->student_first_name;
+        $MobileDatas->student_last_name = $request->student_last_name;
         $MobileDatas->student_mobile_1 = $request->student_mobile_1;
         $MobileDatas->student_mobile_2 = $request->student_mobile_2;
+        $MobileDatas->DOB = $request->DOB;
+        $MobileDatas->CNIC = $request->CNIC;
+        $MobileDatas->Gender = $request->gender;
+        $MobileDatas->parent_first_name = $request->parent_first_name;
+        $MobileDatas->parent_last_name = $request->parent_last_name;
+        $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
+        $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
+        $MobileDatas->user_id = session('Data.id');
+        $MobileDatas->group_id = $request->group;
+        $MobileDatas->section_id = $request->section;
 
         if ($MobileDatas->save()) {
-            return redirect()->route('mobiledata.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
+            return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
         } else {
-            return redirect()->route('mobiledata.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
         }
     }
 
@@ -95,11 +106,10 @@ class MobileDataController extends Controller
      */
     public function edit($id)
     {
-        $Companies = User::select('id', 'company_name')->get();
-        $Groups = Group::select('id', 'name')->get();
-        $Sections = Section::select('id', 'name')->get();
+        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        $Sections = Section::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         $MobileDatas = MobileDatas::find($id);
-        return view('mobiledata.edit', ['Companies' => $Companies, 'Groups' => $Groups, 'Section' => $Sections, 'MobileData' => $MobileDatas]);
+        return view('mobiledata.edit', ['Groups' => $Groups, 'Sections' => $Sections, 'MobileData' => $MobileDatas]);
     }
 
     /**
@@ -112,32 +122,42 @@ class MobileDataController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'first_name' => 'bail|required|alpha|between:1,50',
-            'last_name' => 'bail|required|alpha|between:1,50',
-            'company_name' => 'required',
-            'group_name' => 'required',
-            'section_name' => 'required',
+            'roll_no' => 'bail|required|alpha_num|between:1,5',
+            'student_first_name' => 'bail|required|alpha|between:1,50',
+            'student_last_name' => 'bail|required|alpha|between:1,50',
+            'student_mobile_1' => 'bail|required|numeric|digits:12',
+            'student_mobile_2' => 'bail|numeric|digits:12',
+            'DOB' => 'bail|required',
+            'CNIC' => 'bail|required',
+            'gender' => 'required',
+            'parent_first_name' => 'bail|required|alpha|between:1,50',
+            'parent_last_name' => 'bail|required|alpha|between:1,50',
             'parent_mobile_1' => 'required|digits:12',
-            'parent_mobile_2' => 'nullable||digits:12',
-            'student_mobile_1' => 'required|digits:12',
-            'student_mobile_2' => 'nullable||digits:12',
+            'parent_mobile_2' => 'nullable|digits:12',
+            'group' => 'required',
+            'section' => 'required',
         ]);
 
         $MobileDatas =  MobileDatas::find($id);
-        $MobileDatas->first_name = $request->first_name;
-        $MobileDatas->last_name = $request->last_name;
-        $MobileDatas->company_name = $request->company_name;
-        $MobileDatas->group_name = $request->group_name;
-        $MobileDatas->section_name = $request->section_name;
-        $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
-        $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
+        $MobileDatas->roll_no = $request->roll_no;
+        $MobileDatas->student_first_name = $request->student_first_name;
+        $MobileDatas->student_last_name = $request->student_last_name;
         $MobileDatas->student_mobile_1 = $request->student_mobile_1;
         $MobileDatas->student_mobile_2 = $request->student_mobile_2;
+        $MobileDatas->DOB = $request->DOB;
+        $MobileDatas->CNIC = $request->CNIC;
+        $MobileDatas->Gender = $request->gender;
+        $MobileDatas->parent_first_name = $request->parent_first_name;
+        $MobileDatas->parent_last_name = $request->parent_last_name;
+        $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
+        $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
+        $MobileDatas->group_id = $request->group;
+        $MobileDatas->section_id = $request->section;
 
         if ($MobileDatas->save()) {
-            return redirect()->route('mobiledata.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
+            return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
         } else {
-            return redirect()->route('mobiledata.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
         }
     }
 
@@ -153,9 +173,9 @@ class MobileDataController extends Controller
         $MobileDatas =  MobileDatas::find($id);
 
         if ($MobileDatas->delete()) {
-            return redirect()->route('mobiledata.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
+            return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
         } else {
-            return redirect()->route('mobiledata.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
         }
     }
 }

@@ -29,9 +29,8 @@
                             {{(session('Data.company_nature') == 'B') ? 'Mambers' : 'Students'}} Management</span></a>
                 </li>
                 <li>
-                    <a href="{{route('data.index')}}"
-                        class="collapsible-header disabled {{ Request::is(route('data.index')) ? 'active' : null }}"><i
-                            class="material-icons">playlist_add</i><span class="hide-menu">
+                    <a href="#" class="collapsible-header disabled"><i class="material-icons">playlist_add</i><span
+                            class="hide-menu">
                             Template Management</span></a>
                 </li>
             </ul>

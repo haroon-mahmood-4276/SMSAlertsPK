@@ -19,6 +19,7 @@ class CreateMobileDataTable extends Migration
             $table->unsignedBigInteger('group_id')->nullable();
             $table->unsignedBigInteger('section_id')->nullable();
             $table->id();
+            $table->string('roll_no', 5);
             $table->string('student_first_name', 50);
             $table->string('student_last_name', 50);
             $table->string('student_mobile_1');
