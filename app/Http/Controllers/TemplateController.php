@@ -49,9 +49,9 @@ class TemplateController extends Controller
 
 
         if ($Templates->save()) {
-            return redirect()->route('Templates.index')->with('AlertType', 'success')->with('AlertMsg', 'Template has been saved.');
+            return redirect()->route('templates.index')->with('AlertType', 'success')->with('AlertMsg', 'Template has been saved.');
         } else {
-            return redirect()->route('Templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not saved.');
+            return redirect()->route('templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not saved.');
         }
     }
 
@@ -93,14 +93,13 @@ class TemplateController extends Controller
         ]);
 
         $Templates = Template::find($id);
-        $Templates->user_id = session('Data.id');
         $Templates->name = $request->name;
         $Templates->template = $request->template;
 
         if ($Templates->save()) {
-            return redirect()->route('Templates.index')->with('AlertType', 'success')->with('AlertMsg', 'Template has been updated.');
+            return redirect()->route('templates.index')->with('AlertType', 'success')->with('AlertMsg', 'Template has been updated.');
         } else {
-            return redirect()->route('Templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not updated.');
+            return redirect()->route('templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not updated.');
         }
     }
 
@@ -114,9 +113,9 @@ class TemplateController extends Controller
     {
         $Templates = Template::find($id);
         if ($Templates->delete()) {
-            return redirect()->route('Templates.index')->with('AlertType', 'success')->with('AlertMsg', 'Template has been deleted.');
+            return redirect()->route('templates.index')->with('AlertType', 'success')->with('AlertMsg', 'Template has been deleted.');
         } else {
-            return redirect()->route('Templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not deleted.');
+            return redirect()->route('templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not deleted.');
         }
     }
 }
