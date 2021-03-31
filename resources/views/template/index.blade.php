@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Sections List')
+@section('PageTitle', 'Templates List')
 
 @section('BeforeCommonCss')
 
@@ -15,12 +15,11 @@
 <div class="page-wrapper">
     <div class="page-titles">
         <div class="d-flex align-items-center">
-            <h3 class="font-medium m-b-0">Sections</h3>
+            <h3 class="font-medium m-b-0">Templates</h3>
             {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
             <div class="custom-breadcrumb ml-auto">
                 <a href="{{route('r.dashboard')}}" class="breadcrumb">Dashboard</a>
-                <a href="javascript:void(0)"
-                    class="breadcrumb">Sections</a>
+                <a href="javascript:void(0)" class="breadcrumb">Templates</a>
             </div>
         </div>
     </div>
@@ -45,8 +44,8 @@
                             <thead>
                                 <tr>
                                     <th data-sort-initial="true" data-toggle="true">No</th>
-                                    <th>Section Name</th>
-                                    <th>Class Name</th>
+                                    <th>Name</th>
+                                    <th>Template</th>
                                     <th>Status</th>
                                     <th data-sort-ignore="true" class="min-width text-left">Actions</th>
                                 </tr>
@@ -55,9 +54,9 @@
                                 <div class="d-flex">
                                     <div class="mr-auto">
                                         <div class="form-group">
-                                            <a href="{{route("sections.create")}}" class="btn btn-small"><i
+                                            <a href="{{route("templates.create")}}" class="btn btn-small"><i
                                                     class="icon wb-plus waves-effect waves-light"
-                                                    aria-hidden="true"></i>Add New Section</a>
+                                                    aria-hidden="true"></i>Add New Template</a>
                                             </a>
                                             {{-- <small>New row will be added in last page.</small> --}}
                                         </div>
@@ -74,18 +73,19 @@
                                 @php
                                 $Count = 0;
                                 @endphp
-                                @foreach ($Sections as $Section)
+                                @foreach ($Templates as $Template)
                                 <tr>
                                     <td>{{++$Count}}</td>
-                                    <td>{{$Section->name}}</td>
-                                    <td>{{$Section->group_name}}</td>
+                                    <td>{{$Template->name}}</td>
+                                    <td>{{$Template->template}}</td>
                                     <td><span class="label label-table label-success">Active</span> </td>
                                     <td>
-                                        <a href="{{route("sections.edit", ['section' => $Section->id])}}" type="button"
+                                        <a href="{{route("templates.edit", ['template' => $Template->id])}}"
+                                            type="button"
                                             class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                 class="material-icons">edit</i></a>
                                         <form method="POST"
-                                            action="{{route("sections.destroy", ['section' => $Section->id])}}">
+                                            action="{{route("templates.destroy", ['template' => $Template->id])}}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" onclick="return confirm('Are you sure?')"

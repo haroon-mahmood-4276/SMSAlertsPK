@@ -41,7 +41,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Section Name</label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                            <input type="text" name="name" class="form-control validate @error('name') is-invalid @enderror"
                                 id="name" value="{{old("name")}}" placeholder="Section Name">
                             @error('name')
                             <span style="color: red">{{$message}}</span>

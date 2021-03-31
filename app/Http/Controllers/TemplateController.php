@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Template;
 use Illuminate\Http\Request;
 
 class TemplateController extends Controller
@@ -13,7 +14,9 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        //
+        $Template = Template::where('user_id', '=', '1')->get();
+        // return $Template;
+        return view('template.index', ['Templates' => $Template]);
     }
 
     /**
@@ -23,7 +26,7 @@ class TemplateController extends Controller
      */
     public function create()
     {
-        //
+        return view('template.create');
     }
 
     /**
@@ -34,7 +37,22 @@ class TemplateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'bail|required|between:1,50',
+            'template' => 'bail|required|between:1,255',
+        ]);
+
+        $Templates = new Template;
+        $Templates->user_id = session('Data.id');
+        $Templates->name = $request->name;
+        $Templates->template = $request->template;
+
+
+        if ($Templates->save()) {
+            return redirect()->route('Templates.index')->with('AlertType', 'success')->with('AlertMsg', 'Template has been saved.');
+        } else {
+            return redirect()->route('Templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not saved.');
+        }
     }
 
     /**
@@ -56,7 +74,8 @@ class TemplateController extends Controller
      */
     public function edit($id)
     {
-        //
+        $Templates = Template::find($id);
+        return view('template.edit', ['Template' => $Templates]);
     }
 
     /**
@@ -68,7 +87,21 @@ class TemplateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'bail|required|between:1,50',
+            'template' => 'bail|required|between:1,255',
+        ]);
+
+        $Templates = Template::find($id);
+        $Templates->user_id = session('Data.id');
+        $Templates->name = $request->name;
+        $Templates->template = $request->template;
+
+        if ($Templates->save()) {
+            return redirect()->route('Templates.index')->with('AlertType', 'success')->with('AlertMsg', 'Template has been updated.');
+        } else {
+            return redirect()->route('Templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not updated.');
+        }
     }
 
     /**
@@ -79,6 +112,11 @@ class TemplateController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Templates = Template::find($id);
+        if ($Templates->delete()) {
+            return redirect()->route('Templates.index')->with('AlertType', 'success')->with('AlertMsg', 'Template has been deleted.');
+        } else {
+            return redirect()->route('Templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not deleted.');
+        }
     }
 }
