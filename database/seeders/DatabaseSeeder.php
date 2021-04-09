@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             Sections::class,
             MobileDatas::class,
             Templates::class,
+            SMS::class,
         ]);
     }
 }
