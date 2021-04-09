@@ -5,6 +5,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\MobileDataController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\SmsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,5 +38,5 @@ Route::resources([
     'data' => MobileDataController::class,
     'templates' => TemplateController::class
 ]);
-
+Route::get('sms', [SmsController::class, 'index'])->name('r.sms');
 Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
