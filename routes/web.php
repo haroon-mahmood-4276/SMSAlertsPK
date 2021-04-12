@@ -38,5 +38,18 @@ Route::resources([
     'data' => MobileDataController::class,
     'templates' => TemplateController::class
 ]);
-Route::get('sms', [SmsController::class, 'index'])->name('r.sms');
+Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
+// Route::get('sms/quick', [SmsController::class, 'QuickSMSShow'])->name('r.quicksmsshow');
+
+Route::get('sms/quick', function () {
+    return view('sms.quicksms');
+})->name('r.quicksmsshow');
+
+
+Route::get('sms/multiple', function () {
+    return view('sms.multiplesms');
+})->name('r.multiplesmsshow');
+
+
+Route::post('sms/quick', [SmsController::class, 'QuickSMS'])->name('r.quicksms');
 Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

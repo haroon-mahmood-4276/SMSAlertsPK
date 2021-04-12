@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Templates List')
+@section('PageTitle', 'SMS History')
 
 @section('BeforeCommonCss')
 
@@ -15,11 +15,11 @@
 <div class="page-wrapper">
     <div class="page-titles">
         <div class="d-flex align-items-center">
-            <h3 class="font-medium m-b-0">Templates</h3>
+            <h3 class="font-medium m-b-0">SMS History</h3>
             {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
             <div class="custom-breadcrumb ml-auto">
                 <a href="{{route('r.dashboard')}}" class="breadcrumb">Dashboard</a>
-                <a href="javascript:void(0)" class="breadcrumb">Templates</a>
+                <a href="javascript:void(0)" class="breadcrumb">SMS History</a>
             </div>
         </div>
     </div>
@@ -45,8 +45,8 @@
                                 <tr>
                                     <th data-sort-initial="true" data-toggle="true">No</th>
                                     <th>SMS</th>
-                                    <th>Date</th>
                                     <th>Phone Number</th>
+                                    <th>Date</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -59,9 +59,8 @@
                                     <td>{{++$Count}}</td>
                                     <td>{{$SMS->sms}}</td>
                                     <td>{{$SMS->phone_number}}</td>
-                                    <td>{{$SMS->template}}</td>
                                     <td>{{$SMS->created_at}}</td>
-                                    <td>{{$SMS->template}}</td>
+                                    <td><span class="label label-table label-success">{{$SMS->response}}</span></td>
                                 </tr>
                                 @endforeach
                             </tbody>
