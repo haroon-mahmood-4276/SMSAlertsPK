@@ -38,8 +38,8 @@ Route::resources([
     'data' => MobileDataController::class,
     'templates' => TemplateController::class
 ]);
-Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
-// Route::get('sms/quick', [SmsController::class, 'QuickSMSShow'])->name('r.quicksmsshow');
+
+Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');// Route::get('sms/quick', [SmsController::class, 'QuickSMSShow'])->name('r.quicksmsshow');
 
 Route::get('sms/quick', function () {
     return view('sms.quicksms');
@@ -52,4 +52,5 @@ Route::get('sms/multiple', function () {
 
 
 Route::post('sms/quick', [SmsController::class, 'QuickSMS'])->name('r.quicksms');
+Route::post('sms/multiple', [SmsController::class, 'MultipleSMS'])->name('r.multiplesms');
 Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

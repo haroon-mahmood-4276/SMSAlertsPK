@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Quick SMS')
+@section('PageTitle', 'Multiple SMS')
 
 @section('BeforeCommonCss')
 
@@ -15,8 +15,8 @@
         <div class="col l12 m12 s12">
             <div class="card">
                 <div class="card-content">
-                    <h5 class="card-title activator">Quick SMS</h5>
-                    <form action="{{route('r.quicksms')}}" class="formValidate" id="formValidate" method="POST">
+                    <h5 class="card-title activator">Multiple SMS</h5>
+                    <form action="{{route('r.multiplesms')}}" class="formValidate" id="formValidate" method="POST">
                         @csrf
                         @if (Session::get("AlertType") && Session::get("AlertMsg"))
                         <div class="row">
@@ -31,7 +31,8 @@
                             <div class="input-field col s12 m12 l12">
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="phone_number" name="phone_number" type="text"
-                                    class="@error('phone_number') error @enderror" value="{{old('phone_number')}}">
+                                    class="@error('phone_number') error @enderror"
+                                    placeholder="923012345678, 923012345679, ..." value="{{old('phone_number')}}">
                                 <label for="phone_number">Name *</label>
                                 @error('phone_number')
                                 <span style="color: red">{{$message}}</span>

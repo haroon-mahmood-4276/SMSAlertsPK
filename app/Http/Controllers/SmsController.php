@@ -42,9 +42,38 @@ class SmsController extends Controller
         $SMS->response = $response;
 
         if ($SMS->save()) {
-            return redirect()->route('data.index')->with('AlertType', 'warning')->with('AlertMsg', $response);
+            return redirect()->route('r.smshistory')->with('AlertType', 'warning')->with('AlertMsg', $response);
         } else {
-            return redirect()->route('data.index')->with('AlertType', 'warning')->with('AlertMsg', $response);
+            return redirect()->route('r.smshistory')->with('AlertType', 'warning')->with('AlertMsg', $response);
         }
+    }
+
+    public function MultipleSMS(Request $request)
+    {
+
+        $request->validate([
+            'phone_number' => 'required',
+            'message' => 'required',
+        ]);
+
+        $PhoneArray = array_map('trim', explode(',', $request->phone_number));
+        return $PhoneArray;
+
+        foreach ($PhoneArray as $PhoneNumber) {
+            $response =  Http::get('http://sms.web.pk/sendsms.php', [
+                'username' => 'test',
+                'password' => '123456',
+                'sender' => 'ALERTS',
+                'phone' => $PhoneNumber,
+                'message' => $request->message,
+            ]);
+            $SMS = new SMS();
+            $SMS->user_id = session('Data.id');
+            $SMS->sms = $request->message;
+            $SMS->phone_number = $request->phone_number;
+            $SMS->response = $response;
+            $SMS->save();
+        }
+        return redirect()->route('r.smshistory');
     }
 }

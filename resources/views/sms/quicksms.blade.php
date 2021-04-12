@@ -31,7 +31,8 @@
                             <div class="input-field col s12 m12 l12">
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="phone_number" name="phone_number" type="text"
-                                    class="@error('phone_number') error @enderror" value="{{old('phone_number')}}">
+                                    class="@error('phone_number') error @enderror" placeholder="923012345678"
+                                    value="{{old('phone_number')}}">
                                 <label for="phone_number">Name *</label>
                                 @error('phone_number')
                                 <span style="color: red">{{$message}}</span>
