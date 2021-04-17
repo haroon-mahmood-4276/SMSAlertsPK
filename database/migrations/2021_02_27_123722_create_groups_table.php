@@ -15,8 +15,8 @@ class CreateGroupsTable extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->id();
+            $table->string('user_id', 5);
+            $table->string('id', 5)->primary();
             $table->string('name', 50);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));

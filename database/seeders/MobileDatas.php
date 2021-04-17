@@ -16,10 +16,10 @@ class MobileDatas extends Seeder
     {
         DB::table('mobiledatas')->insert([
             [
-                'user_id' => '2', 
-                'group_id' => '4',
-                'section_id' => '1',
-                'roll_no' => '00001',
+                'user_id' => '00002',
+                'group_id' => '00004',
+                'section_id' => '00001',
+                'id' => '00001',
                 'student_first_name' => 'Zain',
                 'student_last_name' => 'Ejaz',
                 'DOB' => '06/07/1998',
@@ -33,10 +33,10 @@ class MobileDatas extends Seeder
                 'parent_mobile_2' => '',
             ],
             [
-                'user_id' => '2',
-                'group_id' => '5',
-                'section_id' => '2',
-                'roll_no' => '00002',
+                'user_id' => '00002',
+                'group_id' => '00005',
+                'section_id' => '00002',
+                'id' => '00002',
                 'student_first_name' => 'Ahsan',
                 'student_last_name' => 'Ejaz',
                 'DOB' => '06/07/1998',
@@ -50,10 +50,10 @@ class MobileDatas extends Seeder
                 'parent_mobile_2' => '',
             ],
             [
-                'user_id' => '2',
-                'group_id' => '6',
-                'section_id' => '1',
-                'roll_no' => '00003',
+                'user_id' => '00002',
+                'group_id' => '00006',
+                'section_id' => '00001',
+                'id' => '00003',
                 'student_first_name' => 'Fahad',
                 'student_last_name' => 'Bun Fraz',
                 'DOB' => '06/07/1998',
@@ -69,9 +69,9 @@ class MobileDatas extends Seeder
         ]);
         DB::table('mobiledatas')->insert([
             [
-                'user_id' => '1',
-                'group_id' => '1',
-                'roll_no' => '00001',
+                'user_id' => '00001',
+                'group_id' => '00001',
+                'id' => '00004',
                 'student_first_name' => 'Haroon',
                 'student_last_name' => 'Mahmood',
                 'DOB' => '06/07/1999',
@@ -85,9 +85,9 @@ class MobileDatas extends Seeder
                 'parent_mobile_2' => '',
             ],
             [
-                'user_id' => '1',
-                'group_id' => '2',
-                'roll_no' => '00002',
+                'user_id' => '00001',
+                'group_id' => '00002',
+                'id' => '00005',
                 'student_first_name' => 'Abdullah',
                 'student_last_name' => 'Qadri',
                 'DOB' => '06/07/1998',

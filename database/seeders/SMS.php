@@ -16,8 +16,9 @@ class SMS extends Seeder
     {
         DB::table('sms')->insert([
             [
-                'user_id' => '1',
-                'data_id' => '1',
+                'user_id' => '00001',
+                'data_id' => '00001',
+                'id' => '00002',
                 'sms' => 'Blue',
                 'phone_number' => '923034243233',
                 'response' => 'Success',

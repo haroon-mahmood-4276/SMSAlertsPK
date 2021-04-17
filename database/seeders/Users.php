@@ -17,6 +17,7 @@ class Users extends Seeder
     {
         DB::table('users')->insert([
             [
+                'id' => '00001',
                 'first_name' => 'Haroon',
                 'last_name' => 'Mahmood',
                 'email' => 'haroon@abc.com',
@@ -30,6 +31,7 @@ class Users extends Seeder
                 'no_of_sms' => 100,
             ],
             [
+                'id' => '00002',
                 'first_name' => 'Nasir',
                 'last_name' => 'Mahmood',
                 'email' => 'nasir@abc.com',

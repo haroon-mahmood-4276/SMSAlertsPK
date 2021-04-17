@@ -15,11 +15,10 @@ class CreateMobileDataTable extends Migration
     public function up()
     {
         Schema::create('mobiledatas', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('group_id')->nullable();
-            $table->unsignedBigInteger('section_id')->nullable();
-            $table->id();
-            $table->string('roll_no', 5);
+            $table->string('user_id', 5);
+            $table->string('group_id', 5);
+            $table->string('section_id', 5)->nullable();
+            $table->string('id', 20)->primary();
             $table->string('student_first_name', 50);
             $table->string('student_last_name', 50);
             $table->string('student_mobile_1');
