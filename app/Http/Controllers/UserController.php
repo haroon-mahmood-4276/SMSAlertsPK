@@ -20,6 +20,10 @@ class UserController extends Controller
     public function index()
     {
         $Users = User::all();
+
+        foreach ($Users as $User) {
+            $User->ids = strval(Str::padLeft($User->id, 5, '0'));
+        }
         return view('user.index', ['Users' => $Users]);
     }
 
@@ -179,6 +183,7 @@ class UserController extends Controller
         // return $User;
         if ($User) {
             if (Hash::check($request->password, $User->password)) {
+                $User['ids'] = strval(Str::padLeft($User['id'], 5, '0'));
                 $request->session()->put('Data', $User);
                 return redirect()->route('r.dashboard');
             } else {
@@ -193,12 +198,13 @@ class UserController extends Controller
     public function dashboard()
     {
         if (session()->has('Data')) {
-            $UserId = session('Data.id');
+            $UserId = session('Data.ids');
             $GroupCount = Group::where('user_id', '=', $UserId)->count();
             $SectionCount = Section::where('user_id', '=', $UserId)->count();
             $MobileDatasCount = MobileDatas::where('user_id', '=', $UserId)->count();
-            // return "asdasd";
-            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
+            $RemainingSMS = session('Data.remaining_of_sms');
+            // return $RemainingSMS;
+            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'RemainingSMS' => $RemainingSMS]);
         } else {
             session()->flash('AlertType', 'danger');
             session()->flash('AlertMsg', 'Something went wrong. Err Code: 0x00001');

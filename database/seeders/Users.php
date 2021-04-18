@@ -28,6 +28,7 @@ class Users extends Seeder
                 'company_email' => 'haroon@abc.com',
                 'mobile_1' => '923001234567',
                 'mobile_2' =>  '923001234567',
+                'remaining_of_sms' => 100,
                 'no_of_sms' => 100,
             ],
             [
@@ -42,6 +43,7 @@ class Users extends Seeder
                 'company_email' => 'nasir@abc.com',
                 'mobile_1' => '923001234567',
                 'mobile_2' =>  '923001234567',
+                'remaining_of_sms' => 150,
                 'no_of_sms' => 150,
             ],
         ]);

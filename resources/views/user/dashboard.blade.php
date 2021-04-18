@@ -85,11 +85,11 @@
                     <div class="card-content">
                         <div class="d-flex no-block align-items-center">
                             <div>
-                                <h2 class="white-text m-b-5">450</h2>
-                                <h6 class="white-text op-5">Revenue</h6>
+                                <h2 class="white-text m-b-5">{{$RemainingSMS}}</h2>
+                                <h6 class="white-text op-5">Remaining SMS</h6>
                             </div>
                             <div class="ml-auto">
-                                <span class="white-text display-6"><i class="material-icons">attach_money</i></span>
+                                <span class="white-text display-6"><i class="material-icons">question_answer</i></span>
                             </div>
                         </div>
                     </div>

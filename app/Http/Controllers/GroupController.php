@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class GroupController extends Controller
 {
@@ -15,7 +15,10 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        $Groups = Group::where('user_id', '=', session('Data.id'))->get();
+        foreach ($Groups as $Group) {
+            $Group->ids = strval(Str::padLeft($Group->id, 5, '0'));
+        }
         // return $Groups;
         return view('group.index', ['Groups' => $Groups]);
     }

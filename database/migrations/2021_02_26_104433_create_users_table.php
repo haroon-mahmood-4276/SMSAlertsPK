@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('company_email')->unique();
             $table->string('mobile_1');
             $table->string('mobile_2')->nullable;
+            $table->integer('remaining_of_sms');
             $table->integer('no_of_sms');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
