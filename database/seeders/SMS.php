@@ -18,7 +18,6 @@ class SMS extends Seeder
             [
                 'user_id' => '00001',
                 'data_id' => '00001',
-                'id' => '00002',
                 'sms' => 'Blue',
                 'phone_number' => '923034243233',
                 'response' => 'Success',

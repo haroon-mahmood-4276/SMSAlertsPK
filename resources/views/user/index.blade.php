@@ -43,7 +43,8 @@
                             class="table table-bordered responsive-table table-hover toggle-circle" data-page-size="10">
                             <thead>
                                 <tr>
-                                    <th data-sort-initial="true" data-toggle="true">ID</th>
+                                    <th data-sort-initial="true" data-toggle="true">No</th>
+                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Company</th>
@@ -54,9 +55,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $Count = 0;
+                                @endphp
                                 @foreach ($Users as $User)
                                 <tr>
-                                    <td>{{$User->ids}}</td>
+                                    <td>{{++$Count}}</td>
+                                    <td>{{$User->code}}</td>
                                     <td>{{$User->first_name}} {{$User->last_name}}</td>
                                     <td>{{$User->email}}</td>
                                     <td>{{$User->company_name}}</td>

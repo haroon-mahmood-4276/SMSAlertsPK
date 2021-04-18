@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Rules\CheckGroupCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -15,10 +16,10 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $Groups = Group::where('user_id', '=', session('Data.id'))->get();
-        foreach ($Groups as $Group) {
-            $Group->ids = strval(Str::padLeft($Group->id, 5, '0'));
-        }
+        $Groups = Group::where('user_id', '=', session('Data.id'))->orderBy('code')->get();
+        // foreach ($Groups as $Group) {
+        //     $Group->ids = strval(Str::padLeft($Group->id, 5, '0'));
+        // }
         // return $Groups;
         return view('group.index', ['Groups' => $Groups]);
     }
@@ -42,11 +43,12 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode],
             'name' => 'bail|required|between:1,50',
         ]);
-
         $Groups = new Group;
         $Groups->user_id = session('Data.id');
+        $Groups->code = $request->code;
         $Groups->name = $request->name;
 
         if ($Groups->save()) {
@@ -92,6 +94,7 @@ class GroupController extends Controller
         ]);
 
         $Groups = Group::find($id);
+        $Groups->code = $request->code;
         $Groups->name = $request->name;
 
         if ($Groups->save()) {

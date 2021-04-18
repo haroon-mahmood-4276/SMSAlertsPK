@@ -44,7 +44,8 @@
                             class="table table-bordered responsive-table table-hover toggle-circle" data-page-size="10">
                             <thead>
                                 <tr>
-                                    <th data-sort-initial="true" data-toggle="true">ID</th>
+                                    <th data-sort-initial="true" data-toggle="true">No</th>
+                                    <th>ID</th>
                                     <th>
                                         {{(Session::get('Data.company_nature') == 'B') ? 'Group' : 'Class'}} Name
                                     </th>
@@ -73,17 +74,21 @@
                                 </div>
                             </div>
                             <tbody>
+                                @php
+                                $Count = 0;
+                                @endphp
                                 @foreach ($Groups as $Group)
                                 <tr>
-                                    <td>{{$Group->ids}}</td>
+                                    <td>{{++$Count}}</td>
+                                    <td>{{$Group->code}}</td>
                                     <td>{{$Group->name}}</td>
                                     <td><span class="label label-table label-success">Active</span> </td>
                                     <td>
-                                        <a href="{{route("groups.edit", ['group'=>$Group->ids])}}" type="button"
+                                        <a href="{{route("groups.edit", ['group'=>$Group->id])}}" type="button"
                                             class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                 class="material-icons">edit</i></a>
                                         <form method="POST"
-                                            action="{{route("groups.destroy", ['group'=>$Group->ids])}}">
+                                            action="{{route("groups.destroy", ['group'=>$Group->id])}}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" onclick="return confirm('Are you sure?')"
@@ -96,7 +101,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="4">
+                                    <td colspan="5">
                                         <div class="text-right">
                                             <ul class="pagination">
                                             </ul>

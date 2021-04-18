@@ -17,41 +17,41 @@ class Groups extends Seeder
         DB::table('groups')->insert([
             [
                 'user_id' => '00001',
-                'id' => '00001',
+                'code' => '00001',
                 'name' => 'Clients',
             ],
             [
                 'user_id' => '00001',
-                'id' => '00002',
+                'code' => '00002',
                 'name' => 'Stakeholders',
             ],
             [
                 'user_id' => '00001',
-                'id' => '00003',
+                'code' => '00003',
                 'name' => 'Supplier',
             ],
             [
                 'user_id' => '00002',
-                'id' => '00004',
+                'code' => '00004',
                 'name' => 'Class 1',
             ],
             [
                 'user_id' => '00002',
-                'id' => '00005',
+                'code' => '00005',
                 'name' => 'Class 2',
             ], [
                 'user_id' => '00002',
-                'id' => '00006',
+                'code' => '00006',
                 'name' => 'Class 3',
             ],
             [
                 'user_id' => '00002',
-                'id' => '00007',
+                'code' => '00007',
                 'name' => 'Class 4',
             ],
             [
                 'user_id' => '00002',
-                'id' => '00008',
+                'code' => '00008',
                 'name' => 'Class 5',
             ],
         ]);

@@ -33,6 +33,14 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">text_format</i>
+                                <input id="code" name="code" type="text" class="disabled" value="{{$Group->code}}" maxlength="5">
+                                <label for="code">Group ID *</label>
+                                @error('code')
+                                <span style="color: red">{{$message}}</span>
+                                @enderror
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">text_format</i>
                                 <input id="name" name="name" type="text" class="@error('name') error @enderror"
                                     value="{{$Group->name}}">
                                 <label for="name">Group Name *</label>

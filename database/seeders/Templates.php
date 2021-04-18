@@ -17,7 +17,7 @@ class Templates extends Seeder
         DB::table('templates')->insert([
             [
                 'user_id' => '00001',
-                'id' => '00002',
+                'code' => '00002',
                 'name' => 'Birthday',
                 'template' => 'Blue',
             ],

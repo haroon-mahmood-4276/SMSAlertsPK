@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Section;
 use App\Models\User;
-use App\Models\MobileDatas;
+use App\Models\Mobiledatas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -20,10 +20,10 @@ class UserController extends Controller
     public function index()
     {
         $Users = User::all();
-
-        foreach ($Users as $User) {
-            $User->ids = strval(Str::padLeft($User->id, 5, '0'));
-        }
+        // return $Users;
+        // foreach ($Users as $User) {
+        //     $User->ids = strval(Str::padLeft($User->id, 5, '0'));
+        // }
         return view('user.index', ['Users' => $Users]);
     }
 
@@ -46,6 +46,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'id' => 'bail|required|unique:users,id|between:1,5',
             'first_name' => 'bail|required|alpha|between:1,50',
             'last_name' => 'bail|required|alpha|between:1,50',
             'email' => 'required|email|unique:users,email',
@@ -60,6 +61,7 @@ class UserController extends Controller
         ]);
 
         $User = new User;
+        $User->id = $request->id;
         $User->first_name = $request->first_name;
         $User->last_name = $request->last_name;
         $User->email = $request->email;
@@ -183,7 +185,6 @@ class UserController extends Controller
         // return $User;
         if ($User) {
             if (Hash::check($request->password, $User->password)) {
-                $User['ids'] = strval(Str::padLeft($User['id'], 5, '0'));
                 $request->session()->put('Data', $User);
                 return redirect()->route('r.dashboard');
             } else {
@@ -198,7 +199,7 @@ class UserController extends Controller
     public function dashboard()
     {
         if (session()->has('Data')) {
-            $UserId = session('Data.ids');
+            $UserId = session('Data.code');
             $GroupCount = Group::where('user_id', '=', $UserId)->count();
             $SectionCount = Section::where('user_id', '=', $UserId)->count();
             $MobileDatasCount = MobileDatas::where('user_id', '=', $UserId)->count();

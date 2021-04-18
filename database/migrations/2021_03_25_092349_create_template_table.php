@@ -15,8 +15,9 @@ class CreateTemplateTable extends Migration
     public function up()
     {
         Schema::create('templates', function (Blueprint $table) {
-            $table->string('user_id', 5);
-            $table->string('id', 5)->primary();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->id();
+            $table->string('code', 5);
             $table->string('name', 50);
             $table->string('template');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
