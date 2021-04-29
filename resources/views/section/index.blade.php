@@ -45,6 +45,7 @@
                             <thead>
                                 <tr>
                                     <th data-sort-initial="true" data-toggle="true">No</th>
+                                    <th>ID</th>
                                     <th>Section Name</th>
                                     <th>Class Name</th>
                                     <th>Status</th>
@@ -77,6 +78,7 @@
                                 @foreach ($Sections as $Section)
                                 <tr>
                                     <td>{{++$Count}}</td>
+                                    <td>{{$Section->code}}</td>
                                     <td>{{$Section->name}}</td>
                                     <td>{{$Section->group_name}}</td>
                                     <td><span class="label label-table label-success">Active</span> </td>
@@ -98,7 +100,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="6">
                                         <div class="text-right">
                                             <ul class="pagination">
                                             </ul>

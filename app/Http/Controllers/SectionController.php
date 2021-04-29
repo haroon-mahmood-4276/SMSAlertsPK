@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Section;
-use App\Models\User;
+use App\Rules\CheckSectionCode;
 use Illuminate\Http\Request;
 
 class SectionController extends Controller
@@ -16,9 +16,9 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $Sections = Section::select('id', 'name');
-        $Sections = $Sections->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'sections.group_id')])->orderBy('group_name')->get();
-        //return $Sections;
+
+        $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('sections.id', 'sections.code', 'sections.name', 'groups.name AS group_name')->get();
+        // return $Sections;
         return view('section.index', ['Sections' => $Sections]);
     }
 
@@ -42,7 +42,7 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'group_name' => 'required',
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSectionCode($request->group_name)],
             'name' => 'bail|required|between:1,50',
         ]);
 

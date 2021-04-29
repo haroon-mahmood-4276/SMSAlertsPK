@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Rules\CheckGroupCode;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class GroupController extends Controller
 {
