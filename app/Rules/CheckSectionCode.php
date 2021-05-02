@@ -27,7 +27,7 @@ class CheckSectionCode implements Rule
     public function passes($attribute, $value)
     {
 
-        $Data = Section::where('user_id', '=', session('Data.id'))->where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
+        $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_code)->where('code', '=', $value)->get();
         return $Data->isEmpty();
     }
 

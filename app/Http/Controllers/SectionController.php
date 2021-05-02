@@ -17,8 +17,8 @@ class SectionController extends Controller
     public function index()
     {
 
-        $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('sections.id', 'sections.code', 'sections.name', 'groups.name AS group_name')->get();
-        // return $Sections;
+        $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('sections.id', 'sections.code', 'sections.name', 'groups.name AS group_name')->groupBy('group_name', 'sections.code')->get();
+        //return $Sections;
         return view('section.index', ['Sections' => $Sections]);
     }
 
@@ -48,6 +48,7 @@ class SectionController extends Controller
 
         $Sections = new Section;
         $Sections->user_id = session('Data.id');
+        $Sections->code = $request->code;
         $Sections->group_id = $request->group_name;
         $Sections->name = $request->name;
 
@@ -92,11 +93,12 @@ class SectionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'group_name' => 'required',
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSectionCode($request->group_name)],
             'name' => 'bail|required|between:1,50',
         ]);
 
         $Sections = Section::find($id);
+        $Sections->code = $request->code;
         $Sections->group_id = $request->group_name;
         $Sections->name = $request->name;
 

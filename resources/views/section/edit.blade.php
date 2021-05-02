@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         @endif
-                        <div class="mb-3">
+                        <div class="input-field col s12">
                             <label for="group_name" class="form-label">Group</label>
                             <select class="form-select" name="group_name" id="group_name">
                                 <option value="">Select</option>
@@ -41,7 +41,16 @@
                             <span style="color: red">{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="mb-3">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">text_format</i>
+                            <input id="code" name="code" type="text" class="@error('code') error @enderror"
+                                value="{{$Section->code}}" maxlength="5">
+                            <label for="code">Section ID *</label>
+                            @error('code')
+                            <span style="color: red">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="input-field col s12">
                             <label for="name" class="form-label">Section Name</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                                 id="name" value="{{$Section->name}}" placeholder="Section Name">
