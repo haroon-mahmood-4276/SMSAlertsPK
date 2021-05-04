@@ -93,11 +93,12 @@ class SectionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSectionCode($request->group_name)],
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSectionCode($request->group_name, true, $id)],
             'name' => 'bail|required|between:1,50',
         ]);
 
         $Sections = Section::find($id);
+        // return $Sections;
         $Sections->code = $request->code;
         $Sections->group_id = $request->group_name;
         $Sections->name = $request->name;
