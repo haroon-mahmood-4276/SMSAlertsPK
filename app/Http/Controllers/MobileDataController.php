@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Section;
-use App\Models\MobileDatas;
-use App\Models\User;
+use App\Models\Mobiledatas;
+use App\Rules\CheckMemberCode;
 use Illuminate\Http\Request;
 
 class MobileDataController extends Controller
@@ -17,11 +17,14 @@ class MobileDataController extends Controller
      */
     public function index()
     {
-        $MobileDatas = MobileDatas::select('id', 'roll_no',  'student_first_name', 'student_last_name', 'student_mobile_1', 'student_mobile_2', 'DOB', 'CNIC', 'Gender', 'parent_first_name', 'parent_last_name', 'parent_mobile_1', 'parent_mobile_2')->where('user_id', '=', session('Data.id'));
-        // $MobileDatas = $MobileDatas->addSelect(['company_name' => User::select('company_name')->whereColumn('id', '=', 'mobiledatas.user_id')]);
+        $MobileDatas = Mobiledatas::select('id', 'code',  'student_first_name', 'student_last_name', 'student_mobile_1', 'student_mobile_2', 'DOB', 'CNIC', 'Gender', 'parent_first_name', 'parent_last_name', 'parent_mobile_1', 'parent_mobile_2')->where('user_id', '=', session('Data.id'));
         $MobileDatas = $MobileDatas->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'mobiledatas.group_id')]);
         $MobileDatas = $MobileDatas->addSelect(['section_name' => Section::select('name')->whereColumn('id', '=', 'mobiledatas.section_id')])->orderBy('section_name')->get();
         // return $MobileDatas;
+
+        // $MobileDatas = Mobiledatas::join('groups', 'mobiledatas.group_id', '=', 'groups.id')->join('sections', 'mobiledatas.section_id', '=', 'sections.id')->select('mobiledatas.*', 'groups.name AS group_name', 'sections.name AS section_name')->where('user_id', '=', session('Data.id'))->get();
+        // return $MobileDatas;
+
         return view('mobiledata.index', ['MobileDatas' => $MobileDatas]);
     }
 
@@ -46,7 +49,7 @@ class MobileDataController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'roll_no' => 'bail|required|alpha_num|between:1,5',
+            'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section)],
             'student_first_name' => 'bail|required|alpha|between:1,50',
             'student_last_name' => 'bail|required|alpha|between:1,50',
             'student_mobile_1' => 'bail|required|numeric|digits:12',
@@ -64,7 +67,7 @@ class MobileDataController extends Controller
 
         //dd($request->input());
         $MobileDatas = new MobileDatas;
-        $MobileDatas->roll_no = $request->roll_no;
+        $MobileDatas->code = $request->code;
         $MobileDatas->student_first_name = $request->student_first_name;
         $MobileDatas->student_last_name = $request->student_last_name;
         $MobileDatas->student_mobile_1 = $request->student_mobile_1;
@@ -122,7 +125,7 @@ class MobileDataController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'roll_no' => 'bail|required|alpha_num|between:1,5',
+            'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
             'student_first_name' => 'bail|required|alpha|between:1,50',
             'student_last_name' => 'bail|required|alpha|between:1,50',
             'student_mobile_1' => 'bail|required|numeric|digits:12',

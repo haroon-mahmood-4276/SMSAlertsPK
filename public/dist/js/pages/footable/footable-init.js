@@ -60,14 +60,14 @@ $(window).on('load', function() {
 	});
 
 
-	
+
 
 	// Search input
 	$('#demo-input-search2').on('input', function (e) {
 		e.preventDefault();
 		addrow.trigger('footable_filter', {filter: $(this).val()});
 	});
-	
+
 	// Add & Remove Row
 	var addrow = $('#demo-foo-addrow');
 	addrow.footable().on('click', '.delete-row-btn', function() {
@@ -98,7 +98,7 @@ $(window).on('load', function() {
 
 		//get the footable object
 		var footable = addrow.data('footable');
-		
+
 		//build up the row we are wanting to add
 		var newRow = '<tr><td>thome</td><td>Woldt</td><td>Airline Transport Pilot</td><td>3 Oct 2016</td><td><span class="label label-table label-success">Active</span></td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>';
 

@@ -16,7 +16,6 @@ class SectionController extends Controller
      */
     public function index()
     {
-
         $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('sections.id', 'sections.code', 'sections.name', 'groups.name AS group_name')->groupBy('group_name', 'sections.code')->get();
         //return $Sections;
         return view('section.index', ['Sections' => $Sections]);
