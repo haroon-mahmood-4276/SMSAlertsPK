@@ -12,9 +12,10 @@ class CheckGroupCode implements Rule
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($IsUpdate = false, $PKID = 0)
     {
-        //
+        $this->IsUpdate = $IsUpdate;
+        $this->PKID = $PKID;
     }
 
     /**
@@ -26,8 +27,19 @@ class CheckGroupCode implements Rule
      */
     public function passes($attribute, $value)
     {
-        $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-        return $Data->isEmpty();
+        if ($this->IsUpdate) {
+            $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
+            // dd($Data);
+            if (!$Data->isEmpty()) {
+                return true;
+            } else {
+                $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
+                return $Data->isEmpty();
+            }
+        } else {
+            $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
+            return $Data->isEmpty();
+        }
     }
 
     /**
