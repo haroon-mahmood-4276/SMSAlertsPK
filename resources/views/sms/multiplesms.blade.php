@@ -11,6 +11,17 @@
 
 @section('content')
 <div class="page-wrapper">
+    <div class="page-titles">
+        <div class="d-flex align-items-center">
+            <h3 class="font-medium m-b-0">Multiple SMS</h3>
+            {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
+            <div class="custom-breadcrumb ml-auto">
+                <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
+                <a href="javascript:void(0)" class="breadcrumb">Messaging</a>
+                <a href="javascript:void(0)" class="breadcrumb">Multiple SMS</a>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col l12 m12 s12">
             <div class="card">
@@ -33,7 +44,7 @@
                                 <input id="phone_number" name="phone_number" type="text"
                                     class="@error('phone_number') error @enderror"
                                     placeholder="923012345678, 923012345679, ..." value="{{old('phone_number')}}">
-                                <label for="phone_number">Name *</label>
+                                <label for="phone_number">Bumbers *</label>
                                 @error('phone_number')
                                 <span style="color: red">{{$message}}</span>
                                 @enderror

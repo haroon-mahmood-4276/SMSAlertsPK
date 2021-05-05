@@ -44,6 +44,7 @@
                                 <thead>
                                     <tr>
                                         <th data-sort-initial="true" data-toggle="true">No</th>
+                                        <th>Code</th>
                                         <th>Name</th>
                                         <th>Template</th>
                                         <th>Status</th>
@@ -76,6 +77,7 @@
                                     @foreach ($Templates as $Template)
                                         <tr>
                                             <td>{{ ++$Count }}</td>
+                                            <td>{{ $Template->code }}</td>
                                             <td>{{ $Template->name }}</td>
                                             <td>{{ $Template->template }}</td>
                                             <td><span class="label label-table label-success">Active</span> </td>
@@ -98,7 +100,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan="6">
                                             <div class="text-right">
                                                 <ul class="pagination">
                                                 </ul>

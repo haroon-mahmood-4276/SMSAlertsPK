@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sms;
-use App\Models\MobileDatas;
+use App\Models\Mobiledatas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -11,11 +11,9 @@ class SmsController extends Controller
 {
     public function index()
     {
-        $Sms = Sms::select('id', 'sms', 'response', 'created_at')->where('user_id', '=', '1');
-        $Sms = $Sms->addSelect(['phone_number' => MobileDatas::select('parent_mobile_1')->whereColumn('id', '=', 'sms.data_id')])->orderBy('created_at')->get();
-        // return $Sms;
-
-        return view('sms.index', ['SMSs' => $Sms]);
+        $SMSHistoryData = Sms::select('id', 'sms', 'response', 'phone_number', 'created_at')->where('user_id', '=', session('Data.id'))->get();
+        // return $SMSHistoryData;
+        return view('sms.index', ['SMSHistoryData' => $SMSHistoryData]);
     }
 
     public function QuickSMS(Request $request)
