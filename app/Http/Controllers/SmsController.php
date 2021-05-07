@@ -26,9 +26,9 @@ class SmsController extends Controller
 
 
         $response =  Http::get('http://sms.web.pk/sendsms.php', [
-            'username' => 'test',
-            'password' => '123456',
-            'sender' => 'ALERTS',
+            'username' => session('Data.company_username'),
+            'password' => session('Data.company_password'),
+            'sender' => session('Data.company_mask_id'),
             'phone' => $request->phone_number,
             'message' => $request->message,
         ]);
@@ -39,7 +39,11 @@ class SmsController extends Controller
         $SMS->phone_number = $request->phone_number;
         $SMS->response = $response;
 
-        if ($SMS->save()) {
+        $User = SMS::find(session('Data.id'));
+        $User->remaining_of_sms = $User->remaining_of_sms - 1;
+
+
+        if ($SMS->save() && $User->save()) {
             return redirect()->route('r.smshistory')->with('AlertType', 'warning')->with('AlertMsg', $response);
         } else {
             return redirect()->route('r.smshistory')->with('AlertType', 'warning')->with('AlertMsg', $response);
@@ -59,9 +63,9 @@ class SmsController extends Controller
 
         foreach ($PhoneArray as $PhoneNumber) {
             $response =  Http::get('http://sms.web.pk/sendsms.php', [
-                'username' => 'test',
-                'password' => '123456',
-                'sender' => 'ALERTS',
+                'username' => session('Data.company_username'),
+                'password' => session('Data.company_password'),
+                'sender' => session('Data.company_mask_id'),
                 'phone' => $PhoneNumber,
                 'message' => $request->message,
             ]);
@@ -71,6 +75,10 @@ class SmsController extends Controller
             $SMS->phone_number = $request->phone_number;
             $SMS->response = $response;
             $SMS->save();
+
+            $User = SMS::find(session('Data.id'));
+            $User->remaining_of_sms = $User->remaining_of_sms - 1;
+            $User->save();
         }
         return redirect()->route('r.smshistory');
     }
