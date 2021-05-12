@@ -43,7 +43,7 @@
                                 class="table table-bordered responsive-table table-hover toggle-circle" data-page-size="10">
                                 <thead>
                                     <tr>
-                                        <th data-sort-initial="true" data-toggle="true">No</th>
+                                        <th data-sort-initial="false" data-toggle="true">No</th>
                                         <th>SMS</th>
                                         <th>Phone Number</th>
                                         <th>Date</th>
@@ -57,7 +57,7 @@
                                     @foreach ($SMSHistoryData as $SMS)
                                         <tr>
                                             <td>{{ ++$Count }}</td>
-                                            <td>{{ $SMS->sms }}</td>
+                                            <td style="white-space: pre-wrap; word-wrap: break-word; min-width: 400px; max-width: 400px;">{{ $SMS->sms }}</td>
                                             <td>{{ $SMS->phone_number }}</td>
                                             <td>{{ $SMS->created_at }}</td>
                                             <td><span class="label label-table label-success">{{ $SMS->response }}</span>

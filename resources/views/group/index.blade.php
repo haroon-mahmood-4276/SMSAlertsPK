@@ -57,9 +57,7 @@
                                 <div class="d-flex">
                                     <div class="mr-auto">
                                         <div class="form-group">
-                                            <a href="{{route("groups.create")}}" class="btn btn-small"><i
-                                                    class="icon wb-plus waves-effect waves-light"
-                                                    aria-hidden="true"></i>Add New
+                                            <a href="{{route("groups.create")}}" class="btn btn-small waves-effect waves-light">Add New
                                                 {{(Session::get('Data.company_nature') == 'B') ? 'Group' : 'Class'}}
                                             </a>
                                             {{-- <small>New row will be added in last page.</small> --}}

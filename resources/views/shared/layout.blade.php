@@ -43,7 +43,7 @@
             <div>
                 {{ View::make('shared.rightsidebar') }}
             </div>
-            
+
         </div>
 
         @yield('Js')

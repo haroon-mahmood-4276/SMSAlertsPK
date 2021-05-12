@@ -39,18 +39,19 @@ Route::resources([
     'templates' => TemplateController::class
 ]);
 
-Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');// Route::get('sms/quick', [SmsController::class, 'QuickSMSShow'])->name('r.quicksmsshow');
+Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');
 
+
+Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
 Route::get('sms/quick', function () {
     return view('sms.quicksms');
 })->name('r.quicksmsshow');
-
-
 Route::get('sms/multiple', function () {
     return view('sms.multiplesms');
 })->name('r.multiplesmsshow');
-
+Route::get('sms/bulk', [SmsController::class, 'BulkSMSShow'])->name('r.bulksmsshow');
 
 Route::post('sms/quick', [SmsController::class, 'QuickSMS'])->name('r.quicksms');
 Route::post('sms/multiple', [SmsController::class, 'MultipleSMS'])->name('r.multiplesms');
+Route::post('sms/bulk', [SmsController::class, 'BulkSMS'])->name('r.bulksms');
 Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

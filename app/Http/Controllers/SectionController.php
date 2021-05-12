@@ -66,7 +66,7 @@ class SectionController extends Controller
      */
     public function show($id)
     {
-        //
+        return Section::find($id);
     }
 
     /**
@@ -124,5 +124,10 @@ class SectionController extends Controller
         } else {
             return redirect()->route('sections.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
         }
+    }
+
+    public function GetSectionList($id)
+    {
+        return Section::where('group_id', '=', $id)->get();
     }
 }

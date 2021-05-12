@@ -199,17 +199,16 @@ class UserController extends Controller
     public function dashboard()
     {
         if (session()->has('Data')) {
-            $UserId = session('Data.code');
-            $GroupCount = Group::where('user_id', '=', $UserId)->count();
-            $SectionCount = Section::where('user_id', '=', $UserId)->count();
-            $MobileDatasCount = MobileDatas::where('user_id', '=', $UserId)->count();
-            $RemainingSMS = session('Data.remaining_of_sms');
-            // return $RemainingSMS;
-            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'RemainingSMS' => $RemainingSMS]);
+            $User = User::find(session()->get('Data.id'));
+            session()->put('Data', $User);
+
+            $GroupCount = Group::where('user_id', '=', session('Data.code'))->count();
+            $SectionCount = Section::where('user_id', '=', session('Data.code'))->count();
+            $MobileDatasCount = MobileDatas::where('user_id', '=', session('Data.code'))->count();
+
+            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
         } else {
-            session()->flash('AlertType', 'danger');
-            session()->flash('AlertMsg', 'Something went wrong. Err Code: 0x00001');
-            return view('user.dashboard');
+            return view('user.dashboard')->with('AlertType', 'danger')->with('AlertMsg', 'Something went wrong. Err Code: 0x00001');
         }
     }
 

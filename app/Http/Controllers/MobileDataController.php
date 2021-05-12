@@ -48,6 +48,7 @@ class MobileDataController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $request->validate([
             'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section)],
             'student_first_name' => 'bail|required|alpha|between:1,50',
