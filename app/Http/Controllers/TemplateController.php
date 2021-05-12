@@ -14,7 +14,7 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        $Template = Template::where('user_id', '=', '1')->get();
+        $Template = Template::where('user_id', '=', session('Data.id'))->get();
         // return $Template;
         return view('template.index', ['Templates' => $Template]);
     }
@@ -63,7 +63,7 @@ class TemplateController extends Controller
      */
     public function show($id)
     {
-        //
+        return Template::find($id);
     }
 
     /**

@@ -50,15 +50,15 @@
                                 </div>
 
                                 <div class="col s12 m6 l6">
-                                    <label for="section" class="form-label">Group</label>
+                                    <label for="section" class="form-label">Section</label>
                                     <select class="form-select" name="section" id="section">
                                         <option value="">Select</option>
-                                        @foreach ($Sections as $Section)
+                                        {{-- @foreach ($Sections as $Section)
                                             <option value="{{ $Section->id }}"
                                                 {{ $Section->id == $MobileData->section_id ? 'selected' : '' }}>
                                                 {{ $Section->name }}
                                             </option>
-                                        @endforeach
+                                        @endforeach --}}
                                     </select>
                                     @error('section')
                                         <span style="color: red">{{ $message }}</span>
@@ -259,7 +259,7 @@
                 dataType: 'json',
                 success: function(response) {
 
-                    Data += '<option value="">All</option>';
+                    Data += '<option value="">Select</option>';
                     for (let index = 0; index < response.length; index++) {
                         Data += '<option value="' + response[index].id + '">' + response[index].name +
                             '</option>\n';

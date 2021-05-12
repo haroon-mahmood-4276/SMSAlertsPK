@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\Sms;
 use App\Models\Mobiledatas;
+use App\Models\Template;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -89,18 +90,13 @@ class SmsController extends Controller
     public function BulkSMSShow(Request $request)
     {
         $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-        
+        $Templates = Template::where('user_id', '=', session('Data.id'))->get();
 
-        return view('section.create', ['Groups' => $Groups]);
+        return view('sms.bulksms', ['Groups' => $Groups, 'Templates' => $Templates]);
     }
 
     public function BulkSMS(Request $request)
     {
-
-        $request->validate([
-            'phone_number' => 'required',
-            'message' => 'required',
-        ]);
 
 
         return redirect()->route('r.smshistory');

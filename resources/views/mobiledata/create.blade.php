@@ -34,7 +34,7 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <select class="form-select" name="group" id="group">
-                                        <option value="0">All</option>
+                                        <option value="">Select</option>
                                         @foreach ($Groups as $Group)
                                             <option value="{{ $Group->id }}">{{ $Group->name }}</option>
                                         @endforeach
@@ -47,7 +47,7 @@
 
                                 <div class="input-field col s6">
                                     <select class="form-select" name="section" id="section">
-                                        <option value="0">All</option>
+                                        <option value="">Select</option>
                                         {{-- @foreach ($Sections as $Section)
                                             <option value="{{ $Section->id }}">{{ $Section->name }}</option>
                                         @endforeach --}}
@@ -248,7 +248,7 @@
                 dataType: 'json',
                 success: function(response) {
 
-                    Data += '<option value="">All</option>';
+                    Data += '<option value="">Select</option>';
                     for (let index = 0; index < response.length; index++) {
                         Data += '<option value="' + response[index].id + '">' + response[index].name +
                             '</option>\n';
