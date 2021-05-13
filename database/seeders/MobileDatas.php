@@ -31,6 +31,7 @@ class MobileDatas extends Seeder
                 'parent_last_name' => 'Ahmad',
                 'parent_mobile_1' => '923001234567',
                 'parent_mobile_2' => '',
+                'is_active' => 'Y'
             ],
             [
                 'user_id' => '00002',
@@ -48,6 +49,7 @@ class MobileDatas extends Seeder
                 'parent_last_name' => 'Ahmad',
                 'parent_mobile_1' => '923001234567',
                 'parent_mobile_2' => '',
+                'is_active' => 'N'
             ],
             [
                 'user_id' => '00002',
@@ -65,6 +67,7 @@ class MobileDatas extends Seeder
                 'parent_last_name' => 'Gul',
                 'parent_mobile_1' => '923001234567',
                 'parent_mobile_2' => '',
+                'is_active' => 'Y'
             ],
         ]);
         DB::table('mobiledatas')->insert([
@@ -83,6 +86,7 @@ class MobileDatas extends Seeder
                 'parent_last_name' => 'Mahmood',
                 'parent_mobile_1' => '923001234567',
                 'parent_mobile_2' => '',
+                'is_active' => 'Y'
             ],
             [
                 'user_id' => '00001',
@@ -99,6 +103,7 @@ class MobileDatas extends Seeder
                 'parent_last_name' => 'Ahmad',
                 'parent_mobile_1' => '923001234567',
                 'parent_mobile_2' => '',
+                'is_active' => 'Y'
             ],
 
         ]);

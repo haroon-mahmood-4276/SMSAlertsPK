@@ -31,6 +31,7 @@ class CreateMobileDataTable extends Migration
             $table->string('parent_last_name', 50);
             $table->string('parent_mobile_1');
             $table->string('parent_mobile_2')->nullable();
+            $table->string('is_active', 1);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->foreign('user_id')->references('id')->on('users');
