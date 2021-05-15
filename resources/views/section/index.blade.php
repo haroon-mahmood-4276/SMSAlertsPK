@@ -41,7 +41,7 @@
                         @endif
 
                         <table id="demo-foo-addrow2"
-                            class="table table-bordered responsive-table table-hover toggle-circle" data-page-size="10">
+                            class="table table-bordered highlight responsive-table" data-page-size="10">
                             <thead>
                                 <tr>
                                     <th data-sort-initial="true" data-toggle="true">No</th>

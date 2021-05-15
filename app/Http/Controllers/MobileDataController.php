@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
-use App\Models\Section;
 use App\Models\Mobiledatas;
+use App\Models\Section;
 use App\Rules\CheckMemberCode;
 use Illuminate\Http\Request;
 
@@ -17,13 +17,14 @@ class MobileDataController extends Controller
      */
     public function index()
     {
-        $MobileDatas = Mobiledatas::select('id', 'code',  'student_first_name', 'student_last_name', 'student_mobile_1', 'student_mobile_2', 'DOB', 'CNIC', 'Gender', 'parent_first_name', 'parent_last_name', 'parent_mobile_1', 'parent_mobile_2')->where('user_id', '=', session('Data.id'));
+        // return dd(session('Data'));
+        $MobileDatas = Mobiledatas::select('id', 'code',  'student_first_name', 'student_last_name', 'student_mobile_1', 'student_mobile_2', 'DOB', 'CNIC', 'Gender', 'parent_first_name', 'parent_last_name', 'parent_mobile_1', 'parent_mobile_2', 'is_active')->where('user_id', '=', session('Data.id'));
         $MobileDatas = $MobileDatas->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'mobiledatas.group_id')]);
         $MobileDatas = $MobileDatas->addSelect(['section_name' => Section::select('name')->whereColumn('id', '=', 'mobiledatas.section_id')])->orderBy('section_name')->get();
         // return $MobileDatas;
 
         // $MobileDatas = Mobiledatas::join('groups', 'mobiledatas.group_id', '=', 'groups.id')->join('sections', 'mobiledatas.section_id', '=', 'sections.id')->select('mobiledatas.*', 'groups.name AS group_name', 'sections.name AS section_name')->where('user_id', '=', session('Data.id'))->get();
-        // return $MobileDatas;
+        //  return $MobileDatas;
 
         return view('mobiledata.index', ['MobileDatas' => $MobileDatas]);
     }
@@ -99,7 +100,7 @@ class MobileDataController extends Controller
      */
     public function show($id)
     {
-        //
+        return session('Data');
     }
 
     /**
@@ -110,6 +111,7 @@ class MobileDataController extends Controller
      */
     public function edit($id)
     {
+
         $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         $Sections = Section::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         $MobileDatas = MobileDatas::find($id);
@@ -181,5 +183,21 @@ class MobileDataController extends Controller
         } else {
             return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
         }
+    }
+
+    public function STDList($groupid, $sectionid)
+    {
+        if ($groupid == 0) {
+            $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'))->where('is_active', '=', 'Y');
+        }
+        else if ($sectionid == 0) {
+            $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $groupid)->where('is_active', '=', 'Y');
+        }
+        else{
+            $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $groupid)->where('section_id', '=', $sectionid)->where('is_active', '=', 'Y');
+        }
+        $MobileDatas = $MobileDatas->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'mobiledatas.group_id')]);
+        $MobileDatas = $MobileDatas->addSelect(['section_name' => Section::select('name')->whereColumn('id', '=', 'mobiledatas.section_id')])->orderBy('section_name')->get();
+        return $MobileDatas;
     }
 }

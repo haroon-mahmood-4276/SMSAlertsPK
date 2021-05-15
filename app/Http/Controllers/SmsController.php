@@ -97,8 +97,6 @@ class SmsController extends Controller
 
     public function BulkSMS(Request $request)
     {
-
-
-        return redirect()->route('r.smshistory');
+        return $request->input();
     }
 }

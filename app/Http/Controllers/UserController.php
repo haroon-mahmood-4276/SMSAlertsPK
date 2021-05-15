@@ -171,6 +171,7 @@ class UserController extends Controller
      */
     public function loginform()
     {
+        // return dd(session('Data'));
         return view('auth.login');
     }
 
@@ -198,17 +199,21 @@ class UserController extends Controller
 
     public function dashboard()
     {
+        $GroupCount = 0;
+        $SectionCount = 0;
+        $MobileDatasCount = 0;
+// return dd(session('Data'));
         if (session()->has('Data')) {
             $User = User::find(session()->get('Data.id'));
-            session()->put('Data', $User);
-
-            $GroupCount = Group::where('user_id', '=', session('Data.code'))->count();
-            $SectionCount = Section::where('user_id', '=', session('Data.code'))->count();
-            $MobileDatasCount = MobileDatas::where('user_id', '=', session('Data.code'))->count();
+            session()->put(['Data' => $User]);
+            // return session('Data');
+            $GroupCount = Group::where('user_id', '=', session('Data.id'))->count();
+            $SectionCount = Section::where('user_id', '=', session('Data.id'))->count();
+            $MobileDatasCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
 
             return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
         } else {
-            return view('user.dashboard')->with('AlertType', 'danger')->with('AlertMsg', 'Something went wrong. Err Code: 0x00001');
+            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount])->with('AlertType', 'danger')->with('AlertMsg', 'Something went wrong. Err Code: 0x00001');
         }
     }
 

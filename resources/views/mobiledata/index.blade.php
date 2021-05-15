@@ -70,6 +70,7 @@
                                                 - Section
                                             @endif
                                         </th>
+                                        <th data-hide="phone">Stauts</th>
                                         <th data-hide="all">Student Secondary Number</th>
                                         <th data-hide="all">Parent Secondary Number</th>
                                         <th data-hide="all">Date of Birth</th>
@@ -112,6 +113,13 @@
                                             <td>{{ $MobileData->parent_mobile_1 }}</td>
                                             <td>{{ $MobileData->group_name }} @if (session('Data.company_nature') == 'S')
                                                     - {{ $MobileData->section_name }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($MobileData->is_active == 'Y')
+                                                <span class="label label-table label-success">Active</span>
+                                                @else
+                                                <span class="label label-table label-danger">Not Active</span>
                                                 @endif
                                             </td>
                                             <td>{{ $MobileData->student_mobile_2 }}</td>

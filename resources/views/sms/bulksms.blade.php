@@ -7,6 +7,7 @@
 @endsection
 
 @section('AfterCommonCss')
+    <link href="{{ asset('dist/css/pages/email.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/libs/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}">
 @endsection
@@ -69,7 +70,7 @@
 
                                 <div class="input-field col s12">
                                     <select class="form-select" name="template" id="template">
-                                        <option value="0">Select</option>
+                                        <option value="">Select</option>
                                         @foreach ($Templates as $Template)
                                             <option value="{{ $Template->id }}">{{ $Template->name }}</option>
                                         @endforeach
@@ -91,10 +92,71 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field m-t-10 col s12">
+                                <div class="input-field col s12 m12 l12">
+                                    <a href="javascript:void(0)" class="btn btn-small" id="getmember">
+                                        Get
+                                        {{ Session::get('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
+                                    </a>
+                                </div>
+
+                                <div class="input-field m-t-10 col s12" id="SDTTable">
+                                    <table id="demo-foo-addrow2" class="table m-b-0 toggle-arrow-tiny" data-page-size="10">
+                                        <thead>
+                                            <tr>
+                                                <th data-toggle="true">Roll No</th>
+                                                <th>Name</th>
+                                                <th>Parent Name</th>
+                                                <th>Parent Primary Number</th>
+                                                <th>Parent Secondary Number</th>
+                                                <th>Student Primary Number</th>
+                                                <th>Student Secondary Number</th>
+                                                <th>Stauts</th>
+                                                <th>
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <div class="m-t-5">
+                                            <div class="d-flex">
+                                                <div class="ml-auto">
+                                                    <div class="form-group">
+                                                        <input id="demo-input-search2" type="text" placeholder="Search"
+                                                            autocomplete="off">
+                                                        <p>
+                                                            <label>
+                                                                <input type="checkbox" class="sl-all" />
+                                                                <span>Check All</span>
+                                                            </label>
+                                                        </p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <tbody>
+                                            <tr colspan="9">
+                                                <td>No Data Yet</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="9">
+                                                    <div class="text-right">
+                                                        <ul class="pagination pagination-split"> </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light right submit" type="submit"
                                         name="action">Submit
                                     </button>
+                                    <button class="btn waves-effect red waves-light right m-r-10 reset"
+                                        type="reset">Reset</button>
                                 </div>
                             </div>
                         </form>
@@ -114,16 +176,13 @@
     <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
-    {{-- <script src="{{asset('assets/extra-libs/prism/prism.js')}}"></script> --}}
-    <script src="{{ asset('assets/libs/moment/moment.js') }}"></script>
-    <script
-        src="{{ asset('assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js') }}">
-    </script>
+    <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
+    <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
+
     <script>
-        $('#DOB').bootstrapMaterialDatePicker({
-            format: 'DD/MM/YYYY',
-            weekStart: 1,
-            time: false
+        $(document).ready(function() {
+            // $('#SDTTable').hide();
         });
 
         $('#group').on('change', function() {
@@ -131,13 +190,13 @@
             var Data = "";
             $.ajax({
                 type: "get",
-                url: '/sections/' + GroupId + '/list',
+                url: "{{ route('r.sectionlist', ['section' => ':id']) }}".replace(':id', GroupId),
                 dataType: 'json',
                 success: function(response) {
-                    Data += '<option value="">All</option>';
+                    Data += "<option value='0'>All</option>";
                     for (let index = 0; index < response.length; index++) {
                         Data += '<option value="' + response[index].id + '">' + response[index].name +
-                            '</option>\n';
+                            '</option>';
                     }
                     $('#section').html(Data);
                     var elem = document.querySelector('#section');
@@ -150,13 +209,88 @@
             var TemplateId = $(this).val();
             $.ajax({
                 type: "get",
-                url: '/templates/' + TemplateId,
+                url: "{{ route('templates.show', ['template' => ':id']) }}".replace(':id',
+                    TemplateId),
                 dataType: 'json',
                 success: function(response) {
                     $('#message').val(response.template);
                 }
             });
+        });
 
+        $('#getmember').on('click', function() {
+
+            var addrow = $('#demo-foo-addrow2');
+            var footable = addrow.data('footable');
+
+            var Data = "";
+
+            var PrevValue = $('#getmember').html();
+
+            $('#getmember').html(
+                'Load Student Data...<div class="progress"><div class="indeterminate"></div></div>');
+
+            var GroupId = $('#group').val();
+
+            var SectionId = $('#section').val();
+
+            var SectionId = $('#section').val();
+
+            $.ajax({
+                type: "get",
+                url: "{{ route('r.studentlist', ['groupid' => ':groupid', 'sectionid' => ':sectionid']) }}"
+                    .replace(':groupid', GroupId).replace(':sectionid', SectionId),
+                dataType: 'json',
+                success: function(response) {
+
+                    for (let index = 0; index < response.length; index++) {
+                        for (let i = 0; i < 25; i++) {
+
+
+                            if ("{{ @session('Data.company_nature') }}" == "S") {
+                                SectionName = " - " + response[index].section_name;
+                            } else {
+                                SectionName = "";
+                            }
+
+                            Data += "<tr>\n";
+                            Data += "<td>" + response[index].code + "</td>\n";
+                            Data += "<td>" + response[index].student_first_name + " " + response[index]
+                                .student_last_name + "</td>\n";
+                            Data += "<td>" + response[index].parent_first_name + " " + response[index]
+                                .parent_last_name + "</td>\n";
+                            Data += "<td>" + response[index].student_mobile_1 + "</td>\n";
+                            Data += "<td>" + response[index].parent_mobile_1 + "</td>\n";
+                            Data += "<td>" + response[index].student_mobile_2 + "</td>\n";
+                            Data += "<td>" + response[index].parent_mobile_2 + "</td>\n";
+                            if (response[index].is_active == "Y") {
+                                Data +=
+                                    "<td><span class='label label-table label-success'>Active</span></td>\n";
+                            } else {
+                                Data +=
+                                    "<td><span class='label label-table label-danger'>Not Active</span></td>\n";
+                            }
+                            Data += "<td><p><label><input type='checkbox' name='" + response[index].id +
+                                "chk" + i +
+                                "' class='chkbox' /><span>SMS</span></label></p></td>\n";
+                            Data += "</tr>";
+
+                        }
+                    }
+
+                    $("#demo-foo-addrow2 > tbody > tr").remove();
+                    footable.appendRow(Data);
+                }
+            });
+            $('#getmember').html(PrevValue);
+        });
+
+        $('.reset').on('click', function() {
+            $("#demo-foo-addrow2 > tbody > tr").remove();
+        });
+
+        $(".sl-all").on('click', function() {
+            $('.chkbox').prop('checked', this.checked);
         });
 
     </script>
