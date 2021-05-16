@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\JobMain;
 use App\Models\Group;
 use App\Models\Sms;
-use App\Models\Mobiledatas;
 use App\Models\Template;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -87,7 +87,7 @@ class SmsController extends Controller
         return redirect()->route('r.smshistory');
     }
 
-    public function BulkSMSShow(Request $request)
+    public function BulkSMSShow()
     {
         $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         $Templates = Template::where('user_id', '=', session('Data.id'))->get();
@@ -97,6 +97,11 @@ class SmsController extends Controller
 
     public function BulkSMS(Request $request)
     {
-        return $request->input();
+        JobMain::dispatch($request->all());
+return 'Done';
+        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        $Templates = Template::where('user_id', '=', session('Data.id'))->get();
+
+        return view('sms.bulksms', ['Groups' => $Groups, 'Templates' => $Templates])->with('AlertType', 'success')->with('AlertMsg', "Messages will be send shortly");
     }
 }

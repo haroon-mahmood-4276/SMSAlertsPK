@@ -29,17 +29,17 @@
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
-                        <form class="formValidate" id="formValidate" action="{{ route('r.bulksms') }}" method="POST">
-                            @csrf
-                            @if (Session::get('AlertType') && Session::get('AlertMsg'))
-                                <div class="row">
-                                    <div class="col l12 m12 s12 m-5">
-                                        <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
-                                            {{ Session::get('AlertMsg') }}
-                                        </div>
+                        @if (Session::has('AlertType') && Session::has('AlertMsg'))
+                            <div class="row">
+                                <div class="col l12 m12 s12 m-5">
+                                    <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
+                                        {{ Session::get('AlertMsg') }}
                                     </div>
                                 </div>
-                            @endif
+                            </div>
+                        @endif
+                        <form class="formValidate" id="formValidate" action="{{ route('r.bulksms') }}" method="POST">
+                            @csrf
 
                             <div class="row">
                                 <div class="input-field col s6">
