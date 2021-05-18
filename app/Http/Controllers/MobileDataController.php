@@ -187,6 +187,7 @@ class MobileDataController extends Controller
 
     public function STDList($groupid, $sectionid)
     {
+        // return $groupid." - ".$sectionid;
         if ($groupid == 0) {
             $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'))->where('is_active', '=', 'Y');
         }
@@ -198,6 +199,7 @@ class MobileDataController extends Controller
         }
         $MobileDatas = $MobileDatas->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'mobiledatas.group_id')]);
         $MobileDatas = $MobileDatas->addSelect(['section_name' => Section::select('name')->whereColumn('id', '=', 'mobiledatas.section_id')])->orderBy('section_name')->get();
+        // print_r($MobileDatas);
         return $MobileDatas;
     }
 }

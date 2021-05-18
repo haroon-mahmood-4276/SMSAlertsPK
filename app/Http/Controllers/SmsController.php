@@ -36,7 +36,7 @@ class SmsController extends Controller
         //     'message' => $request->message,
         // ]);
         $response = "success";
-        $SMS = new SMS();
+        $SMS = new Sms();
         $SMS->user_id = session('Data.id');
         $SMS->sms = $request->message;
         $SMS->phone_number = $request->phone_number;
@@ -73,7 +73,7 @@ class SmsController extends Controller
             // ]);
             $response = "success";
 
-            $SMS = new SMS();
+            $SMS = new Sms();
             $SMS->user_id = session('Data.id');
             $SMS->sms = $request->message;
             $SMS->phone_number = $PhoneNumber;
@@ -97,8 +97,12 @@ class SmsController extends Controller
 
     public function BulkSMS(Request $request)
     {
-        JobMain::dispatch($request->all());
-return 'Done';
+        print_r($request->input());
+        $Members = app('App\Http\Controllers\MobileDataController')->STDList($request->group, $request->section);
+
+        JobMain::dispatch(session('Data'), $request->all(), $Members);
+        return 'Done';
+
         $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         $Templates = Template::where('user_id', '=', session('Data.id'))->get();
 
