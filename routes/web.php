@@ -28,32 +28,33 @@ Route::post('login', [UserController::class, 'login'])->name('r.login');
 
 Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('login', [UserController::class, 'loginform'])->name('r.login');
+
+    Route::get('dashboard', [UserController::class, 'dashboard'])->name('r.dashboard');
+
+    Route::resources([
+        'users' => UserController::class,
+        'groups' => GroupController::class,
+        'sections' => SectionController::class,
+        'data' => MobileDataController::class,
+        'templates' => TemplateController::class
+    ]);
+
+    Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');
+    Route::get('data/{groupid}/{sectionid}/list', [MobileDataController::class, 'STDList'])->name('r.studentlist');
+
+
+    Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
+    Route::get('sms/quick', function () {
+        return view('sms.quicksms');
+    })->name('r.quicksmsshow');
+    Route::get('sms/multiple', function () {
+        // return dd(session('Data'));
+        return view('sms.multiplesms');
+    })->name('r.multiplesmsshow');
+    Route::get('sms/bulk', [SmsController::class, 'BulkSMSShow'])->name('r.bulksmsshow');
+
+    Route::post('sms/quick', [SmsController::class, 'QuickSMS'])->name('r.quicksms');
+    Route::post('sms/multiple', [SmsController::class, 'MultipleSMS'])->name('r.multiplesms');
+    Route::post('sms/bulk', [SmsController::class, 'BulkSMS'])->name('r.bulksms');
+    Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
-Route::get('dashboard', [UserController::class, 'dashboard'])->name('r.dashboard');
-
-Route::resources([
-    'users' => UserController::class,
-    'groups' => GroupController::class,
-    'sections' => SectionController::class,
-    'data' => MobileDataController::class,
-    'templates' => TemplateController::class
-]);
-
-Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');
-Route::get('data/{groupid}/{sectionid}/list', [MobileDataController::class, 'STDList'])->name('r.studentlist');
-
-
-Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
-Route::get('sms/quick', function () {
-    return view('sms.quicksms');
-})->name('r.quicksmsshow');
-Route::get('sms/multiple', function () {
-    // return dd(session('Data'));
-    return view('sms.multiplesms');
-})->name('r.multiplesmsshow');
-Route::get('sms/bulk', [SmsController::class, 'BulkSMSShow'])->name('r.bulksmsshow');
-
-Route::post('sms/quick', [SmsController::class, 'QuickSMS'])->name('r.quicksms');
-Route::post('sms/multiple', [SmsController::class, 'MultipleSMS'])->name('r.multiplesms');
-Route::post('sms/bulk', [SmsController::class, 'BulkSMS'])->name('r.bulksms');
-Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

@@ -16,10 +16,10 @@ class AuthRoute
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!session()->has('user_id') && !session()->has('company_nature') && $request->path() != 'login') {
+        if (!session()->has('Data.id') && !session()->has('Data.company_nature') && $request->path() != 'login') {
             return redirect()->route('r.login')->with('AlertType', 'danger')->with('AlertMsg', 'Please login first');
         }
-        if (session()->has('user_id') && session()->has('company_nature') && $request->path() == 'login') {
+        if (session()->has('Data.id') && session()->has('Data.company_nature') && $request->path() == 'login') {
             return back();
         }
         return $next($request);

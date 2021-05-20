@@ -111,9 +111,7 @@
                                                 <th>Student Primary Number</th>
                                                 <th>Student Secondary Number</th>
                                                 <th>Stauts</th>
-                                                <th>
-
-                                                </th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <div class="m-t-5">
@@ -259,10 +257,10 @@
                                 .student_last_name + "</td>\n";
                             Data += "<td>" + response[index].parent_first_name + " " + response[index]
                                 .parent_last_name + "</td>\n";
-                            Data += "<td>" + response[index].student_mobile_1 + "</td>\n";
                             Data += "<td>" + response[index].parent_mobile_1 + "</td>\n";
-                            Data += "<td>" + response[index].student_mobile_2 + "</td>\n";
                             Data += "<td>" + response[index].parent_mobile_2 + "</td>\n";
+                            Data += "<td>" + response[index].student_mobile_1 + "</td>\n";
+                            Data += "<td>" + response[index].student_mobile_2 + "</td>\n";
                             if (response[index].is_active == "Y") {
                                 Data +=
                                     "<td><span class='label label-table label-success'>Active</span></td>\n";

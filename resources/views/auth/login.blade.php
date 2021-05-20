@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Login - SMS4Everyone</title>
+        <title>Login - SMS Alerts PK</title>
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
@@ -24,7 +24,7 @@
             <div class="preloader">
                 <div class="loader">
                     <div class="loader__figure"></div>
-                    <p class="loader__label">SMS 4 Everyone</p>
+                    <p class="loader__label">SMS Alerts PK</p>
                 </div>
             </div>
 
@@ -35,8 +35,7 @@
                         <div class="col s12 l8 m6 demo-text">
                             <span class="db"><img src="{{ asset('assets/images/logo-icon.png') }}" alt="logo" /></span>
                             <span class="db"><img src="{{ asset('assets/images/logo-text.png') }}" alt="logo" /></span>
-                            <h1 class="font-light m-t-40">Welcome to the <span class="font-medium black-text">SMS 4
-                                    Everyone Login</span></h1>
+                            <h1 class="font-light m-t-40">Welcome to the <span class="font-medium black-text">SMS Alerts PK</span></h1>
                             <p>This is just a demo text which you can change as per your requeirment, so change once you
                                 get
                                 chance. this is default text.</p>

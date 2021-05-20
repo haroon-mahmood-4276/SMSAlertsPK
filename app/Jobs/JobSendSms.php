@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
+use Illuminate\Support\Facades\Http;
 
 class JobSendSms implements ShouldQueue
 {
@@ -39,14 +39,14 @@ class JobSendSms implements ShouldQueue
      */
     public function handle()
     {
-        // $response =  Http::get('http://sms.web.pk/sendsms.php', [
-        //     'username' => $this->UserName,
-        //     'password' => $this->Password,
-        //     'sender' => $this->Sender,
-        //     'phone' => $this->Phone,
-        //     'message' => $this->Message,
-        // ]);
-        $response = "success";
+        $response =  Http::get('http://sms.web.pk/sendsms.php', [
+            'username' => $this->UserName,
+            'password' => $this->Password,
+            'sender' => $this->Sender,
+            'phone' => $this->Phone,
+            'message' => $this->Message,
+        ]);
+        // $response = "success";
         JobSaveSms::dispatch($this->UserID, $this->Phone, $this->Message, $response);
     }
 }

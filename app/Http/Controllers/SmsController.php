@@ -101,11 +101,7 @@ class SmsController extends Controller
         $Members = app('App\Http\Controllers\MobileDataController')->STDList($request->group, $request->section);
 
         JobMain::dispatch(session('Data'), $request->all(), $Members);
-        return 'Done';
 
-        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-        $Templates = Template::where('user_id', '=', session('Data.id'))->get();
-
-        return view('sms.bulksms', ['Groups' => $Groups, 'Templates' => $Templates])->with('AlertType', 'success')->with('AlertMsg', "Messages will be send shortly");
+        return redirect()->route('r.bulksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }
