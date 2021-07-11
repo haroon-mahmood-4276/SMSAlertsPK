@@ -53,22 +53,10 @@
                         </ul>
                     </div>
                 </li>
-                <li>
-                    <a href="javascript:void(0);" class="collapsible-header has-arrow"><i
-                            class="material-icons">file_upload</i><span class="hide-menu">Imports</span></a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <ul>
-                                <li><a href="javascript:void(0);"><i class="material-icons">message</i><span
-                                            class="hide-menu">Quick SMS</span></a></li>
-                                <li><a href="javascript:void(0);"><i
-                                            class="material-icons">message</i><span class="hide-menu">Multiple
-                                            SMS</span></a></li>
-                                <li><a href="javascript:void(0);"><i class="material-icons">history</i><span
-                                            class="hide-menu">SMS History</span></a></li>
-                            </ul>
-                        </ul>
-                    </div>
+                 <li>
+                    <a href="{{ route('r.imports') }}"
+                        class="collapsible-header {{ Request::is(route('r.imports')) ? 'active' : null }}"><i class="material-icons">file_upload</i>
+                        <span class="hide-menu"> Imports</span></a>
                 </li>
             </ul>
         </li>

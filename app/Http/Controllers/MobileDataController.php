@@ -100,7 +100,8 @@ class MobileDataController extends Controller
      */
     public function show($id)
     {
-        return session('Data');
+        // return session('Data');
+        return "asdasdasd";
     }
 
     /**
@@ -190,11 +191,9 @@ class MobileDataController extends Controller
         // return $groupid." - ".$sectionid;
         if ($groupid == 0) {
             $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'))->where('is_active', '=', 'Y');
-        }
-        else if ($sectionid == 0) {
+        } else if ($sectionid == 0) {
             $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $groupid)->where('is_active', '=', 'Y');
-        }
-        else{
+        } else {
             $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $groupid)->where('section_id', '=', $sectionid)->where('is_active', '=', 'Y');
         }
         $MobileDatas = $MobileDatas->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'mobiledatas.group_id')]);
