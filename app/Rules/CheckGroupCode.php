@@ -49,6 +49,6 @@ class CheckGroupCode implements Rule
      */
     public function message()
     {
-        return 'This :attribute is taken.';
+        return 'This :attribute is already taken.';
     }
 }

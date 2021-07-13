@@ -6,6 +6,7 @@ use App\Exports\SectionsExport;
 use App\Exports\StudentsExport;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\MobileDataController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
@@ -118,28 +119,13 @@ Route::prefix('export/csv')->group(function () {
 // Data Import
 Route::prefix('import')->group(function () {
 
-    Route::post('groups', function (Request $request) {
-        Excel::import(new GroupsImport, $request->file('groupsfile'));
-        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
-    })->name('r.importgroups');
+    Route::post('groups', [ImportController::class, 'ImportGroups'])->name('r.importgroups');
 
-    Route::post('classes', function (Request $request) {
-        Excel::import(new GroupsImport, $request->file('groupsfile'));
-        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
-    })->name('r.importclasses');
+    Route::post('classes', [ImportController::class, 'ImportGroups'])->name('r.importclasses');
 
-    Route::post('sections', function (Request $request) {
-        Excel::import(new GroupsImport, $request->file('sectionsfile'));
-        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
-    })->name('r.importsections');
+    Route::post('sections', [ImportController::class, 'ImportSections'])->name('r.importsections');
 
-    Route::post('students', function (Request $request) {
-        Excel::import(new GroupsImport, $request->file('membersfile'));
-        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
-    })->name('r.importstudents');
+    Route::post('students', [ImportController::class, 'ImportMembers'])->name('r.importstudents');
 
-    Route::post('members', function (Request $request) {
-        Excel::import(new GroupsImport, $request->file('membersfile'));
-        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
-    })->name('r.importmembers');
+    Route::post('members', [ImportController::class, 'ImportMembers'])->name('r.importmembers');
 });

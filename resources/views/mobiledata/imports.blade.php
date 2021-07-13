@@ -37,6 +37,38 @@
                 </div>
                 @endif
 
+                @if (isset($errors) && $errors->any())
+                <div class="row">
+                    <div class="col l12 m12 s12 m-5">
+                        <div class="danger-alert-bar p-15 m-b-20 white-text">
+                            @foreach ($errors->all() as $error)
+                            {{ $error }}
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                @if (session()->has('fgit es'))
+                <div class="row">
+                    <div class="col l12 m12 s12 m-5">
+                        <div class="danger-alert-bar p-15 m-b-20 white-text">
+                            <ul>
+                                @foreach (session()->get('failures') as $validation)
+                                <li>
+                                    File row: {{$validation->row()}} - Code: {{$validation->values()[$validation->attribute()]}} -
+                                    @foreach ($validation->errors() as $error)
+                                    Error: {{ $error }}
+                                    @endforeach
+                                </li>
+                                @endforeach
+                            </ul>
+                            <p>All the other data is imported successfully.</p>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
                 <div class="card">
                     <div class="card-content">
                         <div class="row">
