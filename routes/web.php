@@ -1,12 +1,18 @@
 <?php
 
+use App\Exports\GroupsExport;
+use App\Exports\MembersExport;
+use App\Exports\SectionsExport;
+use App\Exports\StudentsExport;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\MobileDataController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +48,6 @@ Route::resources([
 Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');
 Route::get('data/{groupid}/{sectionid}/list', [MobileDataController::class, 'STDList'])->name('r.studentlist');
 
-
 Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
 
 Route::get('sms/quick', function () {
@@ -50,7 +55,6 @@ Route::get('sms/quick', function () {
 })->name('r.quicksmsshow');
 
 Route::get('sms/multiple', function () {
-    // return dd(session('Data'));
     return view('sms.multiplesms');
 })->name('r.multiplesmsshow');
 
@@ -62,6 +66,74 @@ Route::post('sms/bulk', [SmsController::class, 'BulkSMS'])->name('r.bulksms');
 Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 
 Route::get('imports', function () {
-    // return dd(session('Data'));
     return view('mobiledata.imports');
 })->name('r.imports');
+
+// Data Exports
+Route::prefix('export/xls')->group(function () {
+    Route::get('groups', function () {
+        return Excel::download(new GroupsExport, 'groups.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.xlsgroups');
+
+    Route::get('classes', function () {
+        return Excel::download(new GroupsExport, 'classes.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.xlsclasses');
+
+    Route::get('sections', function () {
+        return Excel::download(new SectionsExport, 'sections.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.xlssections');
+
+    Route::get('students', function () {
+        return Excel::download(new StudentsExport, 'students.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.xlsstudents');
+
+    Route::get('members', function () {
+        return Excel::downloadmembers(new MembersExport, 'members.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.xlsmembers');
+});
+
+Route::prefix('export/csv')->group(function () {
+    Route::get('groups', function () {
+        return Excel::download(new GroupsExport, 'groups.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+    })->name('r.csvgroups');
+
+    Route::get('classes', function () {
+        return Excel::download(new GroupsExport, 'classes.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+    })->name('r.csvclasses');
+
+    Route::get('sections', function () {
+        return Excel::download(new SectionsExport, 'sections.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+    })->name('r.csvsections');
+
+    Route::get('students', function () {
+        return Excel::download(new StudentsExport, 'students.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+    })->name('r.csvstudents');
+
+    Route::get('members', function () {
+        return Excel::download(new MembersExport, 'members.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+    })->name('r.csvmembers');
+});
+
+// Data Import
+Route::prefix('import')->group(function () {
+    Route::get('groups', function (Request $request) {
+        return $request->input();
+        return Excel::download(new GroupsExport, 'groups.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.importgroups');
+
+    Route::get('classes', function () {
+        return Excel::download(new GroupsExport, 'classes.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.importclasses');
+
+    Route::get('sections', function () {
+        return Excel::download(new SectionsExport, 'sections.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.importsections');
+
+    Route::get('students', function () {
+        return Excel::download(new StudentsExport, 'students.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.importstudents');
+
+    Route::get('members', function () {
+        return Excel::downloadmembers(new MembersExport, 'members.xls', \Maatwebsite\Excel\Excel::XLS);
+    })->name('r.importmembers');
+});
