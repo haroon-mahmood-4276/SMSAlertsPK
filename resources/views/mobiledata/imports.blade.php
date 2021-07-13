@@ -37,19 +37,7 @@
                 </div>
                 @endif
 
-                @if (isset($errors) && $errors->any())
-                <div class="row">
-                    <div class="col l12 m12 s12 m-5">
-                        <div class="danger-alert-bar p-15 m-b-20 white-text">
-                            @foreach ($errors->all() as $error)
-                            {{ $error }}
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                @endif
-
-                @if (session()->has('fgit es'))
+                @if (session()->has('failures'))
                 <div class="row">
                     <div class="col l12 m12 s12 m-5">
                         <div class="danger-alert-bar p-15 m-b-20 white-text">

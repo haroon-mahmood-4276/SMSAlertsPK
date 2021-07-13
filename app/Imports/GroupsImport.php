@@ -11,10 +11,11 @@ use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class GroupsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
+class GroupsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure, WithBatchInserts
 {
     use Importable, SkipsErrors, SkipsFailures;
 
@@ -32,5 +33,10 @@ class GroupsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnEr
         return [
             'code' => ['numeric', new CheckGroupCode()],
         ];
+    }
+
+    public function batchSize(): int
+    {
+        return 500;
     }
 }
