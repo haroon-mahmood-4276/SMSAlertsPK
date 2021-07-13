@@ -10,8 +10,9 @@ class Group extends Model
 {
     use HasFactory, Notifiable;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = [
+        'user_id',
+        'code',
+        'name',
+    ];
 }

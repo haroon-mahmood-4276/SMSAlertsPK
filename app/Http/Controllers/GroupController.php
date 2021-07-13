@@ -111,9 +111,9 @@ class GroupController extends Controller
         $Groups = Group::find($id);
 
         if ($Groups->delete()) {
-            return redirect()->route('groups.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleteed.');
+            return redirect()->route('groups.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
         } else {
-            return redirect()->route('groups.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleteed.');
+            return redirect()->route('groups.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
         }
     }
 }

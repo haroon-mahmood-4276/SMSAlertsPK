@@ -10,6 +10,7 @@ use App\Http\Controllers\MobileDataController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
+use App\Imports\GroupsImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -116,24 +117,29 @@ Route::prefix('export/csv')->group(function () {
 
 // Data Import
 Route::prefix('import')->group(function () {
-    Route::get('groups', function (Request $request) {
-        return $request->input();
-        return Excel::download(new GroupsExport, 'groups.xls', \Maatwebsite\Excel\Excel::XLS);
+
+    Route::post('groups', function (Request $request) {
+        Excel::import(new GroupsImport, $request->file('groupsfile'));
+        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
     })->name('r.importgroups');
 
-    Route::get('classes', function () {
-        return Excel::download(new GroupsExport, 'classes.xls', \Maatwebsite\Excel\Excel::XLS);
+    Route::post('classes', function (Request $request) {
+        Excel::import(new GroupsImport, $request->file('groupsfile'));
+        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
     })->name('r.importclasses');
 
-    Route::get('sections', function () {
-        return Excel::download(new SectionsExport, 'sections.xls', \Maatwebsite\Excel\Excel::XLS);
+    Route::post('sections', function (Request $request) {
+        Excel::import(new GroupsImport, $request->file('sectionsfile'));
+        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
     })->name('r.importsections');
 
-    Route::get('students', function () {
-        return Excel::download(new StudentsExport, 'students.xls', \Maatwebsite\Excel\Excel::XLS);
+    Route::post('students', function (Request $request) {
+        Excel::import(new GroupsImport, $request->file('membersfile'));
+        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
     })->name('r.importstudents');
 
-    Route::get('members', function () {
-        return Excel::downloadmembers(new MembersExport, 'members.xls', \Maatwebsite\Excel\Excel::XLS);
+    Route::post('members', function (Request $request) {
+        Excel::import(new GroupsImport, $request->file('membersfile'));
+        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
     })->name('r.importmembers');
 });

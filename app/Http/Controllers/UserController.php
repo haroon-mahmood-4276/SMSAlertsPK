@@ -202,7 +202,7 @@ class UserController extends Controller
         $GroupCount = 0;
         $SectionCount = 0;
         $MobileDatasCount = 0;
-// return dd(session('Data'));
+        // return dd(session('Data'));
         if (session()->has('Data')) {
             $User = User::find(session()->get('Data.id'));
             session()->put(['Data' => $User]);

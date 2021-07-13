@@ -41,7 +41,7 @@
                     <div class="card-content">
                         <div class="row">
                             <div class="col s12 l12">
-                                <form class="m-t-30" action="{{ route('data.store') }}" method="POST">
+                                <form class="m-t-30" action="{{(session('Data.company_nature') == 'B') ? route('r.importgroups') : route('r.importclasses')}}" enctype="multipart/form-data" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col s12">
@@ -49,7 +49,7 @@
                                             <div class="file-field input-field col s11">
                                                 <div class="btn">
                                                     <span>File</span>
-                                                    <input type="file">
+                                                    <input type="file" name="groupsfile">
                                                 </div>
                                                 <div class="file-path-wrapper">
                                                     <input class="file-path validate" type="text" placeholder="Please upload only .csv or .xls document">
@@ -72,7 +72,7 @@
                     <div class="card-content">
                         <div class="row">
                             <div class="col s12 l12">
-                                <form class="m-t-30" action="{{ route('data.store') }}" method="POST">
+                                <form class="m-t-30" action="{{ route('data.store') }}" enctype="multipart/form-data" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col s12">
@@ -80,7 +80,7 @@
                                             <div class="file-field input-field col s11">
                                                 <div class="btn">
                                                     <span>File</span>
-                                                    <input type="file">
+                                                    <input type="file" name="sectionsfile">
                                                 </div>
                                                 <div class="file-path-wrapper">
                                                     <input class="file-path validate" type="text" placeholder="Please upload only .csv or .xls document">
@@ -104,7 +104,7 @@
                     <div class="card-content">
                         <div class="row">
                             <div class="col s12 l12">
-                                <form class="m-t-30" action="{{ route('data.store') }}" method="POST">
+                                <form class="m-t-30" action="{{ route('data.store') }}" enctype="multipart/form-data" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col s12">
@@ -112,7 +112,7 @@
                                             <div class="file-field input-field col s11">
                                                 <div class="btn">
                                                     <span>File</span>
-                                                    <input type="file">
+                                                    <input type="file" name="membersfile">
                                                 </div>
                                                 <div class="file-path-wrapper">
                                                     <input class="file-path validate" type="text" placeholder="Please upload only .csv or .xls document">
