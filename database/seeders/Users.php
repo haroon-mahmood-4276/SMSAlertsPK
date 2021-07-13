@@ -50,6 +50,23 @@ class Users extends Seeder
                 'remaining_of_sms' => 150,
                 'no_of_sms' => 150,
             ],
+            [
+                'code' => '00000',
+                'first_name' => 'Admin',
+                'last_name' => 'Admin',
+                'email' => 'admin@abc.com',
+                'password' => Hash::make('123456789'),
+                'company_username' => '',
+                'company_password' => '',
+                'company_name' => '',
+                'company_mask_id' => '',
+                'company_nature' => 'A',
+                'company_email' => 'admin@abc.com',
+                'mobile_1' => '',
+                'mobile_2' =>  '',
+                'remaining_of_sms' => 0,
+                'no_of_sms' => 0,
+            ],
         ]);
     }
 }

@@ -26,7 +26,7 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect()->route('r.login');
     return view('welcome');
 });
 

@@ -34,13 +34,13 @@
                         <span class="bars bar3"></span>
                     </a>
                 </li>
-                <li class="search-box">
+                <!-- <li class="search-box">
                     <a href="javascript: void(0);"><i class="material-icons">search</i></a>
                     <form class="app-search">
                         <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i
                                 class="ti-close"></i></a>
                     </form>
-                </li>
+                </li> -->
             </ul>
 
             <ul class="right">
