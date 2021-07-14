@@ -9,4 +9,11 @@ use Illuminate\Notifications\Notifiable;
 class Section extends Model
 {
     use HasFactory, Notifiable;
+
+    protected $fillable = [
+        'user_id',
+        'group_id',
+        'code',
+        'name',
+    ];
 }

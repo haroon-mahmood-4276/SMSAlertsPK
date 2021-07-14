@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Imports\GroupsImport;
+use App\Imports\SectionsImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends Controller
 {
@@ -21,8 +23,8 @@ class ImportController extends Controller
 
     public function ImportSections(Request $request)
     {
-
-        $import = new GroupsImport;
+        // return $request->input();
+        $import = new SectionsImport;
         $import->import($request->file('sectionsfile'));
 
         if ($import->failures()->isNotEmpty()) {

@@ -92,7 +92,7 @@
                     <div class="card-content">
                         <div class="row">
                             <div class="col s12 l12">
-                                <form class="m-t-30" action="{{ route('data.store') }}" enctype="multipart/form-data" method="POST">
+                                <form class="m-t-30" action="{{ route('r.importsections') }}" enctype="multipart/form-data" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col s12">
