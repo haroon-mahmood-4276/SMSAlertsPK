@@ -20,13 +20,13 @@ class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation
 {
     use Importable, SkipsErrors, SkipsFailures;
 
-    private $group_id = [], $Arrindex = 2;
+    private $group_id = [], $Arrindex = 2, $SaveIndex = 2;
 
     public function model(array $row)
     {
        return new Section([
             'user_id' => session('Data.id'),
-            'group_id' => Group::where('code', '=', Str::padLeft($row['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id,
+            'group_id' => $this->group_id[$this->SaveIndex++],
             'code' => $row['code'],
             'name' => $row['name'],
         ]);

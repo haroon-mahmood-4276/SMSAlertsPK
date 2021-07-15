@@ -33,7 +33,7 @@ class StudentsExport implements FromArray, WithHeadings
     public function headings(): array
     {
         return [
-            'group_id',
+            'class_id',
             'section_id',
             'code',
             'student_first_name',
