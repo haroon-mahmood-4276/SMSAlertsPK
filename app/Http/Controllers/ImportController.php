@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MembersExport;
 use App\Imports\GroupsImport;
+use App\Imports\MembersImport;
 use App\Imports\SectionsImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,7 +25,6 @@ class ImportController extends Controller
 
     public function ImportSections(Request $request)
     {
-        // return $request->input();
         $import = new SectionsImport;
         $import->import($request->file('sectionsfile'));
 
@@ -37,7 +38,7 @@ class ImportController extends Controller
     public function ImportMembers(Request $request)
     {
 
-        $import = new GroupsImport;
+        $import = new MembersImport;
         $import->import($request->file('membersfile'));
 
         if ($import->failures()->isNotEmpty()) {

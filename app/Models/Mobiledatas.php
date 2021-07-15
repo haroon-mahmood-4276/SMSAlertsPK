@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Mobiledatas extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'group_id',
+        'section_id',
+        'code',
+        'student_first_name',
+        'student_last_name',
+        'student_mobile_1',
+        'student_mobile_2',
+        'DOB',
+        'CNIC',
+        'Gender',
+        'parent_first_name',
+        'parent_last_name',
+        'parent_mobile_1',
+        'parent_mobile_2',
+        'active',
+    ];
 }

@@ -15,12 +15,13 @@
 <div class="page-wrapper">
     <div class="page-titles">
         <div class="d-flex align-items-center">
-            <h3 class="font-medium m-b-0">Imports</h3>
+            <h3 class="font-medium m-b-0">Imports </h3>
             <div class="custom-breadcrumb ml-auto">
                 <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
                 <a href="javascript:void(0)" class="breadcrumb">Imports</a>
             </div>
         </div>
+        <p>Download the sample file first, feed tha data, and upload that file.</p>
     </div>
 
     <div class="container-fluid">
