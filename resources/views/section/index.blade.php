@@ -44,10 +44,10 @@
                             class="table table-bordered highlight responsive-table" data-page-size="10">
                             <thead>
                                 <tr>
-                                    <th data-sort-initial="true" data-toggle="true">No</th>
+                                    <th >No</th>
                                     <th>ID</th>
                                     <th>Section Name</th>
-                                    <th>Class Name</th>
+                                    <th data-sort-initial="true" data-toggle="true">Class Name</th>
                                     <th>Status</th>
                                     <th data-sort-ignore="true" class="min-width text-left">Actions</th>
                                 </tr>
