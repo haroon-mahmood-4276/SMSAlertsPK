@@ -17,26 +17,27 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel
+class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel
 {
     use Importable, SkipsErrors, SkipsFailures;
 
-    private $group_id = [], $section_id = [], $Arrindex = 2, $SaveIndex = 2;
+    private $group_id = [], $section_id = [], $group_code_index = 2, $section_code_index = 2, $group_code_save_index = 2, $section_code_save_index = 2;
 
     public function model(array $row)
     {
+        // dd($this->section_id);
         return new Mobiledatas([
             'user_id' => session('Data.id'),
-            'group_id' => $this->group_id[$this->SaveIndex++],
-            'section_id' => $this->section_id[$this->SaveIndex++],
+            'group_id' => $this->group_id[$this->group_code_save_index++],
+            'section_id' => $this->section_id[$this->section_code_save_index++],
             'code' => $row['code'],
             'student_first_name' => $row['student_first_name'],
             'student_last_name' => $row['student_last_name'],
             'student_mobile_1' => $row['student_mobile_1'],
             'student_mobile_2' => $row['student_mobile_2'],
-            'DOB' => $row['DOB'],
-            'CNIC' => $row['CNIC'],
-            'Gender' => $row['Gender'],
+            'dob' => $row['dob'],
+            'cnic' => $row['cnic'],
+            'gender' => $row['gender'],
             'parent_first_name' => $row['parent_first_name'],
             'parent_last_name' => $row['parent_last_name'],
             'parent_mobile_1' => $row['parent_mobile_1'],
@@ -48,7 +49,7 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
     public function rules(): array
     {
         return [
-            'code' => ['numeric', new CheckMemberCode($this->group_id[$this->Arrindex++], $this->section_id[$this->Arrindex++])],
+            'code' => ['numeric', new CheckMemberCode($this->group_id[$this->group_code_index++], $this->section_id[$this->section_code_index++])],
         ];
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\MembersExport;
 use App\Imports\GroupsImport;
-use App\Imports\MembersImport;
+use App\Imports\StudentsImport;
 use App\Imports\SectionsImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -37,10 +37,15 @@ class ImportController extends Controller
 
     public function ImportMembers(Request $request)
     {
+        if (session('Data.company_nature') == 'B')
+            $import = new MembersExport;
+        else
+            $import = new StudentsImport;
 
-        $import = new MembersImport;
+
         $import->import($request->file('membersfile'));
 
+        // dd($import);
         if ($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());
         }

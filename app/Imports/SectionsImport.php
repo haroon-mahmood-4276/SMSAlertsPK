@@ -41,6 +41,7 @@ class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation
 
     public function prepareForValidation($data, $index)
     {
+        // dd(Group::where('code', '=', Str::padLeft($data['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id);
         $this->group_id[$index] = Group::where('code', '=', Str::padLeft($data['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
         $data['code'] = Str::padLeft($data['code'], 5, '0');
         return $data;

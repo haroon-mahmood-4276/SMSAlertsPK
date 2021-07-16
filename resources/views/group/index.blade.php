@@ -44,8 +44,8 @@
                             class="table table-bordered responsive-table table-hover toggle-circle" data-page-size="10">
                             <thead>
                                 <tr>
-                                    <th data-sort-initial="true" data-toggle="true">No</th>
-                                    <th>ID</th>
+                                    <th>No</th>
+                                    <th data-sort-initial="true" data-toggle="true">ID</th>
                                     <th>
                                         {{(Session::get('Data.company_nature') == 'B') ? 'Group' : 'Class'}} Name
                                     </th>

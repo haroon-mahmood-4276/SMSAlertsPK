@@ -64,7 +64,7 @@
                                         <th data-hide="all">Student Primary Number</th>
                                         <th data-hide="phone">Parent Name</th>
                                         <th data-hide="phone">Parent Primary Number</th>
-                                        <th data-hide="phone">
+                                        <th data-sort-initial="true" data-toggle="true"  data-hide="phone">
                                             {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}
                                             @if (session('Data.company_nature') == 'S')
                                                 - Section
@@ -116,7 +116,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if ($MobileData->is_active == 'Y')
+                                                @if ($MobileData->active == 'Y')
                                                 <span class="label label-table label-success">Active</span>
                                                 @else
                                                 <span class="label label-table label-danger">Not Active</span>
@@ -124,9 +124,9 @@
                                             </td>
                                             <td>{{ $MobileData->student_mobile_2 }}</td>
                                             <td>{{ $MobileData->parent_mobile_2 }}</td>
-                                            <td>{{ $MobileData->DOB }}</td>
-                                            <td>{{ $MobileData->CNIC }}</td>
-                                            <td>{{ $MobileData->Gender }}</td>
+                                            <td>{{ $MobileData->dob }}</td>
+                                            <td>{{ $MobileData->cnic }}</td>
+                                            <td>{{ $MobileData->gender }}</td>
                                             <td>
                                                 <a href="{{ route('data.edit', ['data' => $MobileData->id]) }}"
                                                     type="button"

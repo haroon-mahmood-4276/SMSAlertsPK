@@ -242,8 +242,6 @@
                 success: function(response) {
 
                     for (let index = 0; index < response.length; index++) {
-                        // for (let i = 0; i < 25; i++) {
-
 
                             if ("{{ @session('Data.company_nature') }}" == "S") {
                                 SectionName = " - " + response[index].section_name;
@@ -261,7 +259,7 @@
                             Data += "<td>" + response[index].parent_mobile_2 + "</td>\n";
                             Data += "<td>" + response[index].student_mobile_1 + "</td>\n";
                             Data += "<td>" + response[index].student_mobile_2 + "</td>\n";
-                            if (response[index].is_active == "Y") {
+                            if (response[index].active == "Y") {
                                 Data +=
                                     "<td><span class='label label-table label-success'>Active</span></td>\n";
                             } else {
