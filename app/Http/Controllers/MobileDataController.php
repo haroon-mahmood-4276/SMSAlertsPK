@@ -54,41 +54,73 @@ class MobileDataController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-        $request->validate([
-            'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section)],
-            'student_first_name' => 'bail|required|alpha|between:1,50',
-            'student_last_name' => 'bail|required|alpha|between:1,50',
-            'student_mobile_1' => 'bail|required|numeric|digits:12',
-            'student_mobile_2' => 'bail|numeric|digits:12',
-            'dob' => 'bail|required',
-            'cnic' => 'bail|required',
-            'gender' => 'required',
-            'parent_first_name' => 'bail|required|alpha|between:1,50',
-            'parent_last_name' => 'bail|required|alpha|between:1,50',
-            'parent_mobile_1' => 'required|digits:12',
-            'parent_mobile_2' => 'nullable|digits:12',
-            'group' => 'required',
-            'section' => 'required',
-        ]);
+        if (session('Data.company_nature') == 'S') {
+            $request->validate([
+                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section)],
+                'student_first_name' => 'bail|required|alpha|between:1,50',
+                'student_last_name' => 'bail|required|alpha|between:1,50',
+                'student_mobile_1' => 'bail|required|numeric|digits:12',
+                'student_mobile_2' => 'bail|numeric|digits:12',
+                'dob' => 'bail|required',
+                'cnic' => 'bail|required',
+                'gender' => 'required',
+                'parent_first_name' => 'bail|required|alpha|between:1,50',
+                'parent_last_name' => 'bail|required|alpha|between:1,50',
+                'parent_mobile_1' => 'required|digits:12',
+                'parent_mobile_2' => 'nullable|digits:12',
+                'group' => 'required',
+                'section' => 'required',
+                'active' => 'required',
+            ]);
+            // dd($request->input());
+        } else {
+            $request->validate([
+                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section)],
+                'student_first_name' => 'bail|required|alpha|between:1,50',
+                'student_last_name' => 'bail|required|alpha|between:1,50',
+                'dob' => 'bail|required',
+                'cnic' => 'bail|required',
+                'gender' => 'required',
+                'student_mobile_1' => 'required|digits:12',
+                'student_mobile_2' => 'nullable|digits:12',
+                'group' => 'required',
+                'active' => 'required',
+            ]);
+            // dd($request->input());
+            $request->parent_mobile_1 = "";
+            $request->parent_mobile_2 = "";
+            $request->parent_first_name = "";
+            $request->parent_last_name = "";
+            // $request->section =  "";
+        }
 
-        //dd($request->input());
+
+        // dd($request->input());
         $MobileDatas = new MobileDatas;
         $MobileDatas->code = $request->code;
         $MobileDatas->student_first_name = $request->student_first_name;
         $MobileDatas->student_last_name = $request->student_last_name;
-        $MobileDatas->student_mobile_1 = $request->student_mobile_1;
-        $MobileDatas->student_mobile_2 = $request->student_mobile_2;
         $MobileDatas->dob = $request->dob;
         $MobileDatas->cnic = $request->cnic;
         $MobileDatas->gender = $request->gender;
         $MobileDatas->parent_first_name = $request->parent_first_name;
+        if (session('Data.company_nature') == 'B') {
+            $MobileDatas->student_mobile_1 = $request->parent_mobile_1;
+            $MobileDatas->student_mobile_2 = $request->parent_mobile_2;
+            $MobileDatas->parent_mobile_1 = $request->student_mobile_1;
+            $MobileDatas->parent_mobile_2 = $request->student_mobile_2;
+        } else {
+            $MobileDatas->student_mobile_1 = $request->student_mobile_1;
+            $MobileDatas->student_mobile_2 = $request->student_mobile_2;
+            $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
+            $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
+        }
         $MobileDatas->parent_last_name = $request->parent_last_name;
-        $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
-        $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
+
         $MobileDatas->user_id = session('Data.id');
         $MobileDatas->group_id = $request->group;
         $MobileDatas->section_id = $request->section;
+        $MobileDatas->active = $request->active;
 
         if ($MobileDatas->save()) {
             return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
