@@ -3,8 +3,6 @@
 @section('PageTitle', 'Dashboard')
 
 @section('BeforeCommonCss')
-<link href="{{ asset('assets/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
 @endsection
 
@@ -193,12 +191,9 @@
 </script>
 <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
 <script src="{{ asset('dist/js/custom.min.js') }}"></script>
-<script src="{{ asset('assets/libs/chartist/dist/chartist.min.js') }}"></script>
-<script src="{{ asset('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
 <!--c3 JavaScript -->
 <script src="{{ asset('assets/extra-libs/c3/d3.min.js') }}"></script>
 <script src="{{ asset('assets/extra-libs/c3/c3.min.js') }}"></script>
-<script src="{{ asset('assets/libs/chart.js/dist/Chart.min.js') }}"></script>
 <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
 <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
 @endsection

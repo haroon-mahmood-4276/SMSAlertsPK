@@ -44,7 +44,7 @@
                             class="table table-bordered highlight responsive-table" data-page-size="10">
                             <thead>
                                 <tr>
-                                    <th >No</th>
+                                    <th>Sr No</th>
                                     <th>ID</th>
                                     <th>Section Name</th>
                                     <th data-sort-initial="true" data-toggle="true">Class Name</th>

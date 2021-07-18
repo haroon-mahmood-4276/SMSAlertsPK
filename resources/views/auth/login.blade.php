@@ -7,8 +7,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Login - SMS Alerts PK</title>
 
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png')}}">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
         <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
         <link href="{{ asset('dist/css/pages/authentication.css') }}" rel="stylesheet">

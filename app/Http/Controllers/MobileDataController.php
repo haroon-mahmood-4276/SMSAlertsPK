@@ -15,10 +15,15 @@ class MobileDataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // return dd(session('Data'));
-        $MobileDatas = Mobiledatas::select('id', 'code',  'student_first_name', 'student_last_name', 'student_mobile_1', 'student_mobile_2', 'dob', 'cnic', 'gender', 'parent_first_name', 'parent_last_name', 'parent_mobile_1', 'parent_mobile_2', 'active')->where('user_id', '=', session('Data.id'));
+        $Groups = Group::where('user_id', '=', session('Data.id'))->orderBy('code')->get();
+        if ($request->group_id != "") {
+            $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $request->group_id);
+        } else {
+            $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'));
+        }
+
         $MobileDatas = $MobileDatas->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'mobiledatas.group_id')]);
         $MobileDatas = $MobileDatas->addSelect(['section_name' => Section::select('name')->whereColumn('id', '=', 'mobiledatas.section_id')])->orderBy('section_name')->get();
         // return $MobileDatas;
@@ -26,7 +31,7 @@ class MobileDataController extends Controller
         // $MobileDatas = Mobiledatas::join('groups', 'mobiledatas.group_id', '=', 'groups.id')->join('sections', 'mobiledatas.section_id', '=', 'sections.id')->select('mobiledatas.*', 'groups.name AS group_name', 'sections.name AS section_name')->where('user_id', '=', session('Data.id'))->get();
         //  return $MobileDatas;
 
-        return view('mobiledata.index', ['MobileDatas' => $MobileDatas]);
+        return view('mobiledata.index', ['MobileDatas' => $MobileDatas, 'Groups' => $Groups, 'Current_Code' => $request->group_id]);
     }
 
     /**
