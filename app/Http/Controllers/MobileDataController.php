@@ -91,7 +91,10 @@ class MobileDataController extends Controller
             $request->parent_mobile_2 = "";
             $request->parent_first_name = "";
             $request->parent_last_name = "";
-            // $request->section =  "";
+            $request->parent_mobile_1 = $request->student_mobile_1;
+            $request->parent_mobile_2 = $request->student_mobile_2;
+            $request->student_mobile_1 = "";
+            $request->parent_mobile_2 = "";
         }
 
 
@@ -104,19 +107,11 @@ class MobileDataController extends Controller
         $MobileDatas->cnic = $request->cnic;
         $MobileDatas->gender = $request->gender;
         $MobileDatas->parent_first_name = $request->parent_first_name;
-        if (session('Data.company_nature') == 'B') {
-            $MobileDatas->student_mobile_1 = $request->parent_mobile_1;
-            $MobileDatas->student_mobile_2 = $request->parent_mobile_2;
-            $MobileDatas->parent_mobile_1 = $request->student_mobile_1;
-            $MobileDatas->parent_mobile_2 = $request->student_mobile_2;
-        } else {
-            $MobileDatas->student_mobile_1 = $request->student_mobile_1;
-            $MobileDatas->student_mobile_2 = $request->student_mobile_2;
-            $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
-            $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
-        }
+        $MobileDatas->student_mobile_1 = $request->student_mobile_1;
+        $MobileDatas->student_mobile_2 = $request->student_mobile_2;
+        $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
+        $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
         $MobileDatas->parent_last_name = $request->parent_last_name;
-
         $MobileDatas->user_id = session('Data.id');
         $MobileDatas->group_id = $request->group;
         $MobileDatas->section_id = $request->section;
