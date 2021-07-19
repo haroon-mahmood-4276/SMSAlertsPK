@@ -3,7 +3,6 @@
 @section('PageTitle', 'Templates List')
 
 @section('BeforeCommonCss')
-
     <style>
         .truncate {
             width: 400px;
@@ -55,7 +54,7 @@
                                         <th data-sort-initial="true" data-toggle="true">Sr No</th>
                                         <th>Code</th>
                                         <th>Name</th>
-                                        <th>Template</th>
+                                        <th style="width: 50%;">Template</th>
                                         <th>Status</th>
                                         <th data-sort-ignore="true" class="min-width text-left">Actions</th>
                                     </tr>
@@ -88,7 +87,7 @@
                                             <td>{{ ++$Count }}</td>
                                             <td>{{ $Template->code }}</td>
                                             <td>{{ $Template->name }}</td>
-                                            <td class="truncate">{{ $Template->template }}</td>
+                                            <td>{{ $Template->template }}</td>
                                             <td><span class="label label-table label-success">Active</span> </td>
                                             <td>
                                                 <a href="{{ route('templates.edit', ['template' => $Template->id]) }}"
