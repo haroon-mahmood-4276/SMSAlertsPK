@@ -20,10 +20,6 @@ class MembersExport implements FromArray, WithHeadings
                 '06/07/1998',
                 '35123-1234567-8',
                 'M',
-                'first_name',
-                'last_name',
-                '923001234567',
-                '923001234567',
                 'Y',
             ]
         ];
@@ -41,10 +37,6 @@ class MembersExport implements FromArray, WithHeadings
             'dob',
             'cnic',
             'gender',
-            'parent_first_name',
-            'parent_last_name',
-            'parent_mobile_1',
-            'parent_mobile_2',
             'active',
         ];
     }

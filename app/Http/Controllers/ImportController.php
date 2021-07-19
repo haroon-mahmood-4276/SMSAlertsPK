@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\MembersExport;
+use App\Imports\MembersImport;
 use App\Imports\GroupsImport;
 use App\Imports\StudentsImport;
 use App\Imports\SectionsImport;
@@ -38,7 +38,7 @@ class ImportController extends Controller
     public function ImportMembers(Request $request)
     {
         if (session('Data.company_nature') == 'B')
-            $import = new MembersExport;
+            $import = new MembersImport;
         else
             $import = new StudentsImport;
 

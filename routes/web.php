@@ -88,7 +88,7 @@ Route::prefix('export/xls')->group(function () {
     })->name('r.xlsstudents');
 
     Route::get('members', function () {
-        return Excel::downloadmembers(new MembersExport, 'members.xls', \Maatwebsite\Excel\Excel::XLS);
+        return Excel::download(new MembersExport, 'members.xls', \Maatwebsite\Excel\Excel::XLS);
     })->name('r.xlsmembers');
 });
 

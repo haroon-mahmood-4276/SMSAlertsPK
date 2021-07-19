@@ -5,7 +5,6 @@ namespace App\Imports;
 
 use App\Models\Group;
 use App\Models\Mobiledatas;
-use App\Models\Section;
 use App\Rules\CheckMemberCode;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -22,7 +21,7 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
 {
     use Importable, SkipsErrors, SkipsFailures;
 
-    private $group_id = [], $section_id = [], $group_code_index = 2, $group_code_save_index = 2;
+    private $group_id = [], $group_code_index = 2, $group_code_save_index = 2;
 
     public function model(array $row)
     {
@@ -30,19 +29,19 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
         return new Mobiledatas([
             'user_id' => session('Data.id'),
             'group_id' => $this->group_id[$this->group_code_save_index++],
-            'section_id' => '',
+            'section_id' => null,
             'code' => $row['code'],
-            'student_first_name' => $row['student_first_name'],
-            'student_last_name' => $row['student_last_name'],
-            'student_mobile_1' => '',
-            'student_mobile_2' => '',
+            'student_first_name' => $row['member_first_name'],
+            'student_last_name' => $row['member_last_name'],
+            'student_mobile_1' => null,
+            'student_mobile_2' => null,
             'dob' => $row['dob'],
             'cnic' => $row['cnic'],
             'gender' => $row['gender'],
-            'parent_first_name' => '',
-            'parent_last_name' => '',
-            'parent_mobile_1' => $row['parent_mobile_1'],
-            'parent_mobile_2' => $row['parent_mobile_2'],
+            'parent_first_name' => null,
+            'parent_last_name' => null,
+            'parent_mobile_1' => $row['member_mobile_1'],
+            'parent_mobile_2' => $row['member_mobile_2'],
             'active' => $row['active'],
         ]);
     }
@@ -50,13 +49,13 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
     public function rules(): array
     {
         return [
-            'code' => ['numeric', new CheckMemberCode($this->group_id[$this->group_code_index++], $this->section_id[$this->section_code_index++])],
+            'code' => ['numeric', new CheckMemberCode($this->group_id[$this->group_code_index++], null)],
         ];
     }
 
     public function prepareForValidation($data, $index)
     {
-        $this->group_id[$index] = Group::where('code', '=', Str::padLeft($data['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
+        $this->group_id[$index] = Group::where('code', '=', Str::padLeft($data['group_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
         $data['code'] = Str::padLeft($data['code'], 5, '0');
         return $data;
     }
