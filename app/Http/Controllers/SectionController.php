@@ -16,10 +16,7 @@ class SectionController extends Controller
      */
     public function index()
     {
-        // return dd(session('Data'));
-
-        $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('sections.id', 'sections.code', 'sections.name', 'groups.name AS group_name')->groupBy('group_name', 'sections.code')->get();
-        //return $Sections;
+        $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('sections.id', 'sections.code', 'sections.name', 'groups.name AS group_name')->groupBy('group_name', 'sections.code')->where('sections.user_id', '=', session('Data.id'))->get();
         return view('section.index', ['Sections' => $Sections]);
     }
 

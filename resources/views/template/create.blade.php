@@ -30,8 +30,7 @@
                         <div class="row">
                             <div class="input-field col s12 m12 l12">
                                 <i class="material-icons prefix">text_format</i>
-                                <input id="name" name="name" type="text" class="@error('name') error @enderror"
-                                    value="{{old('name')}}">
+                                <input id="name" name="name" type="text" class="@error('name') error @enderror" value="{{old('name')}}">
                                 <label for="name">Name *</label>
                                 @error('name')
                                 <span style="color: red">{{$message}}</span>
@@ -42,31 +41,25 @@
                                 <p><strong>Tags</strong></p>
                                 <div class="row">
                                     <div class="col s1 m2 l2">
-                                        <a href="javascript:void(0)" id="first_name" onmouseup="textbox(this.id)"
-                                            class="chip">First Name</a>
+                                        <a href="javascript:void(0)" id="first_name" onmouseup="textbox(this.id)" class="chip">First Name</a>
                                     </div>
                                     <div class="col s1 m2 l2">
-                                        <a href="javascript:void(0)" id="last_name" onmouseup="textbox(this.id)"
-                                            class="chip">Last Name</a>
+                                        <a href="javascript:void(0)" id="last_name" onmouseup="textbox(this.id)" class="chip">Last Name</a>
                                     </div>
                                     <div class="col s1 m2 l2">
-                                        <a href="javascript:void(0)" id="3" onmouseup="textbox(this.id)"
-                                            class="chip">Jane
+                                        <a href="javascript:void(0)" id="3" onmouseup="textbox(this.id)" class="chip">Jane
                                             Doe</a>
                                     </div>
                                     <div class="col s1 m2 l2">
-                                        <a href="javascript:void(0)" id="4" onmouseup="textbox(this.id)"
-                                            class="chip">Jane
+                                        <a href="javascript:void(0)" id="4" onmouseup="textbox(this.id)" class="chip">Jane
                                             Doe</a>
                                     </div>
                                     <div class="col s1 m2 l2">
-                                        <a href="javascript:void(0)" id="5" onmouseup="textbox(this.id)"
-                                            class="chip">Jane
+                                        <a href="javascript:void(0)" id="5" onmouseup="textbox(this.id)" class="chip">Jane
                                             Doe</a>
                                     </div>
                                     <div class="col s1 m2 l2">
-                                        <a href="javascript:void(0)" id="6" onmouseup="textbox(this.id)"
-                                            class="chip">Jane
+                                        <a href="javascript:void(0)" id="6" onmouseup="textbox(this.id)" class="chip">Jane
                                             Doe</a>
                                     </div>
                                 </div>
@@ -74,9 +67,7 @@
 
                             <div class="input-field col s12 m12 l12">
                                 <i class="material-icons prefix">question_answer</i>
-                                <textarea id="template" name="template"
-                                    class="materialize-textarea validate @error('template') error @enderror"
-                                    value="{{old('template')}}"></textarea>
+                                <textarea id="template" name="template" class="materialize-textarea validate @error('template') error @enderror" value="{{old('template')}}"></textarea>
                                 <label for="template">Message *</label>
                                 @error('template')
                                 <span style="color: red">{{$message}}</span>
@@ -84,11 +75,9 @@
                             </div>
 
                             <div class="col s12 m12 l12">
-                                <button class="btn waves-effect waves-light right submit" type="submit"
-                                    name="action">Submit
+                                <button class="btn waves-effect waves-light right submit" type="submit" name="action">Submit
                                 </button>
-                                <a href="{{ route('sections.index') }}"
-                                    class="btn waves-effect red waves-light right m-r-10">Back to Template
+                                <a href="{{ route('templates.index') }}" class="btn waves-effect red waves-light right m-r-10">Back to Template
                                     List</a>
                             </div>
                         </div>
@@ -110,11 +99,10 @@
 <script src="{{asset('dist/js/custom.min.js')}}"></script>
 
 <script type="text/javascript">
-    function textbox(Element)
-    {
+    function textbox(Element) {
         var ctl = document.getElementById('template');
         var EndPosition = ctl.selectionEnd;
-        ctl.value = [ctl.value.slice(0, EndPosition), "[" + Element +"]", ctl.value.slice(EndPosition, ctl.value.length )].join('');
+        ctl.value = [ctl.value.slice(0, EndPosition), "[" + Element + "]", ctl.value.slice(EndPosition, ctl.value.length)].join('');
     }
 </script>
 @endsection

@@ -22,7 +22,7 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
 {
     use Importable, SkipsErrors, SkipsFailures;
 
-    private $group_id = [], $section_id = [], $group_code_index = 2, $section_code_index = 2, $group_code_save_index = 2, $section_code_save_index = 2;
+    private $group_id = [], $section_id = [], $group_code_index = 2, $group_code_save_index = 2;
 
     public function model(array $row)
     {
@@ -30,17 +30,17 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
         return new Mobiledatas([
             'user_id' => session('Data.id'),
             'group_id' => $this->group_id[$this->group_code_save_index++],
-            'section_id' => $this->section_id[$this->section_code_save_index++],
+            'section_id' => '',
             'code' => $row['code'],
             'student_first_name' => $row['student_first_name'],
             'student_last_name' => $row['student_last_name'],
-            'student_mobile_1' => $row['student_mobile_1'],
-            'student_mobile_2' => $row['student_mobile_2'],
+            'student_mobile_1' => '',
+            'student_mobile_2' => '',
             'dob' => $row['dob'],
             'cnic' => $row['cnic'],
             'gender' => $row['gender'],
-            'parent_first_name' => $row['parent_first_name'],
-            'parent_last_name' => $row['parent_last_name'],
+            'parent_first_name' => '',
+            'parent_last_name' => '',
             'parent_mobile_1' => $row['parent_mobile_1'],
             'parent_mobile_2' => $row['parent_mobile_2'],
             'active' => $row['active'],
@@ -57,7 +57,6 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
     public function prepareForValidation($data, $index)
     {
         $this->group_id[$index] = Group::where('code', '=', Str::padLeft($data['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
-        // $this->section_id[$index] = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id[$index])->where('code', '=', Str::padLeft($data['section_id'], 5, '0'))->first()->id;
         $data['code'] = Str::padLeft($data['code'], 5, '0');
         return $data;
     }
