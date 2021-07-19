@@ -4,6 +4,15 @@
 
 @section('BeforeCommonCss')
 
+    <style>
+        .truncate {
+            width: 400px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    </style>
 @endsection
 
 @section('AfterCommonCss')
@@ -43,7 +52,7 @@
                                 class="table table-bordered responsive-table table-hover toggle-circle" data-page-size="10">
                                 <thead>
                                     <tr>
-                                        <th data-sort-initial="true" data-toggle="true">No</th>
+                                        <th data-sort-initial="true" data-toggle="true">Sr No</th>
                                         <th>Code</th>
                                         <th>Name</th>
                                         <th>Template</th>
@@ -79,7 +88,7 @@
                                             <td>{{ ++$Count }}</td>
                                             <td>{{ $Template->code }}</td>
                                             <td>{{ $Template->name }}</td>
-                                            <td>{{ $Template->template }}</td>
+                                            <td class="truncate">{{ $Template->template }}</td>
                                             <td><span class="label label-table label-success">Active</span> </td>
                                             <td>
                                                 <a href="{{ route('templates.edit', ['template' => $Template->id]) }}"

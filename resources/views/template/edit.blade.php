@@ -30,7 +30,17 @@
                                 </div>
                             @endif
                             <div class="row">
-                                <div class="input-field col s12 m12 l12">
+
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="code" name="code" type="text" class="@error('code') error @enderror"
+                                        value="{{ $Template->code }}" maxlength="5">
+                                    <label for="code">Code *</label>
+                                    @error('code')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="input-field col s6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="name" name="name" type="text" class="@error('name') error @enderror"
                                         value="{{ $Template->name }}">
@@ -44,40 +54,51 @@
                                     <p><strong>Tags</strong></p>
                                     <div class="row">
                                         <div class="col s1 m2 l2">
-                                            <a href="javascript:void(0)" id="first_name" onmouseup="textbox(this.id)"
-                                                class="chip">First Name</a>
+                                            <a href="javascript:void(0)"
+                                                id="{{ session('Data.company_nature') == 'B' ? 'member_full_name' : 'student_full_name' }}"
+                                                onmouseup="textbox(this.id)"
+                                                class="chip">{{ session('Data.company_nature') == 'B' ? 'Member' : 'Student' }}
+                                                Full Name
+                                            </a>
                                         </div>
                                         <div class="col s1 m2 l2">
-                                            <a href="javascript:void(0)" id="last_name" onmouseup="textbox(this.id)"
-                                                class="chip">Last Name</a>
+                                            <a href="javascript:void(0)" id="account_name" onmouseup="textbox(this.id)"
+                                                class="chip">Account Name</a>
                                         </div>
-                                        <div class="col s1 m2 l2">
-                                            <a href="javascript:void(0)" id="3" onmouseup="textbox(this.id)"
-                                                class="chip">Jane
-                                                Doe</a>
-                                        </div>
-                                        <div class="col s1 m2 l2">
-                                            <a href="javascript:void(0)" id="4" onmouseup="textbox(this.id)"
-                                                class="chip">Jane
-                                                Doe</a>
-                                        </div>
-                                        <div class="col s1 m2 l2">
-                                            <a href="javascript:void(0)" id="5" onmouseup="textbox(this.id)"
-                                                class="chip">Jane
-                                                Doe</a>
-                                        </div>
-                                        <div class="col s1 m2 l2">
-                                            <a href="javascript:void(0)" id="6" onmouseup="textbox(this.id)"
-                                                class="chip">Jane
-                                                Doe</a>
-                                        </div>
+                                        @if (session('Data.company_nature') == 'B')
+                                            <div class="col s1 m2 l2">
+                                                <a href="javascript:void(0)" id="brand_name" onmouseup="textbox(this.id)"
+                                                    class="chip">Brand Name</a>
+                                            </div>
+                                            <div class="col s1 m2 l2">
+                                                <a href="javascript:void(0)" id="brand_mask" onmouseup="textbox(this.id)"
+                                                    class="chip">Brand Mask</a>
+                                            </div>
+                                        @else
+                                            <div class="col s1 m2 l2">
+                                                <a href="javascript:void(0)" id="class_name" onmouseup="textbox(this.id)"
+                                                    class="chip">Class Name</a>
+                                            </div>
+                                            <div class="col s1 m2 l2">
+                                                <a href="javascript:void(0)" id="section_name" onmouseup="textbox(this.id)"
+                                                    class="chip">Section Name</a>
+                                            </div>
+                                            <div class="col s1 m2 l2">
+                                                <a href="javascript:void(0)" id="school_name" onmouseup="textbox(this.id)"
+                                                    class="chip">School Name</a>
+                                            </div>
+                                            <div class="col s1 m2 l2">
+                                                <a href="javascript:void(0)" id="school_mask" onmouseup="textbox(this.id)"
+                                                    class="chip">School Mask</a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
 
                                 <div class="input-field col s12 m12 l12">
                                     <i class="material-icons prefix">question_answer</i>
                                     <textarea id="template" name="template"
-                                        class="materialize-textarea validate @error('template') error @enderror">{{ $Template->Template }}</textarea>
+                                        class="materialize-textarea validate @error('template') error @enderror">{{ $Template->template }}</textarea>
                                     <label for="template">Message *</label>
                                     @error('template')
                                         <span style="color: red">{{ $message }}</span>
