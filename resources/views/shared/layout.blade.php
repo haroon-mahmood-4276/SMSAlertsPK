@@ -8,7 +8,7 @@
         <title>@yield('PageTitle') - SMS Alerts PK</title>
 
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png')}}">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        {{-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> --}}
 
         @yield('BeforeCommonCss')
         <link href="{{ asset('dist/css/style.css')}}" rel="stylesheet">

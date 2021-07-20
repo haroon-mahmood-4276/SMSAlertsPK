@@ -1,9 +1,8 @@
 @import url(icons/font-awesome/css/fontawesome-all.css);
-@import url(icons/simple-line-icons/css/simple-line-icons.css);
+/* @import url(icons/simple-line-icons/css/simple-line-icons.css);
 @import url(icons/weather-icons/css/weather-icons.min.css);
 @import url(icons/themify-icons/themify-icons.css);
-@import url(icons/flag-icon-css/flag-icon.min.css);
-@import url("https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800");
+@import url(icons/flag-icon-css/flag-icon.min.css); */
 
 .materialize-red {
     background-color: #e51c23 !important;
@@ -13883,8 +13882,8 @@ input[type=range]::-ms-thumb {
     animation-name: slideOutUp;
 }
 
-/*============================================================== 
- For all pages 
+/*==============================================================
+ For all pages
  ============================================================== */
 * {
     outline: none;
@@ -13949,7 +13948,7 @@ nav i.material-icons {
     line-height: 64px;
 }
 
-/*============================================================== 
+/*==============================================================
  Topbar
  ============================================================== */
 .topbar {
@@ -14227,7 +14226,7 @@ nav i.material-icons {
     width: 20px;
 }
 
-/*============================================================== 
+/*==============================================================
  sidebar
  ============================================================== */
 .left-sidebar {
@@ -14744,8 +14743,8 @@ nav i.material-icons {
     }
 }
 
-/*============================================================== 
- For all pages 
+/*==============================================================
+ For all pages
 ============================================================== */
 .container-fluid {
     width: 100%;
@@ -17010,7 +17009,7 @@ This is for the horizontal layout
     background-color: #288fee;
 }
 
-/*============================================================== 
+/*==============================================================
  Scafholding
  ============================================================== */
 .z-depth-1,
@@ -17234,7 +17233,7 @@ html body .display-8 {
 }
 
 /*******************
-Padding margin property 
+Padding margin property
 *******************/
 html body .m-t-5 {
     margin-top: 5px !important;
@@ -17558,7 +17557,7 @@ html body .p-l-0 {
 }
 
 /*******************
-Flex property 
+Flex property
 *******************/
 .d-flex {
     display: flex;
@@ -18370,7 +18369,7 @@ table class
 }
 
 /*******************
-success error 
+success error
 ******************/
 .success-alert-bar{
     border-radius: 5px;
@@ -18592,14 +18591,14 @@ c3 charts
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to', GradientType=1);
 }
 
-/*-- ============================================================== 
- Small Desktop & above all (1024px) 
+/*-- ==============================================================
+ Small Desktop & above all (1024px)
  ============================================================== */
-/*-- ============================================================== 
- Ipad & above all(768px) 
+/*-- ==============================================================
+ Ipad & above all(768px)
  ============================================================== */
-/*-- ============================================================== 
- Phone and below ipad(767px) 
+/*-- ==============================================================
+ Phone and below ipad(767px)
  ============================================================== */
 @media (max-width: 767px) {
     [data-sidebartype="mini-sidebar"] .topbar nav .nav-wrapper .flag-icon {
@@ -18627,7 +18626,7 @@ c3 charts
 
 .rtl {
     /*******************
-Padding margin property 
+Padding margin property
 *******************/
     /** * Zero */
     /* Vertical responsive layout */

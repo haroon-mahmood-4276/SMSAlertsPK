@@ -73,6 +73,10 @@
                                                 <a href="javascript:void(0)" id="brand_mask" onmouseup="textbox(this.id)"
                                                     class="chip">Brand Mask</a>
                                             </div>
+                                            <div class="col s1 m2 l2">
+                                                <a href="javascript:void(0)" id="brand_email" onmouseup="textbox(this.id)"
+                                                    class="chip">Brand Email</a>
+                                            </div>
                                         @else
                                             <div class="col s1 m2 l2">
                                                 <a href="javascript:void(0)" id="class_name" onmouseup="textbox(this.id)"
@@ -89,6 +93,10 @@
                                             <div class="col s1 m2 l2">
                                                 <a href="javascript:void(0)" id="school_mask" onmouseup="textbox(this.id)"
                                                     class="chip">School Mask</a>
+                                            </div>
+                                            <div class="col s1 m2 l2">
+                                                <a href="javascript:void(0)" id="school_email" onmouseup="textbox(this.id)"
+                                                    class="chip">School Email</a>
                                             </div>
                                         @endif
                                     </div>

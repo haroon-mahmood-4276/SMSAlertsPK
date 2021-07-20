@@ -55,20 +55,22 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
-                                    <select class="form-select" name="section" id="section">
-                                        <option value="0">All</option>
-                                        {{-- @foreach ($Sections as $Section)
+                                @if (session('Data.company_nature') == 'S')
+                                    <div class="input-field col s6">
+                                        <select class="form-select" name="section" id="section">
+                                            <option value="0">All</option>
+                                            {{-- @foreach ($Sections as $Section)
                                             <option value="{{ $Section->id }}">{{ $Section->name }}</option>
                                         @endforeach --}}
-                                    </select>
-                                    <label for="section" class="form-label">Section</label>
-                                    @error('section')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                        </select>
+                                        <label for="section" class="form-label">Section</label>
+                                        @error('section')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                @endif
 
-                                <div class="input-field col s12">
+                                <div class="input-field col {{ session('Data.company_nature') == 'B' ? 's6' : 's12' }}">
                                     <select class="form-select" name="template" id="template">
                                         <option value="">Select</option>
                                         @foreach ($Templates as $Template)
@@ -103,13 +105,19 @@
                                     <table id="demo-foo-addrow2" class="table m-b-0 toggle-arrow-tiny" data-page-size="10">
                                         <thead>
                                             <tr>
-                                                <th data-toggle="true">Roll No</th>
+                                                <th data-toggle="true">Code</th>
                                                 <th>Name</th>
-                                                <th>Parent Name</th>
-                                                <th>Parent Primary Number</th>
-                                                <th>Parent Secondary Number</th>
-                                                <th>Student Primary Number</th>
-                                                <th>Student Secondary Number</th>
+                                                @if (session('Data.company_nature') == 'S')
+                                                    <th>Parent Name</th>
+                                                @endif
+                                                <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
+                                                    Primary Number</th>
+                                                <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
+                                                    Secondary Number</th>
+                                                @if (session('Data.company_nature') == 'S')
+                                                    <th>Student Primary Number</th>
+                                                    <th>Student Secondary Number</th>
+                                                @endif
                                                 <th>Stauts</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -243,32 +251,38 @@
 
                     for (let index = 0; index < response.length; index++) {
 
-                            if ("{{ @session('Data.company_nature') }}" == "S") {
-                                SectionName = " - " + response[index].section_name;
-                            } else {
-                                SectionName = "";
-                            }
+                        if ("{{ @session('Data.company_nature') }}" == "S") {
+                            SectionName = " - " + response[index].section_name;
+                        } else {
+                            SectionName = "";
+                        }
 
-                            Data += "<tr>\n";
-                            Data += "<td>" + response[index].code + "</td>\n";
-                            Data += "<td>" + response[index].student_first_name + " " + response[index]
-                                .student_last_name + "</td>\n";
+                        Data += "<tr>\n";
+                        Data += "<td>" + response[index].code + "</td>\n";
+                        Data += "<td>" + response[index].student_first_name + " " + response[index]
+                            .student_last_name + "</td>\n";
+                        if ("{{ @session('Data.company_nature') }}" == "S") {
                             Data += "<td>" + response[index].parent_first_name + " " + response[index]
                                 .parent_last_name + "</td>\n";
-                            Data += "<td>" + response[index].parent_mobile_1 + "</td>\n";
-                            Data += "<td>" + response[index].parent_mobile_2 + "</td>\n";
+                        }
+
+                        Data += "<td>" + response[index].parent_mobile_1 + "</td>\n";
+                        Data += "<td>" + response[index].parent_mobile_2 + "</td>\n";
+                        if ("{{ @session('Data.company_nature') }}" == "S") {
                             Data += "<td>" + response[index].student_mobile_1 + "</td>\n";
                             Data += "<td>" + response[index].student_mobile_2 + "</td>\n";
-                            if (response[index].active == "Y") {
-                                Data +=
-                                    "<td><span class='label label-table label-success'>Active</span></td>\n";
-                            } else {
-                                Data +=
-                                    "<td><span class='label label-table label-danger'>Not Active</span></td>\n";
-                            }
-                            Data += "<td><p><label><input type='checkbox' name='" + response[index].id +
-                                "chk' class='chkbox' /><span>SMS</span></label></p></td>\n";
-                            Data += "</tr>";
+                        }
+
+                        if (response[index].active == "Y") {
+                            Data +=
+                                "<td><span class='label label-table label-success'>Active</span></td>\n";
+                        } else {
+                            Data +=
+                                "<td><span class='label label-table label-danger'>Not Active</span></td>\n";
+                        }
+                        Data += "<td><p><label><input type='checkbox' name='" + response[index].id +
+                            "chk' class='chkbox' /><span>SMS</span></label></p></td>\n";
+                        Data += "</tr>";
 
                         // }
                     }
@@ -287,6 +301,5 @@
         $(".sl-all").on('click', function() {
             $('.chkbox').prop('checked', this.checked);
         });
-
     </script>
 @endsection

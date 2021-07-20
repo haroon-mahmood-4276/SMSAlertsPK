@@ -27,15 +27,15 @@ class SmsController extends Controller
             'message' => 'bail|required',
         ]);
 
+        $response =  Http::get('http://sms.web.pk/sendsms.php', [
+            'username' => session('Data.company_username'),
+            'password' => session('Data.company_password'),
+            'sender' => session('Data.company_mask_id'),
+            'phone' => $request->phone_number,
+            'message' => $request->message,
+        ]);
 
-        // $response =  Http::get('http://sms.web.pk/sendsms.php', [
-        //     'username' => session('Data.company_username'),
-        //     'password' => session('Data.company_password'),
-        //     'sender' => session('Data.company_mask_id'),
-        //     'phone' => $request->phone_number,
-        //     'message' => $request->message,
-        // ]);
-        $response = "success";
+        // $response = "success";
         $SMS = new Sms();
         $SMS->user_id = session('Data.id');
         $SMS->sms = $request->message;
@@ -64,14 +64,14 @@ class SmsController extends Controller
         //return $PhoneArray;
 
         foreach ($PhoneArray as $PhoneNumber) {
-            // $response =  Http::get('http://sms.web.pk/sendsms.php', [
-            //     'username' => 'test',
-            //     'password' => '123456',
-            //     'sender' => 'ALERTS',
-            //     'phone' => $PhoneNumber,
-            //     'message' => $request->message,
-            // ]);
-            $response = "success";
+            $response =  Http::get('http://sms.web.pk/sendsms.php', [
+                'username' => 'test',
+                'password' => '123456',
+                'sender' => 'ALERTS',
+                'phone' => $PhoneNumber,
+                'message' => $request->message,
+            ]);
+            // $response = "success";
 
             $SMS = new Sms();
             $SMS->user_id = session('Data.id');
@@ -97,11 +97,8 @@ class SmsController extends Controller
 
     public function BulkSMS(Request $request)
     {
-        print_r($request->input());
         $Members = app('App\Http\Controllers\MobileDataController')->STDList($request->group, $request->section);
-
         JobMain::dispatch(session('Data'), $request->all(), $Members);
-
         return redirect()->route('r.bulksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }

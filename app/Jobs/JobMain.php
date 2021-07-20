@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\DB;
 
 class JobMain implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable;
 
 
-    protected $RequestInput, $Members, $SessionData;
+    public $RequestInput, $Members, $SessionData;
     /**
      * Create a new job instance.
      *
@@ -37,19 +37,33 @@ class JobMain implements ShouldQueue
      */
     public function handle()
     {
+        // dd($this->Members);
         $Message = $this->RequestInput['message'];
         foreach ($this->Members as $Member) {
             if (Arr::exists($this->RequestInput, $Member->id . 'chk')) {
-
-                $ReplacedMessage = Str::replaceArray('[first_name]', [$Member->student_first_name], $Message);
-                $ReplacedMessage = Str::replaceArray('[last_name]', [$Member->student_last_name], $ReplacedMessage);
+                $ReplacedMessage = "";
+                if ($this->SessionData['company_nature'] == 'B') {
+                    $ReplacedMessage = Str::replaceArray('[member_full_name]', [$Member->student_first_name . " " . $Member->student_last_name], $Message);
+                    $ReplacedMessage = Str::replaceArray('[account_name]', [$this->SessionData['first_name'] . " " . $this->SessionData['last_name']], $ReplacedMessage);
+                    $ReplacedMessage = Str::replaceArray('[brand_name]', [$this->SessionData['company_name']], $ReplacedMessage);
+                    $ReplacedMessage = Str::replaceArray('[brand_mask]', [$this->SessionData['company_mask_id']], $ReplacedMessage);
+                    $ReplacedMessage = Str::replaceArray('[brand_email]', [$this->SessionData['company_email']], $ReplacedMessage);
+                } else {
+                    $ReplacedMessage = Str::replaceArray('[student_full_name]', [$Member->student_first_name . " " . $Member->student_last_name], $Message);
+                    $ReplacedMessage = Str::replaceArray('[account_name]', [$this->SessionData['first_name'] . " " . $this->SessionData['last_name']], $ReplacedMessage);
+                    $ReplacedMessage = Str::replaceArray('[class_name]', [$Member['group_name']], $ReplacedMessage);
+                    $ReplacedMessage = Str::replaceArray('[section_name]', [$Member['section_name']], $ReplacedMessage);
+                    $ReplacedMessage = Str::replaceArray('[school_name]', [$this->SessionData['company_name']], $ReplacedMessage);
+                    $ReplacedMessage = Str::replaceArray('[school_mask]', [$this->SessionData['company_mask_id']], $ReplacedMessage);
+                    $ReplacedMessage = Str::replaceArray('[school_email]', [$this->SessionData['company_email']], $ReplacedMessage);
+                }
 
                 DB::table('test')->insert(
                     [
-                        ['name' =>  $ReplacedMessage],
+                        ['message' =>  $ReplacedMessage],
                     ]
                 );
-                JobSendSms::dispatch($this->SessionData['id'], $this->SessionData['company_username'], $this->SessionData['company_password'], $this->SessionData['company_mask_id'], $Member->parent_mobile_1, $ReplacedMessage );
+                // JobSendSms::dispatch($this->SessionData['id'], $this->SessionData['company_username'], $this->SessionData['company_password'], $this->SessionData['company_mask_id'], $Member->parent_mobile_1, $ReplacedMessage);
             }
         }
     }
