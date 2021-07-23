@@ -16,7 +16,6 @@ class CreateSmsTable extends Migration
     {
         Schema::create('sms', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('data_id')->nullable();
             $table->id();
             $table->string('sms');
             $table->string('response');
@@ -24,7 +23,6 @@ class CreateSmsTable extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('data_id')->references('id')->on('mobiledatas');
         });
     }
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\MobileDataController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -126,4 +127,9 @@ Route::prefix('import')->group(function () {
     Route::post('students', [ImportController::class, 'ImportMembers'])->name('r.importstudents');
 
     Route::post('members', [ImportController::class, 'ImportMembers'])->name('r.importmembers');
+});
+
+Route::get('test', function () {
+    $User = User::find(1);
+    dd($User->expiry_date . " - " . Date('Y-m-d') . " - " . strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date)));
 });

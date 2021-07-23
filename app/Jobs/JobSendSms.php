@@ -2,15 +2,15 @@
 
 namespace App\Jobs;
 
-use App\Models\Sms;
 use App\Models\User;
+use DateTime;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class JobSendSms implements ShouldQueue
 {
@@ -39,14 +39,23 @@ class JobSendSms implements ShouldQueue
      */
     public function handle()
     {
-        $response =  Http::get('http://sms.web.pk/sendsms.php', [
-            'username' => $this->UserName,
-            'password' => $this->Password,
-            'sender' => $this->Sender,
-            'phone' => $this->Phone,
-            'message' => $this->Message,
-        ]);
-        // $response = "success";
-        JobSaveSms::dispatch($this->UserID, $this->Phone, $this->Message, $response);
+        $User = User::find($this->UserID);
+        if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
+            if ($User->remaining_of_sms > 0) {
+                $Msgs = intval(((Str::length($this->Message) / 160) + 1));
+                if ($Msgs <= $User->remaining_of_sms) {
+
+                    // $response =  Http::get('http://sms.web.pk/sendsms.php', [
+                    //     'username' => $this->UserName,
+                    //     'password' => $this->Password,
+                    //     'sender' => $this->Sender,
+                    //     'phone' => $this->Phone,
+                    //     'message' => $this->Message,
+                    // ]);
+                    $response = "success";
+                    JobSaveSms::dispatch($this->UserID, $this->Phone, $this->Message, $response);
+                }
+            }
+        }
     }
 }
