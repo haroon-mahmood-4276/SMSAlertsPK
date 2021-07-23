@@ -26,7 +26,6 @@
         <div class="col l12 m12 s12">
             <div class="card">
                 <div class="card-content">
-                    <h5 class="card-title activator">Multiple SMS</h5>
                     <form action="{{route('r.multiplesms')}}" class="formValidate" id="formValidate" method="POST">
                         @csrf
                         @if (Session::get("AlertType") && Session::get("AlertMsg"))
@@ -44,7 +43,7 @@
                                 <input id="phone_number" name="phone_number" type="text"
                                     class="@error('phone_number') error @enderror"
                                     placeholder="923012345678, 923012345679, ..." value="{{old('phone_number')}}">
-                                <label for="phone_number">Bumbers *</label>
+                                <label for="phone_number">Numbers *</label>
                                 @error('phone_number')
                                 <span style="color: red">{{$message}}</span>
                                 @enderror

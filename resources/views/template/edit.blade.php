@@ -146,6 +146,7 @@
             var EndPosition = ctl.selectionEnd;
             ctl.value = [ctl.value.slice(0, EndPosition), "[" + Element + "]", ctl.value.slice(EndPosition, ctl.value
                 .length)].join('');
+            ctl.focus();
         }
     </script>
 @endsection
