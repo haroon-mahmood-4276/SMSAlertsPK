@@ -25,32 +25,124 @@
                 </div>
             @endif
             <div class="row">
-                <div class="col l2 m6 s12">
-                    <div class="card danger-gradient card-hover">
-                        <div class="card-content">
-                            <div class="d-flex no-block align-items-center">
-                                <div>
-                                    <h2 class="white-text m-b-5">{{ $GroupCount }}</h2>
-                                    <h6 class="white-text op-5 light-blue-text">
-                                        {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
-                                    </h6>
-                                </div>
-                                <div class="ml-auto">
-                                    <span class="white-text display-6"><i class="material-icons">portrait</i></span>
+                @if (session('Data.company_nature') != 'A')
+
+                    <div class="col l4 m6 s12">
+                        <div class="card danger-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">{{ $GroupCount }}</h2>
+                                        <h6 class="white-text op-5 light-blue-text">
+                                            {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
+                                        </h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="material-icons">portrait</i></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                @if (session('Data.company_nature') == 'S')
-                    <div class="col l2 m6 s12">
+                    @if (session('Data.company_nature') == 'S')
+                        <div class="col l4 m6 s12">
+                            <div class="card info-gradient card-hover">
+                                <div class="card-content">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <h2 class="white-text m-b-5">{{ $SectionCount }}</h2>
+                                            <h6 class="white-text op-5 text-darken-2">Sections</h6>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <span class="white-text display-6"><i class="material-icons">group</i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="col l4 m6 s12">
+                        <div class="card success-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">{{ $MobileDatasCount }}</h2>
+                                        <h6 class="white-text op-5 light-blue-text">
+                                            {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
+                                        </h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i
+                                                class="material-icons">account_circle</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col l4 m6 s12">
+                        <div class="card warning-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">{{ Session::get('Data.remaining_of_sms') }}</h2>
+                                        <h6 class="white-text op-5">Remaining SMS</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i
+                                                class="material-icons">question_answer</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col l4 m6 s12">
                         <div class="card info-gradient card-hover">
                             <div class="card-content">
                                 <div class="d-flex no-block align-items-center">
                                     <div>
-                                        <h2 class="white-text m-b-5">{{ $SectionCount }}</h2>
-                                        <h6 class="white-text op-5 text-darken-2">Sections</h6>
+                                        <h2 class="white-text m-b-5">{{ Session::get('Data.no_of_sms') }}</h2>
+                                        <h6 class="white-text op-5">Total SMS</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i
+                                                class="material-icons">question_answer</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col l4 m6 s12">
+                        <div class="card danger-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">
+                                            {{ date_format(new DateTime(Session::get('Data.expiry_date')), 'd/m/Y') }}
+                                        </h2>
+                                        <h6 class="white-text op-5 light-blue-text">Expiry Date</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="material-icons">data_usage</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="col l4 m4 s12">
+                        <div class="card danger-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">{{ $GroupCount }}</h2>
+                                        <h6 class="white-text op-5 light-blue-text">
+                                            Users
+                                        </h6>
                                     </div>
                                     <div class="ml-auto">
                                         <span class="white-text display-6"><i class="material-icons">group</i></span>
@@ -59,107 +151,76 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col l4 m4 s12">
+                        <div class="card info-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">{{ $SectionCount }}</h2>
+                                        <h6 class="white-text op-5 text-darken-2">Business Users</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="material-icons">business</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col l4 m4 s12">
+                        <div class="card success-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">{{ $MobileDatasCount }}</h2>
+                                        <h6 class="white-text op-5 light-blue-text">
+                                            School Users
+                                        </h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="fas fa-university"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endif
-
-
-                <div class="col l2 m6 s12">
-                    <div class="card success-gradient card-hover">
-                        <div class="card-content">
-                            <div class="d-flex no-block align-items-center">
-                                <div>
-                                    <h2 class="white-text m-b-5">{{ $MobileDatasCount }}</h2>
-                                    <h6 class="white-text op-5 light-blue-text">
-                                        {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
-                                    </h6>
-                                </div>
-                                <div class="ml-auto">
-                                    <span class="white-text display-6"><i class="material-icons">account_circle</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col l2 m6 s12">
-                    <div class="card warning-gradient card-hover">
-                        <div class="card-content">
-                            <div class="d-flex no-block align-items-center">
-                                <div>
-                                    <h2 class="white-text m-b-5">{{ Session::get('Data.remaining_of_sms') }}</h2>
-                                    <h6 class="white-text op-5">Remaining SMS</h6>
-                                </div>
-                                <div class="ml-auto">
-                                    <span class="white-text display-6"><i class="material-icons">question_answer</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col l2 m6 s12">
-                    <div class="card info-gradient card-hover">
-                        <div class="card-content">
-                            <div class="d-flex no-block align-items-center">
-                                <div>
-                                    <h2 class="white-text m-b-5">{{ Session::get('Data.no_of_sms') }}</h2>
-                                    <h6 class="white-text op-5">Total SMS</h6>
-                                </div>
-                                <div class="ml-auto">
-                                    <span class="white-text display-6"><i class="material-icons">question_answer</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col l2 m6 s12">
-                    <div class="card danger-gradient card-hover">
-                        <div class="card-content">
-                            <div class="d-flex no-block align-items-center">
-                                <div>
-                                    <h4 class="white-text m-b-5">{{ date_format(new DateTime(Session::get('Data.expiry_date')), 'd/m/Y') }}</h4>
-                                    <h6 class="white-text op-5 light-blue-text">Expiry Date</h6>
-                                </div>
-                                <div class="ml-auto">
-                                    <span class="white-text display-6"><i class="material-icons">data_usage</i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <div class="row m-t-25">
-                <div class="col l12 m12 s12">
-                    <h2>Api Section</h2>
-                    <ul class="collapsible popout">
-                        <li class="">
-                            <div class="collapsible-header"><i class="material-icons">filter_1</i>First</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_2</i>Second</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_3</i>Third</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_4</i>Third</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_5</i>Third</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_6</i>Third</div>
-                            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                        </li>
-                    </ul>
+            @if (session('Data.company_nature') != 'A')
+                <div class="row m-t-25">
+                    <div class="col l12 m12 s12">
+                        <h2>Api Section</h2>
+                        <ul class="collapsible popout">
+                            <li class="">
+                                <div class="collapsible-header"><i class="material-icons">filter_1</i>First</div>
+                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">filter_2</i>Second</div>
+                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">filter_3</i>Third</div>
+                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">filter_4</i>Third</div>
+                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">filter_5</i>Third</div>
+                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">filter_6</i>Third</div>
+                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 

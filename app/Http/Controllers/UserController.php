@@ -21,10 +21,6 @@ class UserController extends Controller
     public function index()
     {
         $Users = User::all();
-        // return $Users;
-        // foreach ($Users as $User) {
-        //     $User->ids = strval(Str::padLeft($User->id, 5, '0'));
-        // }
         return view('user.index', ['Users' => $Users]);
     }
 
@@ -207,14 +203,20 @@ class UserController extends Controller
         if (session()->has('Data')) {
             $User = User::find(session()->get('Data.id'));
             session()->put(['Data' => $User]);
-            $GroupCount = Group::where('user_id', '=', session('Data.id'))->count();
-            $SectionCount = Section::where('user_id', '=', session('Data.id'))->count();
-            $MobileDatasCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
+            if (session('Data.company_nature') == 'A') {
+                $GroupCount = User::count() - 1;
+                $SectionCount = User::where('company_nature', '=', 'B')->count();
+                $MobileDatasCount = User::where('company_nature', '=', 'S')->count();
+            } else {
+                $GroupCount = Group::where('user_id', '=', session('Data.id'))->count();
+                $SectionCount = Section::where('user_id', '=', session('Data.id'))->count();
+                $MobileDatasCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
 
-            if (strval(new DateTime(Date('Y-m-d')) > new DateTime($User->expiry_date))) {
-                $User->remaining_of_sms = 0;
-                $User->save();
-                session()->put(['Data' => $User]);
+                if (strval(new DateTime(Date('Y-m-d')) > new DateTime($User->expiry_date))) {
+                    $User->remaining_of_sms = 0;
+                    $User->save();
+                    session()->put(['Data' => $User]);
+                }
             }
             return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
         } else {

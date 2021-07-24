@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'User List')
+@section('PageTitle', @(session('Data.company_nature') == 'B') ? 'Group' : 'Classes'.' List')
 
 @section('BeforeCommonCss')
 
@@ -15,11 +15,12 @@
 <div class="page-wrapper">
     <div class="page-titles">
         <div class="d-flex align-items-center">
-            <h3 class="font-medium m-b-0">SMS History</h3>
+            <h3 class="font-medium m-b-0">{{(session('Data.company_nature') == 'B') ? 'Groups' : 'Classes'}}</h3>
             {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
             <div class="custom-breadcrumb ml-auto">
                 <a href="{{route('r.dashboard')}}" class="breadcrumb">Dashboard</a>
-                <a href="javascript:void(0)" class="breadcrumb">SMS History</a>
+                <a href="javascript:void(0)"
+                    class="breadcrumb">{{(session('Data.company_nature') == 'B') ? 'Groups' : 'Classes'}}</a>
             </div>
         </div>
     </div>
@@ -43,36 +44,49 @@
                             class="table table-bordered responsive-table table-hover toggle-circle" data-page-size="10">
                             <thead>
                                 <tr>
-                                    <th data-sort-initial="true" data-toggle="true">No</th>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Company</th>
-                                    <th>Mask ID</th>
-                                    <th>Company Email</th>
-                                    <th>Mobile 1</th>
-                                    <th data-hide="phone">Actions</th>
+                                    <th>Sr No</th>
+                                    <th data-sort-initial="true" data-toggle="true">ID</th>
+                                    <th>
+                                        {{(Session::get('Data.company_nature') == 'B') ? 'Group' : 'Class'}} Name
+                                    </th>
+                                    <th>Status</th>
+                                    <th data-sort-ignore="true" class="min-width text-left">Actions</th>
                                 </tr>
                             </thead>
+                            <div class="m-t-5">
+                                <div class="d-flex">
+                                    <div class="mr-auto">
+                                        <div class="form-group">
+                                            <a href="{{route("groups.create")}}" class="btn btn-small waves-effect waves-light">Add New
+                                                {{(Session::get('Data.company_nature') == 'B') ? 'Group' : 'Class'}}
+                                            </a>
+                                            {{-- <small>New row will be added in last page.</small> --}}
+                                        </div>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="form-group">
+                                            <input id="demo-input-search2" type="text" placeholder="Search"
+                                                autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <tbody>
                                 @php
                                 $Count = 0;
                                 @endphp
-                                @foreach ($Users as $User)
+                                @foreach ($Groups as $Group)
                                 <tr>
                                     <td>{{++$Count}}</td>
-                                    <td>{{$User->code}}</td>
-                                    <td>{{$User->first_name}} {{$User->last_name}}</td>
-                                    <td>{{$User->email}}</td>
-                                    <td>{{$User->company_name}}</td>
-                                    <td>{{$User->company_mask_id}}</td>
-                                    <td>{{$User->company_email}}</td>
-                                    <td>{{$User->mobile_1}}</td>
+                                    <td>{{$Group->code}}</td>
+                                    <td>{{$Group->name}}</td>
+                                    <td><span class="label label-table label-success">Active</span> </td>
                                     <td>
-                                        <a href="{{route("users.edit", ['user' => $User->ids])}}" type="button"
+                                        <a href="{{route("groups.edit", ['group'=>$Group->id])}}" type="button"
                                             class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                 class="material-icons">edit</i></a>
-                                        <form method="POST" action="{{route("users.destroy", ['user' => $User->ids])}}">
+                                        <form method="POST"
+                                            action="{{route("groups.destroy", ['group'=>$Group->id])}}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" onclick="return confirm('Are you sure?')"
@@ -85,7 +99,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="8">
+                                    <td colspan="5">
                                         <div class="text-right">
                                             <ul class="pagination">
                                             </ul>
