@@ -51,13 +51,9 @@ Route::get('data/{groupid}/{sectionid}/list', [MobileDataController::class, 'STD
 
 Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
 
-Route::get('sms/quick', function () {
-    return view('sms.quicksms');
-})->name('r.quicksmsshow');
+Route::get('sms/quick', [SmsController::class, 'ShowQuickSMS'])->name('r.quicksmsshow');
 
-Route::get('sms/multiple', function () {
-    return view('sms.multiplesms');
-})->name('r.multiplesmsshow');
+Route::get('sms/multiple', [SmsController::class, 'ShowMultipleSMS'])->name('r.multiplesmsshow');
 
 Route::get('sms/bulk', [SmsController::class, 'BulkSMSShow'])->name('r.bulksmsshow');
 

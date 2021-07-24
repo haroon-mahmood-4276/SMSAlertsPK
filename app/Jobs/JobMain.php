@@ -3,13 +3,10 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 class JobMain implements ShouldQueue
@@ -37,7 +34,6 @@ class JobMain implements ShouldQueue
      */
     public function handle()
     {
-        // dd($this->Members);
         $Message = $this->RequestInput['message'];
         foreach ($this->Members as $Member) {
             if (Arr::exists($this->RequestInput, $Member->id . 'chk')) {

@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\Section;
 use App\Models\User;
 use App\Models\Mobiledatas;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -206,14 +207,18 @@ class UserController extends Controller
         if (session()->has('Data')) {
             $User = User::find(session()->get('Data.id'));
             session()->put(['Data' => $User]);
-            // return session('Data');
             $GroupCount = Group::where('user_id', '=', session('Data.id'))->count();
             $SectionCount = Section::where('user_id', '=', session('Data.id'))->count();
             $MobileDatasCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
 
+            if (strval(new DateTime(Date('Y-m-d')) > new DateTime($User->expiry_date))) {
+                $User->remaining_of_sms = 0;
+                $User->save();
+                session()->put(['Data' => $User]);
+            }
             return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
         } else {
-            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount])->with('AlertType', 'danger')->with('AlertMsg', 'Something went wrong. Err Code: 0x00001');
+            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
         }
     }
 

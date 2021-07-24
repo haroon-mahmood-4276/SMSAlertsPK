@@ -7,8 +7,10 @@ use App\Models\Group;
 use App\Models\Sms;
 use App\Models\Template;
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class SmsController extends Controller
 {
@@ -19,9 +21,27 @@ class SmsController extends Controller
         return view('sms.index', ['SMSHistoryData' => $SMSHistoryData]);
     }
 
+    public function ShowQuickSMS()
+    {
+        $User = User::find(session('Data.id'));
+        if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
+            if ($User->remaining_of_sms > 0) {
+                return view('sms.quicksms');
+            }
+        }
+        return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
+    }
+
     public function QuickSMS(Request $request)
     {
-
+        $User = User::find(session('Data.id'));
+        if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
+            if ($User->remaining_of_sms > 0) {
+                $Msgs = intval(((Str::length($this->Message) / 160) + 1));
+                if ($Msgs <= $User->remaining_of_sms) {
+                }
+            }
+        }
         $request->validate([
             'phone_number' => 'required|digits:12',
             'message' => 'bail|required',
@@ -50,6 +70,17 @@ class SmsController extends Controller
         } else {
             return redirect()->route('r.smshistory')->with('AlertType', 'warning')->with('AlertMsg', $response);
         }
+    }
+
+    public function ShowMultipleSMS()
+    {
+        $User = User::find(session('Data.id'));
+        if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
+            if ($User->remaining_of_sms > 0) {
+                return view('sms.multiplesms');
+            }
+        }
+        return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
     }
 
     public function MultipleSMS(Request $request)
@@ -89,10 +120,16 @@ class SmsController extends Controller
 
     public function BulkSMSShow()
     {
-        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-        $Templates = Template::where('user_id', '=', session('Data.id'))->get();
+        $User = User::find(session('Data.id'));
+        if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
+            if ($User->remaining_of_sms > 0) {
+                $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+                $Templates = Template::where('user_id', '=', session('Data.id'))->get();
 
-        return view('sms.bulksms', ['Groups' => $Groups, 'Templates' => $Templates]);
+                return view('sms.bulksms', ['Groups' => $Groups, 'Templates' => $Templates]);
+            } else
+                return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
+        }
     }
 
     public function BulkSMS(Request $request)

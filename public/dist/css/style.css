@@ -14062,7 +14062,7 @@ nav i.material-icons {
 }
 
 .topbar nav .mailbox.dropdown-content {
-    min-width: 300px;
+    min-width: 350px;
 }
 
 .topbar nav .mailbox.dropdown-content li .drop-title {
@@ -18379,17 +18379,23 @@ success error
 ******************/
 .success-alert-bar {
     border-radius: 5px;
-    background-color: green;
+    background-color: #00b84a;
 }
 
 .danger-alert-bar {
     border-radius: 5px;
-    background-color: red;
+    background-color: #e5000c;
 }
 
 .warning-alert-bar {
     border-radius: 5px;
-    background-color: yellowgreen;
+    background-color: #ffc107;
+    color: black !important;
+}
+
+.info-alert-bar {
+    border-radius: 5px;
+    background-color: #00a1be;
 }
 
 .stats-row {
