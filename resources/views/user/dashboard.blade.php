@@ -146,15 +146,15 @@
                             <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                         </li>
                         <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_3</i>Third</div>
+                            <div class="collapsible-header"><i class="material-icons">filter_4</i>Third</div>
                             <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                         </li>
                         <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_3</i>Third</div>
+                            <div class="collapsible-header"><i class="material-icons">filter_5</i>Third</div>
                             <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                         </li>
                         <li>
-                            <div class="collapsible-header"><i class="material-icons">filter_3</i>Third</div>
+                            <div class="collapsible-header"><i class="material-icons">filter_6</i>Third</div>
                             <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                         </li>
                     </ul>

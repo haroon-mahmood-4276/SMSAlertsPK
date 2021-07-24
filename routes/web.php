@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\MobileDataController;
+use App\Http\Controllers\OtherSettingController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
@@ -113,15 +114,10 @@ Route::prefix('export/csv')->group(function () {
 
 // Data Import
 Route::prefix('import')->group(function () {
-
     Route::post('groups', [ImportController::class, 'ImportGroups'])->name('r.importgroups');
-
     Route::post('classes', [ImportController::class, 'ImportGroups'])->name('r.importclasses');
-
     Route::post('sections', [ImportController::class, 'ImportSections'])->name('r.importsections');
-
     Route::post('students', [ImportController::class, 'ImportMembers'])->name('r.importstudents');
-
     Route::post('members', [ImportController::class, 'ImportMembers'])->name('r.importmembers');
 });
 
@@ -129,3 +125,5 @@ Route::get('test', function () {
     $User = User::find(1);
     dd($User->expiry_date . " - " . Date('Y-m-d') . " - " . strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date)));
 });
+
+Route::get('others', [OtherSettingController::class, 'OtherSettings'])->name('r.others');

@@ -39,13 +39,14 @@
                     <div class="collapsible-body">
                         <ul>
                             <ul>
-                                <li><a href="{{ route('r.quicksmsshow') }}"><i class="material-icons">message</i><span
-                                            class="hide-menu">Quick SMS</span></a></li>
+                                <li><a href="{{ route('r.quicksmsshow') }}"><i
+                                            class="material-icons">message</i><span class="hide-menu">Quick
+                                            SMS</span></a></li>
                                 <li><a href="{{ route('r.multiplesmsshow') }}"><i
                                             class="material-icons">message</i><span class="hide-menu">Multiple
                                             SMS</span></a></li>
-                                <li><a href="{{ route('r.bulksmsshow') }}"><i
-                                            class="material-icons">message</i><span class="hide-menu">Bulk
+                                <li><a href="{{ route('r.bulksmsshow') }}"><i class="material-icons">message</i><span
+                                            class="hide-menu">Bulk
                                             SMS</span></a></li>
                                 <li><a href="{{ route('r.smshistory') }}"><i class="material-icons">history</i><span
                                             class="hide-menu">SMS History</span></a></li>
@@ -53,10 +54,17 @@
                         </ul>
                     </div>
                 </li>
-                 <li>
+                <li>
                     <a href="{{ route('r.imports') }}"
-                        class="collapsible-header {{ Request::is(route('r.imports')) ? 'active' : null }}"><i class="material-icons">file_upload</i>
+                        class="collapsible-header {{ Request::is(route('r.imports')) ? 'active' : null }}"><i
+                            class="material-icons">file_upload</i>
                         <span class="hide-menu"> Imports</span></a>
+                </li>
+                <li>
+                    <a href="{{ route('r.others') }}"
+                        class="collapsible-header {{ Request::is(route('r.imports')) ? 'active' : null }}"><i
+                            class="material-icons">settings</i>
+                        <span class="hide-menu"> Other Settings</span></a>
                 </li>
             </ul>
         </li>
