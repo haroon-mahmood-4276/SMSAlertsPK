@@ -22,6 +22,7 @@
                         </h5>
                         <form action="{{ route('data.update', ['data' => $MobileData->id]) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             @if (Session::get('AlertType') && Session::get('AlertMsg'))
                                 <div class="row">
                                     <div class="col l12 m12 s12 m-5">

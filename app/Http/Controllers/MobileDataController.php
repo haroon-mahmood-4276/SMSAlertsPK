@@ -86,14 +86,10 @@ class MobileDataController extends Controller
                 'active' => 'required',
             ]);
             // dd($request->input());
-            $request->parent_mobile_1 = "";
-            $request->parent_mobile_2 = "";
-            $request->parent_first_name = "";
-            $request->parent_last_name = "";
+
             $request->parent_mobile_1 = $request->student_mobile_1;
             $request->parent_mobile_2 = $request->student_mobile_2;
-            $request->student_mobile_1 = "";
-            $request->parent_mobile_2 = "";
+
         }
 
 
@@ -192,19 +188,14 @@ class MobileDataController extends Controller
                 'group' => 'required',
                 'active' => 'required',
             ]);
-            // dd($request->input());
-            $request->parent_mobile_1 = "";
-            $request->parent_mobile_2 = "";
-            $request->parent_first_name = "";
-            $request->parent_last_name = "";
+
             $request->parent_mobile_1 = $request->student_mobile_1;
             $request->parent_mobile_2 = $request->student_mobile_2;
-            $request->student_mobile_1 = "";
-            $request->parent_mobile_2 = "";
+            // dd($request->input());
         }
 
         $MobileDatas =  MobileDatas::find($id);
-        $MobileDatas->roll_no = $request->roll_no;
+        $MobileDatas->code = $request->code;
         $MobileDatas->student_first_name = $request->student_first_name;
         $MobileDatas->student_last_name = $request->student_last_name;
         $MobileDatas->student_mobile_1 = $request->student_mobile_1;

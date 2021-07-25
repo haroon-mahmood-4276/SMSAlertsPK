@@ -89,7 +89,7 @@
                                     <th data-hide="all">Student Secondary Number</th>
                                     @endif
                                     <th data-hide="all">Date of Birth</th>
-                                    <th data-hide="all">CNIC</th>
+                                    {{-- <th data-hide="all">CNIC</th> --}}
                                     <th data-hide="all">Gender</th>
                                     <th data-hide="phone">Stauts</th>
                                     <th data-hide="phone">Actions</th>
@@ -135,7 +135,7 @@
                                     <td>{{ $MobileData->student_mobile_2 }}</td>
                                     @endif
                                     <td>{{ $MobileData->dob }}</td>
-                                    <td>{{ $MobileData->cnic }}</td>
+                                    {{-- <td>{{ $MobileData->cnic }}</td> --}}
                                     <td>{{ $MobileData->gender }}</td>
                                     <td>
                                         @if ($MobileData->active == 'Y')
