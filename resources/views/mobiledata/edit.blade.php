@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Create ' . @(session('Data.company_nature') == 'B') ? 'Member' : 'Student')
+@section('PageTitle', 'Edit ' . @(session('Data.company_nature') == 'B') ? 'Member' : 'Student')
 
 @section('BeforeCommonCss')
 
@@ -17,12 +17,11 @@
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
-                        <h5 class="card-title">Create
-                            {{ session('Data.company_nature') == 'B' ? 'Member' : 'Student' }}</h5>
-                        <form class="formValidate" id="formValidate"
-                            action="{{ route('data.update', ['data' => $MobileData->id]) }}" method="POST">
+                        <h5 class="card-title">Edit
+                            {{ session('Data.company_nature') == 'B' ? 'Member' : 'Student' }}
+                        </h5>
+                        <form action="{{ route('data.update', ['data' => $MobileData->id]) }}" method="POST">
                             @csrf
-                            @method('PATCH')
                             @if (Session::get('AlertType') && Session::get('AlertMsg'))
                                 <div class="row">
                                     <div class="col l12 m12 s12 m-5">
@@ -32,76 +31,76 @@
                                     </div>
                                 </div>
                             @endif
+
                             <div class="row">
-                                <div class="col s12 m6 l6">
-                                    <label for="group" class="form-label">Group</label>
+                                <div class="input-field col s6">
                                     <select class="form-select" name="group" id="group">
                                         <option value="">Select</option>
                                         @foreach ($Groups as $Group)
                                             <option value="{{ $Group->id }}"
-                                                {{ $Group->id == $MobileData->group_id ? 'selected' : '' }}>
-                                                {{ $Group->name }}
+                                                {{ $Group->id == $MobileData->group_id ? 'selected' : '' }}>{{ $Group->name }}
                                             </option>
                                         @endforeach
                                     </select>
+                                    <label for="group" class="form-label">Group</label>
                                     @error('group')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="col s12 m6 l6">
-                                    <label for="section" class="form-label">Section</label>
-                                    <select class="form-select" name="section" id="section">
-                                        <option value="">Select</option>
-                                        {{-- @foreach ($Sections as $Section)
-                                            <option value="{{ $Section->id }}"
-                                                {{ $Section->id == $MobileData->section_id ? 'selected' : '' }}>
-                                                {{ $Section->name }}
-                                            </option>
-                                        @endforeach --}}
-                                    </select>
-                                    @error('section')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                @if (session('Data.company_nature') == 'S')
+                                    <div class="input-field col s6">
+                                        <select class="form-select" name="section" id="section">
+                                            @foreach ($Sections as $Section)
+                                                <option value="{{ $Section->id }}"
+                                                    {{ $Section->id == $MobileData->section_id ? 'selected' : '' }}>{{ $Section->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <label for="section" class="form-label">Section</label>
+                                        @error('section')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                @endif
 
-                                <div class="input-field col s12">
+                                <div class="input-field col {{ session('Data.company_nature') == 'B' ? 's6' : 's12' }}">
                                     <i class="material-icons prefix">text_format</i>
-                                    <input id="roll_no" name="roll_no" type="text" class="@error('roll_no') error @enderror"
-                                        value="{{ $MobileData->roll_no }}" maxlength="5">
-                                    <label for="roll_no">Roll No *</label>
-                                    @error('roll_no')
+                                    <input id="code" name="code" type="text" class="@error('code') error @enderror"
+                                        value="{{ $MobileData->code }}">
+                                    <label for="code">Code *</label>
+                                    @error('code')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s12 m6 l6">
+                                <div class="input-field col s6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_first_name" name="student_first_name" type="text"
                                         class="@error('student_first_name') error @enderror"
-                                        value="{{ $MobileData->student_first_name }}" maxlength="50">
+                                        value="{{ $MobileData->student_first_name }}">
                                     <label for="student_first_name">First Name *</label>
                                     @error('student_first_name')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s12 m6 l6">
+                                <div class="input-field col s6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_last_name" name="student_last_name" type="text"
                                         class="@error('student_last_name') error @enderror"
-                                        value="{{ $MobileData->student_last_name }}" maxlength="50">
+                                        value="{{ $MobileData->student_last_name }}">
                                     <label for="student_last_name">Last Name *</label>
                                     @error('student_last_name')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s12 m6 l6">
+                                <div class="input-field col s6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_mobile_1" name="student_mobile_1" type="text"
                                         class="@error('student_mobile_1') error @enderror"
-                                        value="{{ $MobileData->student_mobile_1 }}" maxlength="12"
+                                        value="{{ session('Data.company_nature') == 'B' ? $MobileData->parent_mobile_1 : $MobileData->student_mobile_1 }}"
                                         placeholder="923001234567">
                                     <label for="student_mobile_1">Primary Mobile Number *</label>
                                     @error('student_mobile_1')
@@ -109,11 +108,11 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s12 m6 l6">
+                                <div class="input-field col s6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_mobile_2" name="student_mobile_2" type="text"
                                         class="@error('student_mobile_2') error @enderror"
-                                        value="{{ $MobileData->student_mobile_2 }}" maxlength="12"
+                                        value="{{ session('Data.company_nature') == 'B' ? $MobileData->parent_mobile_2 : $MobileData->student_mobile_2 }}"
                                         placeholder="923001234567">
                                     <label for="student_mobile_2">Secondary Mobile Number *</label>
                                     @error('student_mobile_2')
@@ -124,31 +123,30 @@
                                 <div class="col s12 m6 l6">
                                     <label class="m-t-20">Date of Birth</label>
                                     <div class="input-fleid">
-                                        <input type="text" value="{{ old('DOB') }}" id="DOB" name="DOB"
+                                        <input type="text" value="{{ $MobileData->dob }}" id="dob" name="dob"
                                             placeholder="01/01/1999">
                                     </div>
-                                    @error('DOB')
+                                    @error('dob')
                                         <span style="color: rgb(255, 0, 0)">{{ $message }}</span>
                                     @enderror
                                 </div>
-
-                                <div class="input-field col s12 m6 l6">
+                                {{-- <div class="input-field col s6">
                                     <i class="material-icons prefix">text_format</i>
-                                    <input id="CNIC" name="CNIC" type="text" class="@error('CNIC') error @enderror"
-                                        value="{{ $MobileData->CNIC }}" maxlength="15" placeholder="35201-1234567-8">
-                                    <label for="CNIC">CNIC *</label>
-                                    @error('CNIC')
+                                    <input id="cnic" name="cnic" type="text" class="@error('cnic') error @enderror"
+                                        value="{{ $MobileData->cnic }}" placeholder="35201-1234567-8">
+                                    <label for="cnic">CNIC *</label>
+                                    @error('cnic')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
-                                <div class="col s12 m12 l12">
-                                    <label for="gender" class="form-label">Group</label>
+                                <div class="col s6">
+                                    <label for="gender" class="form-label">Gender</label>
                                     <select class="form-select" name="gender" id="gender">
                                         <option>Select</option>
-                                        <option value="M" {{ old('gender') == 'M' ? ' selected' : '' }}>Male
+                                        <option value="M" {{ $MobileData->gender == 'M' ? ' selected' : '' }}>Male
                                         </option>
-                                        <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>Female
+                                        <option value="F" {{ $MobileData->gender == 'F' ? 'selected' : '' }}>Female
                                         </option>
                                     </select>
                                     @error('gender')
@@ -156,58 +154,72 @@
                                     @enderror
                                 </div>
 
-                                <div class="m-t-20 col s12 m12 l12">
-                                    <hr>
-                                    <h3 class="card-title">Parents</h3>
-                                </div>
-
-                                <div class="input-field col s12 m6 l6">
-                                    <i class="material-icons prefix">text_format</i>
-                                    <input id="parent_first_name" name="parent_first_name" type="text"
-                                        class="@error('parent_first_name') error @enderror"
-                                        value="{{ $MobileData->parent_first_name }}" maxlength="50">
-                                    <label for="parent_first_name">First Name *</label>
-                                    @error('parent_first_name')
+                                <div class="col s6">
+                                    <label for="active" class="form-label">Status</label>
+                                    <select class="form-select" name="active" id="active">
+                                        <option>Select</option>
+                                        <option value="Y" {{ $MobileData->active == 'Y' ? ' selected' : '' }}>Active
+                                        </option>
+                                        <option value="N" {{ $MobileData->active == 'N' ? 'selected' : '' }}>Not Active
+                                        </option>
+                                    </select>
+                                    @error('active')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s12 m6 l6">
-                                    <i class="material-icons prefix">text_format</i>
-                                    <input id="parent_last_name" name="parent_last_name" type="text"
-                                        class="@error('parent_last_name') error @enderror"
-                                        value="{{ $MobileData->parent_last_name }}" maxlength="50">
-                                    <label for="parent_last_name">Last Name *</label>
-                                    @error('parent_last_name')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                @if (session('Data.company_nature') == 'S')
+                                    <div class="m-t-20 col s12 m12 l12">
+                                        <hr>
+                                        <h3 class="card-title">Parents</h3>
+                                    </div>
 
-                                <div class="input-field col s12 m6 l6">
-                                    <i class="material-icons prefix">text_format</i>
-                                    <input id="parent_mobile_1" name="parent_mobile_1" type="text"
-                                        class="@error('parent_mobile_1') error @enderror"
-                                        value="{{ $MobileData->parent_mobile_1 }}" maxlength="12"
-                                        placeholder="923001234567">
-                                    <label for="parent_mobile_1">Primary Mobile Number *</label>
-                                    @error('parent_mobile_1')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">text_format</i>
+                                        <input id="parent_first_name" name="parent_first_name" type="text"
+                                            class="@error('parent_first_name') error @enderror"
+                                            value="{{ $MobileData->parent_first_name }}">
+                                        <label for="parent_first_name">First Name *</label>
+                                        @error('parent_first_name')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
 
-                                <div class="input-field col s12 m6 l6">
-                                    <i class="material-icons prefix">text_format</i>
-                                    <input id="parent_mobile_2" name="parent_mobile_2" type="text"
-                                        class="@error('parent_mobile_2') error @enderror"
-                                        value="{{ $MobileData->parent_mobile_2 }}" maxlength="12"
-                                        placeholder="923001234567">
-                                    <label for="parent_mobile_2">Secondary Mobile Number *</label>
-                                    @error('parent_mobile_2')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">text_format</i>
+                                        <input id="parent_last_name" name="parent_last_name" type="text"
+                                            class="@error('parent_last_name') error @enderror"
+                                            value="{{ $MobileData->parent_last_name }}">
+                                        <label for="parent_last_name">Last Name *</label>
+                                        @error('parent_last_name')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
 
-                                <div class="input-field m-t-10 col s12">
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">text_format</i>
+                                        <input id="parent_mobile_1" name="parent_mobile_1" type="text"
+                                            class="@error('parent_mobile_1') error @enderror"
+                                            value="{{ $MobileData->parent_mobile_1 }}" placeholder="923001234567">
+                                        <label for="parent_mobile_1">Primary Mobile Number *</label>
+                                        @error('parent_mobile_1')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">text_format</i>
+                                        <input id="parent_mobile_2" name="parent_mobile_2" type="text"
+                                            class="@error('parent_mobile_2') error @enderror"
+                                            value="{{ $MobileData->parent_mobile_2 }}" placeholder="923001234567">
+                                        <label for="parent_mobile_2">Secondary Mobile Number *</label>
+                                        @error('parent_mobile_2')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                @endif
+
+                                <div class="input-field m-t-20 col s12">
                                     <button class="btn waves-effect waves-light right submit" type="submit"
                                         name="action">Submit
                                     </button>
@@ -241,7 +253,7 @@
         src="{{ asset('assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js') }}">
     </script>
     <script>
-        $('#DOB').bootstrapMaterialDatePicker({
+        $('#dob').bootstrapMaterialDatePicker({
             format: 'DD/MM/YYYY',
             weekStart: 1,
             time: false
@@ -268,10 +280,10 @@
 
                     var elem = document.querySelector('#section');
                     var instance = M.FormSelect.init(elem);
+
                 }
             });
 
         });
-
     </script>
 @endsection

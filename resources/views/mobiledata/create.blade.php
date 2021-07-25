@@ -125,7 +125,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                {{-- <div class="input-field col s6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="cnic" name="cnic" type="text" class="@error('cnic') error @enderror"
                                         value="{{ old('cnic') }}" placeholder="35201-1234567-8">
@@ -133,7 +133,7 @@
                                     @error('cnic')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="col s6">
                                     <label for="gender" class="form-label">Gender</label>

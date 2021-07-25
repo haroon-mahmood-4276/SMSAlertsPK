@@ -62,7 +62,7 @@ class MobileDataController extends Controller
                 'student_mobile_1' => 'bail|required|numeric|digits:12',
                 'student_mobile_2' => 'bail|numeric|digits:12',
                 'dob' => 'bail|required',
-                'cnic' => 'bail|required',
+                // 'cnic' => 'bail|required',
                 'gender' => 'required',
                 'parent_first_name' => 'bail|required|alpha|between:1,50',
                 'parent_last_name' => 'bail|required|alpha|between:1,50',
@@ -72,14 +72,13 @@ class MobileDataController extends Controller
                 'section' => 'required',
                 'active' => 'required',
             ]);
-            // dd($request->input());
         } else {
             $request->validate([
                 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section)],
                 'student_first_name' => 'bail|required|alpha|between:1,50',
                 'student_last_name' => 'bail|required|alpha|between:1,50',
                 'dob' => 'bail|required',
-                'cnic' => 'bail|required',
+                // 'cnic' => 'bail|required',
                 'gender' => 'required',
                 'student_mobile_1' => 'required|digits:12',
                 'student_mobile_2' => 'nullable|digits:12',
@@ -104,7 +103,7 @@ class MobileDataController extends Controller
         $MobileDatas->student_first_name = $request->student_first_name;
         $MobileDatas->student_last_name = $request->student_last_name;
         $MobileDatas->dob = $request->dob;
-        $MobileDatas->cnic = $request->cnic;
+        // $MobileDatas->cnic = $request->cnic;
         $MobileDatas->gender = $request->gender;
         $MobileDatas->parent_first_name = $request->parent_first_name;
         $MobileDatas->student_mobile_1 = $request->student_mobile_1;
@@ -144,11 +143,13 @@ class MobileDataController extends Controller
      */
     public function edit($id)
     {
-
-        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-        $Sections = Section::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         $MobileDatas = MobileDatas::find($id);
-        return view('mobiledata.edit', ['Groups' => $Groups, 'Sections' => $Sections, 'MobileData' => $MobileDatas]);
+        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        if (session('Data.company_nature') == 'S') {
+            $Sections = Section::select('id', 'name')->where('group_id', '=', $MobileDatas->group_id)->where('user_id', '=', session('Data.id'))->get();
+            return view('mobiledata.edit', ['Groups' => $Groups, 'Sections' => $Sections, 'MobileData' => $MobileDatas]);
+        } else
+            return view('mobiledata.edit', ['Groups' => $Groups, 'MobileData' => $MobileDatas]);
     }
 
     /**
@@ -160,22 +161,47 @@ class MobileDataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
-            'student_first_name' => 'bail|required|alpha|between:1,50',
-            'student_last_name' => 'bail|required|alpha|between:1,50',
-            'student_mobile_1' => 'bail|required|numeric|digits:12',
-            'student_mobile_2' => 'bail|numeric|digits:12',
-            'dob' => 'bail|required',
-            'cnic' => 'bail|required',
-            'gender' => 'required',
-            'parent_first_name' => 'bail|required|alpha|between:1,50',
-            'parent_last_name' => 'bail|required|alpha|between:1,50',
-            'parent_mobile_1' => 'required|digits:12',
-            'parent_mobile_2' => 'nullable|digits:12',
-            'group' => 'required',
-            'section' => 'required',
-        ]);
+        if (session('Data.company_nature') == 'S') {
+            $request->validate([
+                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
+                'student_first_name' => 'bail|required|alpha|between:1,50',
+                'student_last_name' => 'bail|required|alpha|between:1,50',
+                'student_mobile_1' => 'bail|required|numeric|digits:12',
+                'student_mobile_2' => 'bail|numeric|digits:12',
+                'dob' => 'bail|required',
+                // 'cnic' => 'bail|required',
+                'gender' => 'required',
+                'parent_first_name' => 'bail|required|alpha|between:1,50',
+                'parent_last_name' => 'bail|required|alpha|between:1,50',
+                'parent_mobile_1' => 'required|digits:12',
+                'parent_mobile_2' => 'nullable|digits:12',
+                'group' => 'required',
+                'section' => 'required',
+                'active' => 'required',
+            ]);
+        } else {
+            $request->validate([
+                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
+                'student_first_name' => 'bail|required|alpha|between:1,50',
+                'student_last_name' => 'bail|required|alpha|between:1,50',
+                'dob' => 'bail|required',
+                // 'cnic' => 'bail|required',
+                'gender' => 'required',
+                'student_mobile_1' => 'required|digits:12',
+                'student_mobile_2' => 'nullable|digits:12',
+                'group' => 'required',
+                'active' => 'required',
+            ]);
+            // dd($request->input());
+            $request->parent_mobile_1 = "";
+            $request->parent_mobile_2 = "";
+            $request->parent_first_name = "";
+            $request->parent_last_name = "";
+            $request->parent_mobile_1 = $request->student_mobile_1;
+            $request->parent_mobile_2 = $request->student_mobile_2;
+            $request->student_mobile_1 = "";
+            $request->parent_mobile_2 = "";
+        }
 
         $MobileDatas =  MobileDatas::find($id);
         $MobileDatas->roll_no = $request->roll_no;
@@ -184,7 +210,7 @@ class MobileDataController extends Controller
         $MobileDatas->student_mobile_1 = $request->student_mobile_1;
         $MobileDatas->student_mobile_2 = $request->student_mobile_2;
         $MobileDatas->dob = $request->dob;
-        $MobileDatas->cnic = $request->cnic;
+        // $MobileDatas->cnic = $request->cnic;
         $MobileDatas->gender = $request->gender;
         $MobileDatas->parent_first_name = $request->parent_first_name;
         $MobileDatas->parent_last_name = $request->parent_last_name;

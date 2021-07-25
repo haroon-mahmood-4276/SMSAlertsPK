@@ -18,10 +18,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $Users = User::all();
-        return view('user.index', ['Users' => $Users]);
+        if ($request->user_type != "") {
+            $Users = User::where('company_nature', '=', $request->user_type)->where('company_nature', '!=', 'A')->get();
+        } else
+            $Users = User::where('company_nature', '!=', 'A')->get();
+
+        return view('user.index', ['Users' => $Users, 'Selection' => $request->user_type]);
     }
 
     /**
@@ -218,10 +222,8 @@ class UserController extends Controller
                     session()->put(['Data' => $User]);
                 }
             }
-            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
-        } else {
-            return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
         }
+        return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
     }
 
     public function logout()

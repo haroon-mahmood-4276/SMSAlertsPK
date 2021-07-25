@@ -1,112 +1,282 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Create User')
+@section('PageTitle', 'Create ' . @(session('Data.company_nature') == 'B') ? 'Member' : 'Student')
 
+@section('BeforeCommonCss')
+
+@endsection
+
+@section('AfterCommonCss')
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('assets/libs/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}">
+@endsection
 
 @section('content')
-<div class="container mb-5 card">
+    <div class="page-wrapper">
+        <div class="row">
+            <div class="col l12 m12 s12">
+                <div class="card">
+                    <div class="card-content">
+                        <h5 class="card-title">Create
+                            {{ session('Data.company_nature') == 'B' ? 'Member' : 'Student' }}
+                        </h5>
+                        <form action="{{ route('data.store') }}" method="POST">
+                            @csrf
+                            @if (Session::get('AlertType') && Session::get('AlertMsg'))
+                                <div class="row">
+                                    <div class="col l12 m12 s12 m-5">
+                                        <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
+                                            {{ Session::get('AlertMsg') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
 
-    @if (Session::get('AlertType') && Session::get('AlertMsg'))
-    <div class="alerts">
-        <div class="alert alert-{{Session::get('AlertType')}} alert-dismissible fade show" role="alert">
-            {{Session::get('AlertMsg')}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <select class="form-select" name="group" id="group">
+                                        <option value="">Select</option>
+                                        {{-- @foreach ($Groups as $Group)
+                                            <option value="{{ $Group->id }}"
+                                                {{ old('group') == $Group->id ? ' selected' : '' }}>{{ $Group->name }}
+                                            </option>
+                                        @endforeach --}}
+                                    </select>
+                                    <label for="group" class="form-label">Group</label>
+                                    @error('group')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                @if (session('Data.company_nature') == 'S')
+                                    <div class="input-field col s6">
+                                        <select class="form-select" name="section" id="section">
+                                            <option value="">Select</option>
+                                        </select>
+                                        <label for="section" class="form-label">Section</label>
+                                        @error('section')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                @endif
+
+                                <div class="input-field col {{ session('Data.company_nature') == 'B' ? 's6' : 's12' }}">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="code" name="code" type="text" class="@error('code') error @enderror"
+                                        value="{{ old('code') }}">
+                                    <label for="code">Code *</label>
+                                    @error('code')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="student_first_name" name="student_first_name" type="text"
+                                        class="@error('student_first_name') error @enderror"
+                                        value="{{ old('student_first_name') }}">
+                                    <label for="student_first_name">First Name *</label>
+                                    @error('student_first_name')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="student_last_name" name="student_last_name" type="text"
+                                        class="@error('student_last_name') error @enderror"
+                                        value="{{ old('student_last_name') }}">
+                                    <label for="student_last_name">Last Name *</label>
+                                    @error('student_last_name')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="student_mobile_1" name="student_mobile_1" type="text"
+                                        class="@error('student_mobile_1') error @enderror"
+                                        value="{{ old('student_mobile_1') }}" placeholder="923001234567">
+                                    <label for="student_mobile_1">Primary Mobile Number *</label>
+                                    @error('student_mobile_1')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="student_mobile_2" name="student_mobile_2" type="text"
+                                        class="@error('student_mobile_2') error @enderror"
+                                        value="{{ old('student_mobile_2') }}" placeholder="923001234567">
+                                    <label for="student_mobile_2">Secondary Mobile Number *</label>
+                                    @error('student_mobile_2')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col s12 m6 l6">
+                                    <label class="m-t-20">Date of Birth</label>
+                                    <div class="input-fleid">
+                                        <input type="text" value="{{ old('dob') }}" id="dob" name="dob"
+                                            placeholder="01/01/1999">
+                                    </div>
+                                    @error('dob')
+                                        <span style="color: rgb(255, 0, 0)">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="cnic" name="cnic" type="text" class="@error('cnic') error @enderror"
+                                        value="{{ old('cnic') }}" placeholder="35201-1234567-8">
+                                    <label for="cnic">CNIC *</label>
+                                    @error('cnic')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col s6">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select class="form-select" name="gender" id="gender">
+                                        <option>Select</option>
+                                        <option value="M" {{ old('gender') == 'M' ? ' selected' : '' }}>Male
+                                        </option>
+                                        <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>Female
+                                        </option>
+                                    </select>
+                                    @error('gender')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col s6">
+                                    <label for="active" class="form-label">Status</label>
+                                    <select class="form-select" name="active" id="active">
+                                        <option>Select</option>
+                                        <option value="Y" {{ old('active') == 'Y' ? ' selected' : '' }}>Active</option>
+                                        <option value="N" {{ old('active') == 'N' ? 'selected' : '' }}>Not Active
+                                        </option>
+                                    </select>
+                                    @error('active')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                @if (session('Data.company_nature') == 'S')
+                                    <div class="m-t-20 col s12 m12 l12">
+                                        <hr>
+                                        <h3 class="card-title">Parents</h3>
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">text_format</i>
+                                        <input id="parent_first_name" name="parent_first_name" type="text"
+                                            class="@error('parent_first_name') error @enderror"
+                                            value="{{ old('parent_first_name') }}">
+                                        <label for="parent_first_name">First Name *</label>
+                                        @error('parent_first_name')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">text_format</i>
+                                        <input id="parent_last_name" name="parent_last_name" type="text"
+                                            class="@error('parent_last_name') error @enderror"
+                                            value="{{ old('parent_last_name') }}">
+                                        <label for="parent_last_name">Last Name *</label>
+                                        @error('parent_last_name')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">text_format</i>
+                                        <input id="parent_mobile_1" name="parent_mobile_1" type="text"
+                                            class="@error('parent_mobile_1') error @enderror"
+                                            value="{{ old('parent_mobile_1') }}" placeholder="923001234567">
+                                        <label for="parent_mobile_1">Primary Mobile Number *</label>
+                                        @error('parent_mobile_1')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <i class="material-icons prefix">text_format</i>
+                                        <input id="parent_mobile_2" name="parent_mobile_2" type="text"
+                                            class="@error('parent_mobile_2') error @enderror"
+                                            value="{{ old('parent_mobile_2') }}" placeholder="923001234567">
+                                        <label for="parent_mobile_2">Secondary Mobile Number *</label>
+                                        @error('parent_mobile_2')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                @endif
+
+                                <div class="input-field m-t-20 col s12">
+                                    <button class="btn waves-effect waves-light right submit" type="submit"
+                                        name="action">Submit
+                                    </button>
+                                    <a href="{{ route('data.index') }}"
+                                        class="btn waves-effect red waves-light right m-r-10">Back
+                                        to
+                                        {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
+                                        List</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    @endif
+@endsection
 
+@section('Js')
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/js/app.js') }}"></script>
+    <script src="{{ asset('dist/js/app.init.js') }}"></script>
+    <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
+    <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
-    <form action="{{route('users.store')}}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="first_name" class="form-label">First name</label>
-            <input type="text" name="first_name" class="form-control" id="first_name" value="{{old('first_name')}}">
-            @error('first_name')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="last_name" class="form-label">Last name</label>
-            <input type="text" name="last_name" class="form-control" id="last_name" value="{{old('last_name')}}">
-            @error('last_name')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" name="email" class="form-control" id="email" value="{{old('email')}}"
-                placeholder="abc@example.com">
-            @error('email')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Leave blank to use previous password">
-            @error('password')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="company_name" class="form-label">Company Name</label>
-            <input type="text" name="company_name" class="form-control" id="company_name"
-                value="{{old('company_name')}}" placeholder="abc@example.com">
-            @error('company_name')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="company_mask_id" class="form-label">Company Mask Id</label>
-            <input type="text" name="company_mask_id" class="form-control" id="company_mask_id"
-                value="{{old('company_mask_id')}}" placeholder="Company Mask ID">
-            @error('company_mask_id')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="company_nature" class="form-label">Company Nature</label>
-            <select class="form-select" name="company_nature" id="company_nature">
-                <option value="" selected>Open this select menu</option>
-                <option value="B">Business</option>
-                <option value="S">School</option>
-            </select>
-            @error('company_nature')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="company_email" class="form-label">Company Email</label>
-            <input type="text" name="company_email" class="form-control" id="company_email"
-                value="{{old('company_email')}}" placeholder="abc@example.com">
-            @error('company_email')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="mobile_1" class="form-label">Mobile 1</label>
-            <input type="text" name="mobile_1" class="form-control" id="mobile_1" value="{{old('mobile_1')}}"
-                placeholder="923001234567">
-            @error('mobile_1')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="mobile_2" class="form-label">Mobile 2</label>
-            <input type="number" name="mobile_2" class="form-control" id="mobile_2" value="{{old('mobile_2')}}"
-                placeholder="923001234567">
-            @error('mobile_2')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <div class="mb-3">
-            <label for="no_of_sms" class="form-label">Number of sms</label>
-            <input type="number" name="no_of_sms" class="form-control" id="no_of_sms" value="{{old('no_of_sms')}}">
-            @error('no_of_sms')
-            <span class="text-danger">{{$message}}</span>
-            @enderror
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
+    <script src="{{ asset('assets/libs/moment/moment.js') }}"></script>
+    <script
+        src="{{ asset('assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js') }}">
+    </script>
+    <script>
+        $('#dob').bootstrapMaterialDatePicker({
+            // format: 'DD/MM/YYYY',
+            weekStart: 1,
+            time: false
+        });
 
+        // $('#group').on('change', function() {
+
+        //     var GroupId = $(this).val();
+
+        //     var Data = "";
+
+        //     $.ajax({
+        //         type: "get",
+        //         url: '/sections/' + GroupId + '/list',
+        //         dataType: 'json',
+        //         success: function(response) {
+
+        //             Data += '<option value="">Select</option>';
+        //             for (let index = 0; index < response.length; index++) {
+        //                 Data += '<option value="' + response[index].id + '">' + response[index].name +
+        //                     '</option>\n';
+        //             }
+        //             $('#section').html(Data);
+
+        //             var elem = document.querySelector('#section');
+        //             var instance = M.FormSelect.init(elem);
+
+        //         }
+        //     });
+
+        // });
+    </script>
 @endsection
