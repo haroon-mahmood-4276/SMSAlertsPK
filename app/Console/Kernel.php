@@ -24,17 +24,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('php artisan queue:work --tries=3')->hourly();
+        $schedule->exec('php artisan queue:work --daemon --stop-when-empty')->everyMinute();
     }
 
     /**
      * Register the commands for the application.
      *
-     * @return void
+     * @return voiduse App\Console\Commands\SendEmailsCommand;
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
