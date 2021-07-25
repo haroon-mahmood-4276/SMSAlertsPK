@@ -52,7 +52,7 @@
                                 <div class="col s12 m12 l12">
                                     <p><strong>Tags</strong></p>
                                     <div class="row">
-                                        <div class="col s1 m2 l2">
+                                        <div class="col s1 m2 l2 m-2">
                                             <a href="javascript:void(0)"
                                                 id="{{ session('Data.company_nature') == 'B' ? 'member_full_name' : 'student_full_name' }}"
                                                 onmouseup="textbox(this.id)"
@@ -60,41 +60,49 @@
                                                 Full Name
                                             </a>
                                         </div>
-                                        <div class="col s1 m2 l2">
+                                        <div class="col s1 m2 l2 m-2">
                                             <a href="javascript:void(0)" id="account_name" onmouseup="textbox(this.id)"
                                                 class="chip">Account Name</a>
                                         </div>
                                         @if (session('Data.company_nature') == 'B')
-                                            <div class="col s1 m2 l2">
+                                            <div class="col s1 m2 l2 m-2">
                                                 <a href="javascript:void(0)" id="brand_name" onmouseup="textbox(this.id)"
                                                     class="chip">Brand Name</a>
                                             </div>
-                                            <div class="col s1 m2 l2">
-                                                <a href="javascript:void(0)" id="brand_mask" onmouseup="textbox(this.id)"
-                                                    class="chip">Brand Mask</a>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="brand_phone_1" onmouseup="textbox(this.id)"
+                                                    class="chip">Brand Phone No 1</a>
                                             </div>
-                                            <div class="col s1 m2 l2">
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="brand_phone_2" onmouseup="textbox(this.id)"
+                                                    class="chip">Brand Phone No 2</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
                                                 <a href="javascript:void(0)" id="brand_email" onmouseup="textbox(this.id)"
                                                     class="chip">Brand Email</a>
                                             </div>
                                         @else
-                                            <div class="col s1 m2 l2">
+                                            <div class="col s1 m2 l2 m-2">
                                                 <a href="javascript:void(0)" id="class_name" onmouseup="textbox(this.id)"
                                                     class="chip">Class Name</a>
                                             </div>
-                                            <div class="col s1 m2 l2">
+                                            <div class="col s1 m2 l2 m-2">
                                                 <a href="javascript:void(0)" id="section_name" onmouseup="textbox(this.id)"
                                                     class="chip">Section Name</a>
                                             </div>
-                                            <div class="col s1 m2 l2">
+                                            <div class="col s1 m2 l2 m-2">
                                                 <a href="javascript:void(0)" id="school_name" onmouseup="textbox(this.id)"
                                                     class="chip">School Name</a>
                                             </div>
-                                            <div class="col s1 m2 l2">
-                                                <a href="javascript:void(0)" id="school_mask" onmouseup="textbox(this.id)"
-                                                    class="chip">School Mask</a>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="school_phone_1"
+                                                    onmouseup="textbox(this.id)" class="chip">School Phone No 1</a>
                                             </div>
-                                            <div class="col s1 m2 l2">
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="school_phone_2"
+                                                    onmouseup="textbox(this.id)" class="chip">School Phone No 2</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
                                                 <a href="javascript:void(0)" id="school_email" onmouseup="textbox(this.id)"
                                                     class="chip">School Email</a>
                                             </div>
