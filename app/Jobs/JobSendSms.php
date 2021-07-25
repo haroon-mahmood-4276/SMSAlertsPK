@@ -46,11 +46,11 @@ class JobSendSms implements ShouldQueue
                 if ($Msgs <= $User->remaining_of_sms) {
 
                     // $response =  Http::get('http://sms.web.pk/sendsms.php', [
-                    //     'username' => $this->UserName,
-                    //     'password' => $this->Password,
-                    //     'sender' => $this->Sender,
-                    //     'phone' => $this->Phone,
-                    //     'message' => $this->Message,
+                        // 'username' => $this->UserName,
+                        // 'password' => $this->Password,
+                        // 'sender' => $this->Sender,
+                        // 'phone' => $this->Phone,
+                        // 'message' => $this->Message,
                     // ]);
                     $response = "success";
                     JobSaveSms::dispatch($this->UserID, $this->Phone, $this->Message, $response);
