@@ -14,13 +14,13 @@ class SMS extends Seeder
      */
     public function run()
     {
-        DB::table('sms')->insert([
-            [
-                'user_id' => '00001',
-                'sms' => 'Blue',
-                'phone_number' => '923034243233',
-                'response' => 'Success',
-            ],
-        ]);
+        // DB::table('sms')->insert([
+        //     [
+        //         'user_id' => '00001',
+        //         'sms' => 'Blue',
+        //         'phone_number' => '923034243233',
+        //         'response' => 'Success',
+        //     ],
+        // ]);
     }
 }

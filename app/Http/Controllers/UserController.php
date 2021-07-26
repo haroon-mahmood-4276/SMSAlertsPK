@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\Section;
 use App\Models\User;
 use App\Models\Mobiledatas;
+use App\Rules\CheckUserCode;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -47,33 +48,35 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id' => 'bail|required|unique:users,id|between:1,5',
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckUserCode()],
             'first_name' => 'bail|required|alpha|between:1,50',
             'last_name' => 'bail|required|alpha|between:1,50',
             'email' => 'required|email|unique:users,email',
             'password' => 'between:5,15',
             'company_name' => 'required|alpha|between:1,50',
             'company_mask_id' => 'required|max:11',
-            'company_nature' => 'required',
+            'company_username' => 'required|max:11',
+            'company_password' => 'required|max:11',
             'company_email' => 'required|email|unique:users,company_email',
+            'company_nature' => 'required',
             'mobile_1' => 'required|digits:12',
             'mobile_2' => 'nullable||digits:12',
-            'no_of_sms' => 'required|integer',
         ]);
-
+        // dd($request->input());
         $User = new User;
-        $User->id = $request->id;
+        $User->code = $request->code;
         $User->first_name = $request->first_name;
         $User->last_name = $request->last_name;
         $User->email = $request->email;
         $User->password = Hash::make($request->password);
         $User->company_name = $request->company_name;
         $User->company_mask_id = $request->company_mask_id;
-        $User->company_nature = $request->company_nature;
+        $User->company_username = $request->company_username;
+        $User->company_password = $request->company_password;
         $User->company_email = $request->company_email;
+        $User->company_nature = $request->company_nature;
         $User->mobile_1 = $request->mobile_1;
         $User->mobile_2 = $request->mobile_2;
-        $User->no_of_sms = $request->no_of_sms;
 
         if ($User->save()) {
             return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
@@ -115,20 +118,23 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckUserCode(true, $id)],
             'first_name' => 'bail|required|alpha|between:1,50',
             'last_name' => 'bail|required|alpha|between:1,50',
             'email' => 'required|email|unique:users,email',
             'password' => 'between:5,15',
             'company_name' => 'required|alpha|between:1,50',
             'company_mask_id' => 'required|max:11',
-            'company_nature' => 'required',
+            'company_username' => 'required|max:11',
+            'company_password' => 'required|max:11',
             'company_email' => 'required|email|unique:users,company_email',
+            'company_nature' => 'required',
             'mobile_1' => 'required|digits:12',
             'mobile_2' => 'nullable||digits:12',
-            'no_of_sms' => 'required|integer',
         ]);
 
         $User = User::find($id);
+        $User->code = $request->code;
         $User->first_name = $request->first_name;
         $User->last_name = $request->last_name;
         $User->email = $request->email;
@@ -137,11 +143,12 @@ class UserController extends Controller
         }
         $User->company_name = $request->company_name;
         $User->company_mask_id = $request->company_mask_id;
-        $User->company_nature = $request->company_nature;
+        $User->company_username = $request->company_username;
+        $User->company_password = $request->company_password;
         $User->company_email = $request->company_email;
+        $User->company_nature = $request->company_nature;
         $User->mobile_1 = $request->mobile_1;
         $User->mobile_2 = $request->mobile_2;
-        $User->no_of_sms = $request->no_of_sms;
 
         if ($User->save()) {
             return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');

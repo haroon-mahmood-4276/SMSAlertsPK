@@ -14,13 +14,13 @@ class Templates extends Seeder
      */
     public function run()
     {
-        DB::table('templates')->insert([
-            [
-                'user_id' => '2',
-                'code' => '00002',
-                'name' => 'Birthday',
-                'template' => 'Blue',
-            ],
-        ]);
+        // DB::table('templates')->insert([
+        //     [
+        //         'user_id' => '2',
+        //         'code' => '00002',
+        //         'name' => 'Birthday',
+        //         'template' => 'Blue',
+        //     ],
+        // ]);
     }
 }
