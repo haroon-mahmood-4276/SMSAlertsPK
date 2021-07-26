@@ -126,11 +126,11 @@
                                                 <a href="{{ route('r.showaddpackage', ['package' => $User->id]) }}" type="button"
                                                     class="btn btn-small blue m-5 left waves-effect waves-light">Add
                                                     Package</a>
-                                                <a href="{{ route('data.edit', ['data' => $User->id]) }}" type="button"
+                                                <a href="{{ route('users.edit', ['user' => $User->id]) }}" type="button"
                                                     class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                         class="material-icons">edit</i></a>
                                                 <form method="POST"
-                                                    action="{{ route('data.destroy', ['data' => $User->id]) }}">
+                                                    action="{{ route('users.destroy', ['user' => $User->id]) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" onclick="return confirm('Are you sure?')"
