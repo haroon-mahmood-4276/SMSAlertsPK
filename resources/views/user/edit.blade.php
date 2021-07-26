@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Create User')
+@section('PageTitle', 'Edit User')
 
 @section('BeforeCommonCss')
 
@@ -17,7 +17,7 @@
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
-                        <h5 class="card-title">Create User
+                        <h5 class="card-title">Edit User
                         </h5>
                         <form action="{{ route('users.store') }}" method="POST">
                             @csrf

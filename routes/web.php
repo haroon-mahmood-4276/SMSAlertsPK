@@ -9,6 +9,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\MobileDataController;
 use App\Http\Controllers\OtherSettingController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
@@ -44,7 +45,7 @@ Route::resources([
     'groups' => GroupController::class,
     'sections' => SectionController::class,
     'data' => MobileDataController::class,
-    'templates' => TemplateController::class
+    'templates' => TemplateController::class,
 ]);
 
 Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');
@@ -121,9 +122,7 @@ Route::prefix('import')->group(function () {
     Route::post('members', [ImportController::class, 'ImportMembers'])->name('r.importmembers');
 });
 
-Route::get('test', function () {
-    $User = User::find(1);
-    dd($User->expiry_date . " - " . Date('Y-m-d') . " - " . strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date)));
-});
-
 Route::get('others', [OtherSettingController::class, 'OtherSettings'])->name('r.others');
+
+Route::get('packages/{package}/add', [PackageController::class, 'ShowAddPackage'])->name('r.showaddpackage');
+Route::post('packages/{package}/add', [PackageController::class, 'AddPackage'])->name('r.addpackage');

@@ -75,11 +75,11 @@
                                     <tr>
                                         <th data-toggle="true">Code</th>
                                         <th data-hide="phone">Name</th>
-                                        <th data-hide="phone">Email</th>
+                                        <th data-hide="all">Email</th>
                                         <th data-hide="phone">Company Name</th>
                                         <th data-hide="phone">Primary Number</th>
                                         <th data-hide="phone">Remaining SMS</th>
-                                        <th data-hide="phone">Total SMS</th>
+                                        <th data-hide="all">Total SMS</th>
                                         <th data-hide="phone">Expiry Date</th>
                                         <th data-hide="all">Company Mask</th>
                                         <th data-hide="all">Company Email</th>
@@ -123,6 +123,9 @@
                                             <td>{{ $User->company_nature == 'B' ? 'Business' : 'School' . ' User' }}</td>
                                             <td>{{ $User->mobile_2 }}</td>
                                             <td>
+                                                <a href="{{ route('r.showaddpackage', ['package' => $User->id]) }}" type="button"
+                                                    class="btn btn-small blue m-5 left waves-effect waves-light">Add
+                                                    Package</a>
                                                 <a href="{{ route('data.edit', ['data' => $User->id]) }}" type="button"
                                                     class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                         class="material-icons">edit</i></a>

@@ -30,9 +30,9 @@ class Users extends Seeder
                 'company_email' => 'business@smsalertspk.com',
                 'mobile_1' => '923001234567',
                 'mobile_2' =>  '923001234567',
-                // 'remaining_of_sms' => 100,
-                // 'no_of_sms' => 100,
-                // 'expiry_date' => '2021-07-25',
+                'remaining_of_sms' => 100,
+                'no_of_sms' => 100,
+                'expiry_date' => '2021-09-25',
             ],
             [
                 'code' => '00002',
@@ -48,9 +48,9 @@ class Users extends Seeder
                 'company_email' => 'school@smsalertspk.com',
                 'mobile_1' => '923001234567',
                 'mobile_2' =>  '923001234567',
-                // 'remaining_of_sms' => 150,
-                // 'no_of_sms' => 150,
-                // 'expiry_date' => '2021-07-25',
+                'remaining_of_sms' => 150,
+                'no_of_sms' => 150,
+                'expiry_date' => '2021-09-25',
             ],
             [
                 'code' => '00000',
@@ -66,9 +66,9 @@ class Users extends Seeder
                 'company_email' => 'admin@smsalertspk.com',
                 'mobile_1' => null,
                 'mobile_2' =>  null,
-                // 'remaining_of_sms' => 0,
-                // 'no_of_sms' => 0,
-                // 'expiry_date' => null,
+                'remaining_of_sms' => 0,
+                'no_of_sms' => 0,
+                'expiry_date' => null,
             ],
         ]);
     }

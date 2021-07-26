@@ -191,7 +191,7 @@
             @if (session('Data.company_nature') != 'A')
                 <div class="row m-t-25">
                     <div class="col l12 m12 s12">
-                        <h2>Api Section</h2>
+                        <h2>API Section</h2>
                         <ul class="collapsible popout">
                             <li class="">
                                 <div class="collapsible-header"><i class="material-icons">filter_1</i>First</div>
