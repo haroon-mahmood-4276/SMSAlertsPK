@@ -10,6 +10,7 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\MobileDataController;
 use App\Http\Controllers\OtherSettingController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
@@ -126,3 +127,11 @@ Route::get('others', [OtherSettingController::class, 'OtherSettings'])->name('r.
 
 Route::get('packages/{package}/add', [PackageController::class, 'ShowAddPackage'])->name('r.showaddpackage');
 Route::post('packages/{package}/add', [PackageController::class, 'AddPackage'])->name('r.addpackage');
+
+Route::prefix('reports')->group(function () {
+    Route::get('todaysummery', [ReportController::class, 'TodaySummery'])->name('r.todaysummery');
+});
+
+Route::prefix('reports/pdf')->group(function () {
+    Route::get('todaysummery', [ReportController::class, 'TodaySummeryPDF'])->name('r.todaysummerypdf');
+});

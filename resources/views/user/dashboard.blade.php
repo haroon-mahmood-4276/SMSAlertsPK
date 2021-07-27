@@ -25,7 +25,82 @@
                 </div>
             @endif
             <div class="row">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 @if (session('Data.company_nature') != 'A')
+
+                    <div class="col l4 m6 s12">
+                        <div class="card warning-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">{{ Session::get('Data.remaining_of_sms') }}</h2>
+                                        <h6 class="white-text op-5">Remaining SMS</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i
+                                                class="material-icons">question_answer</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col l4 m6 s12">
+                        <div class="card info-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">{{ Session::get('Data.no_of_sms') }}</h2>
+                                        <h6 class="white-text op-5">Total SMS</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i
+                                                class="material-icons">question_answer</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col l4 m6 s12">
+                        <div class="card danger-gradient card-hover">
+                            <div class="card-content">
+                                <div class="d-flex no-block align-items-center">
+                                    <div>
+                                        <h2 class="white-text m-b-5">
+                                            {{ date_format(new DateTime(Session::get('Data.expiry_date')), 'd/m/Y') }}
+                                        </h2>
+                                        <h6 class="white-text op-5 light-blue-text">Expiry Date</h6>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="white-text display-6"><i class="material-icons">data_usage</i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="col l4 m6 s12">
                         <div class="card danger-gradient card-hover">
@@ -82,57 +157,6 @@
                         </div>
                     </div>
 
-                    <div class="col l4 m6 s12">
-                        <div class="card warning-gradient card-hover">
-                            <div class="card-content">
-                                <div class="d-flex no-block align-items-center">
-                                    <div>
-                                        <h2 class="white-text m-b-5">{{ Session::get('Data.remaining_of_sms') }}</h2>
-                                        <h6 class="white-text op-5">Remaining SMS</h6>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <span class="white-text display-6"><i
-                                                class="material-icons">question_answer</i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col l4 m6 s12">
-                        <div class="card info-gradient card-hover">
-                            <div class="card-content">
-                                <div class="d-flex no-block align-items-center">
-                                    <div>
-                                        <h2 class="white-text m-b-5">{{ Session::get('Data.no_of_sms') }}</h2>
-                                        <h6 class="white-text op-5">Total SMS</h6>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <span class="white-text display-6"><i
-                                                class="material-icons">question_answer</i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col l4 m6 s12">
-                        <div class="card danger-gradient card-hover">
-                            <div class="card-content">
-                                <div class="d-flex no-block align-items-center">
-                                    <div>
-                                        <h2 class="white-text m-b-5">
-                                            {{ date_format(new DateTime(Session::get('Data.expiry_date')), 'd/m/Y') }}
-                                        </h2>
-                                        <h6 class="white-text op-5 light-blue-text">Expiry Date</h6>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <span class="white-text display-6"><i class="material-icons">data_usage</i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 @else
                     <div class="col l4 m4 s12">
                         <div class="card danger-gradient card-hover">

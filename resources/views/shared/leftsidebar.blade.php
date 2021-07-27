@@ -70,6 +70,28 @@
                                 class="material-icons">settings</i>
                             <span class="hide-menu"> Other Settings</span></a>
                     </li>
+                    <li>
+                        <a href="javascript: void(0);" class="collapsible-header has-arrow"><i
+                                class="material-icons">receipt</i><span class="hide-menu">Reports</span></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <ul>
+                                    <li><a href="{{ route('r.todaysummery') }}" target="blank"><i
+                                                class="material-icons">receipt</i><span class="hide-menu">Today's
+                                                Summery</span></a></li>
+                                    <li><a href="{{ route('r.multiplesmsshow') }}"><i
+                                                class="material-icons">receipt</i><span class="hide-menu">Multiple
+                                                SMS</span></a></li>
+                                    <li><a href="{{ route('r.bulksmsshow') }}"><i
+                                                class="material-icons">receipt</i><span class="hide-menu">Bulk
+                                                SMS</span></a></li>
+                                    <li><a href="{{ route('r.smshistory') }}"><i
+                                                class="material-icons">receipt</i><span class="hide-menu">SMS
+                                                History</span></a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </li>
                 @else
                     <li>
                         <a href="{{ route('users.index') }}"

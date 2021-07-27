@@ -27,7 +27,6 @@ class PackageController extends Controller
             $Package->user_id = $id;
             $Package->no_of_sms = $request->no_of_sms;
             $Package->expiry_date = new DateTime($request->expiry_date);
-            $Package->purchase_date = new DateTime(now());
 
             $Package->save();
             return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Package Added.');

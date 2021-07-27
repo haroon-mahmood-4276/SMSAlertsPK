@@ -45,7 +45,7 @@
                                         <td>{{ ++$Count }}</td>
                                         <td>{{ $Package->no_of_sms }}</td>
                                         <td>{{ $Package->expiry_date }}</td>
-                                        <td>{{ $Package->purchase_date }}</td>
+                                        <td>{{ $Package->created_at }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -97,7 +97,7 @@
                                     <button class="btn waves-effect waves-light right submit" type="submit"
                                         name="action">Submit
                                     </button>
-                                    <a href="{{ route('groups.index') }}"
+                                    <a href="{{ route('users.index') }}"
                                         class="btn waves-effect red waves-light right m-r-10">Back to Users List</a>
                                 </div>
                             </div>

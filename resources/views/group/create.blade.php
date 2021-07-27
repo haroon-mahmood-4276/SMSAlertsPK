@@ -10,12 +10,12 @@
 @endsection
 
 @section('content')
-<div class="page-wrapper">
-    <div class="row">
+<div class="page-wrapper ">
+    <div class="container-fluid row">
         <div class="col l12 m12 s12">
             <div class="card">
                 <div class="card-content">
-                    <h5 class="card-title activator">Create
+                    <h5 class="card-title">Create
                         {{(session('Data.company_nature') == 'B' ? 'Group' : 'Class')}}</h5>
                     <form class="formValidate" id="formValidate" action="{{route('groups.store')}}" method="POST">
                         @csrf

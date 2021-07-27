@@ -19347,3 +19347,16 @@ Padding margin property
         margin-right: 0px;
     }
 }
+tr {
+    transition: transform .1s ease-in
+}
+
+.card {
+    background-color: #fff !important;
+    border-radius: 15px !important;
+    box-shadow: rgba(100, 100, 111, .2) 0 7px 29px 0 !important
+}
+
+tr:hover {
+    transform: scale(1.01)
+}

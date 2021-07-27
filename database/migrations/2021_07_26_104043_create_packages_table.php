@@ -19,7 +19,6 @@ class CreatePackagesTable extends Migration
             $table->id();
             $table->string('no_of_sms');
             $table->string('expiry_date');
-            $table->string('purchase_date');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->foreign('user_id')->references('id')->on('users');
