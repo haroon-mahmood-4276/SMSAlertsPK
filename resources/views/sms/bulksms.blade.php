@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+            <div class="container-fluid row">
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
