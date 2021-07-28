@@ -13,7 +13,6 @@
 @section('content')
 
     <div class="page-wrapper">
-
         <div class="container-fluid">
             @if (Session::has('AlertType') && Session::has('AlertMsg'))
                 <div class="row">
@@ -25,28 +24,6 @@
                 </div>
             @endif
             <div class="row">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 @if (session('Data.company_nature') != 'A')
 
@@ -214,31 +191,36 @@
 
             @if (session('Data.company_nature') != 'A')
                 <div class="row m-t-25">
-                    <div class="col l12 m12 s12">
+                    <div class="col s12 m6">
                         <h2>API Section</h2>
                         <ul class="collapsible popout">
-                            <li class="">
+                            <li class="rounded">
                                 <div class="collapsible-header"><i class="material-icons">filter_1</i>First</div>
                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                             </li>
-                            <li>
+                            <li class="rounded">
                                 <div class="collapsible-header"><i class="material-icons">filter_2</i>Second</div>
                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                             </li>
-                            <li>
+                            <li class="rounded">
                                 <div class="collapsible-header"><i class="material-icons">filter_3</i>Third</div>
                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                             </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">filter_4</i>Third</div>
+                        </ul>
+                    </div>
+                    <div class="col s12 m6">
+                        <h2> &nbsp;</h2>
+                        <ul class="collapsible popout">
+                            <li class="rounded">
+                                <div class="collapsible-header"><i class="material-icons">filter_1</i>First</div>
                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                             </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">filter_5</i>Third</div>
+                            <li class="rounded">
+                                <div class="collapsible-header"><i class="material-icons">filter_2</i>Second</div>
                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                             </li>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">filter_6</i>Third</div>
+                            <li class="rounded">
+                                <div class="collapsible-header"><i class="material-icons">filter_3</i>Third</div>
                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                             </li>
                         </ul>

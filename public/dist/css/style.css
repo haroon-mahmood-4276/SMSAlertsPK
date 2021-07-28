@@ -19360,3 +19360,9 @@ tr {
 tr:hover {
     transform: scale(1.01)
 }
+
+.rounded, .collapsible-header,
+.collapsible-body {
+    border-radius: 10px !important;
+    margin: 10px 0px;
+}
