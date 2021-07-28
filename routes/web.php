@@ -130,8 +130,10 @@ Route::post('packages/{package}/add', [PackageController::class, 'AddPackage'])-
 
 Route::prefix('reports')->group(function () {
     Route::get('todaysummery', [ReportController::class, 'TodaySummery'])->name('r.todaysummery');
+    Route::get('personalizedreport', [ReportController::class, 'PersonalizedReport'])->name('r.personalizedreport');
 });
 
 Route::prefix('reports/pdf')->group(function () {
     Route::get('todaysummery', [ReportController::class, 'TodaySummeryPDF'])->name('r.todaysummerypdf');
+    Route::get('personalizedreport', [ReportController::class, 'PersonalizedReportPDF'])->name('r.personalizedreportpdf');
 });

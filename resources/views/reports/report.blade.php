@@ -1,6 +1,6 @@
 @extends('reports.layout')
 
-@section('PageTitle', "Today's Summery")
+@section('PageTitle', $Title)
 
 @section('BeforeCommonCss')
     <style>
@@ -42,7 +42,7 @@
 
     <div class="page-titles container m-b-10 m-t-10" style="text-align: center">
         <div class="">
-            <h3 class="font-medium m-b-0">Today's Summery Report</h3>
+            <h3 class="font-medium m-b-0">{{ $Title }}</h3>
         </div>
     </div>
     <div class="container-fluid">
@@ -64,7 +64,7 @@
                                 <div class="d-flex">
                                     <div class="ml-auto">
                                         <div class="form-group">
-                                            <a href="{{ route('r.todaysummerypdf') }}"
+                                            <a href="{{ $DownloadLink }}"
                                                 class="waves-effect waves-light btn"><i
                                                     class="material-icons left">file_download</i>Export as PDF</a>
                                         </div>

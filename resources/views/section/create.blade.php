@@ -15,7 +15,7 @@
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
-                        <h5 class="card-title activator">Create Section</h5>
+                        <h5 class="card-title">Create Section</h5>
                         <form action="{{ route('sections.store') }}" class="formValidate" id="formValidate" method="POST">
                             @csrf
                             @if (Session::get('AlertType') && Session::get('AlertMsg'))

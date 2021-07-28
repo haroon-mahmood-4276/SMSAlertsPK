@@ -29,7 +29,7 @@
                 <div class="col l12 m12 s12">
                     <div class="card">
                         <div class="card-content">
-                            <h5 class="card-title activator">Birthday Template</h5>
+                            <h5 class="card-title">Birthday Template</h5>
 
                             <form action="{{ route('templates.store') }}" class="formValidate" id="formValidate"
                                 method="POST">

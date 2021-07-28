@@ -15,7 +15,7 @@
         <div class="col l12 m12 s12">
             <div class="card">
                 <div class="card-content">
-                    <h5 class="card-title activator">Edit
+                    <h5 class="card-title">Edit
                         {{(session('Data.company_nature') == 'B' ? 'Group' : 'Class')}}</h5>
                     <form class="formValidate" id="formValidate"
                         action="{{route('groups.update', [ 'group' => $Group->id ])}}" method="POST">

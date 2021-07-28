@@ -42,19 +42,51 @@
                         <div class="collapsible-body">
                             <ul>
                                 <ul>
-                                    <li><a href="{{ route('r.quicksmsshow') }}"><i
-                                                class="material-icons">message</i><span class="hide-menu">Quick
-                                                SMS</span></a></li>
-                                    <li><a href="{{ route('r.multiplesmsshow') }}"><i
-                                                class="material-icons">message</i><span class="hide-menu">Multiple
-                                                SMS</span></a></li>
-                                    <li><a href="{{ route('r.bulksmsshow') }}"><i
-                                                class="material-icons">message</i><span class="hide-menu">Bulk
-                                                SMS</span></a></li>
-                                    <li><a href="{{ route('r.smshistory') }}"><i
-                                                class="material-icons">history</i><span class="hide-menu">SMS
-                                                History</span></a></li>
+                                    <li>
+                                        <a href="{{ route('r.quicksmsshow') }}">
+                                            <i class="material-icons">message</i>
+                                            <span class="hide-menu">Quick SMS</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('r.multiplesmsshow') }}">
+                                            <i class="material-icons">message</i>
+                                            <span class="hide-menu">Multiple SMS</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('r.bulksmsshow') }}">
+                                            <i class="material-icons">message</i>
+                                            <span class="hide-menu">Bulk SMS</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('r.smshistory') }}">
+                                            <i class="material-icons">history</i>
+                                            <span class="hide-menu">SMS History</span>
+                                        </a>
+                                    </li>
                                 </ul>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript: void(0);" class="collapsible-header has-arrow"><i
+                                class="material-icons">receipt</i><span class="hide-menu">Reports</span></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="{{ route('r.todaysummery') }}" target="_blank">
+                                        <i class="material-icons">receipt</i>
+                                        <span class="hide-menu">Today's Summery</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('r.personalizedreport') }}">
+                                        <i class="material-icons">receipt</i>
+                                        <span class="hide-menu">Personalized Reports</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -69,28 +101,6 @@
                             class="collapsible-header {{ Request::is(route('r.others')) ? 'active' : null }}"><i
                                 class="material-icons">settings</i>
                             <span class="hide-menu"> Other Settings</span></a>
-                    </li>
-                    <li>
-                        <a href="javascript: void(0);" class="collapsible-header has-arrow"><i
-                                class="material-icons">receipt</i><span class="hide-menu">Reports</span></a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <ul>
-                                    <li><a href="{{ route('r.todaysummery') }}" target="blank"><i
-                                                class="material-icons">receipt</i><span class="hide-menu">Today's
-                                                Summery</span></a></li>
-                                    <li><a href="{{ route('r.multiplesmsshow') }}"><i
-                                                class="material-icons">receipt</i><span class="hide-menu">Multiple
-                                                SMS</span></a></li>
-                                    <li><a href="{{ route('r.bulksmsshow') }}"><i
-                                                class="material-icons">receipt</i><span class="hide-menu">Bulk
-                                                SMS</span></a></li>
-                                    <li><a href="{{ route('r.smshistory') }}"><i
-                                                class="material-icons">receipt</i><span class="hide-menu">SMS
-                                                History</span></a></li>
-                                </ul>
-                            </ul>
-                        </div>
                     </li>
                 @else
                     <li>

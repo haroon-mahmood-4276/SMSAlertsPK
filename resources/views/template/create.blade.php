@@ -11,11 +11,11 @@
 
 @section('content')
     <div class="page-wrapper">
-            <div class="container-fluid row">
+        <div class="container-fluid row">
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
-                        <h5 class="card-title activator">Create Template</h5>
+                        <h5 class="card-title">Create Template</h5>
                         <form action="{{ route('templates.store') }}" class="formValidate" id="formValidate"
                             method="POST">
                             @csrf

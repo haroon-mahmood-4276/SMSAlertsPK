@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Create ' . @(session('Data.company_nature') == 'B') ? 'Member' : 'Student')
+@section('PageTitle', 'Customized Report')
 
 @section('BeforeCommonCss')
 
@@ -14,18 +14,18 @@
 
 @section('content')
     <div class="page-wrapper">
-        <div class="page-titles m-b-15">
+        <div class="page-titles">
             <div class="d-flex align-items-center">
-                <h3 class="font-medium m-b-0">Bulk SMS</h3>
+                <h3 class="font-medium m-b-0">Personalized Report</h3>
                 {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
                 <div class="custom-breadcrumb ml-auto">
                     <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
-                    <a href="javascript:void(0)" class="breadcrumb">Messaging</a>
-                    <a href="{{ route('r.bulksmsshow') }}" class="breadcrumb">Bulk SMS</a>
+                    <a href="javascript:void(0)" class="breadcrumb">Reports</a>
+                    <a href="{{ route('r.personalizedreport') }}" class="breadcrumb">Personalized Report</a>
                 </div>
             </div>
         </div>
-            <div class="container-fluid row">
+        <div class="container-fluid row">
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
@@ -38,10 +38,42 @@
                                 </div>
                             </div>
                         @endif
-                        <form class="formValidate" id="formValidate" action="{{ route('r.bulksms') }}" method="POST">
-                            @csrf
-
+                        <form class="formValidate" id="formValidate" action="{{ route('r.personalizedreport') }}"
+                            target="_blank">
                             <div class="row">
+                                <div class="m-t-20 col s12 m12 l12">
+                                    <h3 class="card-title">Date-wise Report</h3>
+                                </div>
+
+                                <div class="col s12 m6 l6">
+                                    <label class="m-t-20">Start Date</label>
+                                    <div class="input-fleid">
+                                        <input type="text" value="{{ old('start_date') }}" id="start_date"
+                                            name="start_date" placeholder="1999-01-01">
+                                    </div>
+                                    @error('start_date')
+                                        <span style="color: rgb(255, 0, 0)">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col s12 m6 l6">
+                                    <label class="m-t-20">End Date</label>
+                                    <div class="input-fleid">
+                                        <input type="text" value="{{ old('end_date') }}" id="end_date" name="end_date"
+                                            placeholder="1999-01-01">
+                                    </div>
+                                    @error('end_date')
+                                        <span style="color: rgb(255, 0, 0)">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+                                <div class="m-t-10 col s12 m12 l12">
+                                    <hr>
+                                    <h3 class="card-title">
+                                        {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}-wise Report</h3>
+                                </div>
+
                                 <div class="input-field col s6">
                                     <select class="form-select" name="group" id="group">
                                         <option value="0">All</option>
@@ -49,7 +81,7 @@
                                             <option value="{{ $Group->id }}">{{ $Group->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="group" class="form-label">Group</label>
+                                    <label for="group" class="form-label">{{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}</label>
                                     @error('group')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
@@ -59,9 +91,6 @@
                                     <div class="input-field col s6">
                                         <select class="form-select" name="section" id="section">
                                             <option value="0">All</option>
-                                            {{-- @foreach ($Sections as $Section)
-                                            <option value="{{ $Section->id }}">{{ $Section->name }}</option>
-                                        @endforeach --}}
                                         </select>
                                         <label for="section" class="form-label">Section</label>
                                         @error('section')
@@ -70,90 +99,15 @@
                                     </div>
                                 @endif
 
-                                <div class="input-field col {{ session('Data.company_nature') == 'B' ? 's6' : 's12' }}">
-                                    <select class="form-select" name="template" id="template">
-                                        <option value="">Select</option>
-                                        @foreach ($Templates as $Template)
-                                            <option value="{{ $Template->id }}">{{ $Template->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="template" class="form-label">Template</label>
-                                    @error('template')
+                                <div class="input-field col s6">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="phone_number" name="phone_number" type="text"
+                                        class="@error('phone_number') error @enderror" value="{{ old('phone_number') }}"
+                                        placeholder="923001234567">
+                                    <label for="phone_number">Phone Number *</label>
+                                    @error('phone_number')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
-                                </div>
-
-                                <div class="input-field col s12 m12 l12">
-                                    <i class="material-icons prefix">question_answer</i>
-                                    <label for="message">Message *</label>
-                                    <textarea id="message" name="message"
-                                        class="materialize-textarea @error('message') error @enderror"
-                                        value="{{ old('message') }}"></textarea>
-                                    @error('message')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <div class="input-field col s12 m12 l12">
-                                    <a href="javascript:void(0)" class="btn btn-small" id="getmember">
-                                        Get
-                                        {{ Session::get('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
-                                    </a>
-                                </div>
-
-                                <div class="input-field m-t-10 col s12" id="SDTTable">
-                                    <table id="demo-foo-addrow2" class="table m-b-0 toggle-arrow-tiny centered responsive-table" data-page-size="10">
-                                        <thead>
-                                            <tr>
-                                                <th data-toggle="true">Code</th>
-                                                <th>Name</th>
-                                                @if (session('Data.company_nature') == 'S')
-                                                    <th>Parent Name</th>
-                                                @endif
-                                                <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
-                                                    Primary Number</th>
-                                                <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
-                                                    Secondary Number</th>
-                                                @if (session('Data.company_nature') == 'S')
-                                                    <th>Student Primary Number</th>
-                                                    <th>Student Secondary Number</th>
-                                                @endif
-                                                <th>Stauts</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <div class="m-t-5">
-                                            <div class="d-flex">
-                                                <div class="ml-auto">
-                                                    <div class="form-group">
-                                                        <input id="demo-input-search2" type="text" placeholder="Search"
-                                                            autocomplete="off">
-                                                        <p>
-                                                            <label>
-                                                                <input type="checkbox" class="sl-all filled-in" />
-                                                                <span>Check All</span>
-                                                            </label>
-                                                        </p>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <tbody>
-                                            <tr colspan="9">
-                                                <td>No Data Yet</td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="9">
-                                                    <div class="text-right">
-                                                        <ul class="pagination pagination-split"> </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
                                 </div>
                             </div>
                             <div class="row">
@@ -169,6 +123,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
@@ -185,7 +140,10 @@
     <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
-
+    <script src="{{ asset('assets/libs/moment/moment.js') }}"></script>
+    <script
+        src="{{ asset('assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js') }}">
+    </script>
     <script>
         $(document).ready(function() {
             // $('#SDTTable').hide();
@@ -281,7 +239,7 @@
                                 "<td><span class='label label-table label-danger'>Not Active</span></td>\n";
                         }
                         Data += "<td><p><label><input type='checkbox' name='" + response[index].id +
-                            "chk' class='chkbox filled-in' /><span>SMS</span></label></p></td>\n";
+                            "chk' class='chkbox' /><span>SMS</span></label></p></td>\n";
                         Data += "</tr>";
 
                         // }
@@ -300,6 +258,17 @@
 
         $(".sl-all").on('click', function() {
             $('.chkbox').prop('checked', this.checked);
+        });
+
+        $('#end_date').bootstrapMaterialDatePicker({
+            weekStart: 1,
+            time: false
+        });
+        $('#start_date').bootstrapMaterialDatePicker({
+            weekStart: 1,
+            time: false
+        }).on('change', function(e, date) {
+            $('#end_date').bootstrapMaterialDatePicker('setMinDate', date);
         });
     </script>
 @endsection
