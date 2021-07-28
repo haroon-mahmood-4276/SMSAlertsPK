@@ -66,7 +66,7 @@ Route::post('sms/bulk', [SmsController::class, 'BulkSMS'])->name('r.bulksms');
 Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 
 Route::get('imports', function () {
-    return view('mobiledata.imports');
+    return view('shared.imports');
 })->name('r.imports');
 
 // Data Exports
