@@ -19381,7 +19381,7 @@ tr {
 
 .card {
     background-color: #fff !important;
-    border-radius: 15px !important;
+    border-radius: 10px !important;
     box-shadow: rgba(100, 100, 111, .2) 0 7px 29px 0 !important;
 }
 
@@ -19393,9 +19393,11 @@ tr:hover {
 .collapsible-header,
 .collapsible-body {
     border-radius: 10px !important;
-    margin: 10px 0px;
 }
 
+.rounded{
+    margin:10px 0px !important;
+}
 ul#user_dropdown {
     border-radius: 0px 0px 10px 10px !important;
     margin-top: 20px !important;

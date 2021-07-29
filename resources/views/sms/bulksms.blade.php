@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-            <div class="container-fluid row">
+        <div class="container-fluid row">
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
@@ -87,8 +87,10 @@
                                     <i class="material-icons prefix">question_answer</i>
                                     <label for="message">Message *</label>
                                     <textarea id="message" name="message"
-                                        class="materialize-textarea @error('message') error @enderror"
+                                        class="materialize-textarea count-message-character @error('message') error @enderror"
                                         value="{{ old('message') }}"></textarea>
+                                    <span class="character-counter" id="message-character-counter"
+                                        style="float: right; font-size: 12px;"> &nbsp;</span>
                                     @error('message')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
@@ -102,7 +104,8 @@
                                 </div>
 
                                 <div class="input-field m-t-10 col s12" id="SDTTable">
-                                    <table id="demo-foo-addrow2" class="table m-b-0 toggle-arrow-tiny centered responsive-table" data-page-size="10">
+                                    <table id="demo-foo-addrow2"
+                                        class="table m-b-0 toggle-arrow-tiny centered responsive-table" data-page-size="10">
                                         <thead>
                                             <tr>
                                                 <th data-toggle="true">Code</th>
