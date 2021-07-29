@@ -97,10 +97,10 @@
                             <span class="hide-menu"> Imports</span></a>
                     </li>
                     <li>
-                        <a href="{{ route('r.others') }}"
-                            class="collapsible-header {{ Request::is(route('r.others')) ? 'active' : null }}"><i
+                        <a href="{{ route('r.settings') }}"
+                            class="collapsible-header {{ Request::is(route('r.settings')) ? 'active' : null }}"><i
                                 class="material-icons">settings</i>
-                            <span class="hide-menu"> Other Settings</span></a>
+                            <span class="hide-menu"> Settings</span></a>
                     </li>
                 @else
                     <li>

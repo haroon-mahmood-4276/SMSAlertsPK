@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\MobileDataController;
-use App\Http\Controllers\OtherSettingController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
@@ -123,7 +123,7 @@ Route::prefix('import')->group(function () {
     Route::post('members', [ImportController::class, 'ImportMembers'])->name('r.importmembers');
 });
 
-Route::get('others', [OtherSettingController::class, 'OtherSettings'])->name('r.others');
+Route::get('settings', [SettingController::class, 'Settings'])->name('r.settings');
 
 Route::get('packages/{package}/add', [PackageController::class, 'ShowAddPackage'])->name('r.showaddpackage');
 Route::post('packages/{package}/add', [PackageController::class, 'AddPackage'])->name('r.addpackage');

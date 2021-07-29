@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Other Settings')
+@section('PageTitle', 'Settings')
 
 @section('BeforeCommonCss')
 
@@ -15,11 +15,11 @@
     <div class="page-wrapper">
         <div class="page-titles">
             <div class="d-flex align-items-center">
-                <h3 class="font-medium m-b-0">Other Settings</h3>
+                <h3 class="font-medium m-b-0">Settings</h3>
                 {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
                 <div class="custom-breadcrumb ml-auto">
                     <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
-                    <a href="javascript:void(0)" class="breadcrumb">Other Settings</a>
+                    <a href="javascript:void(0)" class="breadcrumb">Settings</a>
                 </div>
             </div>
         </div>
