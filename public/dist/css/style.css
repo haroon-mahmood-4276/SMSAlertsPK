@@ -10,6 +10,33 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+/* Works on Chrome/Edge/Safari */
+::-webkit-scrollbar {
+    width: 18px;
+}
+
+
+::-webkit-scrollbar-track-piece:vertical {
+    background: lightgray;
+}
+
+::-webkit-scrollbar-track-piece:horizontal {
+    background: lightgray;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background-color: #a9a9a9;
+    border-radius: 100px;
+    border: 6px solid lightgray;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    /* border: 3px solid lightgray; */
+    background-color: #6b00b5;
+    border: 5px solid lightgray;
+}
+
 .materialize-red {
     background-color: #e51c23 !important;
 }
