@@ -291,16 +291,13 @@ $(function () {
     });
 
     $(".count-message-character").focusin(function () {
-        if ($("#message").val().length < 1) {
+        if ($("#message").val().length < 1)
             $('#message-character-counter').html("0/0");
-        }
-        else {
+        else
             $.fn.MessageCounter();
-        }
     }).focusout(function () {
-        if ($("#message").val().length < 1) {
+        if ($("#message").val().length < 1)
             $('#message-character-counter').html("&nbsp;");
-        }
     }).on('input', function () {
         $.fn.MessageCounter();
     });
