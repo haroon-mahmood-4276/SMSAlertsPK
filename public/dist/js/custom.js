@@ -294,6 +294,16 @@ $(function () {
         if ($("#message").val().length < 1) {
             $('#message-character-counter').html("0/0");
         }
+        else {
+            if ($("#message").val().length > 0) {
+                var length = $("#message").val().length;
+                var messages = length / 160;
+
+                $('#message-character-counter').html(Math.abs(length - (parseInt(messages + 1) * 160)) + "/" + parseInt(messages + 1));
+            }
+            else
+                $('#message-character-counter').html("0/0");
+        }
     }).focusout(function () {
         if ($("#message").val().length < 1) {
             $('#message-character-counter').html("&nbsp;");
