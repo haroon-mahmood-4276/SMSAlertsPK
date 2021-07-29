@@ -19347,6 +19347,7 @@ Padding margin property
         margin-right: 0px;
     }
 }
+
 tr {
     transition: transform .1s ease-in
 }
@@ -19354,15 +19355,27 @@ tr {
 .card {
     background-color: #fff !important;
     border-radius: 15px !important;
-    box-shadow: rgba(100, 100, 111, .2) 0 7px 29px 0 !important
+    box-shadow: rgba(100, 100, 111, .2) 0 7px 29px 0 !important;
 }
 
 tr:hover {
     transform: scale(1.01)
 }
 
-.rounded, .collapsible-header,
+.rounded,
+.collapsible-header,
 .collapsible-body {
     border-radius: 10px !important;
     margin: 10px 0px;
+}
+
+ul#user_dropdown {
+    border-radius: 0px 0px 10px 10px !important;
+    margin-top: 20px !important;
+}
+
+.dropdown-rounded {
+    border-radius: 10px !important;
+    /* border: 1px solid lightgray !important; */
+    box-shadow: rgba(100, 100, 111, .2) 0 7px 7px 0 !important;
 }

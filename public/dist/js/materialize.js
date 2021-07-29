@@ -11798,7 +11798,7 @@ $jscomp.polyfill = function (e, r, p, m) {
                 this.$selectOptions = this.$el.children('option, optgroup');
                 this.dropdownOptions = document.createElement('ul');
                 this.dropdownOptions.id = "select-options-" + M.guid();
-                $(this.dropdownOptions).addClass('dropdown-content select-dropdown ' + (this.isMultiple ? 'multiple-select-dropdown' : ''));
+                $(this.dropdownOptions).addClass('dropdown-content dropdown-rounded select-dropdown ' + (this.isMultiple ? 'multiple-select-dropdown' : ''));
 
                 // Create dropdown structure.
                 if (this.$selectOptions.length) {
