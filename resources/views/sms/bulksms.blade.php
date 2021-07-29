@@ -190,10 +190,6 @@
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
-            // $('#SDTTable').hide();
-        });
-
         $('#group').on('change', function() {
             var GroupId = $(this).val();
             var Data = "";

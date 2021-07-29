@@ -112,12 +112,13 @@
 
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">question_answer</i>
-                                        <textarea id="template" name="template"
-                                            class="materialize-textarea validate count-message-character @error('template') error @enderror">{{ old('template') }}</textarea>
-                                        <label for="template">Message *</label>
+                                        <label for="message">Message *</label>
+                                        <textarea id="message" name="message"
+                                            class="materialize-textarea count-message-character @error('message') error @enderror"
+                                            value="{{ old('message') }}"></textarea>
                                         <span class="character-counter" id="message-character-counter"
                                             style="float: right; font-size: 12px;"> &nbsp;</span>
-                                        @error('template')
+                                        @error('message')
                                             <span style="color: red">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -146,7 +147,7 @@
     <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
-    <script type="text/javascript">
+    <script>
         function textbox(Element) {
             var ctl = document.getElementById('template');
             var EndPosition = ctl.selectionEnd;
