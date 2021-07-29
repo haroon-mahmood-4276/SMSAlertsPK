@@ -113,8 +113,10 @@
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">question_answer</i>
                                         <textarea id="template" name="template"
-                                            class="materialize-textarea validate @error('template') error @enderror">{{ old('template') }}</textarea>
+                                            class="materialize-textarea validate count-message-character @error('template') error @enderror">{{ old('template') }}</textarea>
                                         <label for="template">Message *</label>
+                                        <span class="character-counter" id="message-character-counter"
+                                            style="float: right; font-size: 12px;"> &nbsp;</span>
                                         @error('template')
                                             <span style="color: red">{{ $message }}</span>
                                         @enderror
