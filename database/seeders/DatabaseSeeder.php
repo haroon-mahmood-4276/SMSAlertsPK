@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             Users::class,
-            Groups::class,
-            Sections::class,
-            MobileDatas::class,
-            Templates::class,
-            SMS::class,
+            // Groups::class,
+            // Sections::class,
+            // MobileDatas::class,
+            // Templates::class,
+            // SMS::class,
             Settings::class,
         ]);
     }
