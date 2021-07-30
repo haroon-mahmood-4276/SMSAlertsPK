@@ -124,7 +124,8 @@ Route::prefix('import')->group(function () {
 });
 
 Route::get('settings', [SettingController::class, 'Settings'])->name('r.settings');
-Route::post('ZK-D1065S – ZKTeco Walk Through Metal Detector', [SettingController::class, 'BirthDaySMS'])->name('r.birthdaysettings');
+Route::post('birthdaysettings', [SettingController::class, 'BirthDaySMS'])->name('r.birthdaysettings');
+Route::post('smssettings', [SettingController::class, 'SMSSetting'])->name('r.smssettings');
 
 Route::get('packages/{package}/add', [PackageController::class, 'ShowAddPackage'])->name('r.showaddpackage');
 Route::post('packages/{package}/add', [PackageController::class, 'AddPackage'])->name('r.addpackage');

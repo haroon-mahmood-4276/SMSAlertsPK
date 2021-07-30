@@ -46,7 +46,7 @@
                                         <p>
                                             <label>
                                                 <input type="checkbox" id="is_enabled" class="filled-in" name="is_enabled"
-                                                    {{ $BirthdaySetting->birthday_enabled == 'Y' ? 'checked' : '' }} />
+                                                    {{ $Setting->birthday_enabled == 'Y' ? 'checked' : '' }} />
                                                 <span>Enabled</span>
                                             </label>
                                         </p>
@@ -108,8 +108,8 @@
                                         <i class="material-icons prefix">question_answer</i>
                                         <label for="message">Message *</label>
                                         <textarea id="message" name="message"
-                                            {{ $BirthdaySetting->birthday_enabled == 'Y' ? '' : 'disabled' }}
-                                            class="materialize-textarea count-message-character @error('message') error @enderror">{{ $BirthdaySetting->birthday_message }}</textarea>
+                                            {{ $Setting->birthday_enabled == 'Y' ? '' : 'disabled' }}
+                                            class="materialize-textarea count-message-character @error('message') error @enderror">{{ $Setting->birthday_message }}</textarea>
                                         <span class="character-counter" id="message-character-counter"
                                             style="float: right; font-size: 12px;"> &nbsp;</span>
                                         @error('message')
@@ -141,7 +141,7 @@
                                             <label>
                                                 <input type="checkbox" id="primary_number_1" class="filled-in"
                                                     name="primary_number_1"
-                                                    {{ $SMSSetting->primary_number_1 == 'Y' ? 'checked' : '' }} />
+                                                    {{ $Setting->primary_number_1 == 'Y' ? 'checked' : '' }} disabled />
                                                 <span>Primary Number 1</span>
                                             </label>
                                         </p>
@@ -152,7 +152,7 @@
                                             <label>
                                                 <input type="checkbox" id="primary_number_2" class="filled-in"
                                                     name="primary_number_2"
-                                                    {{ $SMSSetting->primary_number_2 == 'Y' ? 'checked' : '' }} />
+                                                    {{ $Setting->primary_number_2 == 'Y' ? 'checked' : '' }} />
                                                 <span>Primary Numbers</span>
                                             </label>
                                         </p>
@@ -162,7 +162,7 @@
                                             <label>
                                                 <input type="checkbox" id="secondary_number_1" class="filled-in"
                                                     name="secondary_number_1"
-                                                    {{ $SMSSetting->secondary_number_1 == 'Y' ? 'checked' : '' }} />
+                                                    {{ $Setting->secondary_number_1 == 'Y' ? 'checked' : '' }} />
                                                 <span>Secondary Number 2</span>
                                             </label>
                                         </p>
@@ -172,7 +172,7 @@
                                             <label>
                                                 <input type="checkbox" id="secondary_number_2" class="filled-in"
                                                     name="secondary_number_2"
-                                                    {{ $SMSSetting->secondary_number_2 == 'Y' ? 'checked' : '' }} />
+                                                    {{ $Setting->secondary_number_2 == 'Y' ? 'checked' : '' }} />
                                                 <span>Secondary Number 2</span>
                                             </label>
                                         </p>
