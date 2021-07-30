@@ -19,11 +19,19 @@ class Settings extends Seeder
                 'user_id' => '1',
                 'birthday_enabled' => 'N',
                 'birthday_message' => null,
+                'primary_number_1' => 'Y',
+                'primary_number_2' => null,
+                'secondary_number_1' => null,
+                'secondary_number_2' => null,
             ],
             [
                 'user_id' => '2',
                 'birthday_enabled' => 'N',
                 'birthday_message' => null,
+                'primary_number_1' => 'Y',
+                'primary_number_2' => null,
+                'secondary_number_1' => null,
+                'secondary_number_2' => null,
             ],
         ]);
     }
