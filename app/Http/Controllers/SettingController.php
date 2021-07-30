@@ -35,9 +35,9 @@ class SettingController extends Controller
         $SMSSetting->secondary_number_2 = ($request->secondary_number_2 == 'on') ? 'Y' : 'N';
 
         if ($SMSSetting->save()) {
-            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Sms setting saved.');
+            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'SMS setting saved.');
         } else {
-            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Sms setting saved.');
+            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'SMS setting saved.');
         }
     }
 }
