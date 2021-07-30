@@ -34,7 +34,7 @@
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="code" name="code" type="text" class="disabled" value="{{$Group->code}}" maxlength="5">
-                                <label for="code">Group ID *</label>
+                                <label for="code">{{session('Data.company_nature') == 'B' ? 'Group' : 'Class'}} ID *</label>
                                 @error('code')
                                 <span style="color: red">{{$message}}</span>
                                 @enderror
@@ -43,7 +43,7 @@
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="name" name="name" type="text" class="@error('name') error @enderror"
                                     value="{{$Group->name}}">
-                                <label for="name">Group Name *</label>
+                                <label for="name">{{session('Data.company_nature') == 'B' ? 'Group' : 'Class'}} Name *</label>
                                 @error('name')
                                 <span style="color: red">{{$message}}</span>
                                 @enderror

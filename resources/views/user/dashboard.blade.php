@@ -240,22 +240,6 @@
     <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
     <script src="{{ asset('dist/js/app.js') }}"></script>
     {{-- <script src="{{ asset('dist/js/app.init.js')}}"></script> --}}
-    <script>
-        $(function() {
-            "use strict";
-            $("#main-wrapper").AdminSettings({
-                Theme: false, // this can be true or false ( true means dark and false means light ),
-                Layout: 'vertical',
-                LogoBg: 'skin5', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
-                NavbarBg: 'skin5', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
-                SidebarType: 'full', // You can change it full / mini-sidebar / iconbar / overlay
-                SidebarColor: 'skin5', // You can change the Value to be skin1/skin2/skin3/skin4/skin5/skin6
-                SidebarPosition: true, // it can be true / false ( true means Fixed and false means absolute )
-                HeaderPosition: false, // it can be true / false ( true means Fixed and false means absolute )
-                BoxedLayout: false, // it can be true / false ( true means Boxed and false means Fluid )
-            });
-        });
-    </script>
     <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
     <!--c3 JavaScript -->

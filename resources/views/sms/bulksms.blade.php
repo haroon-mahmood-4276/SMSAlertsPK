@@ -49,7 +49,7 @@
                                             <option value="{{ $Group->id }}">{{ $Group->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="group" class="form-label">Group</label>
+                                    <label for="group" class="form-label">{{session('Data.company_nature') == 'B' ? 'Groups' : 'Classes'}}</label>
                                     @error('group')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
