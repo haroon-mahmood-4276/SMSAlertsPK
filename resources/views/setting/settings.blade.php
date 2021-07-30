@@ -139,10 +139,11 @@
                                     <div class="col s2">
                                         <p>
                                             <label>
-                                                <input type="checkbox" id="primary_number_1" class="filled-in"
-                                                    name="primary_number_1"
-                                                    {{ $Setting->primary_number_1 == 'Y' ? 'checked' : '' }} disabled />
-                                                <span>Primary Number 1</span>
+                                                <input type="checkbox" id="parent_primary_number" class="filled-in"
+                                                    name="parent_primary_number"
+                                                    {{ $Setting->parent_primary_number == 'Y' ? 'checked' : '' }}
+                                                    disabled />
+                                                <span>Parent Primary Number</span>
                                             </label>
                                         </p>
                                     </div>
@@ -150,34 +151,35 @@
                                     <div class="col s2">
                                         <p>
                                             <label>
-                                                <input type="checkbox" id="primary_number_2" class="filled-in"
-                                                    name="primary_number_2"
-                                                    {{ $Setting->primary_number_2 == 'Y' ? 'checked' : '' }} />
-                                                <span>Primary Number 2</span>
+                                                <input type="checkbox" id="parent_secondary_number" class="filled-in"
+                                                    name="parent_secondary_number"
+                                                    {{ $Setting->parent_secondary_number == 'Y' ? 'checked' : '' }} />
+                                                <span>Parent Secondary Number</span>
                                             </label>
                                         </p>
                                     </div>
-                                    <div class="col s2">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="secondary_number_1" class="filled-in"
-                                                    name="secondary_number_1"
-                                                    {{ $Setting->secondary_number_1 == 'Y' ? 'checked' : '' }} />
-                                                <span>Secondary Number 2</span>
-                                            </label>
-                                        </p>
-                                    </div>
-                                    <div class="col s2">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="secondary_number_2" class="filled-in"
-                                                    name="secondary_number_2"
-                                                    {{ $Setting->secondary_number_2 == 'Y' ? 'checked' : '' }} />
-                                                <span>Secondary Number 1</span>
-                                            </label>
-                                        </p>
-                                    </div>
-
+                                    @if (session('Data.company_nature') == 'S')
+                                        <div class="col s2">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" id="student_primary_number" class="filled-in"
+                                                        name="student_primary_number"
+                                                        {{ $Setting->student_primary_number == 'Y' ? 'checked' : '' }} />
+                                                    <span>Student Primary Number</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div class="col s2">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" id="student_secondary_number" class="filled-in"
+                                                        name="student_secondary_number"
+                                                        {{ $Setting->student_secondary_number == 'Y' ? 'checked' : '' }} />
+                                                    <span>Student Secondary Number</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    @endif
                                     <div class="col s12 m12 l12">
                                         <button class="btn waves-effect waves-light right submit" type="submit"
                                             name="action" id="action">Save

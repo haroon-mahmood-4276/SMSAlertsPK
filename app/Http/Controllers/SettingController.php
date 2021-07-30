@@ -30,9 +30,9 @@ class SettingController extends Controller
     public function SMSSetting(Request $request)
     {
         $SMSSetting = Setting::find(session('Data.id'));
-        $SMSSetting->primary_number_2 = ($request->primary_number_2 == 'on') ? 'Y' : 'N';
-        $SMSSetting->secondary_number_1 = ($request->secondary_number_1 == 'on') ? 'Y' : 'N';
-        $SMSSetting->secondary_number_2 = ($request->secondary_number_2 == 'on') ? 'Y' : 'N';
+        $SMSSetting->parent_secondary_number = ($request->parent_secondary_number == 'on') ? 'Y' : 'N';
+        $SMSSetting->student_primary_number = ($request->student_primary_number == 'on') ? 'Y' : 'N';
+        $SMSSetting->student_secondary_number = ($request->student_secondary_number == 'on') ? 'Y' : 'N';
 
         if ($SMSSetting->save()) {
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'SMS setting saved.');
