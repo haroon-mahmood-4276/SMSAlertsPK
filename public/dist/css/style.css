@@ -19408,3 +19408,7 @@ ul#user_dropdown {
     /* border: 1px solid lightgray !important; */
     box-shadow: rgba(100, 100, 111, .2) 0 7px 7px 0 !important;
 }
+
+.btn{
+    border-radius: 10px !important;
+}
