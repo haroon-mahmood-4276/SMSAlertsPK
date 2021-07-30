@@ -18405,23 +18405,23 @@ table class
 success error
 ******************/
 .success-alert-bar {
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #00b84a;
 }
 
 .danger-alert-bar {
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #e5000c;
 }
 
 .warning-alert-bar {
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #ffc107;
     color: black !important;
 }
 
 .info-alert-bar {
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #00a1be;
 }
 
@@ -19395,9 +19395,10 @@ tr:hover {
     border-radius: 10px !important;
 }
 
-.rounded{
-    margin:10px 0px !important;
+.rounded {
+    margin: 10px 0px !important;
 }
+
 ul#user_dropdown {
     border-radius: 0px 0px 10px 10px !important;
     margin-top: 20px !important;
@@ -19409,6 +19410,6 @@ ul#user_dropdown {
     box-shadow: rgba(100, 100, 111, .2) 0 7px 7px 0 !important;
 }
 
-.btn{
+.btn {
     border-radius: 10px !important;
 }
