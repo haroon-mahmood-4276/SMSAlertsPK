@@ -12,7 +12,12 @@
 
     <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/css/pages/authentication.css') }}" rel="stylesheet">
+    <style>
+        .btn {
+            border-radius: 10px !important;
+        }
 
+    </style>
 </head>
 
 <body>
@@ -81,7 +86,7 @@
                                 </div>
                                 <div class="row m-t-5">
                                     <div class="col s12">
-                                        <button class="btn-large w100 blue accent-4" type="submit">Login</button>
+                                        <button class="btn-large btn w100 blue accent-4" type="submit">Login</button>
                                     </div>
                                 </div>
                             </form>
