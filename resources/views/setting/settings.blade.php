@@ -26,23 +26,21 @@
 
         <div class="container-fluid">
             <div class="row">
+                @if (Session::get('AlertType') && Session::get('AlertMsg'))
+                    <div class="col l12 m12 s12">
+                        <div class="{{ Session::get('AlertType') }}-alert-bar m-b-15 p-15 white-text">
+                            {{ Session::get('AlertMsg') }}
+                        </div>
+                    </div>
+                @endif
+
                 <div class="col l12 m12 s12">
                     <div class="card">
                         <div class="card-content">
                             <h5 class="card-title">Birthday Template</h5>
-
                             <form action="{{ route('r.birthdaysettings') }}" class="formValidate" id="formValidate"
                                 method="POST">
                                 @csrf
-                                @if (Session::get('AlertType') && Session::get('AlertMsg'))
-                                    <div class="row">
-                                        <div class="col l12 m12 s12 m-5">
-                                            <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
-                                                {{ Session::get('AlertMsg') }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
                                 <div class="row">
                                     <div class="col s2">
                                         <p>
@@ -119,7 +117,7 @@
                                     </div>
 
                                     <div class="col s12 m12 l12">
-                                        <button class="btn waves-effect waves-light right submit" disabled type="submit"
+                                        <button class="btn waves-effect waves-light right submit" type="submit"
                                             name="action" id="action">Save
                                         </button>
                                     </div>
@@ -155,7 +153,7 @@
         }
 
         $("#is_enabled").on('click', function() {
-            $('#action').prop("disabled", !this.checked);
+            // $('#action').prop("disabled", !this.checked);
             $('#message').prop("disabled", !this.checked);
 
             if ($('#is_enabled').prop("checked") == false) {
