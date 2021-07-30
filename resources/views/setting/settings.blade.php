@@ -45,7 +45,7 @@
                                     <div class="col s2">
                                         <p>
                                             <label>
-                                                <input type="checkbox" id="is_enabled" name="is_enabled"
+                                                <input type="checkbox" id="is_enabled" class="filled-in" name="is_enabled"
                                                     {{ $BirthdaySetting->birthday_enabled == 'Y' ? 'checked' : '' }} />
                                                 <span>Enabled</span>
                                             </label>
@@ -115,6 +115,67 @@
                                         @error('message')
                                             <span style="color: red">{{ $message }}</span>
                                         @enderror
+                                    </div>
+
+                                    <div class="col s12 m12 l12">
+                                        <button class="btn waves-effect waves-light right submit" type="submit"
+                                            name="action" id="action">Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col l12 m12 s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <h5 class="card-title">SMS Setting</h5>
+                            <form action="{{ route('r.birthdaysettings') }}" class="formValidate" id="formValidate"
+                                method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col s2">
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="primary_number_1" class="filled-in"
+                                                    name="primary_number_1"
+                                                    {{ $BirthdaySetting->birthday_enabled == 'Y' ? 'checked' : '' }} />
+                                                <span>Primary Number 1</span>
+                                            </label>
+                                        </p>
+                                    </div>
+
+                                    <div class="col s2">
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="primary_number_2" class="filled-in"
+                                                    name="primary_number_2"
+                                                    {{ $BirthdaySetting->birthday_enabled == 'Y' ? 'checked' : '' }} />
+                                                <span>Primary Numbers</span>
+                                            </label>
+                                        </p>
+                                    </div>
+                                    <div class="col s2">
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="secondary_number_1" class="filled-in"
+                                                    name="secondary_number_1"
+                                                    {{ $BirthdaySetting->birthday_enabled == 'Y' ? 'checked' : '' }} />
+                                                <span>Secondary Number 2</span>
+                                            </label>
+                                        </p>
+                                    </div>
+                                    <div class="col s2">
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" id="secondary_number_2" class="filled-in"
+                                                    name="secondary_number_2"
+                                                    {{ $BirthdaySetting->birthday_enabled == 'Y' ? 'checked' : '' }} />
+                                                <span>Secondary Number 2</span>
+                                            </label>
+                                        </p>
                                     </div>
 
                                     <div class="col s12 m12 l12">
