@@ -31,7 +31,7 @@
                         <div class="card-content">
                             <h5 class="card-title">Birthday Template</h5>
 
-                            <form action="{{ route('templates.store') }}" class="formValidate" id="formValidate"
+                            <form action="{{ route('r.birthdaysettings') }}" class="formValidate" id="formValidate"
                                 method="POST">
                                 @csrf
                                 @if (Session::get('AlertType') && Session::get('AlertMsg'))
@@ -47,15 +47,10 @@
                                     <div class="col s2">
                                         <p>
                                             <label>
-                                                <input type="checkbox" />
+                                                <input type="checkbox" id="is_enabled" name="is_enabled" />
                                                 <span>Enabled</span>
                                             </label>
                                         </p>
-                                        <br>
-                                        <div class="input-field">
-                                            <input id="a6" type="time">
-                                            <label for="a6">Numbers</label>
-                                        </div>
                                     </div>
                                     <div class="col s12 m12 l12">
                                         <p><strong>Tags</strong></p>
@@ -113,7 +108,7 @@
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">question_answer</i>
                                         <label for="message">Message *</label>
-                                        <textarea id="message" name="message"
+                                        <textarea id="message" name="message" disabled
                                             class="materialize-textarea count-message-character @error('message') error @enderror"
                                             value="{{ old('message') }}"></textarea>
                                         <span class="character-counter" id="message-character-counter"
@@ -124,8 +119,8 @@
                                     </div>
 
                                     <div class="col s12 m12 l12">
-                                        <button class="btn waves-effect waves-light right submit" type="submit"
-                                            name="action">Save
+                                        <button class="btn waves-effect waves-light right submit" disabled type="submit"
+                                            name="action" id="action">Save
                                         </button>
                                     </div>
                                 </div>
@@ -149,12 +144,23 @@
 
     <script>
         function textbox(Element) {
-            var ctl = document.getElementById('message');
-            var EndPosition = ctl.selectionEnd;
-            ctl.value = [ctl.value.slice(0, EndPosition), "[" + Element + "]", ctl.value.slice(EndPosition, ctl.value
-                .length)].join('');
+            if (document.getElementById('is_enabled').checked) {
+                var ctl = document.getElementById('message');
+                var EndPosition = ctl.selectionEnd;
+                ctl.value = [ctl.value.slice(0, EndPosition), "[" + Element + "]", ctl.value.slice(EndPosition, ctl.value
+                    .length)].join('');
 
-            ctl.focus();
+                ctl.focus();
+            }
         }
+
+        $("#is_enabled").on('click', function() {
+            $('#action').prop("disabled", !this.checked);
+            $('#message').prop("disabled", !this.checked);
+
+            if ($('#is_enabled').prop("checked") == false) {
+                $('#message').val('');
+            }
+        });
     </script>
 @endsection

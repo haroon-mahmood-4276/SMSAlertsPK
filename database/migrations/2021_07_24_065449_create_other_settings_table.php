@@ -14,7 +14,7 @@ class CreateOtherSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('other_settings', function (Blueprint $table) {
+        Schema::create('Setting', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable();
             $table->id();
             $table->string('birthday_enabled', 1)->nullable();
@@ -32,6 +32,6 @@ class CreateOtherSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('other_settings');
+        Schema::dropIfExists('settings');
     }
 }
