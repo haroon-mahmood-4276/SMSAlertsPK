@@ -9,7 +9,9 @@ class SettingController extends Controller
 {
     public function Settings()
     {
-        return view('setting.settings');
+        $BirthdaySetting = Setting::find(session('Data.id'));
+        // return $BirthdaySetting;
+        return view('setting.settings', ['BirthdaySetting' => $BirthdaySetting]);
     }
 
     public function BirthDaySMS(Request $request)

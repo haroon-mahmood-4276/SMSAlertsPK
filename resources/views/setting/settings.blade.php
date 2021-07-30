@@ -45,7 +45,8 @@
                                     <div class="col s2">
                                         <p>
                                             <label>
-                                                <input type="checkbox" id="is_enabled" name="is_enabled" />
+                                                <input type="checkbox" id="is_enabled" name="is_enabled"
+                                                    {{ $BirthdaySetting->birthday_enabled == 'Y' ? 'checked' : '' }} />
                                                 <span>Enabled</span>
                                             </label>
                                         </p>
@@ -53,7 +54,7 @@
                                     <div class="col s12 m12 l12">
                                         <p><strong>Tags</strong></p>
                                         <div class="row">
-                                            <div class="col s1 m2 l2">
+                                            <div class="col s1 m2 l2 center">
                                                 <a href="javascript:void(0)"
                                                     id="{{ session('Data.company_nature') == 'B' ? 'member_full_name' : 'student_full_name' }}"
                                                     onmouseup="textbox(this.id)"
@@ -61,41 +62,41 @@
                                                     Full Name
                                                 </a>
                                             </div>
-                                            <div class="col s1 m2 l2">
+                                            <div class="col s1 m2 l2 center">
                                                 <a href="javascript:void(0)" id="account_name" onmouseup="textbox(this.id)"
                                                     class="chip">Account Name</a>
                                             </div>
                                             @if (session('Data.company_nature') == 'B')
-                                                <div class="col s1 m2 l2">
+                                                <div class="col s1 m2 l2 center">
                                                     <a href="javascript:void(0)" id="brand_name"
                                                         onmouseup="textbox(this.id)" class="chip">Brand Name</a>
                                                 </div>
-                                                <div class="col s1 m2 l2">
+                                                <div class="col s1 m2 l2 center">
                                                     <a href="javascript:void(0)" id="brand_mask"
                                                         onmouseup="textbox(this.id)" class="chip">Brand Mask</a>
                                                 </div>
-                                                <div class="col s1 m2 l2">
+                                                <div class="col s1 m2 l2 center">
                                                     <a href="javascript:void(0)" id="brand_email"
                                                         onmouseup="textbox(this.id)" class="chip">Brand Email</a>
                                                 </div>
                                             @else
-                                                <div class="col s1 m2 l2">
+                                                <div class="col s1 m2 l2 center">
                                                     <a href="javascript:void(0)" id="class_name"
                                                         onmouseup="textbox(this.id)" class="chip">Class Name</a>
                                                 </div>
-                                                <div class="col s1 m2 l2">
+                                                <div class="col s1 m2 l2 center">
                                                     <a href="javascript:void(0)" id="section_name"
                                                         onmouseup="textbox(this.id)" class="chip">Section Name</a>
                                                 </div>
-                                                <div class="col s1 m2 l2">
+                                                <div class="col s1 m2 l2 center">
                                                     <a href="javascript:void(0)" id="school_name"
                                                         onmouseup="textbox(this.id)" class="chip">School Name</a>
                                                 </div>
-                                                <div class="col s1 m2 l2">
+                                                <div class="col s1 m2 l2 center">
                                                     <a href="javascript:void(0)" id="school_mask"
                                                         onmouseup="textbox(this.id)" class="chip">School Mask</a>
                                                 </div>
-                                                <div class="col s1 m2 l2">
+                                                <div class="col s1 m2 l2 center">
                                                     <a href="javascript:void(0)" id="school_email"
                                                         onmouseup="textbox(this.id)" class="chip">School Email</a>
                                                 </div>
@@ -106,9 +107,9 @@
                                     <div class="input-field col s12 m12 l12">
                                         <i class="material-icons prefix">question_answer</i>
                                         <label for="message">Message *</label>
-                                        <textarea id="message" name="message" disabled
-                                            class="materialize-textarea count-message-character @error('message') error @enderror"
-                                            value="{{ old('message') }}"></textarea>
+                                        <textarea id="message" name="message"
+                                            {{ $BirthdaySetting->birthday_enabled == 'Y' ? '' : 'disabled' }}
+                                            class="materialize-textarea count-message-character @error('message') error @enderror">{{ $BirthdaySetting->birthday_message }}</textarea>
                                         <span class="character-counter" id="message-character-counter"
                                             style="float: right; font-size: 12px;"> &nbsp;</span>
                                         @error('message')
