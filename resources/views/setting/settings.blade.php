@@ -153,7 +153,7 @@
                                                 <input type="checkbox" id="primary_number_2" class="filled-in"
                                                     name="primary_number_2"
                                                     {{ $Setting->primary_number_2 == 'Y' ? 'checked' : '' }} />
-                                                <span>Primary Numbers</span>
+                                                <span>Primary Number 2</span>
                                             </label>
                                         </p>
                                     </div>
@@ -173,7 +173,7 @@
                                                 <input type="checkbox" id="secondary_number_2" class="filled-in"
                                                     name="secondary_number_2"
                                                     {{ $Setting->secondary_number_2 == 'Y' ? 'checked' : '' }} />
-                                                <span>Secondary Number 2</span>
+                                                <span>Secondary Number 1</span>
                                             </label>
                                         </p>
                                     </div>

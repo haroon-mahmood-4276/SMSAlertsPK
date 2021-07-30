@@ -29,6 +29,7 @@ class SettingController extends Controller
 
     public function SMSSetting(Request $request)
     {
+        return $request->input();
         $BirthdaySetting = Setting::find(session('Data.id'));
         $BirthdaySetting->birthday_enabled = ($request->is_enabled == 'on') ? 'Y' : 'N';
         $BirthdaySetting->birthday_message = ($request->has('message')) ? $request->message : null;
