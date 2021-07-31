@@ -14,10 +14,9 @@
 
 @section('content')
     <div class="page-wrapper">
-        <div class="page-titles m-b-15">
+        <div class="page-titles">
             <div class="d-flex align-items-center">
-                <h3 class="font-medium m-b-0">Bulk SMS</h3>
-                {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
+                <h3 class="font-medium">Bulk SMS</h3>
                 <div class="custom-breadcrumb ml-auto">
                     <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
                     <a href="javascript:void(0)" class="breadcrumb">Messaging</a>
@@ -40,23 +39,23 @@
                         @endif
                         <form class="formValidate" id="formValidate" action="{{ route('r.bulksms') }}" method="POST">
                             @csrf
-
                             <div class="row">
-                                <div class="input-field col s6">
+                                <div class="input-field col {{ session('Data.company_nature') == 'S' ? 's4' : 's6' }}">
                                     <select class="form-select" name="group" id="group">
                                         <option value="0">All</option>
                                         @foreach ($Groups as $Group)
                                             <option value="{{ $Group->id }}">{{ $Group->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="group" class="form-label">{{session('Data.company_nature') == 'B' ? 'Groups' : 'Classes'}}</label>
+                                    <label for="group"
+                                        class="form-label">{{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}</label>
                                     @error('group')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                                 @if (session('Data.company_nature') == 'S')
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s4">
                                         <select class="form-select" name="section" id="section">
                                             <option value="0">All</option>
                                             {{-- @foreach ($Sections as $Section)
@@ -70,7 +69,7 @@
                                     </div>
                                 @endif
 
-                                <div class="input-field col {{ session('Data.company_nature') == 'B' ? 's6' : 's12' }}">
+                                <div class="input-field col {{ session('Data.company_nature') == 'B' ? 's6' : 's4' }}">
                                     <select class="form-select" name="template" id="template">
                                         <option value="">Select</option>
                                         @foreach ($Templates as $Template)
@@ -83,7 +82,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s12 m12 l12">
+                                <div class="input-field col s12">
                                     <i class="material-icons prefix">question_answer</i>
                                     <label for="message">Message *</label>
                                     <textarea id="message" name="message"
@@ -96,7 +95,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s12 m12 l12">
+                                <div class="input-field col s12">
                                     <a href="javascript:void(0)" class="btn btn-small" id="getmember">
                                         Get
                                         {{ Session::get('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
@@ -125,7 +124,7 @@
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
-                                        <div class="m-t-5">
+                                        <div class="">
                                             <div class="d-flex">
                                                 <div class="ml-auto">
                                                     <div class="form-group">
