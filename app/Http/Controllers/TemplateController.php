@@ -39,14 +39,12 @@ class TemplateController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTemplateCode()],
             'name' => 'bail|required|between:1,50',
             'template' => 'bail|required|between:1,255',
         ]);
 
         $Templates = new Template;
         $Templates->user_id = session('Data.id');
-        $Templates->code = $request->code;
         $Templates->name = $request->name;
         $Templates->template = $request->template;
 
@@ -91,13 +89,11 @@ class TemplateController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTemplateCode(true, $id)],
             'name' => 'bail|required|between:1,50',
             'template' => 'bail|required|between:1,255',
         ]);
 
         $Templates = Template::find($id);
-        $Templates->code = $request->code;
         $Templates->name = $request->name;
         $Templates->template = $request->template;
 
