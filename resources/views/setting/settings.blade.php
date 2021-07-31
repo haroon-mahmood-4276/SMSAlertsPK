@@ -16,7 +16,6 @@
         <div class="page-titles">
             <div class="d-flex align-items-center">
                 <h3 class="font-medium m-b-0">Settings</h3>
-                {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
                 <div class="custom-breadcrumb ml-auto">
                     <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
                     <a href="javascript:void(0)" class="breadcrumb">Settings</a>
