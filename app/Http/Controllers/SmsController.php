@@ -14,12 +14,12 @@ use Illuminate\Support\Str;
 
 class SmsController extends Controller
 {
-    public function index()
-    {
-        $SMSHistoryData = Sms::select('id', 'sms', 'response', 'phone_number', 'created_at')->where('user_id', '=', session('Data.id'))->orderby('created_at', 'desc')->get();
-        // return $SMSHistoryData;
-        return view('sms.index', ['SMSHistoryData' => $SMSHistoryData]);
-    }
+    // public function index()
+    // {
+    //     $SMSHistoryData = Sms::select('id', 'sms', 'response', 'phone_number', 'created_at')->where('user_id', '=', session('Data.id'))->orderby('created_at', 'desc')->get();
+    //     // return $SMSHistoryData;
+    //     return view('sms.index', ['SMSHistoryData' => $SMSHistoryData]);
+    // }
 
     public function ShowQuickSMS()
     {

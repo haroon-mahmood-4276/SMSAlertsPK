@@ -52,7 +52,7 @@ Route::resources([
 Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');
 Route::get('data/{groupid}/{sectionid}/list', [MobileDataController::class, 'STDList'])->name('r.studentlist');
 
-Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
+// Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
 
 Route::get('sms/quick', [SmsController::class, 'ShowQuickSMS'])->name('r.quicksmsshow');
 
