@@ -40,6 +40,16 @@
                                     @enderror
                                 </div>
 
+                                <div class="input-field col s12 m12 l12">
+                                    <i class="material-icons prefix">question_answer</i>
+                                    <textarea id="template" name="template"
+                                        class="materialize-textarea validate @error('template') error @enderror">{{ old('template') }}</textarea>
+                                    <label for="template">Message *</label>
+                                    @error('template')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
                                 <div class="col s12 m12 l12">
                                     <p><strong>Tags</strong></p>
                                     <div class="row">
@@ -51,6 +61,7 @@
                                                 Full Name
                                             </a>
                                         </div>
+
                                         <div class="col s1 m2 l2 m-2">
                                             <a href="javascript:void(0)" id="account_name" onmouseup="textbox(this.id)"
                                                 class="chip">Account Name</a>
@@ -99,16 +110,6 @@
                                             </div>
                                         @endif
                                     </div>
-                                </div>
-
-                                <div class="input-field col s12 m12 l12">
-                                    <i class="material-icons prefix">question_answer</i>
-                                    <textarea id="template" name="template"
-                                        class="materialize-textarea validate @error('template') error @enderror">{{ old('template') }}</textarea>
-                                    <label for="template">Message *</label>
-                                    @error('template')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
                                 </div>
 
                                 <div class="col s12 m12 l12">

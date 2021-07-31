@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="page-wrapper">
-            <div class="container-fluid row">
+        <div class="container-fluid row">
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
@@ -37,6 +37,16 @@
                                         value="{{ $Template->name }}">
                                     <label for="name">Name *</label>
                                     @error('name')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="input-field col s12 m12 l12">
+                                    <i class="material-icons prefix">question_answer</i>
+                                    <textarea id="template" name="template"
+                                        class="materialize-textarea validate @error('template') error @enderror">{{ $Template->template }}</textarea>
+                                    <label for="template">Message *</label>
+                                    @error('template')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -100,16 +110,6 @@
                                             </div>
                                         @endif
                                     </div>
-                                </div>
-
-                                <div class="input-field col s12 m12 l12">
-                                    <i class="material-icons prefix">question_answer</i>
-                                    <textarea id="template" name="template"
-                                        class="materialize-textarea validate @error('template') error @enderror">{{ $Template->template }}</textarea>
-                                    <label for="template">Message *</label>
-                                    @error('template')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
                                 </div>
 
                                 <div class="col s12 m12 l12">

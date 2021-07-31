@@ -51,6 +51,20 @@
                                             </label>
                                         </p>
                                     </div>
+
+                                    <div class="input-field col s12 m12 l12">
+                                        <i class="material-icons prefix">question_answer</i>
+                                        <label for="message">Message *</label>
+                                        <textarea id="message" name="message"
+                                            {{ $Setting->birthday_enabled == 'Y' ? '' : 'disabled' }}
+                                            class="materialize-textarea count-message-character @error('message') error @enderror">{{ $Setting->birthday_message }}</textarea>
+                                        <span class="character-counter" id="message-character-counter"
+                                            style="float: right; font-size: 12px;"> &nbsp;</span>
+                                        @error('message')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
                                     <div class="col s12 m12 l12">
                                         <p><strong>Tags</strong></p>
                                         <div class="row">
@@ -102,19 +116,6 @@
                                                 </div>
                                             @endif
                                         </div>
-                                    </div>
-
-                                    <div class="input-field col s12 m12 l12">
-                                        <i class="material-icons prefix">question_answer</i>
-                                        <label for="message">Message *</label>
-                                        <textarea id="message" name="message"
-                                            {{ $Setting->birthday_enabled == 'Y' ? '' : 'disabled' }}
-                                            class="materialize-textarea count-message-character @error('message') error @enderror">{{ $Setting->birthday_message }}</textarea>
-                                        <span class="character-counter" id="message-character-counter"
-                                            style="float: right; font-size: 12px;"> &nbsp;</span>
-                                        @error('message')
-                                            <span style="color: red">{{ $message }}</span>
-                                        @enderror
                                     </div>
 
                                     <div class="col s12 m12 l12">
