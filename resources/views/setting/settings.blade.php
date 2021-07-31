@@ -115,71 +115,62 @@
                                                 </div>
                                             @endif
                                         </div>
+
                                     </div>
 
-                                    <div class="col s12 m12 l12">
-                                        <button class="btn waves-effect waves-light right submit" type="submit"
-                                            name="action" id="action">Save
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                                    <div class="col s12 m-t-25">
+                                        <p><strong>SMS To</strong></p>
+                                        <div class="row">
+                                            <div class="col s2">
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" id="parent_primary_number" class="filled-in"
+                                                            name="parent_primary_number"
+                                                            {{ $Setting->parent_primary_number == 'Y' ? 'checked' : '' }}
+                                                            disabled />
+                                                        <span>Parent Primary Number</span>
+                                                    </label>
+                                                </p>
+                                            </div>
 
-                <div class="col l12 m12 s12">
-                    <div class="card">
-                        <div class="card-content">
-                            <h5 class="card-title">SMS Setting</h5>
-                            <form action="{{ route('r.smssettings') }}" class="formValidate" id="formValidate"
-                                method="POST">
-                                @csrf
-                                <div class="row">
-                                    <div class="col s2">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="parent_primary_number" class="filled-in"
-                                                    name="parent_primary_number"
-                                                    {{ $Setting->parent_primary_number == 'Y' ? 'checked' : '' }}
-                                                    disabled />
-                                                <span>Parent Primary Number</span>
-                                            </label>
-                                        </p>
-                                    </div>
-
-                                    <div class="col s2">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="parent_secondary_number" class="filled-in"
-                                                    name="parent_secondary_number"
-                                                    {{ $Setting->parent_secondary_number == 'Y' ? 'checked' : '' }} />
-                                                <span>Parent Secondary Number</span>
-                                            </label>
-                                        </p>
-                                    </div>
-                                    @if (session('Data.company_nature') == 'S')
-                                        <div class="col s2">
-                                            <p>
-                                                <label>
-                                                    <input type="checkbox" id="student_primary_number" class="filled-in"
-                                                        name="student_primary_number"
-                                                        {{ $Setting->student_primary_number == 'Y' ? 'checked' : '' }} />
-                                                    <span>Student Primary Number</span>
-                                                </label>
-                                            </p>
+                                            <div class="col s2">
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" id="parent_secondary_number"
+                                                            class="filled-in" name="parent_secondary_number"
+                                                            {{ $Setting->parent_secondary_number == 'Y' ? 'checked' : '' }}
+                                                            disabled />
+                                                        <span>Parent Secondary Number</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            @if (session('Data.company_nature') == 'S')
+                                                <div class="col s2">
+                                                    <p>
+                                                        <label>
+                                                            <input type="checkbox" id="student_primary_number"
+                                                                class="filled-in" name="student_primary_number"
+                                                                {{ $Setting->student_primary_number == 'Y' ? 'checked' : '' }}
+                                                                disabled />
+                                                            <span>Student Primary Number</span>
+                                                        </label>
+                                                    </p>
+                                                </div>
+                                                <div class="col s2">
+                                                    <p>
+                                                        <label>
+                                                            <input type="checkbox" id="student_secondary_number"
+                                                                class="filled-in" name="student_secondary_number"
+                                                                {{ $Setting->student_secondary_number == 'Y' ? 'checked' : '' }}
+                                                                disabled />
+                                                            <span>Student Secondary Number</span>
+                                                        </label>
+                                                    </p>
+                                                </div>
+                                            @endif
                                         </div>
-                                        <div class="col s2">
-                                            <p>
-                                                <label>
-                                                    <input type="checkbox" id="student_secondary_number" class="filled-in"
-                                                        name="student_secondary_number"
-                                                        {{ $Setting->student_secondary_number == 'Y' ? 'checked' : '' }} />
-                                                    <span>Student Secondary Number</span>
-                                                </label>
-                                            </p>
-                                        </div>
-                                    @endif
+                                    </div>
+
                                     <div class="col s12 m12 l12">
                                         <button class="btn waves-effect waves-light right submit" type="submit"
                                             name="action" id="action">Save
@@ -219,6 +210,9 @@
         $("#is_enabled").on('click', function() {
             // $('#action').prop("disabled", !this.checked);
             $('#message').prop("disabled", !this.checked);
+            $('#parent_secondary_number').prop("disabled", !this.checked).prop("checked", false);
+            $('#student_primary_number').prop("disabled", !this.checked).prop("checked", false);
+            $('#student_secondary_number').prop("disabled", !this.checked).prop("checked", false);
 
             if ($('#is_enabled').prop("checked") == false) {
                 $('#message').val('');
