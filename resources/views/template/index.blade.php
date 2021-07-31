@@ -52,7 +52,6 @@
                                 <thead>
                                     <tr>
                                         <th data-sort-initial="true" data-toggle="true">Sr No</th>
-                                        <th>Code</th>
                                         <th>Name</th>
                                         <th style="width: 50%;">Template</th>
                                         <th>Status</th>
@@ -85,7 +84,6 @@
                                     @foreach ($Templates as $Template)
                                         <tr>
                                             <td>{{ ++$Count }}</td>
-                                            <td>{{ $Template->code }}</td>
                                             <td>{{ $Template->name }}</td>
                                             <td>{{ $Template->template }}</td>
                                             <td><span class="label label-table label-success">Active</span> </td>

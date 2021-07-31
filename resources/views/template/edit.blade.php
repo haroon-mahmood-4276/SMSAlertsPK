@@ -33,15 +33,6 @@
 
                                 <div class="input-field col s6">
                                     <i class="material-icons prefix">text_format</i>
-                                    <input id="code" name="code" type="text" class="@error('code') error @enderror"
-                                        value="{{ $Template->code }}" maxlength="5">
-                                    <label for="code">Code *</label>
-                                    @error('code')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="input-field col s6">
-                                    <i class="material-icons prefix">text_format</i>
                                     <input id="name" name="name" type="text" class="@error('name') error @enderror"
                                         value="{{ $Template->name }}">
                                     <label for="name">Name *</label>
