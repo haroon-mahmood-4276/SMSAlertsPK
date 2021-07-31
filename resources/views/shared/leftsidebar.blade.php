@@ -42,10 +42,11 @@
                         <div class="collapsible-body">
                             <ul>
                                 <ul>
+
                                     <li>
-                                        <a href="{{ route('r.quicksmsshow') }}">
+                                        <a href="{{ route('r.bulksmsshow') }}">
                                             <i class="material-icons">message</i>
-                                            <span class="hide-menu">Quick SMS</span>
+                                            <span class="hide-menu">Bulk SMS</span>
                                         </a>
                                     </li>
                                     <li>
@@ -55,17 +56,12 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('r.bulksmsshow') }}">
+                                        <a href="{{ route('r.quicksmsshow') }}">
                                             <i class="material-icons">message</i>
-                                            <span class="hide-menu">Bulk SMS</span>
+                                            <span class="hide-menu">Quick SMS</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ route('r.smshistory') }}">
-                                            <i class="material-icons">history</i>
-                                            <span class="hide-menu">SMS History</span>
-                                        </a>
-                                    </li>
+
                                 </ul>
                             </ul>
                         </div>
