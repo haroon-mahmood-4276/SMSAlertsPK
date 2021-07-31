@@ -19376,7 +19376,7 @@ Padding margin property
 }
 
 tr {
-    transition: transform .1s ease-in
+    transition: transform .1s ease-in-out !important;
 }
 
 .card {
@@ -19386,7 +19386,7 @@ tr {
 }
 
 tr:hover {
-    transform: scale(1.01)
+    transform: scale(1.01) !important;
 }
 
 .rounded,
