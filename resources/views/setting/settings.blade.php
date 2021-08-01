@@ -139,7 +139,7 @@
                                                         <input type="checkbox" id="parent_secondary_number"
                                                             class="filled-in" name="parent_secondary_number"
                                                             {{ $Setting->parent_secondary_number == 'Y' ? 'checked' : '' }}
-                                                            disabled />
+                                                            {{ $Setting->birthday_enabled == 'N' ? 'disabled' : '' }} />
                                                         <span>Parent Secondary Number</span>
                                                     </label>
                                                 </p>
@@ -151,7 +151,7 @@
                                                             <input type="checkbox" id="student_primary_number"
                                                                 class="filled-in" name="student_primary_number"
                                                                 {{ $Setting->student_primary_number == 'Y' ? 'checked' : '' }}
-                                                                disabled />
+                                                                {{ $Setting->birthday_enabled == 'N' ? 'disabled' : '' }} />
                                                             <span>Student Primary Number</span>
                                                         </label>
                                                     </p>
@@ -162,7 +162,7 @@
                                                             <input type="checkbox" id="student_secondary_number"
                                                                 class="filled-in" name="student_secondary_number"
                                                                 {{ $Setting->student_secondary_number == 'Y' ? 'checked' : '' }}
-                                                                disabled />
+                                                                {{ $Setting->birthday_enabled == 'N' ? 'disabled' : '' }} />
                                                             <span>Student Secondary Number</span>
                                                         </label>
                                                     </p>
