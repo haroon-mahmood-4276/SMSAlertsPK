@@ -18,26 +18,18 @@ class SettingController extends Controller
     {
         $BirthdaySetting = Setting::find(session('Data.id'));
         $BirthdaySetting->birthday_enabled = ($request->is_enabled == 'on') ? 'Y' : 'N';
+
         $BirthdaySetting->birthday_message = ($request->has('message')) ? $request->message : null;
+        $BirthdaySetting->parent_secondary_number = ($request->parent_secondary_number == 'on') ? 'Y' : 'N';
+
+        $BirthdaySetting->student_primary_number = ($request->student_primary_number == 'on') ? 'Y' : 'N';
+        $BirthdaySetting->student_secondary_number = ($request->student_secondary_number == 'on') ? 'Y' : 'N';
+
 
         if ($BirthdaySetting->save()) {
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Birthday setting saved.');
         } else {
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Birthday setting saved.');
-        }
-    }
-
-    public function SMSSetting(Request $request)
-    {
-        $SMSSetting = Setting::find(session('Data.id'));
-        $SMSSetting->parent_secondary_number = ($request->parent_secondary_number == 'on') ? 'Y' : 'N';
-        $SMSSetting->student_primary_number = ($request->student_primary_number == 'on') ? 'Y' : 'N';
-        $SMSSetting->student_secondary_number = ($request->student_secondary_number == 'on') ? 'Y' : 'N';
-
-        if ($SMSSetting->save()) {
-            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'SMS setting saved.');
-        } else {
-            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'SMS setting saved.');
         }
     }
 }

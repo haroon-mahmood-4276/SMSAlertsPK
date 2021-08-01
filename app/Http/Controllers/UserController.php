@@ -7,6 +7,7 @@ use App\Models\Section;
 use App\Models\User;
 use App\Models\Mobiledatas;
 use App\Models\Package;
+use App\Models\Setting;
 use App\Rules\CheckUserCode;
 use DateTime;
 use Illuminate\Http\Request;
@@ -80,6 +81,14 @@ class UserController extends Controller
         $User->mobile_2 = $request->mobile_2;
 
         if ($User->save()) {
+
+            $BirthdaySetting = new Setting();
+            $BirthdaySetting->birthday_enabled = 'N';
+            $BirthdaySetting->birthday_message = null;
+            $BirthdaySetting->parent_secondary_number = 'N';
+            $BirthdaySetting->student_primary_number = 'N';
+            $BirthdaySetting->student_secondary_number = 'N';
+
             return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
         } else {
             return redirect()->route('users.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
