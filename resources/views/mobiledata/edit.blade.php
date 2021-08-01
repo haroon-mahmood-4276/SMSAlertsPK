@@ -255,7 +255,7 @@
     </script>
     <script>
         $('#dob').bootstrapMaterialDatePicker({
-            format: 'DD/MM/YYYY',
+            // format: 'DD/MM/YYYY',
             weekStart: 1,
             time: false
         });
