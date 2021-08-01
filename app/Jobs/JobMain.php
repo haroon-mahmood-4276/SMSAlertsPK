@@ -59,7 +59,6 @@ class JobMain implements ShouldQueue
                         ['message' =>  $ReplacedMessage],
                     ]
                 );
-
                 JobSendSms::dispatch($this->SessionData['id'], $this->SessionData['company_username'], $this->SessionData['company_password'], $this->SessionData['company_mask_id'], $Member->parent_mobile_1, $ReplacedMessage);
 
                 if ($this->RequestInput['parent_secondary_number'] == "on")
