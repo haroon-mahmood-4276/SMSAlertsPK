@@ -157,6 +157,51 @@
                                         </tfoot>
                                     </table>
                                 </div>
+
+                                <div class="col s12 m-t-25">
+                                    <p><strong>SMS To</strong></p>
+                                    <div class="row">
+                                        <div class="col s2">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" id="parent_primary_number" class="filled-in"
+                                                        name="parent_primary_number" checked disabled />
+                                                    <span>Parent Primary Number</span>
+                                                </label>
+                                            </p>
+                                        </div>
+
+                                        <div class="col s2">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" id="parent_secondary_number" class="filled-in"
+                                                        name="parent_secondary_number" />
+                                                    <span>Parent Secondary Number</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        @if (session('Data.company_nature') == 'S')
+                                            <div class="col s2">
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" id="student_primary_number" class="filled-in"
+                                                            name="student_primary_number" />
+                                                        <span>Student Primary Number</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div class="col s2">
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" id="student_secondary_number"
+                                                            class="filled-in" name="student_secondary_number" />
+                                                        <span>Student Secondary Number</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
