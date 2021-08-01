@@ -44,9 +44,10 @@ class SendBirthdaySms extends Command
             ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
             ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
             ->join('settings', 'mobiledatas.user_id', '=', 'settings.user_id')
-            ->select('mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'users.company_name', 'users.mobile_1', 'users.mobile_2', 'users.company_email', 'groups.name AS group_name', 'sections.name AS section_name', 'settings.birthday_message', 'settings.birthday_enabled', 'settings.parent_primary_number', 'settings.parent_secondary_number', 'settings.student_primary_number', 'settings.student_secondary_number')
+            ->select('users.id', 'users.company_name', 'users.mobile_1', 'users.mobile_2', 'users.company_email', 'users.company_nature', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2',  'groups.name AS group_name', 'sections.name AS section_name', 'settings.birthday_message', 'settings.birthday_enabled', 'settings.parent_primary_number', 'settings.parent_secondary_number', 'settings.student_primary_number', 'settings.student_secondary_number')
             ->where('dob', '=', '1999-07-06')
-            ->where('active', '=', 'Y')->get();
+            ->where('active', '=', 'Y')
+            ->where('settings.birthday_enabled', '=', 'Y')->get();
 
         foreach ($MessagesData as $Member) {
 
@@ -75,15 +76,15 @@ class SendBirthdaySms extends Command
 
             JobSendSms::dispatch($Member->id, $Member->company_username, $Member->company_password, $Member->company_mask_id, $Member->parent_mobile_1, $ReplacedMessage);
 
-            if ($Member->parent_secondary_number == "on")
+            if ($Member->parent_secondary_number == "Y")
                 if ($Member->parent_mobile_2 != null && $Member->parent_mobile_2 != '')
                     JobSendSms::dispatch($Member->id, $Member->company_username, $Member->company_password, $Member->company_mask_id, $Member->parent_mobile_2, $ReplacedMessage);
 
-            if ($Member->student_primary_number == "on")
+            if ($Member->student_primary_number == "Y")
                 if ($Member->student_mobile_1 != null && $Member->student_mobile_1 != '')
                     JobSendSms::dispatch($Member->id, $Member->company_username, $Member->company_password, $Member->company_mask_id, $Member->student_mobile_1, $ReplacedMessage);
 
-            if ($Member->student_secondary_number == "on")
+            if ($Member->student_secondary_number == "Y")
                 if ($Member->student_mobile_2 != null && $Member->student_mobile_2 != '')
                     JobSendSms::dispatch($Member->id, $Member->company_username, $Member->company_password, $Member->company_mask_id, $Member->student_mobile_2, $ReplacedMessage);
         }
