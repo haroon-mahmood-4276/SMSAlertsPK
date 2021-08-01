@@ -62,10 +62,6 @@
                                                 Full Name
                                             </a>
                                         </div>
-                                        <div class="col s1 m2 l2 m-2">
-                                            <a href="javascript:void(0)" id="account_name" onmouseup="textbox(this.id)"
-                                                class="chip">Account Name</a>
-                                        </div>
                                         @if (session('Data.company_nature') == 'B')
                                             <div class="col s1 m2 l2 m-2">
                                                 <a href="javascript:void(0)" id="brand_name" onmouseup="textbox(this.id)"
