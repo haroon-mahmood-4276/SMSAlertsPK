@@ -36,7 +36,14 @@ class SettingController extends Controller
 
     public function Test()
     {
-        $Messages = Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')->select('mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2','mobiledatas.parent_mobile_1','mobiledatas.parent_mobile_2', 'users.company_name', 'users.mobile_1', 'users.mobile_2', 'users.company_email')->where('dob', '=', '1999-07-06')->where('active', '=', 'Y')->get();
+        $Messages =
+        Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
+        ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
+        ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
+        ->join('settings', 'mobiledatas.user_id', '=', 'settings.user_id')
+        ->select('mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'users.company_name', 'users.mobile_1', 'users.mobile_2', 'users.company_email', 'groups.name AS group_name', 'sections.name AS section_name','settings.birthday_message', 'settings.birthday_enabled', 'settings.parent_primary_number', 'settings.parent_secondary_number', 'settings.student_primary_number', 'settings.student_secondary_number')
+        ->where('dob', '=', '1999-07-06')
+        ->where('active', '=', 'Y')->get();
 
         return $Messages;
     }

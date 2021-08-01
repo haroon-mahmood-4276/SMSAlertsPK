@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->exec('php artisan queue:work --daemon --stop-when-empty')->everyMinute()->appendOutputTo('SMS_Log.txt');
-        $schedule->exec('php artisan send:birthday_sms')->everyMinute()->appendOutputTo('Command_Log.txt');
+        $schedule->exec('php artisan send:birthday_sms')->dailyAt('08:00')->appendOutputTo('Command_Log.txt');
     }
 
     /**
