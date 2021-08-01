@@ -61,8 +61,8 @@ class SendBirthdaySms extends Command
                 $ReplacedMessage = str_replace('[brand_email]', $Member->company_email, $ReplacedMessage);
             } else {
                 $ReplacedMessage = str_replace('[student_full_name]', $Member->student_first_name . " " . $Member->student_last_name, $Member->birthday_message);
-                $ReplacedMessage = str_replace('[class_name]', $Member['group_name'], $ReplacedMessage);
-                $ReplacedMessage = str_replace('[section_name]', $Member['section_name'], $ReplacedMessage);
+                $ReplacedMessage = str_replace('[class_name]', $Member->group_name, $ReplacedMessage);
+                $ReplacedMessage = str_replace('[section_name]', $Member->section_name, $ReplacedMessage);
                 $ReplacedMessage = str_replace('[school_name]', $Member->company_name, $ReplacedMessage);
                 $ReplacedMessage = str_replace('[school_phone_1]', $Member->mobile_1, $ReplacedMessage);
                 $ReplacedMessage = str_replace('[school_phone_2]', $Member->mobile_2, $ReplacedMessage);
