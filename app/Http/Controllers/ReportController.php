@@ -12,13 +12,13 @@ class ReportController extends Controller
 {
     public function TodaySummery()
     {
-        $SMSHistoryData = Sms::select('id', 'sms', 'response', 'phone_number', 'created_at')->where('user_id', '=', session('Data.id'))->where('created_at', '>', Carbon::today())->get();
+        $SMSHistoryData = Sms::select('id', 'sms', 'response', 'phone_number', 'created_at')->where('user_id', '=', session('Data.id'))->where('created_at', '>', Carbon::today())->orderBy('created_at', 'desc')->get();
         return view('reports.report', ['SMSHistoryData' => $SMSHistoryData, 'Title' => "Today's Report", 'DownloadLink' => route('r.todaysummerypdf')]);
     }
 
     public function TodaySummeryPDF()
     {
-        $SMSHistoryData = Sms::select('id', 'sms', 'response', 'phone_number', 'created_at')->where('user_id', '=', session('Data.id'))->where('created_at', '>', Carbon::today())->get();
+        $SMSHistoryData = Sms::select('id', 'sms', 'response', 'phone_number', 'created_at')->where('user_id', '=', session('Data.id'))->where('created_at', '>', Carbon::today())->orderBy('created_at', 'desc')->get();
         return PDF::loadView('reports.report', ['SMSHistoryData' => $SMSHistoryData, 'Title' => "Today's Report", 'DownloadLink' => route('r.todaysummerypdf')])->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape')->download('TodaySummeryReport.pdf');
     }
 
