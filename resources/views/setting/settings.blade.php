@@ -36,7 +36,7 @@
                 <div class="col l12 m12 s12">
                     <div class="card">
                         <div class="card-content">
-                            <h5 class="card-title">Birthday Template</h5>
+                            <h3 class="card-title">Birthday Template</h3>
                             <form action="{{ route('r.birthdaysettings') }}" class="formValidate" id="formValidate"
                                 method="POST">
                                 @csrf
@@ -65,7 +65,7 @@
                                     </div>
 
                                     <div class="col s12 m12 l12">
-                                        <p><strong>Tags</strong></p>
+                                        <h6><strong>Tags</strong></h6>
                                         <div class="row">
                                             <div class="col s1 m2 l2 center">
                                                 <a href="javascript:void(0)"
@@ -119,7 +119,7 @@
                                     </div>
 
                                     <div class="col s12 m-t-25">
-                                        <p><strong>SMS To</strong></p>
+                                        <h6><strong>SMS To</strong></h6>
                                         <div class="row">
                                             <div class="col s2">
                                                 <p>
