@@ -69,12 +69,6 @@ class SendBirthdaySms extends Command
                 $ReplacedMessage = str_replace('[school_email]', $Member->company_email, $ReplacedMessage);
             }
 
-            DB::table('test')->insert(
-                [
-                    ['message' =>  $ReplacedMessage],
-                ]
-            );
-
             JobSendSms::dispatch($Member->id, $Member->company_username, $Member->company_password, $Member->company_mask_id, $Member->parent_mobile_1, $ReplacedMessage);
 
             if ($Member->parent_secondary_number == "Y")
