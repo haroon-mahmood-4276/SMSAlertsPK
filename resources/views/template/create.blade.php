@@ -50,7 +50,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col s12 m12 l12">
+                                <div class="col s12 m12 l12 m-b-20">
                                     <p><strong>Tags</strong></p>
                                     <div class="row">
                                         <div class="col s1 m2 l2 m-2">
