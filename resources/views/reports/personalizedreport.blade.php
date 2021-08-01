@@ -113,7 +113,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light right submit" type="submit"
-                                        name="action">Submit
+                                        name="action">Show Report
                                     </button>
                                     <button class="btn waves-effect red waves-light right m-r-10 reset"
                                         type="reset">Reset</button>

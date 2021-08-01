@@ -114,7 +114,7 @@
 
                                 <div class="col s12 m12 l12">
                                     <button class="btn waves-effect waves-light right submit" type="submit"
-                                        name="action">Submit
+                                        name="action">Save
                                     </button>
                                     <a href="{{ route('templates.index') }}"
                                         class="btn waves-effect red waves-light right m-r-10">Back to Template
