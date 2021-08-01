@@ -144,6 +144,7 @@ class SmsController extends Controller
 
     public function BulkSMS(Request $request)
     {
+        // return $request->input();
         $Members = app('App\Http\Controllers\MobileDataController')->STDList($request->group, $request->section);
         JobMain::dispatch(session('Data'), $request->all(), $Members);
         return redirect()->route('r.bulksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
