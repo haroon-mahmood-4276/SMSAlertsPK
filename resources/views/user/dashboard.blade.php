@@ -8,6 +8,8 @@
 
 @section('AfterCommonCss')
     <link href="{{ asset('dist/css/pages/dashboard1.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/libs/footable/css/footable.core.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/css/pages/footable-page.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -190,6 +192,74 @@
             </div>
 
             @if (session('Data.company_nature') != 'A')
+                @if ($BirthdayData->count() > 0)
+                    <div class="row">
+                        <div class="col l12 m12 s12">
+                            <div class="card">
+                                <div class="card-content">
+
+                                    <h2>Birthday Section</h2>
+
+                                    <table id="demo-foo-addrow2"
+                                        class="table table-bordered responsive-table table-hover toggle-circle"
+                                        data-page-size="10">
+                                        <thead>
+                                            <tr>
+                                                <th data-sort-initial="true" data-toggle="true">Sr No</th>
+                                                <th>Code</th>
+                                                <th>Name</th>
+                                                <th>
+                                                    {{ Session::get('Data.company_nature') == 'B' ? 'Group' : 'Class - Section' }}
+                                                </th>
+                                                <th>Date of Birth</th>
+                                            </tr>
+                                        </thead>
+                                        <div class="m-t-10 m-b-25">
+                                            <div class="d-flex">
+                                                <div class="ml-auto">
+                                                    <div class="form-group">
+                                                        <a href="#" class="waves-effect waves-light btn"><i
+                                                                class="material-icons left">file_download</i>Export as
+                                                            PDF</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <tbody>
+                                            @php
+                                                $Count = 0;
+                                            @endphp
+                                            @foreach ($BirthdayData as $Member)
+                                                <tr>
+                                                    <td>{{ ++$Count }}</td>
+                                                    <td>{{ $Member->code }}</td>
+                                                    <td>{{ $Member->student_first_name }}
+                                                        {{ $Member->student_last_name }}
+                                                    </td>
+                                                    <td>{{ $Member->group_name }} @if (session('Data.company_nature') == 'S')
+                                                            - {{ $Member->section_name }}
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $Member->dob }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <div class="text-right">
+                                                        <ul class="pagination">
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="row m-t-25">
                     <div class="col s12 m6">
                         <h2>API Section</h2>
@@ -247,4 +317,7 @@
     <script src="{{ asset('assets/extra-libs/c3/c3.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
     <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
+
+    <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
 @endsection

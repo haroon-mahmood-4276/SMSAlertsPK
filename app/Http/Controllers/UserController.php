@@ -9,6 +9,7 @@ use App\Models\Mobiledatas;
 use App\Models\Package;
 use App\Models\Setting;
 use App\Rules\CheckUserCode;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -238,9 +239,15 @@ class UserController extends Controller
                     $User->save();
                     session()->put(['Data' => $User]);
                 }
+                $BirthdayData = Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
+                    ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
+                    ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
+                    ->select('mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.dob', 'groups.name AS group_name', 'sections.name AS section_name')
+                    ->where('dob', '=', Carbon::today()->toDateString())
+                    ->where('active', '=', 'Y')->get();
             }
         }
-        return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount]);
+        return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData'=> $BirthdayData]);
     }
 
     public function logout()
