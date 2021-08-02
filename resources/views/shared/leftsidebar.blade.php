@@ -50,6 +50,12 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="{{ route('r.bulksmsshow') }}">
+                                            <i class="material-icons">message</i>
+                                            <span class="hide-menu">Dues SMS</span>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('r.multiplesmsshow') }}">
                                             <i class="material-icons">message</i>
                                             <span class="hide-menu">Multiple SMS</span>

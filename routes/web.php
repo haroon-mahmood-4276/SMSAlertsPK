@@ -52,18 +52,17 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');
     Route::get('data/{groupid}/{sectionid}/list', [MobileDataController::class, 'STDList'])->name('r.studentlist');
 
-    // Route::get('sms/history', [SmsController::class, 'index'])->name('r.smshistory');
 
     Route::get('sms/quick', [SmsController::class, 'ShowQuickSMS'])->name('r.quicksmsshow');
-
     Route::get('sms/multiple', [SmsController::class, 'ShowMultipleSMS'])->name('r.multiplesmsshow');
-
     Route::get('sms/bulk', [SmsController::class, 'BulkSMSShow'])->name('r.bulksmsshow');
+    Route::get('sms/dues', [SmsController::class, 'ShowDuesSMS'])->name('r.smsdues');
 
     Route::post('sms/quick', [SmsController::class, 'QuickSMS'])->name('r.quicksms');
     Route::post('sms/multiple', [SmsController::class, 'MultipleSMS'])->name('r.multiplesms');
     Route::post('sms/bulk', [SmsController::class, 'BulkSMS'])->name('r.bulksms');
-    Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
+    Route::post('sms/dues', [SmsController::class, 'DuesSMS'])->name('r.smsdues');
+
 
     Route::get('imports', function () {
         return view('shared.imports');
@@ -141,4 +140,6 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('personalizedreport', [ExportPDFController::class, 'PersonalizedReportPDF'])->name('r.personalizedreportpdf');
         Route::get('birthdayreportpdf', [ExportPDFController::class, 'BirthdayAsPDF'])->name('r.birthdayreportpdf');
     });
+
+    Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
