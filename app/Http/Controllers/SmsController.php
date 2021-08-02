@@ -197,8 +197,6 @@ class SmsController extends Controller
         } else {
             if ($request->session()->has('DuesData')) {
 
-                // return session('DuesData');
-
                 foreach (session('DuesData') as $Member) {
 
                     if (Arr::exists($request->input(), $Member[0]->id . 'chk')) {
@@ -232,6 +230,10 @@ class SmsController extends Controller
                 }
             }
         }
+        if ($request->session()->has('DuesData')) {
+            Session()->forget('DuesData');
+        }
+
         return redirect()->route('r.smsdues')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }
