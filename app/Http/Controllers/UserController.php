@@ -243,11 +243,12 @@ class UserController extends Controller
                     ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
                     ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
                     ->select('mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.dob', 'groups.name AS group_name', 'sections.name AS section_name')
-                    ->where('dob', '=', Carbon::today()->toDateString())
-                    ->where('active', '=', 'Y')->get();
+                    ->where('mobiledatas.user_id', '=', session('Data.id'))
+                    ->where('mobiledatas.dob', '=', Carbon::today()->toDateString())
+                    ->where('mobiledatas.active', '=', 'Y')->get();
             }
         }
-        return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData'=> $BirthdayData]);
+        return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData' => $BirthdayData]);
     }
 
     public function logout()

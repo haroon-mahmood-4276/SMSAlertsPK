@@ -4,6 +4,7 @@ use App\Exports\GroupsExport;
 use App\Exports\MembersExport;
 use App\Exports\SectionsExport;
 use App\Exports\StudentsExport;
+use App\Http\Controllers\ExportPDFController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ImportController;
@@ -138,5 +139,6 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::prefix('reports/pdf')->group(function () {
         Route::get('todaysummery', [ReportController::class, 'TodaySummeryPDF'])->name('r.todaysummerypdf');
         Route::get('personalizedreport', [ReportController::class, 'PersonalizedReportPDF'])->name('r.personalizedreportpdf');
+        Route::get('birthdayreportpdf', [ExportPDFController::class, 'BirthdayAsPDF'])->name('r.birthdayreportpdf');
     });
 });

@@ -197,9 +197,7 @@
                         <div class="col l12 m12 s12">
                             <div class="card">
                                 <div class="card-content">
-
                                     <h2>Birthday Section</h2>
-
                                     <table id="demo-foo-addrow2"
                                         class="table table-bordered responsive-table table-hover toggle-circle"
                                         data-page-size="10">
@@ -218,7 +216,8 @@
                                             <div class="d-flex">
                                                 <div class="ml-auto">
                                                     <div class="form-group">
-                                                        <a href="#" class="waves-effect waves-light btn"><i
+                                                        <a href="{{ route('r.birthdayreportpdf') }}"
+                                                            class="waves-effect waves-light btn"><i
                                                                 class="material-icons left">file_download</i>Export as
                                                             PDF</a>
                                                     </div>
