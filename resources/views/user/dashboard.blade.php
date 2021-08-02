@@ -259,40 +259,53 @@
                         </div>
                     </div>
                 @endif
-                <div class="row m-t-25">
-                    <div class="col s12 m6">
-                        <h2>API Section</h2>
-                        <ul class="collapsible popout">
-                            <li class="rounded">
-                                <div class="collapsible-header"><i class="material-icons">filter_1</i>First</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                            </li>
-                            <li class="rounded">
-                                <div class="collapsible-header"><i class="material-icons">filter_2</i>Second</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                            </li>
-                            <li class="rounded">
-                                <div class="collapsible-header"><i class="material-icons">filter_3</i>Third</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col s12 m6">
-                        <h2> &nbsp;</h2>
-                        <ul class="collapsible popout">
-                            <li class="rounded">
-                                <div class="collapsible-header"><i class="material-icons">filter_1</i>First</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                            </li>
-                            <li class="rounded">
-                                <div class="collapsible-header"><i class="material-icons">filter_2</i>Second</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                            </li>
-                            <li class="rounded">
-                                <div class="collapsible-header"><i class="material-icons">filter_3</i>Third</div>
-                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                            </li>
-                        </ul>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="card">
+                            <div class="card-content">
+                                <h2>API Section</h2>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <ul class="collapsible popout">
+                                            <li class="rounded">
+                                                <div class="collapsible-header"><i class="material-icons">filter_1</i>First
+                                                </div>
+                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                            </li>
+                                            <li class="rounded">
+                                                <div class="collapsible-header"><i class="material-icons">filter_2</i>Second
+                                                </div>
+                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                            </li>
+                                            <li class="rounded">
+                                                <div class="collapsible-header"><i class="material-icons">filter_3</i>Third
+                                                </div>
+                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col s6">
+                                        <ul class="collapsible popout">
+                                            <li class="rounded">
+                                                <div class="collapsible-header"><i class="material-icons">filter_1</i>First
+                                                </div>
+                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                            </li>
+                                            <li class="rounded">
+                                                <div class="collapsible-header"><i class="material-icons">filter_2</i>Second
+                                                </div>
+                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                            </li>
+                                            <li class="rounded">
+                                                <div class="collapsible-header"><i class="material-icons">filter_3</i>Third
+                                                </div>
+                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endif
