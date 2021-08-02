@@ -34,7 +34,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('login', [UserController::class, 'loginform'])->name('r.login');
     Route::post('login', [UserController::class, 'login'])->name('r.login');

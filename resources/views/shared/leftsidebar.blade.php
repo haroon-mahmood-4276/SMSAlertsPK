@@ -50,7 +50,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('r.bulksmsshow') }}">
+                                        <a href="{{ route('r.smsdues') }}">
                                             <i class="material-icons">message</i>
                                             <span class="hide-menu">Dues SMS</span>
                                         </a>
