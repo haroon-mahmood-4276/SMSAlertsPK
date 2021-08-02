@@ -19,8 +19,8 @@ class DuesExport implements FromArray, WithHeadings
     public function headings(): array
     {
         return [
-            'class_code',
-            'section_code',
+            'class_id',
+            'section_id',
             'code',
             'dues',
         ];
