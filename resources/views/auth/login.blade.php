@@ -64,7 +64,7 @@
                         <div class="row">
                             <form class="col s12" action="{{ route('r.login') }}" method="POST">
                                 <!-- email -->
-                                @csrf
+                                {{-- @csrf --}}
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <label for="email" class="form-label">Email address</label>

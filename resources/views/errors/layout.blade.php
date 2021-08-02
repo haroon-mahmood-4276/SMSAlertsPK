@@ -1,57 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
-        <title>@yield('title')</title>
+<html>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png') }}">
+    <title>@yield('PageTitle') - SMS Alerts PK</title>
+    <link href="{{ asset('dist/css/style.css') }}" rel="stylesheet">
+    <!-- This page CSS -->
+    <link href="{{ asset('dist/css/pages/error-pages.css') }}" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+</head>
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 36px;
-                padding: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            <div class="content">
-                <div class="title">
-                    @yield('message')
-                </div>
+<body>
+    <section id="wrapper" class="error-page">
+        <div class="error-box">
+            <div class="error-body center-align">
+                <h1>@yield('code')</h1>
+                <h3>@yield('message')</h3>
+                <a href="{{ route('r.login') }}" class="btn btn-round red waves-effect waves-light m-t-40 m-b-40">Back to
+                    home</a>
             </div>
         </div>
-    </body>
+    </section>
+    <!-- ============================================================== -->
+    <!-- All Required js -->
+    <!-- ============================================================== -->
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
+</body>
+
 </html>
