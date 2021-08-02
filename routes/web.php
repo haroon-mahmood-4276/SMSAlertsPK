@@ -137,8 +137,8 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     });
 
     Route::prefix('reports/pdf')->group(function () {
-        Route::get('todaysummery', [ReportController::class, 'TodaySummeryPDF'])->name('r.todaysummerypdf');
-        Route::get('personalizedreport', [ReportController::class, 'PersonalizedReportPDF'])->name('r.personalizedreportpdf');
+        Route::get('todaysummery', [ExportPDFController::class, 'TodaySummeryPDF'])->name('r.todaysummerypdf');
+        Route::get('personalizedreport', [ExportPDFController::class, 'PersonalizedReportPDF'])->name('r.personalizedreportpdf');
         Route::get('birthdayreportpdf', [ExportPDFController::class, 'BirthdayAsPDF'])->name('r.birthdayreportpdf');
     });
 });
