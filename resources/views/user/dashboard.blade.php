@@ -267,17 +267,17 @@
                                 <div class="row">
                                     <div class="col s6">
                                         <ul class="collapsible popout">
-                                            <li class="rounded">
+                                            <li class="rounded" style="background-color: #eef5fa;">
                                                 <div class="collapsible-header"><i class="material-icons">filter_1</i>First
                                                 </div>
                                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                             </li>
-                                            <li class="rounded">
+                                            <li class="rounded" style="background-color: #eef5fa;">
                                                 <div class="collapsible-header"><i class="material-icons">filter_2</i>Second
                                                 </div>
                                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                             </li>
-                                            <li class="rounded">
+                                            <li class="rounded" style="background-color: #eef5fa;">
                                                 <div class="collapsible-header"><i class="material-icons">filter_3</i>Third
                                                 </div>
                                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
@@ -286,17 +286,17 @@
                                     </div>
                                     <div class="col s6">
                                         <ul class="collapsible popout">
-                                            <li class="rounded">
+                                            <li class="rounded" style="background-color: #eef5fa;">
                                                 <div class="collapsible-header"><i class="material-icons">filter_1</i>First
                                                 </div>
                                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                             </li>
-                                            <li class="rounded">
+                                            <li class="rounded" style="background-color: #eef5fa;">
                                                 <div class="collapsible-header"><i class="material-icons">filter_2</i>Second
                                                 </div>
                                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                             </li>
-                                            <li class="rounded">
+                                            <li class="rounded" style="background-color: #eef5fa;">
                                                 <div class="collapsible-header"><i class="material-icons">filter_3</i>Third
                                                 </div>
                                                 <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
