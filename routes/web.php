@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\DuesExport;
 use App\Exports\GroupsExport;
 use App\Exports\MembersExport;
 use App\Exports\SectionsExport;
@@ -60,7 +61,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::post('sms/quick', [SmsController::class, 'QuickSMS'])->name('r.quicksms');
     Route::post('sms/multiple', [SmsController::class, 'MultipleSMS'])->name('r.multiplesms');
     Route::post('sms/bulk', [SmsController::class, 'BulkSMS'])->name('r.bulksms');
-    Route::post('sms/dues', [SmsController::class, 'DuesSMS'])->name('r.smsdues');
+    Route::post('sms/dues', [SmsController::class, 'DuesSMS'])->name('r.duessms');
 
 
     Route::get('imports', function () {
@@ -88,6 +89,10 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('members', function () {
             return Excel::download(new MembersExport, 'members.xls', \Maatwebsite\Excel\Excel::XLS);
         })->name('r.xlsmembers');
+
+        Route::get('dues', function () {
+            return Excel::download(new DuesExport, 'dues.xls', \Maatwebsite\Excel\Excel::XLS);
+        })->name('r.xlsdues');
     });
 
     Route::prefix('export/csv')->group(function () {
@@ -110,6 +115,10 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('members', function () {
             return Excel::download(new MembersExport, 'members.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         })->name('r.csvmembers');
+
+        Route::get('dues', function () {
+            return Excel::download(new DuesExport, 'dues.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        })->name('r.csvdues');
     });
 
     // Data Import
@@ -119,6 +128,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::post('sections', [ImportController::class, 'ImportSections'])->name('r.importsections');
         Route::post('students', [ImportController::class, 'ImportMembers'])->name('r.importstudents');
         Route::post('members', [ImportController::class, 'ImportMembers'])->name('r.importmembers');
+        Route::post('dues', [SmsController::class, 'DuesSMS'])->name('r.importdues');
     });
 
     Route::get('settings', [SettingController::class, 'Settings'])->name('r.settings');

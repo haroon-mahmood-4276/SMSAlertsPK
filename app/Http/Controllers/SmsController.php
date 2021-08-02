@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\DuesImport;
 use App\Jobs\JobMain;
 use App\Models\Group;
+use App\Models\Mobiledatas;
 use App\Models\Sms;
 use App\Models\Template;
 use App\Models\User;
@@ -11,6 +13,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SmsController extends Controller
 {
@@ -148,5 +151,50 @@ class SmsController extends Controller
         $Members = app('App\Http\Controllers\MobileDataController')->STDList($request->group, $request->section);
         JobMain::dispatch(session('Data'), $request->all(), $Members);
         return redirect()->route('r.bulksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
+    }
+
+    public function ShowDuesSMS()
+    {
+        $User = User::find(session('Data.id'));
+        if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
+            if ($User->remaining_of_sms > 0) {
+                $Templates = Template::where('user_id', '=', session('Data.id'))->get();
+
+                return view('sms.duessms', ['DuesData' => [], 'Templates' => $Templates, 'Template_Code' => 0, 'Message' => '']);
+            } else
+                return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
+        }
+    }
+
+    public function DuesSMS(Request $request)
+    {
+        if (isset($request->fileupload)) {
+            if ($request->duesfile != null) {
+                $DuesData = Excel::toArray(new DuesImport, $request->file('duesfile'));
+                $newArray = [];
+                foreach ($DuesData as $array) {
+                    foreach ($array as $k => $v) {
+                        $newArray[$k] = Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
+                            ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
+                            ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
+                            ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active', 'groups.name AS group_name', 'sections.name AS section_name')
+                            ->where('mobiledatas.user_id', '=', session('Data.id'))
+                            ->where('groups.code', '=', $v['class_id'])
+                            ->where('sections.code', '=', $v['section_id'])
+                            ->where('mobiledatas.code', '=', $v['code'])->get();
+                        $newArray[$k]['dues'] = $v['dues'];
+                    }
+                }
+                $Templates = Template::where('user_id', '=', session('Data.id'))->get();
+                return view('sms.duessms', ['DuesData' => $newArray, 'Templates' => $Templates, 'Template_Code' => $request->template, 'Message' => $request->message]);
+            } else
+                return redirect()->route('r.smsdues')->with('AlertType', 'info')->with('AlertMsg', "Upload file first.");
+        } else {
+            return $request->input();
+        }
+
+        // $Members = app('App\Http\Controllers\MobileDataController')->STDList($request->group, $request->section);
+        // JobMain::dispatch(session('Data'), $request->all(), $Members);
+        // return redirect()->route('r.smsdues')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }
