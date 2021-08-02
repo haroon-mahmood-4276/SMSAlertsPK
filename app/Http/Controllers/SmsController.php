@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\DuesImport;
 use App\Jobs\JobMain;
+use App\Jobs\JobSendSms;
 use App\Models\Group;
 use App\Models\Mobiledatas;
 use App\Models\Sms;
@@ -11,7 +12,9 @@ use App\Models\Template;
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -185,16 +188,50 @@ class SmsController extends Controller
                         $newArray[$k]['dues'] = $v['dues'];
                     }
                 }
+                session()->put(['DuesData' => $newArray]);
                 $Templates = Template::where('user_id', '=', session('Data.id'))->get();
+
                 return view('sms.duessms', ['DuesData' => $newArray, 'Templates' => $Templates, 'Template_Code' => $request->template, 'Message' => $request->message]);
             } else
                 return redirect()->route('r.smsdues')->with('AlertType', 'info')->with('AlertMsg', "Upload file first.");
         } else {
-            return $request->input();
-        }
+            if ($request->session()->has('DuesData')) {
 
-        // $Members = app('App\Http\Controllers\MobileDataController')->STDList($request->group, $request->section);
-        // JobMain::dispatch(session('Data'), $request->all(), $Members);
-        // return redirect()->route('r.smsdues')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
+                // return session('DuesData');
+
+                foreach (session('DuesData') as $Member) {
+
+                    if (Arr::exists($request->input(), $Member[0]->id . 'chk')) {
+
+                        $ReplacedMessage = "";
+
+                        $ReplacedMessage = str_replace('[student_full_name]', $Member[0]->student_first_name . " " . $Member[0]->student_last_name, $request->message);
+                        $ReplacedMessage = str_replace('[class_name]', $Member[0]->group_name, $ReplacedMessage);
+                        $ReplacedMessage = str_replace('[section_name]', $Member[0]->section_name, $ReplacedMessage);
+                        $ReplacedMessage = str_replace('[school_name]', session('Data.company_name'), $ReplacedMessage);
+                        $ReplacedMessage = str_replace('[school_phone_1]', session('Data.mobile_1'), $ReplacedMessage);
+                        $ReplacedMessage = str_replace('[school_phone_2]', session('Data.mobile_2'), $ReplacedMessage);
+                        $ReplacedMessage = str_replace('[school_email]', session('Data.company_email'), $ReplacedMessage);
+                        $ReplacedMessage = str_replace('[dues]', $Member['dues'], $ReplacedMessage);
+                        // return $ReplacedMessage;
+
+                        JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->parent_mobile_1, $ReplacedMessage);
+
+                        if ($request->parent_secondary_number == "on")
+                            if ($Member[0]->parent_mobile_2 != null && $Member[0]->parent_mobile_2 != '')
+                                JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->parent_mobile_2, $ReplacedMessage);
+
+                        if ($request->student_primary_number == "on")
+                            if ($Member[0]->student_mobile_1 != null && $Member[0]->student_mobile_1 != '')
+                                JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->student_mobile_1, $ReplacedMessage);
+
+                        if ($request->student_secondary_number == "on")
+                            if ($Member[0]->student_mobile_2 != null && $Member[0]->student_mobile_2 != '')
+                                JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->student_mobile_2, $ReplacedMessage);
+                    }
+                }
+            }
+        }
+        return redirect()->route('r.smsdues')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }

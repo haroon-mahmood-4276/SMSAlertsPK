@@ -54,11 +54,6 @@ class JobMain implements ShouldQueue
                     $ReplacedMessage = str_replace('[school_email]', $this->SessionData['company_email'], $ReplacedMessage);
                 }
 
-                DB::table('test')->insert(
-                    [
-                        ['message' =>  $ReplacedMessage],
-                    ]
-                );
                 JobSendSms::dispatch($this->SessionData['id'], $this->SessionData['company_username'], $this->SessionData['company_password'], $this->SessionData['company_mask_id'], $Member->parent_mobile_1, $ReplacedMessage);
 
                 if ($this->RequestInput['parent_secondary_number'] == "on")
