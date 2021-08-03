@@ -15,7 +15,7 @@
                                 {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
                                 Management</span></a>
                     </li>
-                    @if (session('Data.company_nature') != 'B')
+                    @if (session('Data.company_nature') == 'S')
                         <li>
                             <a href="{{ route('sections.index') }}"
                                 class="collapsible-header {{ Request::is(route('sections.index')) ? 'active' : null }}"><i
@@ -49,12 +49,14 @@
                                             <span class="hide-menu">Bulk SMS</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ route('r.smsdues') }}">
-                                            <i class="material-icons">message</i>
-                                            <span class="hide-menu">Dues SMS</span>
-                                        </a>
-                                    </li>
+                                    @if (session('Data.company_nature') == 'S')
+                                        <li>
+                                            <a href="{{ route('r.smsdues') }}">
+                                                <i class="material-icons">message</i>
+                                                <span class="hide-menu">Dues SMS</span>
+                                            </a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('r.multiplesmsshow') }}">
                                             <i class="material-icons">message</i>
