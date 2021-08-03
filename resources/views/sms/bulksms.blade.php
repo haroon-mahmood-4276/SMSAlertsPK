@@ -232,7 +232,7 @@
                                                         <input id="demo-input-search2" type="text" placeholder="Search"
                                                             autocomplete="off">
 
-                                                        <a href="{{ route('r.birthdayreportpdf') }}"
+                                                        <a href="javascript:void(0)" id="add_all_data"
                                                             class="waves-effect waves-light btn"><i
                                                                 class="material-icons left">add</i>Add All</a>
                                                     </div>
@@ -240,9 +240,9 @@
                                             </div>
                                         </div>
                                         <tbody>
-                                            <tr colspan="9">
+                                            {{-- <tr colspan="9">
                                                 <td>No Data Yet</td>
-                                            </tr>
+                                            </tr> --}}
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -259,7 +259,8 @@
                                 {{-- Table 2 --}}
                                 <div class="input-field col s12 rounded"
                                     style="border: 2px solid rgb(230, 230, 230) !important; margin-top: 50px !important; padding: 30px 15px !important;">
-                                    <table id="SDTTable" class="table m-b-0 toggle-arrow-tiny centered responsive-table"
+                                    <table id="demo-foo-addrow"
+                                        class="table my_final_table m-b-0 toggle-arrow-tiny centered responsive-table"
                                         data-page-size="10">
                                         <thead>
                                             <tr>
@@ -296,9 +297,9 @@
                                             </div>
                                         </div>
                                         <tbody>
-                                            <tr colspan="9">
+                                            {{-- <tr colspan="9">
                                                 <td>No Data Yet</td>
-                                            </tr>
+                                            </tr> --}}
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -342,6 +343,10 @@
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
 
+    {{-- <script src="{{ asset('assets/extra-libs/DataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/datatable/datatable-api.init.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/datatable/datatable-advanced.init.js') }}"></script> --}}
     <script>
         $('#group').on('change', function() {
             var GroupId = $(this).val();
@@ -460,15 +465,17 @@
         $(".sl-all").on('click', function() {
             $('.chkbox').prop('checked', this.checked);
         });
-        $('#SDTTable tbody').empty();
+
+        $('.my_final_table tbody').empty();
 
         $('tbody').on('click', '.add-student', function() {
             myParent = $(this).closest('table').attr('id');
             if (myParent == "demo-foo-addrow2") {
                 myTableRow = $(this).closest('table tr').html().replace('add_to_queue', 'remove_from_queue');
-                $('#SDTTable tbody').append('<tr>' + myTableRow + '</tr>');
-                $('#SDTTable tbody td.chknone').show();
-                $('#SDTTable tbody td.chknone input[type=checkbox]').prop("disabled", false).prop("checked", true);
+                $('.my_final_table tbody').append('<tr>' + myTableRow + '</tr>');
+                $('.my_final_table tbody td.chknone').show();
+                $('.my_final_table tbody td.chknone input[type=checkbox]').prop("disabled", false).prop("checked",
+                    true);
 
             } else {
                 myTableRow = $(this).closest('table tr').html().replace('remove_from_queue', 'add_to_queue');
@@ -477,6 +484,25 @@
                 $('#demo-foo-addrow2 tbody td.chknone input[type=checkbox]').prop("disabled", true);
             }
             $(this).closest('table tr').remove();
+        });
+
+        $('#add_all_data').on('click', function() {
+            $("#demo-foo-addrow2 > tbody > tr").each(function() {
+                myTableRow = $(this).html().replace('add_to_queue', 'remove_from_queue');
+                $('.my_final_table tbody').append('<tr>' + myTableRow + '</tr>');
+                $('.my_final_table tbody td.chknone').show();
+                $('.my_final_table tbody td.chknone input[type=checkbox]').prop("disabled", false).prop(
+                    "checked", true);
+                $(this).remove();
+            });
+
+            $('.my_final_table').footable();
+            $('.my_final_table').on('change', function(e) {
+                e.preventDefault();
+                var pageSize = $(this).val();
+                $('.my_final_table').data('page-size', pageSize);
+                $('.my_final_table').trigger('footable_initialized');
+            });
         });
     </script>
     <script type="text/javascript">
