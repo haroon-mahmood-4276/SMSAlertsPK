@@ -10,9 +10,7 @@ class DuesImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return [
-            'class_id'  => $row['class_id'],
-            'section_id' => $row['section_id'],
-            'code' => $row['code'],
+            'code' => $row['student_code'],
             'dues' => $row['dues'],
         ];
     }

@@ -182,9 +182,7 @@ class SmsController extends Controller
                             ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
                             ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active', 'groups.name AS group_name', 'sections.name AS section_name')
                             ->where('mobiledatas.user_id', '=', session('Data.id'))
-                            ->where('groups.code', '=', $v['class_id'])
-                            ->where('sections.code', '=', $v['section_id'])
-                            ->where('mobiledatas.code', '=', $v['code'])->get();
+                            ->where('mobiledatas.code', '=', $v['student_code'])->get();
                         $newArray[$k]['dues'] = $v['dues'];
                     }
                 }
