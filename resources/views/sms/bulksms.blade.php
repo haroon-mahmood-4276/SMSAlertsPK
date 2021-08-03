@@ -94,15 +94,116 @@
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="col s12 m12 l12 m-b-20">
+                                    <p><strong>Tags</strong></p>
+                                    <div class="row">
+                                        <div class="col s1 m2 l2 m-2">
+                                            <a href="javascript:void(0)"
+                                                id="{{ session('Data.company_nature') == 'B' ? 'member_full_name' : 'student_full_name' }}"
+                                                onmouseup="textbox(this.id)"
+                                                class="chip">{{ session('Data.company_nature') == 'B' ? 'Member' : 'Student' }}
+                                                Full Name
+                                            </a>
+                                        </div>
 
+                                        @if (session('Data.company_nature') == 'B')
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="brand_name" onmouseup="textbox(this.id)"
+                                                    class="chip">Brand Name</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="brand_phone_1" onmouseup="textbox(this.id)"
+                                                    class="chip">Brand Phone No 1</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="brand_phone_2" onmouseup="textbox(this.id)"
+                                                    class="chip">Brand Phone No 2</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="brand_email" onmouseup="textbox(this.id)"
+                                                    class="chip">Brand Email</a>
+                                            </div>
+                                        @else
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="class_name" onmouseup="textbox(this.id)"
+                                                    class="chip">Class Name</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="section_name" onmouseup="textbox(this.id)"
+                                                    class="chip">Section Name</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="school_name" onmouseup="textbox(this.id)"
+                                                    class="chip">School Name</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="school_phone_1"
+                                                    onmouseup="textbox(this.id)" class="chip">School Phone No 1</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="school_phone_2"
+                                                    onmouseup="textbox(this.id)" class="chip">School Phone No 2</a>
+                                            </div>
+                                            <div class="col s1 m2 l2 m-2">
+                                                <a href="javascript:void(0)" id="school_email" onmouseup="textbox(this.id)"
+                                                    class="chip">School Email</a>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
                                 <div class="input-field col s12">
                                     <a href="javascript:void(0)" class="btn btn-small" id="getmember">
                                         Get
                                         {{ Session::get('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
                                     </a>
                                 </div>
+                                <div class="col s12 m-t-25">
+                                    <p><strong>SMS To</strong></p>
+                                    <div class="row">
+                                        <div class="col s6 m6 l3">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" id="parent_primary_number" class="filled-in"
+                                                        name="parent_primary_number" checked disabled />
+                                                    <span>Parent Primary Number</span>
+                                                </label>
+                                            </p>
+                                        </div>
 
-                                <div class="input-field m-t-10 col s12" id="SDTTable">
+                                        <div class="col s6 m6 l3">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" id="parent_secondary_number" class="filled-in"
+                                                        name="parent_secondary_number" />
+                                                    <span>Parent Secondary Number</span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                        @if (session('Data.company_nature') == 'S')
+                                            <div class="col s6 m6 l3">
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" id="student_primary_number" class="filled-in"
+                                                            name="student_primary_number" />
+                                                        <span>Student Primary Number</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div class="col s6 m6 l3">
+                                                <p>
+                                                    <label>
+                                                        <input type="checkbox" id="student_secondary_number"
+                                                            class="filled-in" name="student_secondary_number" />
+                                                        <span>Student Secondary Number</span>
+                                                    </label>
+                                                </p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                {{-- Table 1 --}}
+                                <div class="input-field m-t-10 col s12" id="SDTTable1">
                                     <table id="demo-foo-addrow2"
                                         class="table m-b-0 toggle-arrow-tiny centered responsive-table" data-page-size="10">
                                         <thead>
@@ -130,9 +231,62 @@
                                                     <div class="form-group">
                                                         <input id="demo-input-search2" type="text" placeholder="Search"
                                                             autocomplete="off">
+
+                                                        <a href="{{ route('r.birthdayreportpdf') }}"
+                                                            class="waves-effect waves-light btn"><i
+                                                                class="material-icons left">add</i>Add All</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <tbody>
+                                            <tr colspan="9">
+                                                <td>No Data Yet</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="9">
+                                                    <div class="text-right">
+                                                        <ul class="pagination pagination-split"> </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                                {{-- Table 2 --}}
+                                <div class="input-field col s12 rounded"
+                                    style="border: 2px solid rgb(230, 230, 230) !important; margin-top: 50px !important; padding: 30px 15px !important;">
+                                    <table id="SDTTable" class="table m-b-0 toggle-arrow-tiny centered responsive-table"
+                                        data-page-size="10">
+                                        <thead>
+                                            <tr>
+                                                <th data-toggle="true">Code</th>
+                                                <th>Name</th>
+                                                @if (session('Data.company_nature') == 'S')
+                                                    <th>Parent Name</th>
+                                                @endif
+                                                <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
+                                                    Primary Number</th>
+                                                <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
+                                                    Secondary Number</th>
+                                                @if (session('Data.company_nature') == 'S')
+                                                    <th>Student Primary Number</th>
+                                                    <th>Student Secondary Number</th>
+                                                @endif
+                                                <th>Stauts</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <div class="">
+                                            <div class="d-flex">
+                                                <div class="ml-auto">
+                                                    <div class="form-group">
                                                         <p>
                                                             <label>
-                                                                <input type="checkbox" class="sl-all filled-in" />
+                                                                <input type="checkbox" class="sl-all filled-in" checked />
                                                                 <span>Check All</span>
                                                             </label>
                                                         </p>
@@ -156,51 +310,6 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-                                </div>
-
-                                <div class="col s12 m-t-25">
-                                    <p><strong>SMS To</strong></p>
-                                    <div class="row">
-                                        <div class="col s2">
-                                            <p>
-                                                <label>
-                                                    <input type="checkbox" id="parent_primary_number" class="filled-in"
-                                                        name="parent_primary_number" checked disabled />
-                                                    <span>Parent Primary Number</span>
-                                                </label>
-                                            </p>
-                                        </div>
-
-                                        <div class="col s2">
-                                            <p>
-                                                <label>
-                                                    <input type="checkbox" id="parent_secondary_number" class="filled-in"
-                                                        name="parent_secondary_number" />
-                                                    <span>Parent Secondary Number</span>
-                                                </label>
-                                            </p>
-                                        </div>
-                                        @if (session('Data.company_nature') == 'S')
-                                            <div class="col s2">
-                                                <p>
-                                                    <label>
-                                                        <input type="checkbox" id="student_primary_number" class="filled-in"
-                                                            name="student_primary_number" />
-                                                        <span>Student Primary Number</span>
-                                                    </label>
-                                                </p>
-                                            </div>
-                                            <div class="col s2">
-                                                <p>
-                                                    <label>
-                                                        <input type="checkbox" id="student_secondary_number"
-                                                            class="filled-in" name="student_secondary_number" />
-                                                        <span>Student Secondary Number</span>
-                                                    </label>
-                                                </p>
-                                            </div>
-                                        @endif
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -323,8 +432,15 @@
                             Data +=
                                 "<td><span class='label label-table label-danger'>Not Active</span></td>\n";
                         }
-                        Data += "<td><p><label><input type='checkbox' name='" + response[index].id +
-                            "chk' class='chkbox filled-in' /><span>SMS</span></label></p></td>\n";
+                        Data +=
+                            "<td><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button></td>\n";
+
+                        Data +=
+                            "<td class='chknone' style='display: none !important;'><p><label><input type='checkbox' disabled name='" +
+                            response[index].id +
+                            "chk' class='chkbox filled-in' value='" + response[index].id +
+                            "'/><span>SMS</span></label></p></td>\n";
+
                         Data += "</tr>";
 
                         // }
@@ -344,5 +460,33 @@
         $(".sl-all").on('click', function() {
             $('.chkbox').prop('checked', this.checked);
         });
+        $('#SDTTable tbody').empty();
+
+        $('tbody').on('click', '.add-student', function() {
+            myParent = $(this).closest('table').attr('id');
+            if (myParent == "demo-foo-addrow2") {
+                myTableRow = $(this).closest('table tr').html().replace('add_to_queue', 'remove_from_queue');
+                $('#SDTTable tbody').append('<tr>' + myTableRow + '</tr>');
+                $('#SDTTable tbody td.chknone').show();
+                $('#SDTTable tbody td.chknone input[type=checkbox]').prop("disabled", false).prop("checked", true);
+
+            } else {
+                myTableRow = $(this).closest('table tr').html().replace('remove_from_queue', 'add_to_queue');
+                $('#demo-foo-addrow2 tbody').append('<tr>' + myTableRow + '</tr>');
+                $('#demo-foo-addrow2 tbody td.chknone').hide();
+                $('#demo-foo-addrow2 tbody td.chknone input[type=checkbox]').prop("disabled", true);
+            }
+            $(this).closest('table tr').remove();
+        });
+    </script>
+    <script type="text/javascript">
+        function textbox(Element) {
+            var ctl = document.getElementById('message');
+            var EndPosition = ctl.selectionEnd;
+            ctl.value = [ctl.value.slice(0, EndPosition), "[" + Element + "]", ctl.value.slice(EndPosition, ctl.value
+                .length)].join('');
+
+            ctl.focus();
+        }
     </script>
 @endsection
