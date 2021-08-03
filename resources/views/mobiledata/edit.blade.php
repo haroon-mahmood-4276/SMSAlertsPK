@@ -68,7 +68,7 @@
                                 <div class="input-field col {{ session('Data.company_nature') == 'B' ? 's6' : 's12' }}">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="code" name="code" type="text" class="@error('code') error @enderror"
-                                        value="{{ $MobileData->code }}">
+                                        value="{{ $MobileData->code }}" disabled>
                                     <label for="code">Code *</label>
                                     @error('code')
                                         <span style="color: red">{{ $message }}</span>
