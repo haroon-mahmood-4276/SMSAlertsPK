@@ -353,7 +353,7 @@
                 success: function(response) {
                     Data += "<option value='0'>All</option>";
                     for (let index = 0; index < response.length; index++) {
-                        Data += '<option value="' + response[index].id + '">' + response[index].name +
+                        Data += '<option value="' + response[index].code + '">' + response[index].name +
                             '</option>';
                     }
                     $('#section').html(Data);
@@ -437,8 +437,8 @@
 
                         Data +=
                             "<td class='chknone' style='display: none !important;'><p><label><input type='checkbox' disabled name='" +
-                            response[index].id +
-                            "chk' class='chkbox filled-in' value='" + response[index].id +
+                            response[index].code +
+                            "chk' class='chkbox filled-in' value='" + response[index].code +
                             "chk'/><span>SMS</span></label></p></td>\n";
 
                         Data += "</tr>";

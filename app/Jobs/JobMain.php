@@ -42,7 +42,7 @@ class JobMain implements ShouldQueue
                     ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
                     ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active', 'groups.name AS group_name', 'sections.name AS section_name')
                     ->where('mobiledatas.user_id', '=', $this->SessionData['id'])
-                    ->where('mobiledatas.id', '=', substr($Data, 0, -3))->get();
+                    ->where('mobiledatas.code', '=', substr($Data, 0, -3))->get();
 
 
                 $ReplacedMessage = "";
@@ -64,15 +64,15 @@ class JobMain implements ShouldQueue
 
                 JobSendSms::dispatch($this->SessionData['id'], $this->SessionData['company_username'], $this->SessionData['company_password'], $this->SessionData['company_mask_id'], $Member[0]->parent_mobile_1, $ReplacedMessage);
 
-                if ($this->RequestInput['parent_secondary_number'] == "on")
+                if (isset($this->RequestInput['parent_secondary_number']) && $this->RequestInput['parent_secondary_number'] == "on")
                     if ($Member[0]->parent_mobile_2 != null && $Member[0]->parent_mobile_2 != '')
                         JobSendSms::dispatch($this->SessionData['id'], $this->SessionData['company_username'], $this->SessionData['company_password'], $this->SessionData['company_mask_id'], $Member[0]->parent_mobile_2, $ReplacedMessage);
 
-                if ($this->RequestInput['student_primary_number'] == "on")
+                if (isset($this->RequestInput['student_primary_number']) && $this->RequestInput['student_primary_number'] == "on")
                     if ($Member[0]->student_mobile_1 != null && $Member[0]->student_mobile_1 != '')
                         JobSendSms::dispatch($this->SessionData['id'], $this->SessionData['company_username'], $this->SessionData['company_password'], $this->SessionData['company_mask_id'], $Member[0]->student_mobile_1, $ReplacedMessage);
 
-                if ($this->RequestInput['student_secondary_number'] == "on")
+                if (isset($this->RequestInput['student_secondary_number']) && $this->RequestInput['student_secondary_number'] == "on")
                     if ($Member[0]->student_mobile_2 != null && $Member[0]->student_mobile_2 != '')
                         JobSendSms::dispatch($this->SessionData['id'], $this->SessionData['company_username'], $this->SessionData['company_password'], $this->SessionData['company_mask_id'], $Member[0]->student_mobile_2, $ReplacedMessage);
             }

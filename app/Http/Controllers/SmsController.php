@@ -214,15 +214,15 @@ class SmsController extends Controller
 
                         JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->parent_mobile_1, $ReplacedMessage);
 
-                        if ($request->parent_secondary_number == "on")
+                        if (isset($this->RequestInput['parent_secondary_number']) && $request->parent_secondary_number == "on")
                             if ($Member[0]->parent_mobile_2 != null && $Member[0]->parent_mobile_2 != '')
                                 JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->parent_mobile_2, $ReplacedMessage);
 
-                        if ($request->student_primary_number == "on")
+                        if (isset($this->RequestInput['student_primary_number']) && $request->student_primary_number == "on")
                             if ($Member[0]->student_mobile_1 != null && $Member[0]->student_mobile_1 != '')
                                 JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->student_mobile_1, $ReplacedMessage);
 
-                        if ($request->student_secondary_number == "on")
+                        if (isset($this->RequestInput['student_secondary_number']) && $request->student_secondary_number == "on")
                             if ($Member[0]->student_mobile_2 != null && $Member[0]->student_mobile_2 != '')
                                 JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->student_mobile_2, $ReplacedMessage);
                     }

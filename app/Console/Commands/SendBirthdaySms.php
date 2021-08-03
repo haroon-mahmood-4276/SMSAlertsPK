@@ -71,15 +71,15 @@ class SendBirthdaySms extends Command
 
             JobSendSms::dispatch($Member->id, $Member->company_username, $Member->company_password, $Member->company_mask_id, $Member->parent_mobile_1, $ReplacedMessage);
 
-            if ($Member->parent_secondary_number == "Y")
+            if (isset($this->RequestInput['parent_secondary_number']) && $Member->parent_secondary_number == "Y")
                 if ($Member->parent_mobile_2 != null && $Member->parent_mobile_2 != '')
                     JobSendSms::dispatch($Member->id, $Member->company_username, $Member->company_password, $Member->company_mask_id, $Member->parent_mobile_2, $ReplacedMessage);
 
-            if ($Member->student_primary_number == "Y")
+            if (isset($this->RequestInput['student_primary_number']) && $Member->student_primary_number == "Y")
                 if ($Member->student_mobile_1 != null && $Member->student_mobile_1 != '')
                     JobSendSms::dispatch($Member->id, $Member->company_username, $Member->company_password, $Member->company_mask_id, $Member->student_mobile_1, $ReplacedMessage);
 
-            if ($Member->student_secondary_number == "Y")
+            if (isset($this->RequestInput['student_secondary_number']) && $Member->student_secondary_number == "Y")
                 if ($Member->student_mobile_2 != null && $Member->student_mobile_2 != '')
                     JobSendSms::dispatch($Member->id, $Member->company_username, $Member->company_password, $Member->company_mask_id, $Member->student_mobile_2, $ReplacedMessage);
         }
