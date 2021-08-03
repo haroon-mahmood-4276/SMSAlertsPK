@@ -439,7 +439,7 @@
                             "<td class='chknone' style='display: none !important;'><p><label><input type='checkbox' disabled name='" +
                             response[index].id +
                             "chk' class='chkbox filled-in' value='" + response[index].id +
-                            "'/><span>SMS</span></label></p></td>\n";
+                            "chk'/><span>SMS</span></label></p></td>\n";
 
                         Data += "</tr>";
 
