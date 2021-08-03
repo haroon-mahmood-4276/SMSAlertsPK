@@ -229,6 +229,7 @@ class UserController extends Controller
                 $GroupCount = User::count() - 1;
                 $SectionCount = User::where('company_nature', '=', 'B')->count();
                 $MobileDatasCount = User::where('company_nature', '=', 'S')->count();
+                $BirthdayData=[];
             } else {
                 $GroupCount = Group::where('user_id', '=', session('Data.id'))->count();
                 $SectionCount = Section::where('user_id', '=', session('Data.id'))->count();
