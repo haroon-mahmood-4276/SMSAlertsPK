@@ -11,8 +11,8 @@ class StudentsExport implements FromArray, WithHeadings
     {
         return [
             [
-                '00001',
-                '00001',
+                '1',
+                '1',
                 '00001',
                 'first_name',
                 'last_name',

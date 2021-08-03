@@ -13,12 +13,8 @@ class CheckMemberCode implements Rule
      *
      * @return void
      */
-    public function __construct($group_id, $section_id, $IsUpdate = false, $PKID = 0)
+    public function __construct()
     {
-        $this->group_id = $group_id;
-        $this->section_id = $section_id;
-        $this->IsUpdate = $IsUpdate;
-        $this->PKID = $PKID;
     }
 
     /**
@@ -30,19 +26,19 @@ class CheckMemberCode implements Rule
      */
     public function passes($attribute, $value)
     {
-        if ($this->IsUpdate) {
-            $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            // dd($Data);
-            if (!$Data->isEmpty()) {
-                return true;
-            } else {
-                $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->get();
-                return $Data->isEmpty();
-            }
-        } else {
-            $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->get();
+        // if ($this->IsUpdate) {
+        //     $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
+        //     // dd($Data);
+        //     if (!$Data->isEmpty()) {
+        //         return true;
+        //     } else {
+        //         $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->get();
+        //         return $Data->isEmpty();
+        //     }
+        // } else {
+            $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
             return $Data->isEmpty();
-        }
+        // }
     }
 
     /**

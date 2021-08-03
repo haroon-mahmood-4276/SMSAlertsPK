@@ -56,8 +56,7 @@ class MobileDataController extends Controller
     {
         if (session('Data.company_nature') == 'S') {
             $request->validate([
-                // 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section)],
-                'code' => 'bail|required|alpha_num|between:1,20,unique:mobiledatas,code',
+                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
                 'student_first_name' => 'bail|required|alpha|between:1,50',
                 'student_last_name' => 'bail|required|alpha|between:1,50',
                 'student_mobile_1' => 'bail|required|numeric|digits:12',
@@ -75,7 +74,7 @@ class MobileDataController extends Controller
             ]);
         } else {
             $request->validate([
-                'code' => 'bail|required|alpha_num|between:1,20,unique:mobiledatas,code',
+                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
                 'student_first_name' => 'bail|required|alpha|between:1,50',
                 'student_last_name' => 'bail|required|alpha|between:1,50',
                 'dob' => 'bail|required',
@@ -90,6 +89,7 @@ class MobileDataController extends Controller
 
             $request->parent_mobile_1 = $request->student_mobile_1;
             $request->parent_mobile_2 = $request->student_mobile_2;
+
         }
 
 
@@ -159,6 +159,7 @@ class MobileDataController extends Controller
     {
         if (session('Data.company_nature') == 'S') {
             $request->validate([
+                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
                 'student_first_name' => 'bail|required|alpha|between:1,50',
                 'student_last_name' => 'bail|required|alpha|between:1,50',
                 'student_mobile_1' => 'bail|required|numeric|digits:12',
@@ -176,6 +177,7 @@ class MobileDataController extends Controller
             ]);
         } else {
             $request->validate([
+                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
                 'student_first_name' => 'bail|required|alpha|between:1,50',
                 'student_last_name' => 'bail|required|alpha|between:1,50',
                 'dob' => 'bail|required',
@@ -193,6 +195,7 @@ class MobileDataController extends Controller
         }
 
         $MobileDatas =  MobileDatas::find($id);
+        $MobileDatas->code = $request->code;
         $MobileDatas->student_first_name = $request->student_first_name;
         $MobileDatas->student_last_name = $request->student_last_name;
         $MobileDatas->student_mobile_1 = $request->student_mobile_1;

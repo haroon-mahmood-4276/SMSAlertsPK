@@ -12,7 +12,7 @@ class MembersExport implements FromArray, WithHeadings
         return [
             [
                 '00001',
-                '00001',
+                '1',
                 'first_name',
                 'last_name',
                 '923001234567',
