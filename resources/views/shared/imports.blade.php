@@ -72,7 +72,7 @@
                                                 <h4>Import
                                                     {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
                                                 </h4>
-                                                <div class="file-field input-field col s11">
+                                                <div class="file-field input-field col s10 m11 l11 ">
                                                     <div class="btn">
                                                         <span>File</span>
                                                         <input type="file" name="groupsfile">
@@ -82,9 +82,9 @@
                                                             placeholder="Please upload only .csv or .xls document">
                                                     </div>
                                                 </div>
-                                                <div class="input-field col s1">
+                                                <div class="input-field col s2 m1 l1">
                                                     <button class="btn pulse blue waves-effect waves-light"
-                                                        style="width: 100%" type="submit"><i
+                                                        type="submit"><i
                                                             class="material-icons">file_upload</i></button>
                                                 </div>
                                             </div>
@@ -111,7 +111,7 @@
                                             <div class="row">
                                                 <div class="col s12">
                                                     <h4>Import Sections</h4>
-                                                    <div class="file-field input-field col s11">
+                                                    <div class="file-field input-field col s10 m11 l11">
                                                         <div class="btn">
                                                             <span>File</span>
                                                             <input type="file" name="sectionsfile">
@@ -121,9 +121,9 @@
                                                                 placeholder="Please upload only .csv or .xls document">
                                                         </div>
                                                     </div>
-                                                    <div class="input-field col s1">
+                                                    <div class="input-field col s2 m1 l1">
                                                         <button class="btn pulse blue waves-effect waves-light"
-                                                            style="width: 100%" type="submit"><i
+                                                            type="submit"><i
                                                                 class="material-icons">file_upload</i></button>
                                                     </div>
                                                 </div>
@@ -151,7 +151,7 @@
                                                 <h4>Import
                                                     {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
                                                 </h4>
-                                                <div class="file-field input-field col s11">
+                                                <div class="file-field input-field col s10 m11 l11">
                                                     <div class="btn">
                                                         <span>File</span>
                                                         <input type="file" name="membersfile">
@@ -161,9 +161,9 @@
                                                             placeholder="Please upload only .csv or .xls document">
                                                     </div>
                                                 </div>
-                                                <div class="input-field col s1">
+                                                <div class="input-field col s2 m1 l1">
                                                     <button class="btn pulse blue waves-effect waves-light"
-                                                        style="width: 100%" type="submit"><i
+                                                        type="submit"><i
                                                             class="material-icons">file_upload</i></button>
                                                 </div>
                                             </div>

@@ -25,10 +25,10 @@
         </div>
 
         <div class="container-fluid">
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="card">
-                        <div class="card-content">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col l12 m12 s12">
                             @if (Session::has('AlertType') && Session::has('AlertMsg'))
                                 <div class="row">
                                     <div class="col l12 m12 s12 m-5">

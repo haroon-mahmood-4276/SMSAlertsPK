@@ -70,7 +70,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_first_name" name="student_first_name" type="text"
                                         class="@error('student_first_name') error @enderror"
@@ -81,7 +81,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_last_name" name="student_last_name" type="text"
                                         class="@error('student_last_name') error @enderror"
@@ -92,7 +92,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_mobile_1" name="student_mobile_1" type="text"
                                         class="@error('student_mobile_1') error @enderror"
@@ -103,7 +103,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_mobile_2" name="student_mobile_2" type="text"
                                         class="@error('student_mobile_2') error @enderror"
@@ -125,7 +125,7 @@
                                     @enderror
                                 </div>
 
-                                {{-- <div class="input-field col s6">
+                                {{-- <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="cnic" name="cnic" type="text" class="@error('cnic') error @enderror"
                                         value="{{ old('cnic') }}" placeholder="35201-1234567-8">
@@ -168,7 +168,7 @@
                                         <h3 class="card-title">Parents</h3>
                                     </div>
 
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s12 m6 l6">
                                         <i class="material-icons prefix">text_format</i>
                                         <input id="parent_first_name" name="parent_first_name" type="text"
                                             class="@error('parent_first_name') error @enderror"
@@ -179,7 +179,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s12 m6 l6">
                                         <i class="material-icons prefix">text_format</i>
                                         <input id="parent_last_name" name="parent_last_name" type="text"
                                             class="@error('parent_last_name') error @enderror"
@@ -190,7 +190,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s12 m6 l6">
                                         <i class="material-icons prefix">text_format</i>
                                         <input id="parent_mobile_1" name="parent_mobile_1" type="text"
                                             class="@error('parent_mobile_1') error @enderror"
@@ -201,7 +201,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="input-field col s6">
+                                    <div class="input-field col s12 m6 l6">
                                         <i class="material-icons prefix">text_format</i>
                                         <input id="parent_mobile_2" name="parent_mobile_2" type="text"
                                             class="@error('parent_mobile_2') error @enderror"

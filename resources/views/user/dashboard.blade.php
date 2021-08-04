@@ -265,7 +265,7 @@
                             <div class="card-content">
                                 <h2>API Section</h2>
                                 <div class="row">
-                                    <div class="col s6">
+                                    <div class="col s12 m6 l6">
                                         <ul class="collapsible popout">
                                             <li class="rounded" style="background-color: #eef5fa;">
                                                 <div class="collapsible-header"><i class="material-icons">filter_1</i>First
@@ -284,7 +284,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col s6">
+                                    <div class="col s12 m6 l6">
                                         <ul class="collapsible popout">
                                             <li class="rounded" style="background-color: #eef5fa;">
                                                 <div class="collapsible-header"><i class="material-icons">filter_1</i>First

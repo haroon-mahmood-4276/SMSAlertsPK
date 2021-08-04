@@ -46,10 +46,10 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col l12 m12 s12">
-                <div class="card">
-                    <div class="card-content">
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="col l12 m12 s12">
                         <table id="zero_config" class="responsive-table striped display" style="width:100%">
                             <thead>
                                 <tr>
@@ -64,8 +64,7 @@
                                 <div class="d-flex">
                                     <div class="ml-auto">
                                         <div class="form-group">
-                                            <a href="{{ $DownloadLink }}"
-                                                class="waves-effect waves-light btn"><i
+                                            <a href="{{ $DownloadLink }}" class="waves-effect waves-light btn"><i
                                                     class="material-icons left">file_download</i>Export as PDF</a>
                                         </div>
                                     </div>

@@ -45,7 +45,7 @@
                                     <h3 class="card-title">Date-wise Report</h3>
                                 </div>
 
-                                <div class="col s12 m6 l6">
+                                <div class="col s6 m6 l6">
                                     <label class="m-t-20">Start Date</label>
                                     <div class="input-fleid">
                                         <input type="text" value="{{ old('start_date') }}" id="start_date"
@@ -56,7 +56,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col s12 m6 l6">
+                                <div class="col s6 m6 l6">
                                     <label class="m-t-20">End Date</label>
                                     <div class="input-fleid">
                                         <input type="text" value="{{ old('end_date') }}" id="end_date" name="end_date"
@@ -99,7 +99,7 @@
                                     </div>
                                 @endif
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="phone_number" name="phone_number" type="text"
                                         class="@error('phone_number') error @enderror" value="{{ old('phone_number') }}"
