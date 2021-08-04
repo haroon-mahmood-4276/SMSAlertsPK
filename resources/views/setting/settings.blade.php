@@ -65,61 +65,61 @@
                                     </div>
 
                                     <div class="col s12 m12 l12 m-b-20">
-                                    <p><strong>Tags</strong></p>
-                                    <div class="row">
-                                        <div class="col s6 m3 l2 m-2">
-                                            <a href="javascript:void(0)"
-                                                id="{{ session('Data.company_nature') == 'B' ? 'member_full_name' : 'student_full_name' }}"
-                                                onmouseup="textbox(this.id)"
-                                                class="chip">{{ session('Data.company_nature') == 'B' ? 'Member' : 'Student' }}
-                                                Full Name
-                                            </a>
+                                        <p><strong>Tags</strong></p>
+                                        <div class="row">
+                                            <div class="col s6 m3 l2 m-2">
+                                                <a href="javascript:void(0)"
+                                                    id="{{ session('Data.company_nature') == 'B' ? 'member_full_name' : 'student_full_name' }}"
+                                                    onmouseup="textbox(this.id)"
+                                                    class="chip">{{ session('Data.company_nature') == 'B' ? 'Member' : 'Student' }}
+                                                    Full Name
+                                                </a>
+                                            </div>
+                                            @if (session('Data.company_nature') == 'B')
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="brand_name"
+                                                        onmouseup="textbox(this.id)" class="chip">Brand Name</a>
+                                                </div>
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="brand_phone_1"
+                                                        onmouseup="textbox(this.id)" class="chip">Brand Phone No 1</a>
+                                                </div>
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="brand_phone_2"
+                                                        onmouseup="textbox(this.id)" class="chip">Brand Phone No 2</a>
+                                                </div>
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="brand_email"
+                                                        onmouseup="textbox(this.id)" class="chip">Brand Email</a>
+                                                </div>
+                                            @else
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="class_name"
+                                                        onmouseup="textbox(this.id)" class="chip">Class Name</a>
+                                                </div>
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="section_name"
+                                                        onmouseup="textbox(this.id)" class="chip">Section Name</a>
+                                                </div>
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="school_name"
+                                                        onmouseup="textbox(this.id)" class="chip">School Name</a>
+                                                </div>
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="school_phone_1"
+                                                        onmouseup="textbox(this.id)" class="chip">School Phone No 1</a>
+                                                </div>
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="school_phone_2"
+                                                        onmouseup="textbox(this.id)" class="chip">School Phone No 2</a>
+                                                </div>
+                                                <div class="col s6 m3 l2 m-2">
+                                                    <a href="javascript:void(0)" id="school_email"
+                                                        onmouseup="textbox(this.id)" class="chip">School Email</a>
+                                                </div>
+                                            @endif
                                         </div>
-                                        @if (session('Data.company_nature') == 'B')
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="brand_name" onmouseup="textbox(this.id)"
-                                                    class="chip">Brand Name</a>
-                                            </div>
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="brand_phone_1" onmouseup="textbox(this.id)"
-                                                    class="chip">Brand Phone No 1</a>
-                                            </div>
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="brand_phone_2" onmouseup="textbox(this.id)"
-                                                    class="chip">Brand Phone No 2</a>
-                                            </div>
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="brand_email" onmouseup="textbox(this.id)"
-                                                    class="chip">Brand Email</a>
-                                            </div>
-                                        @else
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="class_name" onmouseup="textbox(this.id)"
-                                                    class="chip">Class Name</a>
-                                            </div>
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="section_name" onmouseup="textbox(this.id)"
-                                                    class="chip">Section Name</a>
-                                            </div>
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="school_name" onmouseup="textbox(this.id)"
-                                                    class="chip">School Name</a>
-                                            </div>
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="school_phone_1"
-                                                    onmouseup="textbox(this.id)" class="chip">School Phone No 1</a>
-                                            </div>
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="school_phone_2"
-                                                    onmouseup="textbox(this.id)" class="chip">School Phone No 2</a>
-                                            </div>
-                                            <div class="col s6 m3 l2 m-2">
-                                                <a href="javascript:void(0)" id="school_email" onmouseup="textbox(this.id)"
-                                                    class="chip">School Email</a>
-                                            </div>
-                                        @endif
                                     </div>
-                                </div>
 
                                     <div class="col s12 m-t-25">
                                         <h6><strong>SMS To</strong></h6>
@@ -130,7 +130,7 @@
                                                         <input type="checkbox" id="parent_primary_number" class="filled-in"
                                                             name="parent_primary_number"
                                                             {{ $Setting->parent_primary_number == 'Y' ? 'checked' : '' }}
-                                                            disabled />
+                                                            {{ $Setting->birthday_enabled == 'N' ? 'disabled' : '' }} />
                                                         <span>Parent Primary Number</span>
                                                     </label>
                                                 </p>
@@ -213,6 +213,7 @@
         $("#is_enabled").on('click', function() {
             // $('#action').prop("disabled", !this.checked);
             $('#message').prop("disabled", !this.checked);
+            $('#parent_primary_number').prop("disabled", !this.checked).prop("checked", true);
             $('#parent_secondary_number').prop("disabled", !this.checked).prop("checked", false);
             $('#student_primary_number').prop("disabled", !this.checked).prop("checked", false);
             $('#student_secondary_number').prop("disabled", !this.checked).prop("checked", false);

@@ -164,7 +164,7 @@
                                             <p>
                                                 <label>
                                                     <input type="checkbox" id="parent_primary_number" class="filled-in"
-                                                        name="parent_primary_number" checked disabled />
+                                                        name="parent_primary_number" checked />
                                                     <span>Parent Primary Number</span>
                                                 </label>
                                             </p>
