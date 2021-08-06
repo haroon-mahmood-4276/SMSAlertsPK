@@ -6,7 +6,6 @@ use App\Models\Group;
 use App\Models\Section;
 use App\Models\User;
 use App\Models\Mobiledatas;
-use App\Models\Package;
 use App\Models\Setting;
 use App\Rules\CheckUserCode;
 use Carbon\Carbon;
