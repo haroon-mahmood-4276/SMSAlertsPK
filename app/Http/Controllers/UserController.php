@@ -229,7 +229,7 @@ class UserController extends Controller
                 $GroupCount = User::count() - 1;
                 $SectionCount = User::where('company_nature', '=', 'B')->count();
                 $MobileDatasCount = User::where('company_nature', '=', 'S')->count();
-                $BirthdayData=[];
+                $BirthdayData = [];
             } else {
                 $GroupCount = Group::where('user_id', '=', session('Data.id'))->count();
                 $SectionCount = Section::where('user_id', '=', session('Data.id'))->count();
@@ -252,11 +252,10 @@ class UserController extends Controller
         return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData' => $BirthdayData]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        if (session()->has('Data')) {
-            Session()->forget('Data');
-        }
+        $request->session()->invalidate();
+        $request->session()->regenerate();
         return redirect()->route('r.login');
     }
 }
