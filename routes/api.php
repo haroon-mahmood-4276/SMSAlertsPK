@@ -17,7 +17,11 @@ use App\Http\Controllers\API\GroupController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::apiResources([
-    'groups' => GroupController::class,
-]);
+Route::name('api.')->group(
+    function () {
+        Route::apiResources([
+            'groups' => GroupController::class,
+            'classes' => GroupController::class,
+        ]);
+    }
+);

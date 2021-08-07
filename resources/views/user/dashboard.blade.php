@@ -264,45 +264,48 @@
                         <div class="card">
                             <div class="card-content">
                                 <h2>API Section</h2>
+                                <br>
+                                <h4>Groups API</h4>
                                 <div class="row">
-                                    <div class="col s12 m6 l6">
+                                    <div class="col s12 m12 l6">
                                         <ul class="collapsible popout">
                                             <li class="rounded" style="background-color: #eef5fa;">
-                                                <div class="collapsible-header"><i class="material-icons">filter_1</i>First
+                                                <div class="collapsible-header"><p style="font-size: 25px"><i
+                                                            class="material-icons">developer_mode</i>List of
+                                                        {{ Session::get('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
+                                                    </p></div>
+                                                <div class="collapsible-body">
+                                                    <span>GET:
+                                                        {{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}</span>
                                                 </div>
-                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                             </li>
                                             <li class="rounded" style="background-color: #eef5fa;">
-                                                <div class="collapsible-header"><i class="material-icons">filter_2</i>Second
+                                                <div class="collapsible-header"><p style="font-size: 25px"><i
+                                                            class="material-icons">developer_mode</i>Create New
+                                                        {{ Session::get('Data.company_nature') == 'B' ? 'Group' : 'Class' }}
+                                                    </p></div>
+                                                <div class="collapsible-body">
+                                                    <span>{{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.store', ['email' => session('Data.email'), 'password' => '*********'])) }}</span>
                                                 </div>
-                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                                            </li>
-                                            <li class="rounded" style="background-color: #eef5fa;">
-                                                <div class="collapsible-header"><i class="material-icons">filter_3</i>Third
-                                                </div>
-                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col s12 m6 l6">
+                                    <div class="col s12 m12 l6">
                                         <ul class="collapsible popout">
                                             <li class="rounded" style="background-color: #eef5fa;">
-                                                <div class="collapsible-header"><i class="material-icons">filter_1</i>First
+                                                <div class="collapsible-header"><p style="font-size: 25px"><i
+                                                            class="material-icons">developer_mode</i>List of
+                                                        {{ Session::get('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
+                                                    </p></div>
+                                                <div class="collapsible-body">
+                                                    <span>GET:
+                                                        {{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}</span>
                                                 </div>
-                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                                             </li>
-                                            <li class="rounded" style="background-color: #eef5fa;">
-                                                <div class="collapsible-header"><i class="material-icons">filter_2</i>Second
-                                                </div>
-                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                                            </li>
-                                            <li class="rounded" style="background-color: #eef5fa;">
-                                                <div class="collapsible-header"><i class="material-icons">filter_3</i>Third
-                                                </div>
-                                                <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                                            </li>
+
                                         </ul>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
