@@ -41,6 +41,7 @@ class GroupController extends Controller
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode()],
             'name' => 'bail|required|between:1,50',
         ]);
+
         $Groups = new Group;
         $Groups->user_id = session('Data.id');
         $Groups->code = $request->code;
