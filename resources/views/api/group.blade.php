@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', (session('Data.company_nature') == 'B' ? 'Groups' : 'Classes') . ' API')
+@section('PageTitle', (Str::of($company_nature)->plural()->ucfirst()) . ' API')
 
 @section('BeforeCommonCss')
 <link href="{{ asset('assets/extra-libs/prism/prism.css') }}" rel="stylesheet">
@@ -19,25 +19,29 @@
 <div class="page-wrapper ">
     <div class="page-titles">
         <div class="d-flex align-items-center">
-            <h5 class="font-medium m-b-0">{{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }} API</h5>
+            <h5 class="font-medium m-b-0">{{Str::of($company_nature)->plural()->ucfirst()}} API</h5>
             <div class="custom-breadcrumb ml-auto">
                 <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
                 <a href="javascript:void(0)" class="breadcrumb">API Documentation</a>
                 <a href="javascript:void(0)"
-                    class="breadcrumb">{{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }} API</a>
+                    class="breadcrumb">{{Str::of($company_nature)->plural()->ucfirst()}} API</a>
             </div>
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row" style="position: sticky !important; top: 0 !important;">
-            <div class="col l3 m4" style="position: sticky !important; top: 0 !important;">
-                <div style="position: sticky !important; top: 0 !important;">
-                    <div class="collection" id="top-menu" style="position: sticky !important; top: 0 !important;">
-                        <a href="#list-of-{{ session('Data.company_nature') == 'B' ? 'groups' : 'classes' }}"
+        <div class="row">
+            <div class="col s12 m12 l3">
+                <div>
+                    <div class="collection" id="top-menu">
+
+                        <a href="#list-of-{{ Str::of($company_nature)->plural() }}"
                             class="collection-item active">List of
-                            {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
+                            {{ Str::of($company_nature)->plural() }}
                         </a>
-                        <a href="#2" class="collection-item">Title will be 2</a>
+                        <a href="#create-new-{{ Str::of($company_nature) }}"
+                            class="collection-item">Create a new
+                            {{ Str::of($company_nature) }}
+                        </a>
                         <a href="#3" class="collection-item">Title will be 3</a>
                         <a href="#4" class="collection-item">Title will be 4</a>
                         <a href="#5" class="collection-item">Title will be 5</a>
@@ -49,17 +53,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col l9 m8">
+            <div class="col s12 m12 l9">
                 <div class="card">
                     <div class="card-content">
                         <h4 class="card-title"
-                            id="list-of-{{ session('Data.company_nature') == 'B' ? 'groups' : 'classes' }}">1. List of
-                            {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}</h4>
+                            id="list-of-{{ Str::of($company_nature)->plural() }}">1. List of
+                            {{ Str::of($company_nature)->plural() }}</h4>
                         <div>
                             <p>It is a GET Request API.</p>
                             <pre>
                                 <code class="language-markup">
-                                   <span>{{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}</span>
+                                   <span>{{ urldecode(route('api.' . (Str::of($company_nature)->plural()) . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}</span>
                                 </code>
                             </pre>
 
@@ -77,7 +81,7 @@
                                 <div id="csdotnet">
                                     <pre>
                                         <code class="language-markup">
-                                            WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}");
+                                            WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . (Str::of($company_nature)->plural()) . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}");
                                             WebResponse response = request.GetResponse();
 
                                             Stream dataStream = response.GetResponseStream();
@@ -91,7 +95,7 @@
                                 <div id="vbdotnet">
                                     <pre>
                                         <code class="language-markup">
-                                            Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}")
+                                            Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . (Str::of($company_nature)->plural()) . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}")
                                             Dim response As WebResponse = request.GetResponse()
 
                                             Dim dataStream As Stream = response.GetResponseStream()
@@ -105,25 +109,72 @@
                             </div>
                         </div>
 
-                        <h4 class="card-title m-t-40" id="2">2. Title will be here</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                            Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-                            ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla
-                            consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-                            arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu
-                            pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
-                        <p> enean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                            dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius
-                            laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                            ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget
-                            condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam
-                            quam nunc, blandit vel, luctus pulvinar,</p>
-                        <p> enean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                            dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius
-                            laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                            ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget
-                            condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam
-                            quam nunc, blandit vel, luctus pulvinar,</p>
+                        <h4 class="card-title m-t-40"
+                            id="create-new-{{ Str::of($company_nature) }}">2. Create a
+                            new {{ Str::of($company_nature) }}</h4>
+                        <div>
+                            <p>It is POST Request.</p>
+                            <pre>
+                                <code class="language-markup">
+                                    {{ urldecode(route('api.' . (Str::of($company_nature)->plural()) . '.store')) }}</span>
+                                </code>
+                            </pre>
+                            <div class="row">
+                                <div class="col s12 m12 l6">
+                                    <pre>
+                                        <code class="language-markup">
+                                            {{ urldecode(route('api.' . (Str::of($company_nature)->plural()) . '.store')) }}
+                                            <br>
+                                            form-body:[
+                                                'email': '{{ session('Data.email') }}',
+                                                'password': '*********'],
+                                                'name': 'Something'
+                                                '_method': 'POST'
+                                            ]
+                                        </code>
+                                    </pre>
+                                </div>
+                                <div class="col s12 m12 l6">
+                                    <pre>
+                                        <code class="language-markup">
+                                            {{ urldecode(route('api.' . (Str::of($company_nature)->plural()) . '.store')) }}
+                                            <br>
+                                            x-www-form-urlencoded:[
+                                                'email': '{{ session('Data.email') }}',
+                                                'password': '*********'],
+                                                'name': 'Something'
+                                                '_method': 'POST'
+                                            ]
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+
+                            <div>
+                                <br>
+                                <h5>Coding Examples</h5>
+                                <ul class="tabs tab-demo z-depth-1">
+                                    <li class="tab"><a class="active" href="#vbdotnet">VB .NET</a>
+                                    </li>
+                                </ul>
+                                <div id="vbdotnet">
+                                    <pre>
+                                        <code class="language-markup">
+                                            {{ urldecode(route('api.' . (Str::of($company_nature)->plural()) . '.store')) }}
+                                            <br>
+                                            x-www-form-urlencoded:[
+                                                'email': '{{ session('Data.email') }}',
+                                                'password': '*********'],
+                                                'code': '00001'
+                                                'name': 'Something'
+                                                '_method': 'POST'
+                                            ]
+                                        </code>
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+
                         <h4 class="card-title m-t-40" id="3">3. Title will be here</h4>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
                             Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur

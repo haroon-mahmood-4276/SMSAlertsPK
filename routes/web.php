@@ -16,8 +16,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
-use App\Models\Mobiledatas;
-use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -154,14 +153,19 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
     Route::prefix('api')->group(function () {
         Route::get('group', function () {
-            return view('api.group');
+            return view('api.group', ['company_nature' => 'group']);
         })->name('r.apigroup');
 
         Route::get('class', function () {
-            return view('api.group');
+            return view('api.group', ['company_nature' => 'class']);
         })->name('r.apiclass');
     });
 
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
+});
+
+Route::get('test', function () {
+    $company_nature = 'wife';
+    return Str::of($company_nature)->plural()->ucfirst();
 });

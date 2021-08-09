@@ -295,52 +295,28 @@
                                                 <div class="row">
                                                     <div class="col s12 m12 l6">
                                                         <pre>
-                                                    <code class="language-markup">
-                                                        {{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
-                                                        <br>
-                                                        form-body:[
-                                                            'email': '{{ session('Data.email') }}',
-                                                            'password': '*********'],
-                                                            'name': 'Something'
-                                                            '_method': 'PUT'
-                                                        ]
-                                                    </code>
-                                                </pre>
+                                                            <code class="language-markup">
+                                                                {{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
+                                                                <br>
+                                                                form-body:[
+                                                                    'email': '{{ session('Data.email') }}',
+                                                                    'password': '*********'],
+                                                                    'name': 'Something'
+                                                                    '_method': 'PUT'
+                                                                ]
+                                                            </code>
+                                                        </pre>
                                                     </div>
                                                     <div class="col s12 m12 l6">
                                                         <pre>
-                                                    <code class="language-markup">
-                                                        {{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
-                                                        <br>
-                                                        x-www-form-urlencoded:[
-                                                            'email': '{{ session('Data.email') }}',
-                                                            'password': '*********'],
-                                                            'name': 'Something'
-                                                            '_method': 'PUT'
-                                                        ]
-                                                    </code>
-                                                </pre>
-                                                    </div>
-                                                </div>
-
-                                                <div>
-                                                    <br><br>
-                                                    <h5>Coding Examples</h5>
-                                                    <ul class="tabs tab-demo z-depth-1">
-                                                        <li class="tab"><a class="active" href="#vbdotnet">VB .NET</a>
-                                                        </li>
-                                                    </ul>
-                                                    <div id="vbdotnet">
-                                                        <pre>
                                                             <code class="language-markup">
-                                                                {{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.store')) }}
+                                                                {{ urldecode(route('api.' . (Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes') . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
                                                                 <br>
                                                                 x-www-form-urlencoded:[
                                                                     'email': '{{ session('Data.email') }}',
                                                                     'password': '*********'],
-                                                                    'code': '00001'
                                                                     'name': 'Something'
-                                                                    '_method': 'POST'
+                                                                    '_method': 'PUT'
                                                                 ]
                                                             </code>
                                                         </pre>
