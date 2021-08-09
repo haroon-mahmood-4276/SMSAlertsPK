@@ -71,7 +71,7 @@ class SmsController extends Controller
                     if ($SMS->save() && $User->save()) {
                         return redirect()->route('r.quicksmsshow')->with('AlertType', 'success')->with('AlertMsg', 'Message sent');
                     } else {
-                        return redirect()->route('r.quicksmsshow')->with('AlertType', 'warning')->with('AlertMsg', $response);
+                        return redirect()->route('r.quicksmsshow')->with('AlertType', 'danger')->with('AlertMsg', $response);
                     }
                 }
             }
