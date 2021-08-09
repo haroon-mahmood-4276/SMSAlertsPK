@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Section;
 use Illuminate\Http\Request;
 
 class SectionController extends Controller
@@ -12,9 +13,9 @@ class SectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return response()->json(['message' => 'success', 'data' => Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('groups.name AS group_name', 'sections.code', 'sections.name')->where('sections.user_id', '=', $request->user_id)->orderBy('group_name')->get()], 200);
     }
 
     /**

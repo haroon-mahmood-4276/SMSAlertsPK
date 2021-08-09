@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Rules\API\GroupCode;
-use App\Rules\CheckGroupCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 

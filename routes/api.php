@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\GroupController;
+use App\Http\Controllers\API\SectionController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,6 +24,7 @@ Route::name('api.')->group(
         Route::apiResources([
             'groups' => GroupController::class,
             'classes' => GroupController::class,
+            'sections' => SectionController::class,
         ]);
     }
 );

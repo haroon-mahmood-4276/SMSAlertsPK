@@ -32,12 +32,12 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::get('/', function () {
-    return redirect()->route('r.login');
+    return redirect()->route('r.showlogin');
     return view('welcome');
 });
 
 Route::group(['middleware' => ['AuthRoute']], function () {
-    Route::get('login', [UserController::class, 'loginform'])->name('r.login');
+    Route::get('login', [UserController::class, 'loginform'])->name('r.showlogin');
     Route::post('login', [UserController::class, 'login'])->name('r.login');
 
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('r.dashboard');

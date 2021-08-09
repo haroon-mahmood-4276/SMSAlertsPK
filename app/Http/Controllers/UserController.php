@@ -255,6 +255,6 @@ class UserController extends Controller
     {
         $request->session()->invalidate();
         $request->session()->regenerate();
-        return redirect()->route('r.login');
+        return redirect()->route('r.showlogin');
     }
 }
