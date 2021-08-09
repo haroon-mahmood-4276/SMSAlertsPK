@@ -46,11 +46,12 @@ class SendBirthdaySms extends Command
             ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
             ->join('settings', 'mobiledatas.user_id', '=', 'settings.user_id')
             ->select('users.id', 'users.company_name', 'users.mobile_1', 'users.mobile_2', 'users.company_email', 'users.company_nature', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2',  'groups.name AS group_name', 'sections.name AS section_name', 'settings.birthday_message', 'settings.birthday_enabled', 'settings.parent_primary_number', 'settings.parent_secondary_number', 'settings.student_primary_number', 'settings.student_secondary_number')
-            ->where('dob', '=', Carbon::today()->toDateString())
+            ->whereMonth('dob', '=', Carbon::now()->format('m'))
+            ->whereDay('dob', '=', Carbon::now()->format('d'))
             ->where('active', '=', 'Y')
             ->where('settings.birthday_enabled', '=', 'Y')->get();
 
-        foreach ($MessagesData as $Member) {
+            foreach ($MessagesData as $Member) {
 
             $ReplacedMessage = "";
             if ($Member->company_nature == 'B') {

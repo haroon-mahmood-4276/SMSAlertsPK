@@ -242,10 +242,12 @@ class UserController extends Controller
                 $BirthdayData = Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
                     ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
                     ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
-                    ->select('mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.dob', 'groups.name AS group_name', 'sections.name AS section_name')
-                    ->where('mobiledatas.user_id', '=', session('Data.id'))
-                    ->where('mobiledatas.dob', '=', Carbon::today()->toDateString())
-                    ->where('mobiledatas.active', '=', 'Y')->get();
+                    ->join('settings', 'mobiledatas.user_id', '=', 'settings.user_id')
+                    ->select('users.id', 'users.company_name', 'users.mobile_1', 'users.mobile_2', 'users.company_email', 'users.company_nature', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2',  'groups.name AS group_name', 'sections.name AS section_name', 'settings.birthday_message', 'settings.birthday_enabled', 'settings.parent_primary_number', 'settings.parent_secondary_number', 'settings.student_primary_number', 'settings.student_secondary_number')
+                    ->whereMonth('dob', '=', Carbon::now()->format('m'))
+                    ->whereDay('dob', '=', Carbon::now()->format('d'))
+                    ->where('active', '=', 'Y')
+                    ->where('settings.birthday_enabled', '=', 'Y')->get();
             }
         }
         return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData' => $BirthdayData]);
