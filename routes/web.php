@@ -171,6 +171,10 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('student', function () {
             return view('api.mobiledata', ['company_nature' => 'student']);
         })->name('r.apistudent');
+
+        Route::get('student', function () {
+            return view('api.sms', ['company_nature' => session('Data.company_nature') == 'B' ? 'member' : 'student']);
+        })->name('r.apisms');
     });
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

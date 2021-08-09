@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', session('Data.company_nature') == 'B' ? 'Group' : 'Classes' . ' List')
+@section('PageTitle', (session('Data.company_nature') == 'B' ? 'Group' : 'Classes') . ' List')
 
 @section('BeforeCommonCss')
 

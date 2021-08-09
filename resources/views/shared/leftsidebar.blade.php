@@ -27,7 +27,7 @@
                         <a href="{{ route('data.index') }}"
                             class="collapsible-header {{ Request::is(route('data.index')) ? 'active' : null }}"><i
                                 class="material-icons">person_add</i><span class="hide-menu">
-                                {{ session('Data.company_nature') == 'B' ? 'Mambers' : 'Students' }}
+                                {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
                                 Management</span></a>
                     </li>
                     <li>
@@ -108,38 +108,44 @@
                     </li>
                     <li>
                         <a href="javascript: void(0);" class="collapsible-header has-arrow"><i
-                                class="material-icons">developer_mode</i><span class="hide-menu">API Documentation</span></a>
+                                class="material-icons">developer_mode</i><span class="hide-menu">API
+                                Documentation</span></a>
                         <div class="collapsible-body">
                             <ul>
                                 <ul>
 
                                     <li>
-                                        <a href="{{ Session::get('Data.company_nature') == 'B' ? route('r.apigroup') : route('r.apiclass') }}">
+                                        <a
+                                            href="{{ Session::get('Data.company_nature') == 'B' ? route('r.apigroup') : route('r.apiclass') }}">
                                             <i class="material-icons">developer_mode</i>
-                                            <span class="hide-menu">{{ Session::get('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }} API</span>
+                                            <span
+                                                class="hide-menu">{{ Session::get('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
+                                                API</span>
                                         </a>
                                     </li>
                                     @if (session('Data.company_nature') == 'S')
                                         <li>
-                                            <a href="{{ route('r.smsdues') }}">
+                                            <a href="{{ route('r.apisection') }}">
                                                 <i class="material-icons">developer_mode</i>
                                                 <span class="hide-menu">Section API</span>
                                             </a>
                                         </li>
                                     @endif
                                     <li>
-                                        <a href="{{ route('r.multiplesmsshow') }}">
+                                        <a
+                                            href="{{ Session::get('Data.company_nature') == 'B' ? route('r.apimember') : route('r.apistudent') }}">
                                             <i class="material-icons">developer_mode</i>
-                                            <span class="hide-menu">{{ Session::get('Data.company_nature') == 'B' ? 'Members' : 'Students' }} API</span>
+                                            <span
+                                                class="hide-menu">{{ Session::get('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
+                                                API</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('r.quicksmsshow') }}">
+                                        <a href="{{ route('r.apisms') }}">
                                             <i class="material-icons">developer_mode</i>
                                             <span class="hide-menu">SMS API</span>
                                         </a>
                                     </li>
-
                                 </ul>
                             </ul>
                         </div>
