@@ -34,8 +34,10 @@
                 <div class="col s12 m12 l3">
                     <div class="collection" id="top-menu">
                         <a href="#list-of-{{ Str::of($company_nature)->plural() }}" class="collection-item">List
-                            of
-                            {{ Str::of($company_nature)->plural() }}
+                            of {{ Str::of($company_nature)->plural() }}
+                        </a>
+                        <a href="#data-of-{{ Str::of($company_nature) }}" class="collection-item">Data
+                            of {{ Str::of($company_nature) }}
                         </a>
                         <a href="#create-new-{{ Str::of($company_nature) }}" class="collection-item">Create a new
                             {{ Str::of($company_nature) }}
@@ -101,7 +103,59 @@
                                 </div>
                             </div>
 
-                            <h4 class="card-title m-t-40" id="create-new-{{ Str::of($company_nature) }}">2. Create a new
+                            <h4 class="card-title m-t-40" id="data-of-{{ Str::of($company_nature) }}">2. Data of
+                                {{ Str::of($company_nature) }}</h4>
+                            <div>
+                                <p>It is a GET Request API.</p>
+                                <pre>
+                                    <code class="language-markup">
+                                        <span>{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}</span>
+                                    </code>
+                                </pre>
+
+                                <div>
+                                    <br>
+                                    <h5>Coding Examples</h5>
+                                    <ul class="tabs tab-demo z-depth-1">
+                                        <li class="tab">
+                                            <a class="active" href="#2csdotnet">C# .NET</a>
+                                        </li>
+                                        <li class="tab">
+                                            <a class="" href="#2vbdotnet">VB .NET</a>
+                                        </li>
+                                    </ul>
+                                    <div id="2csdotnet">
+                                        <pre>
+                                            <code class="language-markup">
+                                                WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}");
+                                                WebResponse response = request.GetResponse();
+
+                                                Stream dataStream = response.GetResponseStream();
+                                                StreamReader reader = new StreamReader(dataStream);
+
+                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString());
+                                                response.Close();
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <div id="2vbdotnet">
+                                        <pre>
+                                            <code class="language-markup">
+                                                Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}")
+                                                Dim response As WebResponse = request.GetResponse()
+
+                                                Dim dataStream As Stream = response.GetResponseStream()
+                                                Dim reader As New StreamReader(dataStream)
+
+                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString())
+                                                response.Close()
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 class="card-title m-t-40" id="create-new-{{ Str::of($company_nature) }}">3. Create a new
                                 {{ Str::of($company_nature) }}</h4>
                             <div>
                                 <p>It is POST Request.</p>
@@ -143,19 +197,19 @@
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
                                         <li class="tab">
-                                            <a class="active" href="#2csdotnet">C# .NET</a>
+                                            <a class="active" href="#3csdotnet">C# .NET</a>
                                         </li>
                                         <li class="tab">
-                                            <a class="" href="#2vbdotnet">VB .NET</a>
+                                            <a class="" href="#3vbdotnet">VB .NET</a>
                                         </li>
                                     </ul>
-                                    <div id="2csdotnet">
+                                    <div id="3csdotnet">
                                         <pre>
                                             <code class="language-markup">
                                                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}");
                                                 request.Method = "POST";
 
-                                                string postData = "email=business@smsalertspk.com&password=123456789&code=00001&name=Something";
+                                                string postData = "email=business@smsalertspk.com&password=*********&code=00001&name=Something";
                                                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
                                                 request.ContentType = "application/x-www-form-urlencoded";
@@ -176,13 +230,13 @@
                                             </code>
                                         </pre>
                                     </div>
-                                    <div id="2vbdotnet">
+                                    <div id="3vbdotnet">
                                         <pre>
                                             <code class="language-markup">
                                                 Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}"), HttpWebRequest)
                                                 request.Method = "POST"
 
-                                                Dim postData As String = "email=business@smsalertspk.com&password=123456789&code=00001&name=Something"
+                                                Dim postData As String = "email=business@smsalertspk.com&password=*********&code=00001&name=Something"
                                                 Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
 
                                                 request.ContentType = "application/x-www-form-urlencoded"
@@ -206,7 +260,7 @@
                                 </div>
                             </div>
 
-                            <h4 class="card-title m-t-40" id="update-a-{{ Str::of($company_nature) }}">3. Update a
+                            <h4 class="card-title m-t-40" id="update-a-{{ Str::of($company_nature) }}">4. Update a
                                 {{ Str::of($company_nature) }}</h4>
                             <div>
                                 <p>It is PUT Request.</p>
@@ -246,19 +300,19 @@
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
                                         <li class="tab">
-                                            <a class="active" href="#3csdotnet">C# .NET</a>
+                                            <a class="active" href="#4csdotnet">C# .NET</a>
                                         </li>
                                         <li class="tab">
-                                            <a class="" href="#3vbdotnet">VB .NET</a>
+                                            <a class="" href="#4vbdotnet">VB .NET</a>
                                         </li>
                                     </ul>
-                                    <div id="3csdotnet">
+                                    <div id="4csdotnet">
                                         <pre>
                                             <code class="language-markup">
                                                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}");
                                                 request.Method = "PUT";
 
-                                                string putData = "email=business@smsalertspk.com&password=123456789&name=Something";
+                                                string putData = "email=business@smsalertspk.com&password=*********&name=Something";
                                                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
                                                 request.ContentType = "application/x-www-form-urlencoded";
@@ -279,13 +333,13 @@
                                             </code>
                                         </pre>
                                     </div>
-                                    <div id="3vbdotnet">
+                                    <div id="4vbdotnet">
                                         <pre>
                                             <code class="language-markup">
                                                 Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}"), HttpWebRequest)
                                                 request.Method = "PUT"
 
-                                                Dim putData As String = "email=business@smsalertspk.com&password=123456789&name=Something"
+                                                Dim putData As String = "email=business@smsalertspk.com&password=*********&name=Something"
                                                 Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
 
                                                 request.ContentType = "application/x-www-form-urlencoded"
@@ -309,7 +363,7 @@
                                 </div>
                             </div>
 
-                            <h4 class="card-title m-t-40" id="delete-a-{{ Str::of($company_nature) }}">4. Delete a
+                            <h4 class="card-title m-t-40" id="delete-a-{{ Str::of($company_nature) }}">5. Delete a
                                 {{ Str::of($company_nature) }}</h4>
                             <div>
                                 <p>It is DELETE Request.</p>
@@ -347,19 +401,19 @@
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
                                         <li class="tab">
-                                            <a class="active" href="#4csdotnet">C# .NET</a>
+                                            <a class="active" href="#5csdotnet">C# .NET</a>
                                         </li>
                                         <li class="tab">
-                                            <a class="" href="#4vbdotnet">VB .NET</a>
+                                            <a class="" href="#5vbdotnet">VB .NET</a>
                                         </li>
                                     </ul>
-                                    <div id="4csdotnet">
+                                    <div id="5csdotnet">
                                         <pre>
                                             <code class="language-markup">
                                                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}");
                                                 request.Method = "DELETE";
 
-                                                string deleteData = "email=business@smsalertspk.com&password=123456789";
+                                                string deleteData = "email=business@smsalertspk.com&password=*********";
                                                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
                                                 request.ContentType = "application/x-www-form-urlencoded";
@@ -380,13 +434,13 @@
                                             </code>
                                         </pre>
                                     </div>
-                                    <div id="4vbdotnet">
+                                    <div id="5vbdotnet">
                                         <pre>
                                             <code class="language-markup">
                                                 Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}"), HttpWebRequest)
                                                 request.Method = "DELETE"
 
-                                                Dim deleteData As String = "email=business@smsalertspk.com&password=123456789"
+                                                Dim deleteData As String = "email=business@smsalertspk.com&password=*********"
                                                 Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
 
                                                 request.ContentType = "application/x-www-form-urlencoded"
