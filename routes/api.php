@@ -16,15 +16,25 @@ use App\Http\Controllers\API\SectionController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
 Route::name('api.')->group(
     function () {
         Route::apiResources([
             'groups' => GroupController::class,
             'classes' => GroupController::class,
-            'sections' => SectionController::class,
         ]);
+
+        // Section Routes
+        Route::get('/classes/{class_code}/sections', [SectionController::class, 'index'])->name('sections.index');
+        Route::get('/classes/{class_code}/sections/{code}', [SectionController::class, 'show'])->name('sections.show');
+
+        Route::post('/classes/{class_code}/sections', [SectionController::class, 'store'])->name('sections.store');
+        Route::put('/classes/{class_code}/sections/{code}', [SectionController::class, 'update'])->name('sections.update');
+        Route::delete('/classes/{class_code}/sections/{code}', [SectionController::class, 'destroy'])->name('sections.destroy');
+
+        // MobileData Routes
     }
 );

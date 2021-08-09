@@ -2,21 +2,22 @@
 
 namespace App\Rules\API;
 
-use App\Models\Group;
+use App\Models\Section;
 use Illuminate\Contracts\Validation\Rule;
 
-class GroupCode implements Rule
+class SectionCode implements Rule
 {
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($user_id, $IsUpdate = false, $id = 0)
+    public function __construct($user_id, $group_code, $IsUpdate = false, $id = 0)
     {
         $this->user_id = $user_id;
         $this->IsUpdate = $IsUpdate;
         $this->id = $id;
+        $this->group_code = $group_code;
     }
 
     /**
@@ -29,12 +30,12 @@ class GroupCode implements Rule
     public function passes($attribute, $value)
     {
         if ($this->IsUpdate) {
-            $Data = Group::where('user_id', '=',  $this->user_id)->where('code', '=', $value)->where('id', '=', $this->id)->get();
+            $Data = Section::where('user_id', '=',  $this->user_id)->where('group_id', '=', $this->group_code)->where('code', '=', $value)->get();
             if (!$Data->isEmpty()) {
                 return true;
             }
         }
-        $Data = Group::where('user_id', '=',  $this->user_id)->where('code', '=', $value)->get();
+        $Data = Section::where('user_id', '=',  $this->user_id)->where('group_id', '=', $this->group_code)->where('code', '=', $value)->get();
         return $Data->isEmpty();
     }
 
@@ -45,6 +46,6 @@ class GroupCode implements Rule
      */
     public function message()
     {
-        return 'This group :attribute is already taken.';
+        return 'This section :attribute is already taken.';
     }
 }
