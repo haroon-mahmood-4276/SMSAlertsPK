@@ -176,7 +176,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
 
-Route::get('test', function () {
-    $company_nature = 'wife';
-    return Str::of($company_nature)->plural()->ucfirst();
-});
+// Route::get('test', function () {
+//     $company_nature = 'wife';
+//     return Str::of($company_nature)->plural()->ucfirst();
+// });
