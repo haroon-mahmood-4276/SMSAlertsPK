@@ -159,8 +159,19 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('class', function () {
             return view('api.group', ['company_nature' => 'class']);
         })->name('r.apiclass');
-    });
 
+        Route::get('section', function () {
+            return view('api.section');
+        })->name('r.apisection');
+
+        Route::get('member', function () {
+            return view('api.mobiledata', ['company_nature' => 'member']);
+        })->name('r.apimember');
+
+        Route::get('student', function () {
+            return view('api.mobiledata', ['company_nature' => 'student']);
+        })->name('r.apistudent');
+    });
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
