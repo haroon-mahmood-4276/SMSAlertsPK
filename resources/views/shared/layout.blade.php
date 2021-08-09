@@ -17,17 +17,36 @@
     @yield('BeforeCommonCss')
     <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
     @yield('AfterCommonCss')
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
 
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            display: none;
+            border-radius: 50% !important;
+        }
+
+    </style>
 </head>
 
 <body>
     <div class="main-wrapper" id="main-wrapper">
+
         <div class="preloader">
             <div class="loader">
                 <div class="loader__figure"></div>
                 <p class="loader__label">SMS Alerts PK</p>
             </div>
         </div>
+
+        <!-- Back to top button -->
+        <button type="button" class="btn btn-floating btn-large" id="btn-back-to-top">
+            <i class="material-icons">arrow_upward</i>
+        </button>
 
         <div>
             {{ View::make('shared.header') }}
@@ -67,6 +86,33 @@
                 BoxedLayout: false, // it can be true / false ( true means Boxed and false means Fluid )
             });
         });
+    </script>
+    <script>
+        //Get the button
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 40 ||
+                document.documentElement.scrollTop > 40
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+        // When the user clicks on the button, scroll to the top of the document
+        mybutton.addEventListener("click", backToTop);
+
+        function backToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
     </script>
 </body>
 

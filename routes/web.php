@@ -150,5 +150,16 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('birthdayreportpdf', [ExportPDFController::class, 'BirthdayAsPDF'])->name('r.birthdayreportpdf');
     });
 
+    Route::prefix('api')->group(function () {
+        Route::get('group', function () {
+            return view('api.group');
+        })->name('r.apigroup');
+
+        Route::get('class', function () {
+            return view('api.group');
+        })->name('r.apiclass');
+    });
+
+
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });

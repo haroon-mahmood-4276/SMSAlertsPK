@@ -47,7 +47,7 @@ class SmsController extends Controller
         $User = User::find(session('Data.id'));
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
             if ($User->remaining_of_sms > 0) {
-                $Msgs = intval(((Str::length($this->Message) / 160) + 1));
+                $Msgs = intval(((Str::length($request->Message) / 160) + 1));
                 if ($Msgs <= $User->remaining_of_sms) {
 
                     $response =  Http::get('http://sms.web.pk/sendsms.php', [
@@ -69,9 +69,9 @@ class SmsController extends Controller
                     $User->remaining_of_sms = $User->remaining_of_sms - $Msgs;
 
                     if ($SMS->save() && $User->save()) {
-                        return redirect()->route('r.smshistory')->with('AlertType', 'warning')->with('AlertMsg', $response);
+                        return redirect()->route('r.quicksmsshow')->with('AlertType', 'success')->with('AlertMsg', 'Message sent');
                     } else {
-                        return redirect()->route('r.smshistory')->with('AlertType', 'warning')->with('AlertMsg', $response);
+                        return redirect()->route('r.quicksmsshow')->with('AlertType', 'warning')->with('AlertMsg', $response);
                     }
                 }
             }
@@ -105,7 +105,7 @@ class SmsController extends Controller
             $User = User::find(session('Data.id'));
             if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
                 if ($User->remaining_of_sms > 0) {
-                    $Msgs = intval(((Str::length($this->Message) / 160) + 1));
+                    $Msgs = intval(((Str::length($request->Message) / 160) + 1));
                     if ($Msgs <= $User->remaining_of_sms) {
 
                         $response =  Http::get('http://sms.web.pk/sendsms.php', [
@@ -131,7 +131,7 @@ class SmsController extends Controller
                 }
             }
         }
-        return redirect()->route('r.smshistory');
+        return redirect()->route('r.quicksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Message sent");
     }
 
     public function BulkSMSShow()
