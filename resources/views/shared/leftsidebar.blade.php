@@ -116,27 +116,27 @@
                                     <li>
                                         <a href="{{ Session::get('Data.company_nature') == 'B' ? route('r.apigroup') : route('r.apiclass') }}">
                                             <i class="material-icons">developer_mode</i>
-                                            <span class="hide-menu">{{ Session::get('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }} APIs</span>
+                                            <span class="hide-menu">{{ Session::get('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }} API</span>
                                         </a>
                                     </li>
                                     @if (session('Data.company_nature') == 'S')
                                         <li>
                                             <a href="{{ route('r.smsdues') }}">
                                                 <i class="material-icons">developer_mode</i>
-                                                <span class="hide-menu">Section APIs</span>
+                                                <span class="hide-menu">Section API</span>
                                             </a>
                                         </li>
                                     @endif
                                     <li>
                                         <a href="{{ route('r.multiplesmsshow') }}">
                                             <i class="material-icons">developer_mode</i>
-                                            <span class="hide-menu">{{ Session::get('Data.company_nature') == 'B' ? 'Members' : 'Students' }} APIs</span>
+                                            <span class="hide-menu">{{ Session::get('Data.company_nature') == 'B' ? 'Members' : 'Students' }} API</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ route('r.quicksmsshow') }}">
                                             <i class="material-icons">developer_mode</i>
-                                            <span class="hide-menu">SMS APIs</span>
+                                            <span class="hide-menu">SMS API</span>
                                         </a>
                                     </li>
 
