@@ -162,7 +162,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
         Route::get('section', function () {
             return view('api.section');
-        })->name('r.apisection');
+        })->name('r.apisection', ['company_nature' => 'section']);
 
         Route::get('member', function () {
             return view('api.mobiledata', ['company_nature' => 'member']);
@@ -172,7 +172,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
             return view('api.mobiledata', ['company_nature' => 'student']);
         })->name('r.apistudent');
 
-        Route::get('student', function () {
+        Route::get('sms', function () {
             return view('api.sms', ['company_nature' => session('Data.company_nature') == 'B' ? 'member' : 'student']);
         })->name('r.apisms');
     });
