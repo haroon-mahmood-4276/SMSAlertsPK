@@ -32,20 +32,18 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
     <div class="container-fluid">
         <div class="row">
             <div class="col s12 m12 l3">
-                <div>
-                    <div class="collection" id="top-menu">
-                        <a href="#list-of-{{ Str::of($company_nature)->plural() }}" class="collection-item">List
-                            of
-                            {{ Str::of($company_nature)->plural() }}
-                        </a>
-                        <a href="#create-new-{{ Str::of($company_nature) }}" class="collection-item">Create a new
-                            {{ Str::of($company_nature) }}
-                        </a>
-                        <a href="#update-a-{{ Str::of($company_nature) }}" class="collection-item">Update a
-                            {{ Str::of($company_nature) }}</a>
-                        <a href="#delete-a-{{ Str::of($company_nature) }}" class="collection-item">Delete a
-                            {{ Str::of($company_nature) }}</a>
-                    </div>
+                <div class="collection" id="top-menu">
+                    <a href="#list-of-{{ Str::of($company_nature)->plural() }}" class="collection-item">List
+                        of
+                        {{ Str::of($company_nature)->plural() }}
+                    </a>
+                    <a href="#create-new-{{ Str::of($company_nature) }}" class="collection-item">Create a new
+                        {{ Str::of($company_nature) }}
+                    </a>
+                    <a href="#update-a-{{ Str::of($company_nature) }}" class="collection-item">Update a
+                        {{ Str::of($company_nature) }}</a>
+                    <a href="#delete-a-{{ Str::of($company_nature) }}" class="collection-item">Delete a
+                        {{ Str::of($company_nature) }}</a>
                 </div>
             </div>
             <div class="col s12 m12 l9">
@@ -113,7 +111,7 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                         <code class="language-markup">
                                             {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}
                                             <br>
-                                            form-body:[
+                                            form-data:[
                                                 'email': '{{ session('Data.email') }}',
                                                 'password': '*********'],
                                                 'code': '00001'
@@ -218,7 +216,7 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                         <code class="language-markup">
                                             {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
                                             <br>
-                                            form-body:[
+                                            form-data:[
                                                 'email': '{{ session('Data.email') }}',
                                                 'password': '*********'],
                                                 'name': 'Something'
@@ -321,7 +319,7 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                         <code class="language-markup">
                                             {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
                                             <br>
-                                            form-body:[
+                                            form-data:[
                                                 'email': '{{ session('Data.email') }}',
                                                 'password': '*********'],
                                                 '_method': 'DELETE'

@@ -17089,9 +17089,10 @@ nav,
     color: #9098ac;
 }
 
+/*
 .card .card-content p {
-    /* margin-bottom: 10px; */
-}
+    margin-bottom: 10px;
+} */
 
 .card .card-title {
     font-weight: 700;
@@ -19380,7 +19381,6 @@ tr {
 }
 
 .card {
-    background-color: #fff !important;
     border-radius: 10px !important;
     box-shadow: rgba(100, 100, 111, .2) 0 7px 29px 0 !important;
 }
