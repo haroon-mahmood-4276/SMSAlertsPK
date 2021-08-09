@@ -116,6 +116,7 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                             form-body:[
                                                 'email': '{{ session('Data.email') }}',
                                                 'password': '*********'],
+                                                'code': '00001'
                                                 'name': 'Something'
                                                 '_method': 'POST'
                                             ]
@@ -130,6 +131,7 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                             x-www-form-urlencoded:[
                                                 'email': '{{ session('Data.email') }}',
                                                 'password': '*********'],
+                                                'code': '00001'
                                                 'name': 'Something'
                                                 '_method': 'POST'
                                             ]
@@ -152,13 +154,26 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                 <div id="2csdotnet">
                                     <pre>
                                         <code class="language-markup">
-                                            WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}");
-                                            WebResponse response = request.GetResponse();
+                                            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}");
+                                            request.Method = "POST";
 
-                                            Stream dataStream = response.GetResponseStream();
+                                            string postData = "email=business@smsalertspk.com&password=123456789&code=00001&name=Something";
+                                            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+
+                                            request.ContentType = "application/x-www-form-urlencoded";
+                                            request.ContentLength = byteArray.Length;
+
+                                            Stream dataStream = request.GetRequestStream();
+                                            dataStream.Write(byteArray, 0, byteArray.Length);
+                                            dataStream.Close();
+
+                                            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                                            dataStream = response.GetResponseStream();
+
                                             StreamReader reader = new StreamReader(dataStream);
+                                            string responseFromServer = reader.ReadToEnd();
+                                            Console.WriteLine("Response: " + responseFromServer.ToString());
 
-                                            Console.WriteLine("Response: " + reader.ReadToEnd().toString());
                                             response.Close();
                                         </code>
                                     </pre>
@@ -166,13 +181,26 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                 <div id="2vbdotnet">
                                     <pre>
                                         <code class="language-markup">
-                                            Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}")
-                                            Dim response As WebResponse = request.GetResponse()
+                                            Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}"), HttpWebRequest)
+                                            request.Method = "POST"
 
-                                            Dim dataStream As Stream = response.GetResponseStream()
-                                            Dim reader As New StreamReader(dataStream)
+                                            Dim postData As String = "email=business@smsalertspk.com&password=123456789&code=00001&name=Something"
+                                            Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
 
-                                            Console.WriteLine("Response: " + reader.ReadToEnd().toString())
+                                            request.ContentType = "application/x-www-form-urlencoded"
+                                            request.ContentLength = byteArray.Length
+
+                                            Dim dataStream As Stream = request.GetRequestStream()
+                                            dataStream.Write(byteArray, 0, byteArray.Length)
+                                            dataStream.Close()
+
+                                            Dim response As HttpWebResponse = CType(request.GetResponse(), HttpWebResponse)
+                                            dataStream = response.GetResponseStream()
+
+                                            Dim reader As StreamReader = New StreamReader(dataStream)
+                                            Dim responseFromServer As String = reader.ReadToEnd()
+                                            Console.WriteLine("Response: " + responseFromServer.ToString())
+
                                             response.Close()
                                         </code>
                                     </pre>
@@ -229,13 +257,26 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                 <div id="3csdotnet">
                                     <pre>
                                         <code class="language-markup">
-                                            WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}");
-                                            WebResponse response = request.GetResponse();
+                                            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}");
+                                            request.Method = "PUT";
 
-                                            Stream dataStream = response.GetResponseStream();
+                                            string putData = "email=business@smsalertspk.com&password=123456789&name=Something";
+                                            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+
+                                            request.ContentType = "application/x-www-form-urlencoded";
+                                            request.ContentLength = byteArray.Length;
+
+                                            Stream dataStream = request.GetRequestStream();
+                                            dataStream.Write(byteArray, 0, byteArray.Length);
+                                            dataStream.Close();
+
+                                            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                                            dataStream = response.GetResponseStream();
+
                                             StreamReader reader = new StreamReader(dataStream);
+                                            string responseFromServer = reader.ReadToEnd();
+                                            Console.WriteLine("Response: " + responseFromServer.ToString());
 
-                                            Console.WriteLine("Response: " + reader.ReadToEnd().toString());
                                             response.Close();
                                         </code>
                                     </pre>
@@ -243,13 +284,26 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                 <div id="3vbdotnet">
                                     <pre>
                                         <code class="language-markup">
-                                            Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}")
-                                            Dim response As WebResponse = request.GetResponse()
+                                            Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}"), HttpWebRequest)
+                                            request.Method = "PUT"
 
-                                            Dim dataStream As Stream = response.GetResponseStream()
-                                            Dim reader As New StreamReader(dataStream)
+                                            Dim putData As String = "email=business@smsalertspk.com&password=123456789&name=Something"
+                                            Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
 
-                                            Console.WriteLine("Response: " + reader.ReadToEnd().toString())
+                                            request.ContentType = "application/x-www-form-urlencoded"
+                                            request.ContentLength = byteArray.Length
+
+                                            Dim dataStream As Stream = request.GetRequestStream()
+                                            dataStream.Write(byteArray, 0, byteArray.Length)
+                                            dataStream.Close()
+
+                                            Dim response As HttpWebResponse = CType(request.GetResponse(), HttpWebResponse)
+                                            dataStream = response.GetResponseStream()
+
+                                            Dim reader As StreamReader = New StreamReader(dataStream)
+                                            Dim responseFromServer As String = reader.ReadToEnd()
+                                            Console.WriteLine("Response: " + responseFromServer.ToString())
+
                                             response.Close()
                                         </code>
                                     </pre>
@@ -304,13 +358,26 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                 <div id="4csdotnet">
                                     <pre>
                                         <code class="language-markup">
-                                            WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}");
-                                            WebResponse response = request.GetResponse();
+                                            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}");
+                                            request.Method = "DELETE";
 
-                                            Stream dataStream = response.GetResponseStream();
+                                            string deleteData = "email=business@smsalertspk.com&password=123456789";
+                                            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+
+                                            request.ContentType = "application/x-www-form-urlencoded";
+                                            request.ContentLength = byteArray.Length;
+
+                                            Stream dataStream = request.GetRequestStream();
+                                            dataStream.Write(byteArray, 0, byteArray.Length);
+                                            dataStream.Close();
+
+                                            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                                            dataStream = response.GetResponseStream();
+
                                             StreamReader reader = new StreamReader(dataStream);
+                                            string responseFromServer = reader.ReadToEnd();
+                                            Console.WriteLine("Response: " + responseFromServer.ToString());
 
-                                            Console.WriteLine("Response: " + reader.ReadToEnd().toString());
                                             response.Close();
                                         </code>
                                     </pre>
@@ -318,13 +385,26 @@ Str::of($company_nature)->plural()->ucfirst() . ' API',)
                                 <div id="4vbdotnet">
                                     <pre>
                                         <code class="language-markup">
-                                            Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}")
-                                            Dim response As WebResponse = request.GetResponse()
+                                            Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}"), HttpWebRequest)
+                                            request.Method = "DELETE"
 
-                                            Dim dataStream As Stream = response.GetResponseStream()
-                                            Dim reader As New StreamReader(dataStream)
+                                            Dim deleteData As String = "email=business@smsalertspk.com&password=123456789"
+                                            Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
 
-                                            Console.WriteLine("Response: " + reader.ReadToEnd().toString())
+                                            request.ContentType = "application/x-www-form-urlencoded"
+                                            request.ContentLength = byteArray.Length
+
+                                            Dim dataStream As Stream = request.GetRequestStream()
+                                            dataStream.Write(byteArray, 0, byteArray.Length)
+                                            dataStream.Close()
+
+                                            Dim response As HttpWebResponse = CType(request.GetResponse(), HttpWebResponse)
+                                            dataStream = response.GetResponseStream()
+
+                                            Dim reader As StreamReader = New StreamReader(dataStream)
+                                            Dim responseFromServer As String = reader.ReadToEnd()
+                                            Console.WriteLine("Response: " + responseFromServer.ToString())
+
                                             response.Close()
                                         </code>
                                     </pre>
