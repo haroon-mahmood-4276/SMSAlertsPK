@@ -20,32 +20,31 @@ use App\Http\Controllers\API\SectionController;
 //     return $request->user();
 // });
 
-Route::name('api.')->group(
-    function () {
-        Route::apiResources([
-            'groups' => GroupController::class,
-            'classes' => GroupController::class,
-        ]);
+Route::name('api.')->group(function () {
 
+    Route::apiResources([
+        'groups' => GroupController::class,
+        'classes' => GroupController::class,
+    ]);
+
+    // Section Routes
+    Route::name('sections.')->prefix('/classes/{class_code}')->group(function () {
+        Route::get('sections', [SectionController::class, 'index'])->name('index');
+        Route::get('sections/{code}', [SectionController::class, 'show'])->name('show');
+
+        Route::post('sections', [SectionController::class, 'store'])->name('store');
+        Route::put('sections/{code}', [SectionController::class, 'update'])->name('update');
+        Route::delete('sections/{code}', [SectionController::class, 'destroy'])->name('destroy');
+    });
+
+    // MobileData Routes
+    Route::name('data.')->prefix('/classes/{class_code}/sections/{section_code}')->group(function () {
         // Section Routes
-        Route::name('sections.')->prefix('/classes/{class_code}')->group(function () {
-            Route::get('sections', [SectionController::class, 'index'])->name('index');
-            Route::get('sections/{code}', [SectionController::class, 'show'])->name('show');
+        Route::get('data', [MobileDataController::class, 'index'])->name('index');
+        Route::get('data/{code}', [MobileDataController::class, 'show'])->name('show');
 
-            Route::post('sections', [SectionController::class, 'store'])->name('store');
-            Route::put('sections/{code}', [SectionController::class, 'update'])->name('update');
-            Route::delete('sections/{code}', [SectionController::class, 'destroy'])->name('destroy');
-        });
-
-        // MobileData Routes
-        Route::name('data.')->prefix('/classes/{class_code}/sections/{section_code}')->group(function () {
-            // Section Routes
-            Route::get('data', [MobileDataController::class, 'index'])->name('index');
-            Route::get('data/{code}', [MobileDataController::class, 'show'])->name('show');
-
-            Route::post('data', [MobileDataController::class, 'store'])->name('store');
-            Route::put('data/{code}', [MobileDataController::class, 'update'])->name('update');
-            Route::delete('data/{code}', [MobileDataController::class, 'destroy'])->name('destroy');
-        });
-    }
-);
+        Route::post('data', [MobileDataController::class, 'store'])->name('store');
+        Route::put('data/{code}', [MobileDataController::class, 'update'])->name('update');
+        Route::delete('data/{code}', [MobileDataController::class, 'destroy'])->name('destroy');
+    });
+});
