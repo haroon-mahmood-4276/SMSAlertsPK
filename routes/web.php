@@ -16,6 +16,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
+use App\Jobs\TestJob;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -184,3 +185,10 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 //     $company_nature = 'wife';
 //     return Str::of($company_nature)->plural()->ucfirst();
 // });
+
+Route::get('test/jobs/{job}', function ($job) {
+    for ($i = 0; $i < $job; $i++) {
+        TestJob::dispatch();
+    }
+    return "Done";
+});
