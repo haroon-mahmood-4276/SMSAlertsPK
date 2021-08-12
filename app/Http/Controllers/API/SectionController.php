@@ -18,10 +18,16 @@ class SectionController extends Controller
      */
     public function index(Request $request, $class_code)
     {
-        $Group = Group::where('user_id', '=', $request->user_id)->where('code', '=', $class_code)->first();
-        if ($Group)
-            return response()->json(['message' => 'success', 'data' => Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('groups.name AS class_name', 'sections.code', 'sections.name')->where('sections.user_id', '=', $request->user_id)->where('sections.group_id', '=', $Group->id)->orderBy('class_name')->get()], 200);
-        else
+        $Class = Group::where('user_id', '=', $request->user_id)->where('code', '=', $class_code)->first();
+        if ($Class) {
+            $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')
+                ->select('groups.name AS class_name', 'sections.code', 'sections.name')
+                ->where('sections.user_id', '=', $request->user_id)
+                ->where('sections.group_id', '=', $Class->id)
+                ->orderBy('class_name')->get();
+
+            return response()->json(['message' => 'success', 'data' => $Sections], 200);
+        } else
             return response()->json(['message' => 'this class code does not exist.'], 404);
     }
 
