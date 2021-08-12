@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\GroupController;
 use App\Http\Controllers\API\StudentController;
@@ -29,7 +28,7 @@ Route::name('api.')->group(function () {
     ]);
 
     // Section Routes
-    Route::name('sections.')->prefix('/classes/{class_code}')->group(function () {
+    Route::name('sections.')->prefix('/classes/{class}')->group(function () {
         Route::get('sections', [SectionController::class, 'index'])->name('index');
         Route::get('sections/{code}', [SectionController::class, 'show'])->name('show');
 
@@ -39,7 +38,7 @@ Route::name('api.')->group(function () {
     });
 
     // MobileData Routes
-    Route::name('sdata.')->prefix('/classes/{class_code}/sections/{section_code}')->group(function () {
+    Route::name('sdata.')->prefix('/classes/{class}/sections/{section}')->group(function () {
         // Section Routes
         Route::get('data', [StudentController::class, 'index'])->name('index');
         Route::get('data/{code}', [StudentController::class, 'show'])->name('show');
@@ -50,7 +49,7 @@ Route::name('api.')->group(function () {
     });
 
     // MobileData Routes
-    Route::name('bdata.')->prefix('/groups/{group_code}')->group(function () {
+    Route::name('bdata.')->prefix('/groups/{group}')->group(function () {
         // Section Routes
         Route::get('data', [MobileDataController::class, 'index'])->name('index');
         Route::get('data/{code}', [MobileDataController::class, 'show'])->name('show');
