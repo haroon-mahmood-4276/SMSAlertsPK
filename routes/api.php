@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\GroupController;
+use App\Http\Controllers\API\MemberController;
 use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\SectionController;
 
@@ -38,7 +39,7 @@ Route::name('api.')->group(function () {
     });
 
     // MobileData Routes
-    Route::name('sdata.')->prefix('/classes/{class}/sections/{section}')->group(function () {
+    Route::name('students.')->prefix('/classes/{class}/sections/{section}')->group(function () {
         // Section Routes
         Route::get('data', [StudentController::class, 'index'])->name('index');
         Route::get('data/{code}', [StudentController::class, 'show'])->name('show');
@@ -49,13 +50,13 @@ Route::name('api.')->group(function () {
     });
 
     // MobileData Routes
-    Route::name('bdata.')->prefix('/groups/{group}')->group(function () {
+    Route::name('members.')->prefix('/groups/{group}')->group(function () {
         // Section Routes
-        Route::get('data', [MobileDataController::class, 'index'])->name('index');
-        Route::get('data/{code}', [MobileDataController::class, 'show'])->name('show');
+        Route::get('data', [MemberController::class, 'index'])->name('index');
+        Route::get('data/{code}', [MemberController::class, 'show'])->name('show');
 
-        Route::post('data', [MobileDataController::class, 'store'])->name('store');
-        Route::put('data/{code}', [MobileDataController::class, 'update'])->name('update');
-        Route::delete('data/{code}', [MobileDataController::class, 'destroy'])->name('destroy');
+        Route::post('data', [MemberController::class, 'store'])->name('store');
+        Route::put('data/{code}', [MemberController::class, 'update'])->name('update');
+        Route::delete('data/{code}', [MemberController::class, 'destroy'])->name('destroy');
     });
 });

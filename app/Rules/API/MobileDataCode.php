@@ -5,7 +5,7 @@ namespace App\Rules\API;
 use App\Models\Mobiledatas;
 use Illuminate\Contracts\Validation\Rule;
 
-class StudentCode implements Rule
+class MobileDataCode implements Rule
 {
     /**
      * Create a new rule instance.
