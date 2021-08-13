@@ -56,10 +56,10 @@
                             <div>
                                 <p>It is a GET Request API.</p>
                                 <pre>
-                                    <code class="language-markup">
-                                        <span>{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}</span>
-                                    </code>
-                                </pre>
+                                        <code class="language-markup">
+                                            <span>{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['class' => '00001', 'section' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}</span>
+                                        </code>
+                                    </pre>
 
                                 <div>
                                     <br>
@@ -74,31 +74,31 @@
                                     </ul>
                                     <div id="1csdotnet">
                                         <pre>
-                                            <code class="language-markup">
-                                                WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}");
-                                                WebResponse response = request.GetResponse();
+                                                <code class="language-markup">
+                                                    WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['class' => '00001', 'section' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}");
+                                                    WebResponse response = request.GetResponse();
 
-                                                Stream dataStream = response.GetResponseStream();
-                                                StreamReader reader = new StreamReader(dataStream);
+                                                    Stream dataStream = response.GetResponseStream();
+                                                    StreamReader reader = new StreamReader(dataStream);
 
-                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString());
-                                                response.Close();
-                                            </code>
-                                        </pre>
+                                                    Console.WriteLine("Response: " + reader.ReadToEnd().toString());
+                                                    response.Close();
+                                                </code>
+                                            </pre>
                                     </div>
                                     <div id="1vbdotnet">
                                         <pre>
-                                            <code class="language-markup">
-                                                Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['email' => session('Data.email'), 'password' => '*********'])) }}")
-                                                Dim response As WebResponse = request.GetResponse()
+                                                <code class="language-markup">
+                                                    Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['class' => '00001', 'section' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}")
+                                                    Dim response As WebResponse = request.GetResponse()
 
-                                                Dim dataStream As Stream = response.GetResponseStream()
-                                                Dim reader As New StreamReader(dataStream)
+                                                    Dim dataStream As Stream = response.GetResponseStream()
+                                                    Dim reader As New StreamReader(dataStream)
 
-                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString())
-                                                response.Close()
-                                            </code>
-                                        </pre>
+                                                    Console.WriteLine("Response: " + reader.ReadToEnd().toString())
+                                                    response.Close()
+                                                </code>
+                                            </pre>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                 <p>It is a GET Request API.</p>
                                 <pre>
                                     <code class="language-markup">
-                                        <span>{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}</span>
+                                        <span>{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', ['class' => '00001', 'section' => '00001', 'code' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}</span>
                                     </code>
                                 </pre>
 
@@ -126,31 +126,31 @@
                                     </ul>
                                     <div id="2csdotnet">
                                         <pre>
-                                            <code class="language-markup">
-                                                WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}");
-                                                WebResponse response = request.GetResponse();
+                                                <code class="language-markup">
+                                                    WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', ['class' => '00001', 'section' => '00001', 'code' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}");
+                                                    WebResponse response = request.GetResponse();
 
-                                                Stream dataStream = response.GetResponseStream();
-                                                StreamReader reader = new StreamReader(dataStream);
+                                                    Stream dataStream = response.GetResponseStream();
+                                                    StreamReader reader = new StreamReader(dataStream);
 
-                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString());
-                                                response.Close();
-                                            </code>
-                                        </pre>
+                                                    Console.WriteLine("Response: " + reader.ReadToEnd().toString());
+                                                    response.Close();
+                                                </code>
+                                            </pre>
                                     </div>
                                     <div id="2vbdotnet">
                                         <pre>
-                                            <code class="language-markup">
-                                                Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}")
-                                                Dim response As WebResponse = request.GetResponse()
+                                                <code class="language-markup">
+                                                    Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', ['class' => '00001', 'section' => '00001', 'code' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}")
+                                                    Dim response As WebResponse = request.GetResponse()
 
-                                                Dim dataStream As Stream = response.GetResponseStream()
-                                                Dim reader As New StreamReader(dataStream)
+                                                    Dim dataStream As Stream = response.GetResponseStream()
+                                                    Dim reader As New StreamReader(dataStream)
 
-                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString())
-                                                response.Close()
-                                            </code>
-                                        </pre>
+                                                    Console.WriteLine("Response: " + reader.ReadToEnd().toString())
+                                                    response.Close()
+                                                </code>
+                                            </pre>
                                     </div>
                                 </div>
                             </div>
@@ -163,14 +163,24 @@
                                     <div class="col s12 m12 l6">
                                         <pre>
                                             <code class="language-markup">
-                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}
+                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store', ['class' => '00001', 'section' => '00001'])) }}
                                                 <br>
                                                 form-data:[
+                                                    '_method': 'POST',
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
-                                                    'code': '00001'
-                                                    'name': 'Something'
-                                                    '_method': 'POST'
+                                                    'password': '*********',
+                                                    'code': '00099',
+                                                    'student_first_name': 'FirstName',
+                                                    'student_last_name': 'LastName',
+                                                    'student_mobile_1': '923123456789',
+                                                    'student_mobile_2': '923123456789',
+                                                    'dob': '1999'-07-06',
+                                                    'gender': 'M',
+                                                    'parent_first_name': 'ParentFirstName',
+                                                    'parent_last_name': 'ParentLastName',
+                                                    'parent_mobile_1': '923123456789',
+                                                    'parent_mobile_2': '923123456789',
+                                                    'active': 'Y'
                                                 ]
                                             </code>
                                         </pre>
@@ -178,14 +188,24 @@
                                     <div class="col s12 m12 l6">
                                         <pre>
                                             <code class="language-markup">
-                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}
+                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store', ['class' => '00001', 'section' => '00001'])) }}
                                                 <br>
                                                 x-www-form-urlencoded:[
+                                                    '_method': 'POST',
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
-                                                    'code': '00001'
-                                                    'name': 'Something'
-                                                    '_method': 'POST'
+                                                    'password': '*********',
+                                                    'code': '00099',
+                                                    'student_first_name': 'FirstName',
+                                                    'student_last_name': 'LastName',
+                                                    'student_mobile_1': '923123456789',
+                                                    'student_mobile_2': '923123456789',
+                                                    'dob': '1999'-07-06',
+                                                    'gender': 'M',
+                                                    'parent_first_name': 'ParentFirstName',
+                                                    'parent_last_name': 'ParentLastName',
+                                                    'parent_mobile_1': '923123456789',
+                                                    'parent_mobile_2': '923123456789',
+                                                    'active': 'Y'
                                                 ]
                                             </code>
                                         </pre>
@@ -206,10 +226,10 @@
                                     <div id="3csdotnet">
                                         <pre>
                                             <code class="language-markup">
-                                                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}");
+                                                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store', ['class' => '00001', 'section' => '00001'])) }}");
                                                 request.Method = "POST";
 
-                                                string postData = "email=business@smsalertspk.com&password=*********&code=00001&name=Something";
+                                                string postData = "email=school@smsalertspk.com&password=123456789&code=00099&student_first_name=FirstName&student_last_name=LastName&student_mobile_1=923123456789&student_mobile_2=923123456789&dob=1999-07-06&gender=M&parent_first_name=ParentFirstName&parent_last_name=ParentLastName&parent_mobile_1=923123456789&parent_mobile_2=923123456789&active=Y";
                                                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
                                                 request.ContentType = "application/x-www-form-urlencoded";
@@ -233,10 +253,10 @@
                                     <div id="3vbdotnet">
                                         <pre>
                                             <code class="language-markup">
-                                                Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}"), HttpWebRequest)
+                                                Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store', ['class' => '00001', 'section' => '00001'])) }}"), HttpWebRequest)
                                                 request.Method = "POST"
 
-                                                Dim postData As String = "email=business@smsalertspk.com&password=*********&code=00001&name=Something"
+                                                Dim postData As String = "email=school@smsalertspk.com&password=123456789&code=00099&student_first_name=FirstName&student_last_name=LastName&student_mobile_1=923123456789&student_mobile_2=923123456789&dob=1999-07-06&gender=M&parent_first_name=ParentFirstName&parent_last_name=ParentLastName&parent_mobile_1=923123456789&parent_mobile_2=923123456789&active=Y"
                                                 Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
 
                                                 request.ContentType = "application/x-www-form-urlencoded"
@@ -268,13 +288,23 @@
                                     <div class="col s12 m12 l6">
                                         <pre>
                                             <code class="language-markup">
-                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
+                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', ['class' => '00001', 'section' => '00001', 'code' => '00001'])) }}
                                                 <br>
                                                 form-data:[
+                                                    '_method': 'PUT',
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
-                                                    'name': 'Something'
-                                                    '_method': 'PUT'
+                                                    'password': '*********',
+                                                    'student_first_name': 'FirstName',
+                                                    'student_last_name': 'LastName',
+                                                    'student_mobile_1': '923123456789',
+                                                    'student_mobile_2': '923123456789',
+                                                    'dob': '1999'-07-06',
+                                                    'gender': 'M',
+                                                    'parent_first_name': 'ParentFirstName',
+                                                    'parent_last_name': 'ParentLastName',
+                                                    'parent_mobile_1': '923123456789',
+                                                    'parent_mobile_2': '923123456789',
+                                                    'active': 'Y'
                                                 ]
                                             </code>
                                         </pre>
@@ -282,13 +312,23 @@
                                     <div class="col s12 m12 l6">
                                         <pre>
                                             <code class="language-markup">
-                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
+                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', ['class' => '00001', 'section' => '00001', 'code' => '00001'])) }}
                                                 <br>
                                                 x-www-form-urlencoded:[
+                                                    '_method': 'PUT',
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
-                                                    'name': 'Something'
-                                                    '_method': 'PUT'
+                                                    'password': '*********',
+                                                    'student_first_name': 'FirstName',
+                                                    'student_last_name': 'LastName',
+                                                    'student_mobile_1': '923123456789',
+                                                    'student_mobile_2': '923123456789',
+                                                    'dob': '1999'-07-06',
+                                                    'gender': 'M',
+                                                    'parent_first_name': 'ParentFirstName',
+                                                    'parent_last_name': 'ParentLastName',
+                                                    'parent_mobile_1': '923123456789',
+                                                    'parent_mobile_2': '923123456789',
+                                                    'active': 'Y'
                                                 ]
                                             </code>
                                         </pre>
@@ -309,10 +349,10 @@
                                     <div id="4csdotnet">
                                         <pre>
                                             <code class="language-markup">
-                                                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}");
+                                                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', ['class' => '00001', 'section' => '00001', 'code' => '00001'])) }}");
                                                 request.Method = "PUT";
 
-                                                string putData = "email=business@smsalertspk.com&password=*********&name=Something";
+                                                string putData = "email=school@smsalertspk.com&password=123456789&student_first_name=FirstName&student_last_name=LastName&student_mobile_1=923123456789&student_mobile_2=923123456789&dob=1999-07-06&gender=M&parent_first_name=ParentFirstName&parent_last_name=ParentLastName&parent_mobile_1=923123456789&parent_mobile_2=923123456789&active=Y";
                                                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
                                                 request.ContentType = "application/x-www-form-urlencoded";
@@ -336,10 +376,10 @@
                                     <div id="4vbdotnet">
                                         <pre>
                                             <code class="language-markup">
-                                                Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}"), HttpWebRequest)
+                                                Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.update', ['class' => '00001', 'section' => '00001', 'code' => '00001'])) }}"), HttpWebRequest)
                                                 request.Method = "PUT"
 
-                                                Dim putData As String = "email=business@smsalertspk.com&password=*********&name=Something"
+                                                Dim putData As String = "email=school@smsalertspk.com&password=123456789&student_first_name=FirstName&student_last_name=LastName&student_mobile_1=923123456789&student_mobile_2=923123456789&dob=1999-07-06&gender=M&parent_first_name=ParentFirstName&parent_last_name=ParentLastName&parent_mobile_1=923123456789&parent_mobile_2=923123456789&active=Y"
                                                 Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
 
                                                 request.ContentType = "application/x-www-form-urlencoded"
@@ -371,7 +411,7 @@
                                     <div class="col s12 m12 l6">
                                         <pre>
                                             <code class="language-markup">
-                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
+                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', ['class' => '00001', 'section' => '00001', 'code' => '00001'])) }}
                                                 <br>
                                                 form-data:[
                                                     'email': '{{ session('Data.email') }}',
@@ -384,7 +424,7 @@
                                     <div class="col s12 m12 l6">
                                         <pre>
                                             <code class="language-markup">
-                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}
+                                                {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', ['class' => '00001', 'section' => '00001', 'code' => '00001'])) }}
                                                 <br>
                                                 x-www-form-urlencoded:[
                                                     'email': '{{ session('Data.email') }}',
@@ -409,57 +449,57 @@
                                     </ul>
                                     <div id="5csdotnet">
                                         <pre>
-                                            <code class="language-markup">
-                                                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}");
-                                                request.Method = "DELETE";
+                                                <code class="language-markup">
+                                                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', ['class' => '00001', 'section' => '00001', 'code' => '00001'])) }}");
+                                                    request.Method = "DELETE";
 
-                                                string deleteData = "email=business@smsalertspk.com&password=*********";
-                                                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+                                                    string deleteData = "email=business@smsalertspk.com&password=*********";
+                                                    byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
-                                                request.ContentType = "application/x-www-form-urlencoded";
-                                                request.ContentLength = byteArray.Length;
+                                                    request.ContentType = "application/x-www-form-urlencoded";
+                                                    request.ContentLength = byteArray.Length;
 
-                                                Stream dataStream = request.GetRequestStream();
-                                                dataStream.Write(byteArray, 0, byteArray.Length);
-                                                dataStream.Close();
+                                                    Stream dataStream = request.GetRequestStream();
+                                                    dataStream.Write(byteArray, 0, byteArray.Length);
+                                                    dataStream.Close();
 
-                                                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                                                dataStream = response.GetResponseStream();
+                                                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                                                    dataStream = response.GetResponseStream();
 
-                                                StreamReader reader = new StreamReader(dataStream);
-                                                string responseFromServer = reader.ReadToEnd();
-                                                Console.WriteLine("Response: " + responseFromServer.ToString());
+                                                    StreamReader reader = new StreamReader(dataStream);
+                                                    string responseFromServer = reader.ReadToEnd();
+                                                    Console.WriteLine("Response: " + responseFromServer.ToString());
 
-                                                response.Close();
-                                            </code>
-                                        </pre>
+                                                    response.Close();
+                                                </code>
+                                            </pre>
                                     </div>
                                     <div id="5vbdotnet">
                                         <pre>
-                                            <code class="language-markup">
-                                                Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', [Session::get('Data.company_nature') == 'B' ? 'group' : 'class' => '00001'])) }}"), HttpWebRequest)
-                                                request.Method = "DELETE"
+                                                <code class="language-markup">
+                                                    Dim request As HttpWebRequest = CType(WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.destroy', ['class' => '00001', 'section' => '00001', 'code' => '00001'])) }}"), HttpWebRequest)
+                                                    request.Method = "DELETE"
 
-                                                Dim deleteData As String = "email=business@smsalertspk.com&password=*********"
-                                                Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
+                                                    Dim deleteData As String = "email=business@smsalertspk.com&password=*********"
+                                                    Dim byteArray() As Byte = Encoding.UTF8.GetBytes(postData)
 
-                                                request.ContentType = "application/x-www-form-urlencoded"
-                                                request.ContentLength = byteArray.Length
+                                                    request.ContentType = "application/x-www-form-urlencoded"
+                                                    request.ContentLength = byteArray.Length
 
-                                                Dim dataStream As Stream = request.GetRequestStream()
-                                                dataStream.Write(byteArray, 0, byteArray.Length)
-                                                dataStream.Close()
+                                                    Dim dataStream As Stream = request.GetRequestStream()
+                                                    dataStream.Write(byteArray, 0, byteArray.Length)
+                                                    dataStream.Close()
 
-                                                Dim response As HttpWebResponse = CType(request.GetResponse(), HttpWebResponse)
-                                                dataStream = response.GetResponseStream()
+                                                    Dim response As HttpWebResponse = CType(request.GetResponse(), HttpWebResponse)
+                                                    dataStream = response.GetResponseStream()
 
-                                                Dim reader As StreamReader = New StreamReader(dataStream)
-                                                Dim responseFromServer As String = reader.ReadToEnd()
-                                                Console.WriteLine("Response: " + responseFromServer.ToString())
+                                                    Dim reader As StreamReader = New StreamReader(dataStream)
+                                                    Dim responseFromServer As String = reader.ReadToEnd()
+                                                    Console.WriteLine("Response: " + responseFromServer.ToString())
 
-                                                response.Close()
-                                            </code>
-                                        </pre>
+                                                    response.Close()
+                                                </code>
+                                            </pre>
                                     </div>
                                 </div>
                             </div>

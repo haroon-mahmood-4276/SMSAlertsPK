@@ -166,11 +166,11 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         })->name('r.apisection');
 
         Route::get('member', function () {
-            return view('api.mobiledata', ['company_nature' => 'member']);
+            return view('api.member', ['company_nature' => 'member']);
         })->name('r.apimember');
 
         Route::get('student', function () {
-            return view('api.mobiledata', ['company_nature' => 'student']);
+            return view('api.student', ['company_nature' => 'student']);
         })->name('r.apistudent');
 
         Route::get('sms', function () {
