@@ -100,7 +100,7 @@ class GroupController extends Controller
         $Group = Group::where('user_id', '=', $request->user_id)->where('code', '=', $id)->first();
         if ($Group) {
             if ($Group->delete()) {
-                return response()->json(['message' => 'data deleted.'], 200);
+                return response()->json(['message' => 'data deleted.'], 410);
             } else {
                 return response()->json(['message' => 'data not deleted'], 400);
             }

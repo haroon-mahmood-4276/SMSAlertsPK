@@ -135,7 +135,7 @@ class SectionController extends Controller
                 $Section = Section::where('user_id', '=', $request->user_id)->where('group_id', '=', $Group->id)->where('code', '=', $code)->first();
 
                 if ($Section->delete()) {
-                    return response()->json(['message' => 'data deleted.'], 201);
+                    return response()->json(['message' => 'data deleted.'], 410);
                 } else {
                     return response()->json(['message' => 'data not deleted.'], 400);
                 }
