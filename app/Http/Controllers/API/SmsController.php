@@ -50,7 +50,7 @@ class SmsController extends Controller
                     $User->remaining_of_sms = $User->remaining_of_sms - $Msgs;
 
                     if ($SMS->save() && $User->save()) {
-                        return response()->json(['message' => 'success', 'data' => 'message sent.'], 200);
+                        return response()->json(['message' => 'success', 'data' => $response], 200);
                     } else {
                         return response()->json(['message' => 'message not sent.'], 404);
                     }

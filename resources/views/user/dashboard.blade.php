@@ -260,6 +260,64 @@
                     </div>
                 </div>
             @endif
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>SMS API</h3>
+                            <div>
+                                <p>It is a GET Request API.</p>
+                                <pre>
+                                    <code class="language-markup">
+                                        <span>{{ urldecode(route('api.sms.quick', ['email' => session('Data.email'), 'password' => '*********', 'phone_number' => '923012345678', 'message' => "Hello I'm testing message"])) }}</span>
+                                    </code>
+                                </pre>
+
+                                <div>
+                                    <br>
+                                    <h5>Coding Examples</h5>
+                                    <ul class="tabs tab-demo z-depth-1">
+                                        <li class="tab">
+                                            <a class="active" href="#1csdotnet">C# .NET</a>
+                                        </li>
+                                        <li class="tab">
+                                            <a class="" href="#1vbdotnet">VB .NET</a>
+                                        </li>
+                                    </ul>
+                                    <div id="1csdotnet">
+                                        <pre>
+                                            <code class="language-markup">
+                                                WebRequest request = WebRequest.Create("{{ urldecode(route('api.sms.quick', ['email' => session('Data.email'), 'password' => '*********', 'phone_number' => '923012345678', 'message' => "Hello I'm testing message"])) }}");
+                                                WebResponse response = request.GetResponse();
+
+                                                Stream dataStream = response.GetResponseStream();
+                                                StreamReader reader = new StreamReader(dataStream);
+
+                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString());
+                                                response.Close();
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <div id="1vbdotnet">
+                                        <pre>
+                                            <code class="language-markup">
+                                                Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.sms.quick', ['email' => session('Data.email'), 'password' => '*********', 'phone_number' => '923012345678', 'message' => "Hello I'm testing message"])) }}")
+                                                Dim response As WebResponse = request.GetResponse()
+
+                                                Dim dataStream As Stream = response.GetResponseStream()
+                                                Dim reader As New StreamReader(dataStream)
+
+                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString())
+                                                response.Close()
+                                            </code>
+                                        </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @endif
     </div>
 </div>

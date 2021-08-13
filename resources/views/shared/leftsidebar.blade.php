@@ -140,12 +140,6 @@
                                                 API</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ route('r.apisms') }}">
-                                            <i class="material-icons">developer_mode</i>
-                                            <span class="hide-menu">SMS API</span>
-                                        </a>
-                                    </li>
                                 </ul>
                             </ul>
                         </div>
