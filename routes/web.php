@@ -186,9 +186,9 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 //     return Str::of($company_nature)->plural()->ucfirst();
 // });
 
-Route::get('test/jobs/{job}', function ($job) {
-    for ($i = 0; $i < $job; $i++) {
-        TestJob::dispatch();
-    }
-    return "Done";
-});
+// Route::get('test/jobs/{job}', function ($job) {
+//     for ($i = 0; $i < $job; $i++) {
+//         TestJob::dispatch();
+//     }
+//     return "Done";
+// });
