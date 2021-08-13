@@ -30,7 +30,8 @@ class StudentController extends Controller
                     ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
                     ->select('groups.name AS class_name', 'sections.name AS section_name', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.dob', 'mobiledatas.gender', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active')
                     ->where('mobiledatas.user_id', '=', $request->user_id)
-                    ->where('sections.group_id', '=', $Class->id)
+                    ->where('mobiledatas.group_id', '=', $Class->id)
+                    ->where('mobiledatas.section_id', '=', $Section->id)
                     ->orderBy('class_name')->get();
 
                 return response()->json(['message' => 'success', 'data' => $Students], 200);
