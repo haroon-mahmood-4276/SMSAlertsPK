@@ -84,11 +84,7 @@
     @yield('Js')
     <script>
         $(document).ready(function() {
-            var currY = $(window).scrollTop();
-                var postHeight = $(document).height();
-                var scrollHeight = $(window).height();
-                var scrollPercent = (currY / (scrollHeight - postHeight)) * 100;
-                $('.bar-long').width(Math.abs(scrollPercent) + "%");
+            resizeTopBar();
         });
         $(function() {
             "use strict";
@@ -105,13 +101,17 @@
             });
 
             $(window).scroll(function() {
-                var currY = $(window).scrollTop();
-                var postHeight = $(document).height();
-                var scrollHeight = $(window).height();
-                var scrollPercent = (currY / (scrollHeight - postHeight)) * 100;
-                $('.bar-long').width(Math.abs(scrollPercent) + "%");
+                resizeTopBar();
             });
         });
+
+        function resizeTopBar() {
+            var currY = $(window).scrollTop();
+            var postHeight = $(document).height();
+            var scrollHeight = $(window).height();
+            var scrollPercent = (currY / (scrollHeight - postHeight)) * 100;
+            $('.bar-long').width(Math.abs(scrollPercent) + "%");
+        }
     </script>
     <script>
         let mybutton = document.getElementById("btn-back-to-top");
