@@ -162,8 +162,8 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         })->name('r.apiclass');
 
         Route::get('section', function () {
-            return view('api.section');
-        })->name('r.apisection', ['company_nature' => 'section']);
+            return view('api.section', ['company_nature' => 'section']);
+        })->name('r.apisection');
 
         Route::get('member', function () {
             return view('api.mobiledata', ['company_nature' => 'member']);
