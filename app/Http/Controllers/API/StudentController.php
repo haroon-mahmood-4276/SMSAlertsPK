@@ -29,7 +29,7 @@ class StudentController extends Controller
                 $Students = Mobiledatas::join('groups', 'mobiledatas.group_id', '=', 'groups.id')
                     ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
                     ->select('groups.name AS class_name', 'sections.name AS section_name', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.dob', 'mobiledatas.gender', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active')
-                    ->where('sections.user_id', '=', $request->user_id)
+                    ->where('mobiledatas.user_id', '=', $request->user_id)
                     ->where('sections.group_id', '=', $Class->id)
                     ->orderBy('class_name')->get();
 
@@ -151,7 +151,7 @@ class StudentController extends Controller
             $Section = Section::where('user_id', '=', $request->user_id)->where('group_id', '=', $Class->id)->where('code', '=', $section_code)->first();
             if ($Section) {
 
-               $StudentData = Mobiledatas::where('code', '=', $code)->first();
+                $StudentData = Mobiledatas::where('code', '=', $code)->first();
                 if ($StudentData) {
 
                     $validator = Validator::make($request->all(), [
