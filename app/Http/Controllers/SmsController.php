@@ -47,7 +47,7 @@ class SmsController extends Controller
         $User = User::find(session('Data.id'));
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
             if ($User->remaining_of_sms > 0) {
-                $Msgs = intval(((Str::length($request->Message) / 160) + 1));
+                $Msgs = intval(((Str::length($request->message) / 160) + 1));
                 if ($Msgs <= $User->remaining_of_sms) {
 
                     $response =  Http::get('http://sms.web.pk/sendsms.php', [
@@ -105,7 +105,7 @@ class SmsController extends Controller
             $User = User::find(session('Data.id'));
             if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
                 if ($User->remaining_of_sms > 0) {
-                    $Msgs = intval(((Str::length($request->Message) / 160) + 1));
+                    $Msgs = intval(((Str::length($request->message) / 160) + 1));
                     if ($Msgs <= $User->remaining_of_sms) {
 
                         $response =  Http::get('http://sms.web.pk/sendsms.php', [
