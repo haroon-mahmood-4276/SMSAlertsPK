@@ -9,6 +9,7 @@ use App\Models\Section;
 use App\Rules\API\StudentCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class StudentController extends Controller
 {
@@ -60,8 +61,8 @@ class StudentController extends Controller
                     'student_last_name' => 'bail|required|alpha|between:1,50',
                     'student_mobile_1' => 'bail|required|numeric|digits:12',
                     'student_mobile_2' => 'bail|numeric|digits:12',
-                    'dob' => 'bail|required|date',
-                    'gender' => 'required',
+                    'dob' => 'bail|required|date|date_format:Y-m-d',
+                    'gender' => 'required|size:1',
                     'parent_first_name' => 'bail|required|alpha|between:1,50',
                     'parent_last_name' => 'bail|required|alpha|between:1,50',
                     'parent_mobile_1' => 'required|digits:12',
@@ -72,31 +73,30 @@ class StudentController extends Controller
                 if ($validator->fails())
                     return response()->json(['message' => $validator->errors()], 422);
 
-                $MobileDatas = new MobileDatas;
+                $StudentsData = new Mobiledatas;
 
-                $MobileDatas->user_id = $request->user_id;
-                $MobileDatas->group_id = $Class->id;
+                $StudentsData->user_id = $request->user_id;
+                $StudentsData->group_id = $Class->id;
+                $StudentsData->section_id = $Section->id;
 
-                $MobileDatas->section_id = $Section->id;
-                $MobileDatas->code = $request->code;
+                $StudentsData->code = $request->code;
+                $StudentsData->student_first_name = $request->student_first_name;
+                $StudentsData->student_last_name = $request->student_last_name;
+                $StudentsData->student_mobile_1 = $request->student_mobile_1;
+                $StudentsData->student_mobile_2 = $request->student_mobile_2;
 
-                $MobileDatas->student_first_name = $request->student_first_name;
-                $MobileDatas->student_last_name = $request->student_last_name;
+                $StudentsData->dob = $request->dob;
+                $StudentsData->gender = Str::of($request->gender)->upper();
 
-                $MobileDatas->dob = $request->dob;
-                $MobileDatas->gender = $request->gender;
+                $StudentsData->parent_first_name = $request->parent_first_name;
+                $StudentsData->parent_last_name = $request->parent_last_name;
 
-                $MobileDatas->parent_first_name = $request->parent_first_name;
-                $MobileDatas->student_mobile_1 = $request->student_mobile_1;
+                $StudentsData->parent_mobile_1 = $request->parent_mobile_1;
+                $StudentsData->parent_mobile_2 = $request->parent_mobile_2;
 
-                $MobileDatas->student_mobile_2 = $request->student_mobile_2;
-                $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
+                $StudentsData->active = $request->active;
 
-                $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
-                $MobileDatas->parent_last_name = $request->parent_last_name;
-                $MobileDatas->active = $request->active;
-
-                if ($MobileDatas->save()) {
+                if ($StudentsData->save()) {
                     return response()->json(['message' => 'data saved.'], 201);
                 } else {
                     return response()->json(['message' => 'data not saved.'], 400);
@@ -151,55 +151,49 @@ class StudentController extends Controller
             $Section = Section::where('user_id', '=', $request->user_id)->where('group_id', '=', $Class->id)->where('code', '=', $section_code)->first();
             if ($Section) {
 
-                $validator = Validator::make($request->all(), [
-                    'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new StudentCode($request->user_id)],
-                    'student_first_name' => 'bail|required|alpha|between:1,50',
-                    'student_last_name' => 'bail|required|alpha|between:1,50',
-                    'student_mobile_1' => 'bail|required|numeric|digits:12',
-                    'student_mobile_2' => 'bail|numeric|digits:12',
-                    'dob' => 'bail|required|date',
-                    'gender' => 'required',
-                    'parent_first_name' => 'bail|required|alpha|between:1,50',
-                    'parent_last_name' => 'bail|required|alpha|between:1,50',
-                    'parent_mobile_1' => 'required|digits:12',
-                    'parent_mobile_2' => 'nullable|digits:12',
-                    'group' => 'required',
-                    'section' => 'required',
-                    'active' => 'required',
-                ]);
+               $StudentData = Mobiledatas::where('code', '=', $code)->first();
+                if ($StudentData) {
 
-                if ($validator->fails())
-                    return response()->json(['message' => $validator->errors()], 422);
+                    $validator = Validator::make($request->all(), [
+                        'student_first_name' => 'bail|required|alpha|between:1,50',
+                        'student_last_name' => 'bail|required|alpha|between:1,50',
+                        'student_mobile_1' => 'bail|required|numeric|digits:12',
+                        'student_mobile_2' => 'bail|numeric|digits:12',
+                        'dob' => 'bail|required|date|date_format:Y-m-d',
+                        'gender' => 'required|size:1',
+                        'parent_first_name' => 'bail|required|alpha|between:1,50',
+                        'parent_last_name' => 'bail|required|alpha|between:1,50',
+                        'parent_mobile_1' => 'required|digits:12',
+                        'parent_mobile_2' => 'nullable|digits:12',
+                        'active' => 'required',
+                    ]);
 
-                $MobileDatas = new MobileDatas;
+                    if ($validator->fails())
+                        return response()->json(['message' => $validator->errors()], 422);
 
-                $MobileDatas->user_id = $request->user_id;
-                $MobileDatas->group_id = $Class->id;
+                    $StudentData->student_first_name = $request->student_first_name;
+                    $StudentData->student_last_name = $request->student_last_name;
+                    $StudentData->student_mobile_1 = $request->student_mobile_1;
+                    $StudentData->student_mobile_2 = $request->student_mobile_2;
 
-                $MobileDatas->section_id = $Section->id;
-                $MobileDatas->code = $request->code;
+                    $StudentData->dob = $request->dob;
+                    $StudentData->gender = Str::of($request->gender)->upper();
 
-                $MobileDatas->student_first_name = $request->student_first_name;
-                $MobileDatas->student_last_name = $request->student_last_name;
+                    $StudentData->parent_first_name = $request->parent_first_name;
+                    $StudentData->parent_last_name = $request->parent_last_name;
 
-                $MobileDatas->dob = $request->dob;
-                $MobileDatas->gender = $request->gender;
+                    $StudentData->parent_mobile_1 = $request->parent_mobile_1;
+                    $StudentData->parent_mobile_2 = $request->parent_mobile_2;
 
-                $MobileDatas->parent_first_name = $request->parent_first_name;
-                $MobileDatas->student_mobile_1 = $request->student_mobile_1;
+                    $StudentData->active = $request->active;
 
-                $MobileDatas->student_mobile_2 = $request->student_mobile_2;
-                $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
-
-                $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
-                $MobileDatas->parent_last_name = $request->parent_last_name;
-                $MobileDatas->active = $request->active;
-
-                if ($MobileDatas->save()) {
-                    return response()->json(['message' => 'data saved.'], 201);
-                } else {
-                    return response()->json(['message' => 'data not saved.'], 400);
-                }
+                    if ($StudentData->save()) {
+                        return response()->json(['message' => 'data saved.'], 201);
+                    } else {
+                        return response()->json(['message' => 'data not saved.'], 400);
+                    }
+                } else
+                    return response()->json(['message' => 'this stuent code does not exist.'], 404);
             } else
                 return response()->json(['message' => 'this section code does not exist.'], 404);
         } else
@@ -212,8 +206,26 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $class_code, $section_code, $code)
     {
-        //
+        $Class = Group::where('user_id', '=', $request->user_id)->where('code', '=', $class_code)->first();
+        if ($Class) {
+
+            $Section = Section::where('user_id', '=', $request->user_id)->where('group_id', '=', $Class->id)->where('code', '=', $section_code)->first();
+            if ($Section) {
+
+                $StudentData = Mobiledatas::where('code', '=', $code)->first();
+                if ($StudentData) {
+                    if ($StudentData->delete()) {
+                        return response()->json(['message' => 'data deleted.'], 410);
+                    } else {
+                        return response()->json(['message' => 'data not deleted.'], 400);
+                    }
+                } else
+                    return response()->json(['message' => 'this stuent code does not exist.'], 404);
+            } else
+                return response()->json(['message' => 'this section code does not exist.'], 404);
+        } else
+            return response()->json(['message' => 'this class code does not exist.'], 404);
     }
 }
