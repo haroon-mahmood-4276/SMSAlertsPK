@@ -5,6 +5,7 @@ use App\Http\Controllers\API\GroupController;
 use App\Http\Controllers\API\MemberController;
 use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\SectionController;
+use App\Http\Controllers\API\SmsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,5 +59,9 @@ Route::name('api.')->group(function () {
         Route::post('data', [MemberController::class, 'store'])->name('store');
         Route::put('data/{code}', [MemberController::class, 'update'])->name('update');
         Route::delete('data/{code}', [MemberController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::name('sms.')->prefix('sms')->group(function () {
+        Route::get('quick', [SmsController::class, 'QuickSMS'])->name('quick');
     });
 });
