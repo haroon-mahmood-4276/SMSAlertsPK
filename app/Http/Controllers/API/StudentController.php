@@ -57,7 +57,7 @@ class StudentController extends Controller
             if ($Section) {
 
                 $validator = Validator::make($request->all(), [
-                    'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new StudentCode($request->user_id)],
+                    'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new MobileDataCode($request->user_id)],
                     'student_first_name' => 'bail|required|alpha|between:1,50',
                     'student_last_name' => 'bail|required|alpha|between:1,50',
                     'student_mobile_1' => 'bail|required|numeric|digits:12',
