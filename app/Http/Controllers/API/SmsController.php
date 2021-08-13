@@ -3,21 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Imports\DuesImport;
-use App\Jobs\JobMain;
-use App\Jobs\JobSendSms;
-use App\Models\Group;
-use App\Models\Mobiledatas;
 use App\Models\Sms;
-use App\Models\Template;
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Facades\Excel;
 
 class SmsController extends Controller
 {
