@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\Mobiledatas;
 use App\Models\Section;
-use App\Rules\API\StudentCode;
+use App\Rules\API\MobileDataCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
