@@ -45,6 +45,6 @@ class GroupCode implements Rule
      */
     public function message()
     {
-        return 'This group :attribute is already taken.';
+        return 'This :attribute is already taken.';
     }
 }
