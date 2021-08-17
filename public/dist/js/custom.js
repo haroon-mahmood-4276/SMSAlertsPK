@@ -291,25 +291,24 @@ $(function () {
     });
 
     $(".count-message-character").focusin(function () {
-        if ($("#message").val().length < 1)
-            $('#message-character-counter').html("0/0");
+        if ($("#" + this.id).val().length < 1)
+            $("#" + this.id + " + #message-character-counter").html("0/0");
         else
-            $.fn.MessageCounter();
+            $.fn.MessageCounter(this.id);
     }).focusout(function () {
-        if ($("#message").val().length < 1)
-            $('#message-character-counter').html("&nbsp;");
+        if ($("#" + this.id).val().length < 1)
+            $("#" + this.id + " + #message-character-counter").html("&nbsp;");
     }).on('input', function () {
-        $.fn.MessageCounter();
+        $.fn.MessageCounter(this.id);
     });
 
-    $.fn.MessageCounter = function () {
-        if ($("#message").val().length > 0) {
-            var length = $("#message").val().length;
+    $.fn.MessageCounter = function (id) {
+        if ($("#" + id).val().length > 0) {
+            var length = $("#" + id).val().length;
             var messages = length / 160;
-
-            $('#message-character-counter').html(Math.abs(length - (parseInt(messages + 1) * 160)) + "/" + parseInt(messages + 1));
-        }
-        else
-            $('#message-character-counter').html("0/0");
+            $("#" + id + " + #message-character-counter").html(Math.abs(length - (parseInt(messages + 1) * 160)) +
+                "/" + parseInt(messages + 1));
+        } else
+            $("#" + id + " + #message-character-counter").html("0/0");
     }
 });

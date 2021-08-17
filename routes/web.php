@@ -16,11 +16,6 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
-use App\Jobs\TestJob;
-use App\Models\Mobiledatas;
-use App\Models\Section;
-use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -139,8 +134,8 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     });
 
     Route::get('settings', [SettingController::class, 'Settings'])->name('r.settings');
-    Route::post('birthdaysettings', [SettingController::class, 'BirthDaySMS'])->name('r.birthdaysettings');
-    Route::post('smssettings', [SettingController::class, 'SMSSetting'])->name('r.smssettings');
+    Route::post('birthday-settings', [SettingController::class, 'BirthDaySMS'])->name('r.birthdaysettings');
+    Route::post('attendance-settings', [SettingController::class, 'SMSSetting'])->name('r.attendancesettings');
     // Route::get('test', [SettingController::class, 'Test']);
 
     Route::get('packages/{package}/add', [PackageController::class, 'AddPackageView'])->name('r.add-package-view');
