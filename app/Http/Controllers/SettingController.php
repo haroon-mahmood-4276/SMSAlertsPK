@@ -11,7 +11,6 @@ class SettingController extends Controller
     public function Settings()
     {
         $Setting = Setting::where('user_id', '=', session('Data.id'))->first();
-        // return $BirthdaySetting;
         return view('setting.settings', ['Setting' => $Setting]);
     }
 
@@ -31,6 +30,25 @@ class SettingController extends Controller
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Birthday setting saved.');
         } else {
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Birthday setting saved.');
+        }
+    }
+
+    public function AttendanceSMS(Request $request)
+    {
+        $AttendanceSetting = Setting::where('user_id', '=', session('Data.id'))->first();
+        $AttendanceSetting->attendance_enabled = ($request->attendance_enabled == 'on') ? 'Y' : 'N';
+
+        $AttendanceSetting->attendance_message = ($request->has('attendance_message')) ? $request->attendance_message : null;
+        $AttendanceSetting->attendance_parent_primary_number = ($request->attendance_parent_primary_number == 'on') ? 'Y' : 'N';
+        $AttendanceSetting->attendance_parent_secondary_number = ($request->attendance_parent_secondary_number == 'on') ? 'Y' : 'N';
+
+        // $AttendanceSetting->attendance_student_primary_number = ($request->attendance_student_primary_number == 'on') ? 'Y' : 'N';
+        // $AttendanceSetting->attendance_student_secondary_number = ($request->attendance_student_secondary_number == 'on') ? 'Y' : 'N';
+
+        if ($AttendanceSetting->save()) {
+            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Attendance setting saved.');
+        } else {
+            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Attendance setting saved.');
         }
     }
 

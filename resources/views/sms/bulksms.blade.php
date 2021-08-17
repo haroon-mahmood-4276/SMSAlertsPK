@@ -335,7 +335,6 @@
     <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
     <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
     <script src="{{ asset('dist/js/app.js') }}"></script>
-    <script src="{{ asset('dist/js/app.init.js') }}"></script>
     <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
@@ -343,10 +342,6 @@
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
 
-    {{-- <script src="{{ asset('assets/extra-libs/DataTables/datatables.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/datatable/datatable-basic.init.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/datatable/datatable-api.init.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/datatable/datatable-advanced.init.js') }}"></script> --}}
     <script>
         $('#group').on('change', function() {
             var GroupId = $(this).val();

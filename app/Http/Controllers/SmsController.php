@@ -7,6 +7,7 @@ use App\Jobs\JobMain;
 use App\Jobs\JobSendSms;
 use App\Models\Group;
 use App\Models\Mobiledatas;
+use App\Models\Setting;
 use App\Models\Sms;
 use App\Models\Template;
 use App\Models\User;
@@ -238,11 +239,12 @@ class SmsController extends Controller
     public function ManualAttendanceView()
     {
         $User = User::find(session('Data.id'));
+        $Settings = Setting::where('user_id', session('Data.id'))->first();
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
             if ($User->remaining_of_sms > 0) {
                 $Classes = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
 
-                return view('sms.manualattendance', ['Classes' => $Classes]);
+                return view('sms.manualattendance', ['Classes' => $Classes, 'Settings' => $Settings]);
             } else
                 return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
         }
@@ -253,6 +255,6 @@ class SmsController extends Controller
         // return $request->input();
 
         JobMain::dispatch(session('Data'), $request->all());
-        return redirect()->route('r.dashboard')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
+        return redirect()->route('r.manual-attendance-view')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }

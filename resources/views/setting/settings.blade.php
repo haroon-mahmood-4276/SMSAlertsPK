@@ -25,14 +25,14 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col l12 m12 s12">
-                @if (Session::get('AlertType') && Session::get('AlertMsg'))
-                    <div class="col l12 m12 s12">
-                        <div class="{{ Session::get('AlertType') }}-alert-bar m-b-15 p-15 white-text">
-                            {{ Session::get('AlertMsg') }}
-                        </div>
+            @if (Session::get('AlertType') && Session::get('AlertMsg'))
+                <div class="col l12 m12 s12">
+                    <div class="{{ Session::get('AlertType') }}-alert-bar m-b-15 p-15 white-text">
+                        {{ Session::get('AlertMsg') }}
                     </div>
-                @endif
+                </div>
+            @endif
+            <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
                         <h3 class="card-title">Birthday Template</h3>
@@ -181,7 +181,7 @@
                                     <i class="material-icons prefix">question_answer</i>
                                     <label for="attendance_message">Message *</label>
                                     <textarea id="attendance_message" name="attendance_message"
-                                        {{ $Setting->attendance_message == 'Y' ? '' : 'disabled' }}
+                                        {{ $Setting->attendance_enabled == 'Y' ? '' : 'disabled' }}
                                         class="materialize-textarea count-message-character @error('attendance_message') error @enderror">{{ $Setting->attendance_message }}</textarea>
                                     <span class="character-counter" id="message-character-counter"
                                         style="float: right; font-size: 12px;"> &nbsp;</span>
@@ -298,7 +298,6 @@
 <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
 <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
 <script src="{{ asset('dist/js/app.js') }}"></script>
-<script src="{{ asset('dist/js/app.init.js') }}"></script>
 <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
 <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
