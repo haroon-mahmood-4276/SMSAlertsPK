@@ -69,7 +69,7 @@ class SmsController extends Controller
                     $User->remaining_of_sms = $User->remaining_of_sms - $Msgs;
 
                     if ($SMS->save() && $User->save()) {
-                        return redirect()->route('r.quick-sms-view')->with('AlertType', 'success')->with('AlertMsg', $response);
+                        return redirect()->route('r.quick-sms-view')->with('AlertType', 'success')->with('AlertMsg', strval($response));
                     } else {
                         return redirect()->route('r.quick-sms-view')->with('AlertType', 'danger')->with('AlertMsg', $response);
                     }
