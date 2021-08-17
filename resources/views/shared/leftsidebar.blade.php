@@ -32,7 +32,7 @@
                     </li>
                     <li>
                         <a href="{{ route('templates.index') }}"
-                            class="collapsible-header {{ Request::is(route('data.index')) ? 'active' : null }}"><i
+                            class="collapsible-header {{ Request::is(route('templates.index')) ? 'active' : null }}"><i
                                 class="material-icons">playlist_add</i><span class="hide-menu">
                                 Template Management</span></a>
                     </li>
@@ -44,27 +44,27 @@
                                 <ul>
 
                                     <li>
-                                        <a href="{{ route('r.bulksmsshow') }}">
+                                        <a href="{{ route('r.bulk-sms-view') }}">
                                             <i class="material-icons">message</i>
                                             <span class="hide-menu">Bulk SMS</span>
                                         </a>
                                     </li>
                                     @if (session('Data.company_nature') == 'S')
                                         <li>
-                                            <a href="{{ route('r.smsdues') }}">
+                                            <a href="{{ route('r.dues-sms-view') }}">
                                                 <i class="material-icons">message</i>
                                                 <span class="hide-menu">Dues SMS</span>
                                             </a>
                                         </li>
                                     @endif
                                     <li>
-                                        <a href="{{ route('r.multiplesmsshow') }}">
+                                        <a href="{{ route('r.multiple-sms-view') }}">
                                             <i class="material-icons">message</i>
                                             <span class="hide-menu">Multiple SMS</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('r.quicksmsshow') }}">
+                                        <a href="{{ route('r.quick-sms-view') }}">
                                             <i class="material-icons">message</i>
                                             <span class="hide-menu">Quick SMS</span>
                                         </a>
@@ -74,6 +74,29 @@
                             </ul>
                         </div>
                     </li>
+                    @if (session('Data.company_nature') == 'S')
+                        @if (session('Data.company_nature') == 'S')
+                            <li>
+                                <a href="javascript: void(0);" class="collapsible-header has-arrow"><i
+                                        class="material-icons">assignment_turned_in</i><span
+                                        class="hide-menu">Attendance System</span></a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <ul>
+
+                                            <li class="{{ Request::is(route('r.manualattendanceshow')) ? 'active' : null }}">
+                                                <a href="{{ route('r.manualattendanceshow') }}"
+                                                    class="{{ Request::is(route('r.manualattendanceshow')) ? 'active' : null }}">
+                                                    <i class="material-icons">assignment_turned_in</i>
+                                                    <span class="hide-menu">Manual Attendance</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </li>
+                        @endif
+                    @endif
                     <li>
                         <a href="javascript: void(0);" class="collapsible-header has-arrow"><i
                                 class="material-icons">receipt</i><span class="hide-menu">Reports</span></a>

@@ -55,15 +55,17 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('data/{groupid}/{sectionid}/list', [MobileDataController::class, 'STDList'])->name('r.studentlist');
 
 
-    Route::get('sms/quick', [SmsController::class, 'ShowQuickSMS'])->name('r.quicksmsshow');
-    Route::get('sms/multiple', [SmsController::class, 'ShowMultipleSMS'])->name('r.multiplesmsshow');
-    Route::get('sms/bulk', [SmsController::class, 'BulkSMSShow'])->name('r.bulksmsshow');
-    Route::get('sms/dues', [SmsController::class, 'ShowDuesSMS'])->name('r.smsdues');
+    Route::get('sms/quick', [SmsController::class, 'QuickSMSView'])->name('r.quick-sms-view');
+    Route::get('sms/multiple', [SmsController::class, 'MultipleSMSView'])->name('r.multiple-sms-view');
+    Route::get('sms/bulk', [SmsController::class, 'BulkSMSView'])->name('r.bulk-sms-view');
+    Route::get('sms/dues', [SmsController::class, 'DuesSMSView'])->name('r.dues-sms-view');
+    Route::get('sms/manual-attendance', [SmsController::class, 'ManualAttendanceView'])->name('r.manual-attendance-view');
 
     Route::post('sms/quick', [SmsController::class, 'QuickSMS'])->name('r.quicksms');
     Route::post('sms/multiple', [SmsController::class, 'MultipleSMS'])->name('r.multiplesms');
     Route::post('sms/bulk', [SmsController::class, 'BulkSMS'])->name('r.bulksms');
     Route::post('sms/dues', [SmsController::class, 'DuesSMS'])->name('r.duessms');
+    Route::post('sms/manual-attendance', [SmsController::class, 'ManualAttendance'])->name('r.manualattendanceshow');
 
 
     Route::get('imports', function () {
@@ -138,7 +140,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::post('smssettings', [SettingController::class, 'SMSSetting'])->name('r.smssettings');
     // Route::get('test', [SettingController::class, 'Test']);
 
-    Route::get('packages/{package}/add', [PackageController::class, 'ShowAddPackage'])->name('r.showaddpackage');
+    Route::get('packages/{package}/add', [PackageController::class, 'AddPackageView'])->name('r.showaddpackage');
     Route::post('packages/{package}/add', [PackageController::class, 'AddPackage'])->name('r.addpackage');
 
     Route::prefix('reports')->group(function () {

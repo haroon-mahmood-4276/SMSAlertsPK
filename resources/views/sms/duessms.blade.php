@@ -20,7 +20,7 @@
                 <div class="custom-breadcrumb ml-auto">
                     <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
                     <a href="javascript:void(0)" class="breadcrumb">Messaging</a>
-                    <a href="{{ route('r.smsdues') }}" class="breadcrumb">Dues SMS</a>
+                    <a href="{{ route('r.dues-sms-view') }}" class="breadcrumb">Dues SMS</a>
                 </div>
             </div>
         </div>

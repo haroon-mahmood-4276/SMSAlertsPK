@@ -26,7 +26,7 @@ class SmsController extends Controller
     //     return view('sms.index', ['SMSHistoryData' => $SMSHistoryData]);
     // }sudo
 
-    public function ShowQuickSMS()
+    public function QuickSMSView()
     {
         $User = User::find(session('Data.id'));
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
@@ -77,7 +77,7 @@ class SmsController extends Controller
         }
     }
 
-    public function ShowMultipleSMS()
+    public function MultipleSMSView()
     {
         $User = User::find(session('Data.id'));
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
@@ -133,7 +133,7 @@ class SmsController extends Controller
         return redirect()->route('r.quicksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Message sent");
     }
 
-    public function BulkSMSShow()
+    public function BulkSMSView()
     {
         $User = User::find(session('Data.id'));
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
@@ -155,7 +155,7 @@ class SmsController extends Controller
         return redirect()->route('r.bulksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 
-    public function ShowDuesSMS()
+    public function DuesSMSView()
     {
         $User = User::find(session('Data.id'));
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
@@ -233,5 +233,27 @@ class SmsController extends Controller
         }
 
         return redirect()->route('r.smsdues')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
+    }
+
+    public function ManualAttendanceView()
+    {
+        $User = User::find(session('Data.id'));
+        if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
+            if ($User->remaining_of_sms > 0) {
+                $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+                $Templates = Template::where('user_id', '=', session('Data.id'))->get();
+
+                return view('sms.bulksms', ['Groups' => $Groups, 'Templates' => $Templates]);
+            } else
+                return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
+        }
+    }
+
+    public function ManualAttendance(Request $request)
+    {
+        // return $request->input();
+
+        JobMain::dispatch(session('Data'), $request->all());
+        return redirect()->route('r.bulksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }
