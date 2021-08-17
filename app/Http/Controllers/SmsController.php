@@ -240,10 +240,9 @@ class SmsController extends Controller
         $User = User::find(session('Data.id'));
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
             if ($User->remaining_of_sms > 0) {
-                $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-                $Templates = Template::where('user_id', '=', session('Data.id'))->get();
+                $Classes = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
 
-                return view('sms.bulksms', ['Groups' => $Groups, 'Templates' => $Templates]);
+                return view('sms.manualattendance', ['Classes' => $Classes]);
             } else
                 return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
         }
@@ -254,6 +253,6 @@ class SmsController extends Controller
         // return $request->input();
 
         JobMain::dispatch(session('Data'), $request->all());
-        return redirect()->route('r.bulksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
+        return redirect()->route('r.dashboard')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }
