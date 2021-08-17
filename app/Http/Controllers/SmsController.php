@@ -68,9 +68,9 @@ class SmsController extends Controller
                     $User->remaining_of_sms = $User->remaining_of_sms - $Msgs;
 
                     if ($SMS->save() && $User->save()) {
-                        return redirect()->route('r.quicksmsshow')->with('AlertType', 'success')->with('AlertMsg', 'Message sent');
+                        return redirect()->route('r.quick-sms-view')->with('AlertType', 'success')->with('AlertMsg', $response);
                     } else {
-                        return redirect()->route('r.quicksmsshow')->with('AlertType', 'danger')->with('AlertMsg', $response);
+                        return redirect()->route('r.quick-sms-view')->with('AlertType', 'danger')->with('AlertMsg', $response);
                     }
                 }
             }
@@ -130,7 +130,7 @@ class SmsController extends Controller
                 }
             }
         }
-        return redirect()->route('r.quicksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Message sent");
+        return redirect()->route('r.multiple-sms-view')->with('AlertType', 'success')->with('AlertMsg', "Message sent");
     }
 
     public function BulkSMSView()
@@ -152,7 +152,7 @@ class SmsController extends Controller
         // return $request->input();
 
         JobMain::dispatch(session('Data'), $request->all());
-        return redirect()->route('r.bulksmsshow')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
+        return redirect()->route('r.bulk-sms-view')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 
     public function DuesSMSView()
@@ -191,7 +191,7 @@ class SmsController extends Controller
 
                 return view('sms.duessms', ['DuesData' => $newArray, 'Templates' => $Templates, 'Template_Code' => $request->template, 'Message' => $request->message]);
             } else
-                return redirect()->route('r.smsdues')->with('AlertType', 'info')->with('AlertMsg', "Upload file first.");
+                return redirect()->route('r.dues-sms-view')->with('AlertType', 'info')->with('AlertMsg', "Upload file first.");
         } else {
             if ($request->session()->has('DuesData')) {
 
@@ -232,7 +232,7 @@ class SmsController extends Controller
             Session()->forget('DuesData');
         }
 
-        return redirect()->route('r.smsdues')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
+        return redirect()->route('r.dues-sms-view')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 
     public function ManualAttendanceView()
