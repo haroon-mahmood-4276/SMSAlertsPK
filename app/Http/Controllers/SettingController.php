@@ -27,6 +27,10 @@ class SettingController extends Controller
 
 
         if ($BirthdaySetting->save()) {
+            if (session()->has('Data') && session()->has('UserSettings')) {
+                $UserSettings = Setting::where('user_id', session()->get('Data.id'))->first();
+                session()->put(['UserSettings' => $UserSettings]);
+            }
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Birthday setting saved.');
         } else {
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Birthday setting saved.');
@@ -46,6 +50,10 @@ class SettingController extends Controller
         // $AttendanceSetting->attendance_student_secondary_number = ($request->attendance_student_secondary_number == 'on') ? 'Y' : 'N';
 
         if ($AttendanceSetting->save()) {
+            if (session()->has('Data') && session()->has('UserSettings')) {
+                $UserSettings = Setting::where('user_id', session()->get('Data.id'))->first();
+                session()->put(['UserSettings' => $UserSettings]);
+            }
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Attendance setting saved.');
         } else {
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Attendance setting saved.');

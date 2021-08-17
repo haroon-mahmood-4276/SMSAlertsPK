@@ -238,7 +238,8 @@ class UserController extends Controller
         // return dd(session('Data'));
         if (session()->has('Data')) {
             $User = User::find(session()->get('Data.id'));
-            session()->put(['Data' => $User]);
+            $UserSettings = Setting::where('user_id', session()->get('Data.id'))->first();
+            session()->put(['Data' => $User, 'UserSettings' => $UserSettings]);
             if (session('Data.company_nature') == 'A') {
                 $GroupCount = User::count() - 1;
                 $SectionCount = User::where('company_nature', '=', 'B')->count();
