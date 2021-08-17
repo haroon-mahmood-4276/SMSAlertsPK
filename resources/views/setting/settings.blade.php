@@ -335,7 +335,7 @@
         // $('#student_secondary_number').prop("disabled", !this.checked).prop("checked", false);
 
         if ($('#attendance_enabled').prop("checked") == false) {
-            $('#message').val('');
+            $('#attendance_message').val('');
         }
     });
 
