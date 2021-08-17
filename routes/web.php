@@ -186,9 +186,9 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
 
-Route::get('test', function () {
-    return Mobiledatas::where('user_id', '=', '4')->delete();
-});
+// Route::get('test', function () {
+//     return Mobiledatas::where('user_id', '=', '4')->delete();
+// });
 
 // Route::get('test/jobs/{job}', function ($job) {
 //     for ($i = 0; $i < $job; $i++) {

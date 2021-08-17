@@ -10,14 +10,14 @@ class SettingController extends Controller
 {
     public function Settings()
     {
-        $Setting = Setting::find(session('Data.id'));
+        $Setting = Setting::where('user_id', '=', session('Data.id'))->first();
         // return $BirthdaySetting;
         return view('setting.settings', ['Setting' => $Setting]);
     }
 
     public function BirthDaySMS(Request $request)
     {
-        $BirthdaySetting = Setting::find(session('Data.id'));
+        $BirthdaySetting = Setting::where('user_id', '=', session('Data.id'))->first();
         $BirthdaySetting->birthday_enabled = ($request->is_enabled == 'on') ? 'Y' : 'N';
 
         $BirthdaySetting->birthday_message = ($request->has('message')) ? $request->message : null;

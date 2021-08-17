@@ -84,7 +84,8 @@
                                     <ul>
                                         <ul>
 
-                                            <li class="{{ Request::is(route('r.manualattendanceshow')) ? 'active' : null }}">
+                                            <li
+                                                class="{{ Request::is(route('r.manualattendanceshow')) ? 'active' : null }}">
                                                 <a href="{{ route('r.manualattendanceshow') }}"
                                                     class="{{ Request::is(route('r.manualattendanceshow')) ? 'active' : null }}">
                                                     <i class="material-icons">assignment_turned_in</i>
@@ -123,12 +124,14 @@
                                 class="material-icons">file_upload</i>
                             <span class="hide-menu"> Imports</span></a>
                     </li>
-                    <li>
-                        <a href="{{ route('r.settings') }}"
-                            class="collapsible-header {{ Request::is(route('r.settings')) ? 'active' : null }}"><i
-                                class="material-icons">settings</i>
-                            <span class="hide-menu"> Settings</span></a>
-                    </li>
+                    @if (session('Data.company_nature') == 'S')
+                        <li>
+                            <a href="{{ route('r.settings') }}"
+                                class="collapsible-header {{ Request::is(route('r.settings')) ? 'active' : null }}"><i
+                                    class="material-icons">settings</i>
+                                <span class="hide-menu"> Settings</span></a>
+                        </li>
+                    @endif
                     <li>
                         <a href="javascript: void(0);" class="collapsible-header has-arrow"><i
                                 class="material-icons">developer_mode</i><span class="hide-menu">API

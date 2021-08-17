@@ -93,7 +93,7 @@ class UserController extends Controller
             $BirthdaySetting->parent_secondary_number = 'N';
             $BirthdaySetting->student_primary_number = 'N';
             $BirthdaySetting->student_secondary_number = 'N';
-            $BirthdaySetting->attendance_message = 'null';
+            $BirthdaySetting->attendance_message = null;
             $BirthdaySetting->attendance_enabled = 'N';
             $BirthdaySetting->attendance_parent_primary_number = 'Y';
             $BirthdaySetting->attendance_parent_secondary_number = 'N';
