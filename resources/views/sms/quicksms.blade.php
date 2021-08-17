@@ -53,10 +53,9 @@
 
                             <div class="input-field col s12 m12 l12">
                                 <i class="material-icons prefix">question_answer</i>
-                                <textarea id="message" name="message"
-                                    class="materialize-textarea validate count-message-character @error('message') error @enderror"
-                                    value="{{ old('message') }}"></textarea>
                                 <label for="message">Message *</label>
+                                <textarea id="message" name="message"
+                                    class="materialize-textarea count-message-character @error('message') error @enderror">{{ old('message') }}</textarea>
                                 <span class="character-counter" id="message-character-counter"
                                     style="float: right; font-size: 12px;"> &nbsp;</span>
                                 @error('message')
