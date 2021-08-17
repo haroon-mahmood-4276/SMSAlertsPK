@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
-    public function ShowAddPackage($id)
+    public function AddPackageView($id)
     {
         $Packages = Package::where('user_id', '=', $id)->get();
         return view('user.package', ['Packages' => $Packages, 'UserID' => $id]);

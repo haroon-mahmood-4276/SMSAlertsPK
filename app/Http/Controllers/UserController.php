@@ -6,7 +6,10 @@ use App\Models\Group;
 use App\Models\Section;
 use App\Models\User;
 use App\Models\Mobiledatas;
+use App\Models\Package;
 use App\Models\Setting;
+use App\Models\Sms;
+use App\Models\Template;
 use App\Rules\CheckUserCode;
 use Carbon\Carbon;
 use DateTime;
@@ -83,11 +86,20 @@ class UserController extends Controller
         if ($User->save()) {
 
             $BirthdaySetting = new Setting();
+            $BirthdaySetting->user_id = User::where('code', '=', $request->code)->first()->id;
             $BirthdaySetting->birthday_enabled = 'N';
             $BirthdaySetting->birthday_message = null;
+            $BirthdaySetting->parent_primary_number = 'Y';
             $BirthdaySetting->parent_secondary_number = 'N';
             $BirthdaySetting->student_primary_number = 'N';
             $BirthdaySetting->student_secondary_number = 'N';
+            $BirthdaySetting->attendance_message = 'null';
+            $BirthdaySetting->attendance_enabled = 'N';
+            $BirthdaySetting->attendance_parent_primary_number = 'Y';
+            $BirthdaySetting->attendance_parent_secondary_number = 'N';
+            // $BirthdaySetting->attendance_student_primary_number = 'N';
+            // $BirthdaySetting->attendance_student_secondary_number = 'N';
+            $BirthdaySetting->save();
 
             return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
         } else {
@@ -175,13 +187,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $User = User::find($id);
+        Package::where('user_id', '=', $id)->delete();
+        Setting::where('user_id', '=', $id)->delete();
+        Sms::where('user_id', '=', $id)->delete();
+        Template::where('user_id', '=', $id)->delete();
+        Mobiledatas::where('user_id', '=', $id)->delete();
+        Section::where('user_id', '=', $id)->delete();
+        Group::where('user_id', '=', $id)->delete();
+        User::find($id)->delete();
 
-        if ($User->delete()) {
-            return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleteed.');
-        } else {
-            return redirect()->route('users.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleteed.');
-        }
+        return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data deleted.');
     }
 
     /*

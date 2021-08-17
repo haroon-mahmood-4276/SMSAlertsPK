@@ -66,7 +66,7 @@
                     <div class="card-content">
                         <h5 class="card-title">Add Package</h5>
                         <form class="formValidate" id="formValidate"
-                            action="{{ route('r.addpackage', ['package' => $UserID]) }}" method="POST">
+                            action="{{ route('r.add-package', ['package' => $UserID]) }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="input-field col s6">

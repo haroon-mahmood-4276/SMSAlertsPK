@@ -17,6 +17,9 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
 use App\Jobs\TestJob;
+use App\Models\Mobiledatas;
+use App\Models\Section;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -140,8 +143,8 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::post('smssettings', [SettingController::class, 'SMSSetting'])->name('r.smssettings');
     // Route::get('test', [SettingController::class, 'Test']);
 
-    Route::get('packages/{package}/add', [PackageController::class, 'AddPackageView'])->name('r.showaddpackage');
-    Route::post('packages/{package}/add', [PackageController::class, 'AddPackage'])->name('r.addpackage');
+    Route::get('packages/{package}/add', [PackageController::class, 'AddPackageView'])->name('r.add-package-view');
+    Route::post('packages/{package}/add', [PackageController::class, 'AddPackage'])->name('r.add-package');
 
     Route::prefix('reports')->group(function () {
         Route::get('todaysummery', [ReportController::class, 'TodaySummery'])->name('r.todaysummery');
@@ -183,10 +186,9 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
 
-// Route::get('test', function () {
-//     $company_nature = 'wife';
-//     return Str::of($company_nature)->plural()->ucfirst();
-// });
+Route::get('test', function () {
+    return Mobiledatas::where('user_id', '=', '4')->delete();
+});
 
 // Route::get('test/jobs/{job}', function ($job) {
 //     for ($i = 0; $i < $job; $i++) {

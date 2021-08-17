@@ -123,7 +123,7 @@
                                             <td>{{ $User->company_nature == 'B' ? 'Business' : 'School' . ' User' }}</td>
                                             <td>{{ $User->mobile_2 }}</td>
                                             <td>
-                                                <a href="{{ route('r.showaddpackage', ['package' => $User->id]) }}" type="button"
+                                                <a href="{{ route('r.add-package-view', ['package' => $User->id]) }}" type="button"
                                                     class="btn btn-small blue m-5 left waves-effect waves-light">Add
                                                     Package</a>
                                                 <a href="{{ route('users.edit', ['user' => $User->id]) }}" type="button"

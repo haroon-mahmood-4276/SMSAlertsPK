@@ -19,8 +19,8 @@ class AddFieldsToSettingsTable extends Migration
                 $table->string('attendance_enabled', 1)->nullable();
                 $table->string('attendance_parent_primary_number', 1)->nullable();
                 $table->string('attendance_parent_secondary_number', 1)->nullable();
-                $table->string('attendance_student_primary_number', 1)->nullable();
-                $table->string('attendance_student_secondary_number', 1)->nullable();
+                // $table->string('attendance_student_primary_number', 1)->nullable();
+                // $table->string('attendance_student_secondary_number', 1)->nullable();
             });
         });
     }
@@ -37,8 +37,8 @@ class AddFieldsToSettingsTable extends Migration
             $table->dropColumn('attendance_enabled');
             $table->dropColumn('attendance_parent_primary_number');
             $table->dropColumn('attendance_parent_secondary_number');
-            $table->dropColumn('attendance_student_primary_number');
-            $table->dropColumn('attendance_student_secondary_number');
+            // $table->dropColumn('attendance_student_primary_number');
+            // $table->dropColumn('attendance_student_secondary_number');
         });
     }
 }
