@@ -42,6 +42,7 @@ class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation
             'parent_last_name' => $row['parent_last_name'],
             'parent_mobile_1' => $row['parent_mobile_1'],
             'parent_mobile_2' => $row['parent_mobile_2'],
+            'card_number' => $row['card_number'],
             'active' => $row['active'],
         ]);
     }

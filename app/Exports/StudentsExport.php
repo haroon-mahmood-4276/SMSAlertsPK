@@ -24,7 +24,7 @@ class StudentsExport implements FromArray, WithHeadings
                 'first_name',
                 'last_name',
                 '923001234567',
-                '923001234567',
+                '159930',
                 'Y',
             ]
         ];
@@ -47,6 +47,7 @@ class StudentsExport implements FromArray, WithHeadings
             'parent_last_name',
             'parent_mobile_1',
             'parent_mobile_2',
+            'card_number',
             'active',
         ];
     }
