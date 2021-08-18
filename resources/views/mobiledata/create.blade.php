@@ -114,29 +114,16 @@
                                     @enderror
                                 </div>
 
-                                <div class="col s12 m6 l6">
-                                    <label class="m-t-20">Date of Birth</label>
-                                    <div class="input-fleid">
+                                <div class="input-field col s12 m6 l6">
                                         <input type="text" value="{{ old('dob') }}" id="dob" name="dob"
-                                            placeholder="01/01/1999">
-                                    </div>
+                                        placeholder="01/01/1999">
+                                        <label class="form-label">Date of Birth</label>
                                     @error('dob')
                                         <span style="color: rgb(255, 0, 0)">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                {{-- <div class="input-field col s12 m6 l6">
-                                    <i class="material-icons prefix">text_format</i>
-                                    <input id="cnic" name="cnic" type="text" class="@error('cnic') error @enderror"
-                                        value="{{ old('cnic') }}" placeholder="35201-1234567-8">
-                                    <label for="cnic">CNIC *</label>
-                                    @error('cnic')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
-                                </div> --}}
-
-                                <div class="col s6">
-                                    <label for="gender" class="form-label">Gender</label>
+                                <div class="input-field col s12 m6 l6">
                                     <select class="form-select" name="gender" id="gender">
                                         <option>Select</option>
                                         <option value="M" {{ old('gender') == 'M' ? ' selected' : '' }}>Male
@@ -144,20 +131,32 @@
                                         <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>Female
                                         </option>
                                     </select>
+                                    <label for="gender" class="form-label">Gender</label>
                                     @error('gender')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                <div class="col s6">
-                                    <label for="active" class="form-label">Status</label>
+                                <div class="input-field col s12 m6 l6">
                                     <select class="form-select" name="active" id="active">
                                         <option>Select</option>
                                         <option value="Y" {{ old('active') == 'Y' ? ' selected' : '' }}>Active</option>
                                         <option value="N" {{ old('active') == 'N' ? 'selected' : '' }}>Not Active
                                         </option>
                                     </select>
+                                    <label for="active" class="form-label">Status</label>
                                     @error('active')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="input-field col s12 m6 l6">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="card_number" name="card_number" type="text"
+                                        class="@error('card_number') error @enderror"
+                                        value="{{ old('card_number') }}">
+                                    <label for="card_number">Device Card Number (if any)</label>
+                                    @error('card_number')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>

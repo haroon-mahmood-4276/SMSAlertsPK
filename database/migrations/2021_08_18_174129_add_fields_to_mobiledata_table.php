@@ -14,7 +14,9 @@ class AddFieldsToMobiledataTable extends Migration
     public function up()
     {
         Schema::table('mobiledatas', function (Blueprint $table) {
-            //
+            $table->after('parent_mobile_2', function ($table) {
+                $table->string('card_number', 20)->nullable();
+            });
         });
     }
 
@@ -26,7 +28,7 @@ class AddFieldsToMobiledataTable extends Migration
     public function down()
     {
         Schema::table('mobiledatas', function (Blueprint $table) {
-            //
+            $table->dropColumn('card_number');
         });
     }
 }
