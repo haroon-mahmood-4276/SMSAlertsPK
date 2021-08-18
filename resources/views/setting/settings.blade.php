@@ -278,6 +278,29 @@
                                     </div>
                                 </div>
 
+                                <div class="col s12 m12 l12 m-t-40">
+                                    <p>
+                                        <label>
+                                            <input type="checkbox" id="attendance_enabled" class="filled-in"
+                                                name="attendance_enabled"
+                                                {{ $Setting->attendance_enabled == 'Y' ? 'checked' : '' }} />
+                                            <span>Enabled</span>
+                                        </label>
+                                    </p>
+                                </div>
+
+                                <div class="input-field col s12 m12 l12">
+                                    <i class="material-icons prefix">question_answer</i>
+                                    <label for="attendance_message">Access Database Path *</label>
+                                    <textarea id="attendance_message" name="attendance_message"
+                                        {{ $Setting->attendance_enabled == 'Y' ? '' : 'disabled' }}
+                                        class="materialize-textarea count-message-character @error('attendance_message') error @enderror">{{ $Setting->attendance_message }}</textarea>
+                                    <span class="character-counter" id="message-character-counter"
+                                        style="float: right; font-size: 12px;"> &nbsp;</span>
+                                    @error('attendance_message')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 <div class="col s12 m12 l12">
                                     <button class="btn waves-effect waves-light right submit" type="submit"
                                         name="action" id="action">Save
