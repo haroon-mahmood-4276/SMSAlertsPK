@@ -26,6 +26,7 @@ class Mobiledatas extends Model
         'parent_last_name',
         'parent_mobile_1',
         'parent_mobile_2',
+        'card_number',
         'active',
     ];
 }

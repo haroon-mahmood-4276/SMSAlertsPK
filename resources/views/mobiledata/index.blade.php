@@ -91,6 +91,7 @@
                                     <th data-hide="all">Date of Birth</th>
                                     {{-- <th data-hide="all">CNIC</th> --}}
                                     <th data-hide="all">Gender</th>
+                                    <th data-hide="phone">Card Number</th>
                                     <th data-hide="phone">Stauts</th>
                                     <th data-hide="phone">Actions</th>
                                 </tr>
@@ -137,6 +138,7 @@
                                     <td>{{ $MobileData->dob }}</td>
                                     {{-- <td>{{ $MobileData->cnic }}</td> --}}
                                     <td>{{ $MobileData->gender }}</td>
+                                    <td>{{ $MobileData->card_number }}</td>
                                     <td>
                                         @if ($MobileData->active == 'Y')
                                         <span class="label label-table label-success">Active</span>
