@@ -273,7 +273,7 @@
                                     </code>
                                 </pre>
 
-                                <div>
+                                {{-- <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -312,7 +312,7 @@
                                             </code>
                                         </pre>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
