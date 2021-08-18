@@ -181,9 +181,21 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
 
-// Route::get('test', function () {
-//     return Mobiledatas::where('user_id', '=', '4')->delete();
-// });
+Route::get('test', function () {
+
+    $db = "/home/haroon/Documents/att2000.mdb";
+    if (!file_exists($db)) {
+        die("No database file.");
+    }
+
+    $dbNew = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$db; Uid=; Pwd=;");
+    $sql = "select * from testdb";
+    $rs = $dbNew->query($sql);
+
+    while ($result = $rs->fetch()) {
+        echo $result[0] . ": " . $result[1] . "<br />";
+    }
+});
 
 // Route::get('test/jobs/{job}', function ($job) {
 //     for ($i = 0; $i < $job; $i++) {
