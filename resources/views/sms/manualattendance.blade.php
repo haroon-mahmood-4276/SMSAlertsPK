@@ -29,13 +29,13 @@
             <div class="card">
                 <div class="card-content">
                     @if (Session::has('AlertType') && Session::has('AlertMsg'))
-                        <div class="row">
-                            <div class="col l12 m12 s12 m-5">
-                                <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
-                                    {{ Session::get('AlertMsg') }}
-                                </div>
+                    <div class="row">
+                        <div class="col l12 m12 s12 m-5">
+                            <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
+                                {{ Session::get('AlertMsg') }}
                             </div>
                         </div>
+                    </div>
                     @endif
                     <form class="formValidate" id="formValidate" action="{{ route('r.manual-attendance') }}"
                         method="POST">
@@ -44,12 +44,12 @@
                             <div class="input-field col s12 m6">
                                 <select class="form-select" name="class" id="class">
                                     @foreach ($Classes as $Class)
-                                        <option value="{{ $Class->id }}">{{ $Class->name }}</option>
+                                    <option value="{{ $Class->id }}">{{ $Class->name }}</option>
                                     @endforeach
                                 </select>
                                 <label for="class" class="form-label">Classes</label>
                                 @error('class')
-                                    <span style="color: red">{{ $message }}</span>
+                                <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -57,11 +57,11 @@
                                 <select class="form-select" name="section" id="section">
                                     {{-- @foreach ($Sections as $Section)
                                             <option value="{{ $Section->id }}">{{ $Section->name }}</option>
-                                        @endforeach --}}
+                                    @endforeach --}}
                                 </select>
                                 <label for="section" class="form-label">Section</label>
                                 @error('section')
-                                    <span style="color: red">{{ $message }}</span>
+                                <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -73,7 +73,7 @@
                                 <span class="character-counter" id="message-character-counter"
                                     style="float: right; font-size: 12px;"> &nbsp;</span>
                                 @error('message')
-                                    <span style="color: red">{{ $message }}</span>
+                                <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col s12 m12 l12 m-b-20">
@@ -138,25 +138,6 @@
                                             </label>
                                         </p>
                                     </div>
-                                    {{-- <div class="col s12 m6 l3">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="student_primary_number" class="filled-in"
-                                                    name="student_primary_number" />
-                                                <span>Student Primary Number</span>
-                                            </label>
-                                        </p>
-                                    </div>
-                                    <div class="col s12 m6 l3">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="student_secondary_number" class="filled-in"
-                                                    name="student_secondary_number" />
-                                                <span>Student Secondary Number</span>
-                                            </label>
-                                        </p>
-                                    </div>
-                                </div> --}}
                                 </div>
 
                                 {{-- Table 1 --}}
@@ -196,7 +177,7 @@
                                         </div>
                                         <tbody>
                                             <tr colspan="9">
-                                                <td>No Data Yet</td>
+                                                <td>No data yet</td>
                                             </tr>
                                         </tbody>
                                         <tfoot>
@@ -220,6 +201,7 @@
                                         type="reset">Reset</button>
                                 </div>
                             </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -241,6 +223,26 @@
 <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
 
 <script>
+
+    $(document).ready(function () {
+        var Data = "";
+        var GroupId = $('#class').val();
+        $.ajax({
+            type: "get",
+            url: "{{ route('r.sectionlist', ['section' => ':id']) }}".replace(':id', GroupId),
+            dataType: 'json',
+            success: function(response) {
+                for (let index = 0; index < response.length; index++) {
+                    Data += '<option value="' + response[index].id + '">' + response[index].name +
+                        '</option>';
+                }
+                $('#section').html(Data);
+                var elem = document.querySelector('#section');
+                var instance = M.FormSelect.init(elem);
+            }
+        });
+    });
+
     $('#class').on('change', function() {
         var GroupId = $(this).val();
         var Data = "";

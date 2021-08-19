@@ -255,7 +255,30 @@ class SmsController extends Controller
     {
         // return $request->input();
 
-        JobMain::dispatch(session('Data'), $request->all());
+        // JobMain::dispatch(session('Data'), $request->all());
+        $Student_recards = app('App\Http\Controllers\MobileDataController')->STDList($request->class, $request->section);
+        foreach ($Student_recards as $Record) {
+            if (!$request->has($Record->code . 'chk')) {
+
+                $ReplacedMessage = "";
+                $ReplacedMessage = str_replace('[student_full_name]', $Record->student_first_name . " " . $Record->student_last_name, $request->message);
+                $ReplacedMessage = str_replace('[class_name]', $Record->group_name, $ReplacedMessage);
+                $ReplacedMessage = str_replace('[section_name]', $Record->section_name, $ReplacedMessage);
+                $ReplacedMessage = str_replace('[school_name]', session('Data.company_name'), $ReplacedMessage);
+                $ReplacedMessage = str_replace('[school_phone_1]', session('Data.mobile_1'), $ReplacedMessage);
+                $ReplacedMessage = str_replace('[school_phone_2]', session('Data.mobile_2'), $ReplacedMessage);
+                $ReplacedMessage = str_replace('[school_email]', session('Data.company_email'), $ReplacedMessage);
+
+                if (isset($request->parent_primary_number))
+                    if ($Record->parent_mobile_1 != null && $Record->parent_mobile_1 != '')
+                        JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Record->parent_mobile_1, $ReplacedMessage);
+
+                if (isset($request->parent_secondary_number))
+                    if ($Record->parent_mobile_2 != null && $Record->parent_mobile_2 != '')
+                        JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Record->parent_mobile_2, $ReplacedMessage);
+            }
+        }
+
         return redirect()->route('r.manual-attendance-view')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 
