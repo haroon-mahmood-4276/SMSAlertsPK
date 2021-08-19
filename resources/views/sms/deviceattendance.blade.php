@@ -98,8 +98,7 @@
                                             <th>Parent Name</th>
                                             <th>Parent Primary Number</th>
                                             <th>Parent Secondary Number</th>
-                                            <th>Student Primary Number</th>
-                                            <th>Student Secondary Number</th>
+                                            <th data-sort-initial="true">Class - Section</th>
                                             <th>Stauts</th>
                                             <th>Actions</th>
                                         </tr>
@@ -129,8 +128,7 @@
                                             <td>{{ $Record[0]->parent_first_name }} {{ $Record[0]->parent_last_name }}</td>
                                             <td>{{ $Record[0]->parent_mobile_1 }}</td>
                                             <td>{{ $Record[0]->parent_mobile_2 }}</td>
-                                            <td>{{ $Record[0]->student_mobile_1 }}</td>
-                                            <td>{{ $Record[0]->student_mobile_2 }}</td>
+                                            <td>{{ $Record[0]->class_name }} - {{ $Record[0]->section_name }}</td>
                                             @if ($Record[0]->active == "Y")
                                             <td><span class='label label-table label-success'>Active</span></td>
                                             @else
@@ -138,7 +136,7 @@
                                             @endif
                                             <td class='chknone'>
                                                 <p><label><input type='checkbox' name="{{ $Record[0]->code }}chk" class='chkbox filled-in'
-                                                            value='{{ $Record[0]->code }}chk' /><span>SMS</span></label></p>
+                                                            value='{{ $Record[0]->code }}chk' /><span>Present</span></label></p>
                                             </td>
 
                                         </tr>

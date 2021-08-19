@@ -296,20 +296,20 @@ class SmsController extends Controller
                 $newArray = [];
 
                 $MSAccess = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$AccessDatabase; Uid=; Pwd=;");
-                $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber FROM USERINFO WHERE USERINFO.USERID NOT IN  (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME BETWEEN #2/6/2018 0:0:1# and #2/6/2018 23:59:59# ) GROUP BY USERID )";
+                $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber AS card_number FROM USERINFO WHERE USERINFO.USERID NOT IN  (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME BETWEEN #2/6/2018 0:0:1# and #2/6/2018 23:59:59# ) GROUP BY USERID )";
+                // return $newArray;
                 foreach ($MSAccess->query($SqlQuery) as $record) {
                     $Rcd = Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
                         ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
                         ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
-                        ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active', 'groups.name AS group_name', 'sections.name AS section_name')
+                        ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active', 'groups.name AS class_name', 'sections.name AS section_name')
                         ->where('mobiledatas.user_id', '=', session('Data.id'))
                         ->where('mobiledatas.card_number', '=', $record['card_number'])
                         ->where('mobiledatas.active', '=', 'Y')->get();
                     if ($Rcd->count() > 0)
                         $newArray[] = $Rcd;
                 }
-                // return $newArray;
-
+                session()->put(['DeviceRecords' => $newArray]);
                 return view('sms.deviceattendance', ['Records' => $newArray]);
             } else
                 return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
@@ -318,9 +318,33 @@ class SmsController extends Controller
 
     public function DeviceAttendance(Request $request)
     {
-        // return $request->input();
+        foreach (session('DeviceRecords') as $Member) {
 
-        JobMain::dispatch(session('Data'), $request->all());
+            if (!Arr::exists($request->input(), $Member[0]->code . 'chk')) {
+
+                $ReplacedMessage = "";
+
+                $ReplacedMessage = str_replace('[student_full_name]', $Member[0]->student_first_name . " " . $Member[0]->student_last_name, $request->message);
+                $ReplacedMessage = str_replace('[class_name]', $Member[0]->group_name, $ReplacedMessage);
+                $ReplacedMessage = str_replace('[section_name]', $Member[0]->section_name, $ReplacedMessage);
+                $ReplacedMessage = str_replace('[school_name]', session('Data.company_name'), $ReplacedMessage);
+                $ReplacedMessage = str_replace('[school_phone_1]', session('Data.mobile_1'), $ReplacedMessage);
+                $ReplacedMessage = str_replace('[school_phone_2]', session('Data.mobile_2'), $ReplacedMessage);
+                $ReplacedMessage = str_replace('[school_email]', session('Data.company_email'), $ReplacedMessage);
+                // return $ReplacedMessage;
+
+                if (session('UserSettings.attendance_parent_primary_number') == "Y")
+                    if ($Member[0]->parent_mobile_1 != null && $Member[0]->parent_mobile_1 != '')
+                        JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->parent_mobile_1, $ReplacedMessage);
+
+                if (session('UserSettings.attendance_parent_secondary_number') == "Y")
+                    if ($Member[0]->parent_mobile_2 != null && $Member[0]->parent_mobile_2 != '')
+                        JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->parent_mobile_2, $ReplacedMessage);
+            }
+        }
+        if ($request->session()->has('DeviceRecords')) {
+            Session()->forget('DeviceRecords');
+        }
         return redirect()->route('r.device-attendance-view')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }
