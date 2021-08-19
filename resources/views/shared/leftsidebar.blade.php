@@ -83,19 +83,19 @@
                     <div class="collapsible-body">
                         <ul>
                             <ul>
-                                <li class="{{ Request::is(route('r.manualattendanceshow')) ? 'active' : null }}">
-                                    <a href="{{ route('r.manualattendanceshow') }}"
-                                        class="{{ Request::is(route('r.manualattendanceshow')) ? 'active' : null }}">
+                                <li class="{{ Request::is(route('r.manual-attendance-view')) ? 'active' : null }}">
+                                    <a href="{{ route('r.manual-attendance-view') }}"
+                                        class="{{ Request::is(route('r.manual-attendance-view')) ? 'active' : null }}">
                                         <i class="material-icons">assignment_turned_in</i>
                                         <span class="hide-menu">Manual Attendance</span>
                                     </a>
                                 </li>
                                 @if (session('UserSettings.attendance_database_path_enabled') == 'Y')
-                                <li class="{{ Request::is(route('r.attendance-by-device')) ? 'active' : null }}">
-                                    <a href="{{ route('r.attendance-by-device') }}"
-                                        class="{{ Request::is(route('r.attendance-by-device')) ? 'active' : null }}">
+                                <li class="{{ Request::is(route('r.device-attendance-view')) ? 'active' : null }}">
+                                    <a href="{{ route('r.device-attendance-view') }}"
+                                        class="{{ Request::is(route('r.device-attendance-view')) ? 'active' : null }}">
                                         <i class="material-icons">assignment_turned_in</i>
-                                        <span class="hide-menu">Attendance</span>
+                                        <span class="hide-menu">Device Attendance</span>
                                     </a>
                                 </li>
                                 @endif

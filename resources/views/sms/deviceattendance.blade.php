@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Manual Attendance')
+@section('PageTitle', 'Device Attendance')
 
 @section('BeforeCommonCss')
 
@@ -16,11 +16,11 @@
 <div class="page-wrapper">
     <div class="page-titles">
         <div class="d-flex align-items-center">
-            <h3 class="font-medium">Manual Attendance</h3>
+            <h3 class="font-medium">Device Attendance</h3>
             <div class="custom-breadcrumb ml-auto">
                 <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
                 <a href="javascript:void(0)" class="breadcrumb">Attendance System.</a>
-                <a href="{{ route('r.manual-attendance-view') }}" class="breadcrumb">Manual Attendance</a>
+                <a href="{{ route('r.device-attendance-view') }}" class="breadcrumb">Device Attendance</a>
             </div>
         </div>
     </div>
@@ -37,37 +37,12 @@
                             </div>
                         </div>
                     @endif
-                    <form class="formValidate" id="formValidate" action="{{ route('r.manual-attendance') }}"
+                    <form class="formValidate" id="formValidate" action="{{ route('r.device-attendance') }}"
                         method="POST">
                         @csrf
                         <div class="row">
-                            <div class="input-field col s12 m6">
-                                <select class="form-select" name="class" id="class">
-                                    <option value="0">All</option>
-                                    @foreach ($Classes as $Class)
-                                        <option value="{{ $Class->id }}">{{ $Class->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="class" class="form-label">Classes</label>
-                                @error('class')
-                                    <span style="color: red">{{ $message }}</span>
-                                @enderror
-                            </div>
 
-                            <div class="input-field col s12 m6">
-                                <select class="form-select" name="section" id="section">
-                                    <option value="0">All</option>
-                                    {{-- @foreach ($Sections as $Section)
-                                            <option value="{{ $Section->id }}">{{ $Section->name }}</option>
-                                        @endforeach --}}
-                                </select>
-                                <label for="section" class="form-label">Section</label>
-                                @error('section')
-                                    <span style="color: red">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 m12 l12">
                                 <i class="material-icons prefix">question_answer</i>
                                 <label for="message">Message *</label>
                                 <textarea id="message" name="message"
@@ -118,7 +93,7 @@
                                     Get Students
                                 </a>
                             </div>
-                            <div class="col s12 m-t-25">
+                            {{-- <div class="col s12 m-t-25">
                                 <p><strong>SMS To</strong></p>
                                 <div class="row">
                                     <div class="col s12 m6 l3">
@@ -140,7 +115,7 @@
                                             </label>
                                         </p>
                                     </div>
-                                    {{-- <div class="col s12 m6 l3">
+                                     <div class="col s12 m6 l3">
                                         <p>
                                             <label>
                                                 <input type="checkbox" id="student_primary_number" class="filled-in"
@@ -158,8 +133,8 @@
                                             </label>
                                         </p>
                                     </div>
-                                </div> --}}
                                 </div>
+                                </div>--}}
 
                                 {{-- Table 1 --}}
                                 <div class="input-field m-t-10 col s12" id="SDTTable1">

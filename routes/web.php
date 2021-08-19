@@ -179,10 +179,10 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
     Route::prefix('attendance')->group(function () {
         Route::get('manual-attendance', [SmsController::class, 'ManualAttendanceView'])->name('r.manual-attendance-view');
-        Route::get('device-attendance', [SmsController::class, 'DeviceAttendanceView'])->name('r.attendance-by-device-view');
+        Route::post('manual-attendance', [SmsController::class, 'ManualAttendance'])->name('r.manual-attendance');
 
-        Route::post('manual-attendance', [SmsController::class, 'ManualAttendance'])->name('r.manualattendanceshow');
-        Route::get('device-attendance', [SmsController::class, 'DeviceAttendance'])->name('r.attendance-by-device');
+        Route::get('device-attendance', [SmsController::class, 'DeviceAttendanceView'])->name('r.device-attendance-view');
+        Route::post('device-attendance', [SmsController::class, 'DeviceAttendance'])->name('r.device-attendance');
     });
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
