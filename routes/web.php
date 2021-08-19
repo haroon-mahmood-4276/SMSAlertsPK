@@ -57,13 +57,11 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('multiple', [SmsController::class, 'MultipleSMSView'])->name('r.multiple-sms-view');
         Route::get('bulk', [SmsController::class, 'BulkSMSView'])->name('r.bulk-sms-view');
         Route::get('dues', [SmsController::class, 'DuesSMSView'])->name('r.dues-sms-view');
-        Route::get('manual-attendance', [SmsController::class, 'ManualAttendanceView'])->name('r.manual-attendance-view');
 
         Route::post('quick', [SmsController::class, 'QuickSMS'])->name('r.quicksms');
         Route::post('multiple', [SmsController::class, 'MultipleSMS'])->name('r.multiplesms');
         Route::post('bulk', [SmsController::class, 'BulkSMS'])->name('r.bulksms');
         Route::post('dues', [SmsController::class, 'DuesSMS'])->name('r.duessms');
-        Route::post('manual-attendance', [SmsController::class, 'ManualAttendance'])->name('r.manualattendanceshow');
     });
 
     Route::get('imports', function () {
@@ -176,6 +174,15 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('sms', function () {
             return view('api.sms', ['company_nature' => session('Data.company_nature') == 'B' ? 'member' : 'student']);
         })->name('sms');
+    });
+
+
+    Route::prefix('attendance')->group(function () {
+        Route::get('manual-attendance', [SmsController::class, 'ManualAttendanceView'])->name('r.manual-attendance-view');
+        Route::get('device-attendance', [SmsController::class, 'DeviceAttendanceView'])->name('r.attendance-by-device-view');
+
+        Route::post('manual-attendance', [SmsController::class, 'ManualAttendance'])->name('r.manualattendanceshow');
+        Route::get('device-attendance', [SmsController::class, 'DeviceAttendance'])->name('r.attendance-by-device');
     });
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

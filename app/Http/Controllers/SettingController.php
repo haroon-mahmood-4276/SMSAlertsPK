@@ -39,8 +39,6 @@ class SettingController extends Controller
 
     public function AttendanceSMS(Request $request)
     {
-        // return  $request->input();
-        // return  $request->attendance_database_path->extension();
         $AttendanceSetting = Setting::where('user_id', '=', session('Data.id'))->first();
         $AttendanceSetting->attendance_enabled = ($request->attendance_enabled == 'on') ? 'Y' : 'N';
 
