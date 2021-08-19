@@ -16,6 +16,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -188,18 +189,19 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
 
-Route::get('test', function () {
-    $AccessDatabase = session('UserSettings.attendance_database_path');
+// Route::get('test', function () {
+// // return  Carbon::parse('2/6/18')->format('d/m/Y');
 
-    if (!file_exists($AccessDatabase)) {
-        die("No database file.");
-    }
+//     $AccessDatabase = session('UserSettings.attendance_database_path');
 
-    $MSAccess = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$AccessDatabase; Uid=; Pwd=;");
-    $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber FROM USERINFO WHERE USERINFO.USERID NOT IN  (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME BETWEEN #2/6/2018 0:0:1# and #2/6/2018 23:59:59# ) GROUP BY USERID)";
+//     if (!file_exists($AccessDatabase)) {
+//         die("No database file.");
+//     }
 
-    foreach ($MSAccess->query($SqlQuery) as $record) {
-        echo $record[0] . " ----- " . $record[1]. "<br />";
-    }
+//     $MSAccess = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$AccessDatabase; Uid=; Pwd=;");
+//     return $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber AS card_number FROM USERINFO WHERE USERINFO.USERID NOT IN (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME BETWEEN #" . Carbon::parse(Carbon::now())->format('m/d/Y') . " 0:0:1# and #" . Carbon::parse(Carbon::now())->format('m/d/Y') . " 23:59:59# ) GROUP BY USERID )";
+//     foreach ($MSAccess->query($SqlQuery) as $record) {
+//         echo $record[0] . " ----- " . $record[1]. "<br />";
+//     }
 
-});
+// });

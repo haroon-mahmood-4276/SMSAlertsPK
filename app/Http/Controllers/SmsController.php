@@ -11,6 +11,7 @@ use App\Models\Setting;
 use App\Models\Sms;
 use App\Models\Template;
 use App\Models\User;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -296,8 +297,9 @@ class SmsController extends Controller
                 $newArray = [];
 
                 $MSAccess = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$AccessDatabase; Uid=; Pwd=;");
-                $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber AS card_number FROM USERINFO WHERE USERINFO.USERID NOT IN  (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME BETWEEN #2/6/2018 0:0:1# and #2/6/2018 23:59:59# ) GROUP BY USERID )";
-                // return $newArray;
+
+                $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber AS card_number FROM USERINFO WHERE USERINFO.USERID NOT IN (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME BETWEEN #" . Carbon::parse(Carbon::now())->format('m/d/Y') . " 0:0:1# and #" . Carbon::parse(Carbon::now())->format('m/d/Y') . " 23:59:59# ) GROUP BY USERID )";
+
                 foreach ($MSAccess->query($SqlQuery) as $record) {
                     $Rcd = Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
                         ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
