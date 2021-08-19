@@ -353,7 +353,7 @@
                 success: function(response) {
                     Data += "<option value='0'>All</option>";
                     for (let index = 0; index < response.length; index++) {
-                        Data += '<option value="' + response[index].code + '">' + response[index].name +
+                        Data += '<option value="' + response[index].id + '">' + response[index].name +
                             '</option>';
                     }
                     $('#section').html(Data);

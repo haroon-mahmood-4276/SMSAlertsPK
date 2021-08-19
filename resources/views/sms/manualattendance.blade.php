@@ -43,7 +43,6 @@
                         <div class="row">
                             <div class="input-field col s12 m6">
                                 <select class="form-select" name="class" id="class">
-                                    <option value="0">All</option>
                                     @foreach ($Classes as $Class)
                                         <option value="{{ $Class->id }}">{{ $Class->name }}</option>
                                     @endforeach
@@ -56,7 +55,6 @@
 
                             <div class="input-field col s12 m6">
                                 <select class="form-select" name="section" id="section">
-                                    <option value="0">All</option>
                                     {{-- @foreach ($Sections as $Section)
                                             <option value="{{ $Section->id }}">{{ $Section->name }}</option>
                                         @endforeach --}}
@@ -188,7 +186,7 @@
                                                         <p>
                                                             <label>
                                                                 <input type="checkbox" class="sl-all filled-in" />
-                                                                <span>Check All</span>
+                                                                <span>Present All</span>
                                                             </label>
                                                         </p>
 
@@ -243,7 +241,7 @@
 <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
 
 <script>
-    $('#group').on('change', function() {
+    $('#class').on('change', function() {
         var GroupId = $(this).val();
         var Data = "";
         $.ajax({
@@ -251,9 +249,8 @@
             url: "{{ route('r.sectionlist', ['section' => ':id']) }}".replace(':id', GroupId),
             dataType: 'json',
             success: function(response) {
-                Data += "<option value='0'>All</option>";
                 for (let index = 0; index < response.length; index++) {
-                    Data += '<option value="' + response[index].code + '">' + response[index].name +
+                    Data += '<option value="' + response[index].id + '">' + response[index].name +
                         '</option>';
                 }
                 $('#section').html(Data);
