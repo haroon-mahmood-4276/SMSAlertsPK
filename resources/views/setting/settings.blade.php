@@ -26,17 +26,17 @@
     <div class="container-fluid">
         <div class="row">
             @if (Session::get('AlertType') && Session::get('AlertMsg'))
-                <div class="col l12 m12 s12">
-                    <div class="{{ Session::get('AlertType') }}-alert-bar m-b-15 p-15 white-text">
-                        {{ Session::get('AlertMsg') }}
-                    </div>
+            <div class="col l12 m12 s12">
+                <div class="{{ Session::get('AlertType') }}-alert-bar m-b-15 p-15 white-text">
+                    {{ Session::get('AlertMsg') }}
                 </div>
+            </div>
             @endif
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
                         <h3 class="card-title">Birthday Template</h3>
-                        <form action="{{ route('r.birthdaysettings') }}" class="formValidate" id="formValidate"
+                        <form action="{{ route('r.birthdaysettings') }}" class="formValidate" id="birthday_settings_form"
                             method="POST">
                             @csrf
                             <div class="row">
@@ -59,7 +59,7 @@
                                     <span class="character-counter" id="message-character-counter"
                                         style="float: right; font-size: 12px;"> &nbsp;</span>
                                     @error('message')
-                                        <span style="color: red">{{ $message }}</span>
+                                    <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
@@ -151,7 +151,7 @@
 
                                 <div class="col s12 m12 l12">
                                     <button class="btn waves-effect waves-light right submit" type="submit"
-                                        name="action" id="action">Save
+                                        name="birthday_settings_button" id="birthday_settings_button">Save
                                     </button>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
                 <div class="card">
                     <div class="card-content">
                         <h3 class="card-title">Attendance Template</h3>
-                        <form action="{{ route('r.attendancesettings') }}" class="formValidate" id="formValidate"
+                        <form action="{{ route('r.attendancesettings') }}" class="formValidate" id="attendance_settings_form"
                             method="POST">
                             @csrf
                             <div class="row">
@@ -186,7 +186,7 @@
                                     <span class="character-counter" id="message-character-counter"
                                         style="float: right; font-size: 12px;"> &nbsp;</span>
                                     @error('attendance_message')
-                                        <span style="color: red">{{ $message }}</span>
+                                    <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
 
@@ -251,59 +251,41 @@
                                                 </label>
                                             </p>
                                         </div>
-                                        {{-- @if (session('Data.company_nature') == 'S')
-                                            <div class="col s12 m6 l3">
-                                                <p>
-                                                    <label>
-                                                        <input type="checkbox" id="student_primary_number"
-                                                            class="filled-in" name="student_primary_number"
-                                                            {{ $Setting->student_primary_number == 'Y' ? 'checked' : '' }}
-                                                            {{ $Setting->birthday_enabled == 'N' ? 'disabled' : '' }} />
-                                                        <span>Student Primary Number</span>
-                                                    </label>
-                                                </p>
-                                            </div>
-                                            <div class="col s12 m6 l3">
-                                                <p>
-                                                    <label>
-                                                        <input type="checkbox" id="student_secondary_number"
-                                                            class="filled-in" name="student_secondary_number"
-                                                            {{ $Setting->student_secondary_number == 'Y' ? 'checked' : '' }}
-                                                            {{ $Setting->birthday_enabled == 'N' ? 'disabled' : '' }} />
-                                                        <span>Student Secondary Number</span>
-                                                    </label>
-                                                </p>
-                                            </div>
-                                        @endif --}}
                                     </div>
                                 </div>
 
                                 <div class="col s12 m12 l12 m-t-40">
+                                    <h6><strong>In case you have ZKTeco Device, enter the path of MS Access
+                                            database(.mdb, .accdb)</strong></h6>
                                     <p>
                                         <label>
-                                            <input type="checkbox" id="attendance_enabled" class="filled-in"
-                                                name="attendance_enabled"
-                                                {{ $Setting->attendance_enabled == 'Y' ? 'checked' : '' }} />
-                                            <span>Enabled</span>
+                                            <input type="checkbox" id="attendance_database_path_enabled"
+                                                class="filled-in" name="attendance_database_path_enabled"
+                                                {{ $Setting->attendance_enabled == 'N' ? 'disabled' : '' }}
+                                                {{ $Setting->attendance_database_path_enabled == 'Y' ? 'checked' : '' }} />
+                                            <span>Enable</span>
                                         </label>
                                     </p>
                                 </div>
 
-                                <div class="input-field col s12 m12 l12">
-                                    <i class="material-icons prefix">question_answer</i>
-                                    <label for="attendance_message">Access Database Path *</label>
-                                    <textarea id="attendance_message" name="attendance_message"
-                                        {{ $Setting->attendance_enabled == 'Y' ? '' : 'disabled' }}
-                                        class="materialize-textarea count-message-character @error('attendance_message') error @enderror">{{ $Setting->attendance_message }}</textarea>
-                                    <span class="character-counter" id="message-character-counter"
-                                        style="float: right; font-size: 12px;"> &nbsp;</span>
-                                    @error('attendance_message')
-                                        <span style="color: red">{{ $message }}</span>
+                                <div class="input-field col s12 m6 l6">
+                                    <i class="material-icons prefix">text_format</i>
+                                    <input id="attendance_database_path" name="attendance_database_path" type="text"
+                                        class="@error('attendance_database_path') error @enderror"
+                                        value="{{ $Setting->attendance_database_path }}"
+                                        placeholder="\path\to\file.mdb or \path\to\file.accdb"
+                                        {{ $Setting->attendance_enabled == 'N' ? 'disabled' : '' }}
+                                        {{ $Setting->attendance_database_path_enabled == 'Y' ? 'checked' : '' }}
+                                        required>
+                                    <label for="attendance_database_path">Access Database Path</label>
+                                    @error('attendance_database_path')
+                                    <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                                 <div class="col s12 m12 l12">
                                     <button class="btn waves-effect waves-light right submit" type="submit"
-                                        name="action" id="action">Save
+                                        name="attendance_settings_button" id="attendance_settings_button">Save
                                     </button>
                                 </div>
                             </div>
@@ -350,15 +332,26 @@
     });
 
     $("#attendance_enabled").on('click', function() {
-        // $('#action').prop("disabled", !this.checked);
+
         $('#attendance_message').prop("disabled", !this.checked);
         $('#attendance_parent_primary_number').prop("disabled", !this.checked).prop("checked", true);
         $('#attendance_parent_secondary_number').prop("disabled", !this.checked).prop("checked", false);
-        // $('#student_primary_number').prop("disabled", !this.checked).prop("checked", false);
-        // $('#student_secondary_number').prop("disabled", !this.checked).prop("checked", false);
+        $('#attendance_database_path_enabled').prop("disabled", !this.checked).prop("checked", false);
+        if(this.checked == false){
+            $('#attendance_database_path').prop("disabled", true);
+        }
 
         if ($('#attendance_enabled').prop("checked") == false) {
             $('#attendance_message').val('');
+            $('#attendance_database_path').val('');
+        }
+    });
+
+    $("#attendance_database_path_enabled").on('click', function() {
+        $('#attendance_database_path').prop("disabled", !this.checked).prop("checked", false);
+
+        if ($('#attendance_database_path_enabled').prop("checked") == false) {
+            $('#attendance_database_path').val('');
         }
     });
 
