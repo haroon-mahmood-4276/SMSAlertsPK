@@ -196,7 +196,7 @@ Route::get('test', function () {
     }
 
     $MSAccess = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$AccessDatabase; Uid=; Pwd=;");
-    $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber FROM USERINFO WHERE USERINFO.USERID NOT IN (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME>=#2/6/2018 0:0:1#));";
+    $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber FROM USERINFO WHERE USERINFO.USERID NOT IN  (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME BETWEEN #2/6/2018 0:0:1# and #2/6/2018 23:59:59# ) GROUP BY USERID)";
 
     foreach ($MSAccess->query($SqlQuery) as $record) {
         echo $record[0] . " ----- " . $record[1]. "<br />";

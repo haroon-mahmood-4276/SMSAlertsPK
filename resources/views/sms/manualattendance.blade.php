@@ -316,13 +316,13 @@
                     Data +=
                         "<td class='chknone'><p><label><input type='checkbox' name='" +
                         response[index].code +
-                        "chk' class='chkbox filled-in' value='" + response[index].code +
-                        "chk'/><span>SMS</span></label></p></td>\n";
+                        "chk' class='chkbox filled-in' checked value='" + response[index].code +
+                        "chk'/><span>Present</span></label></p></td>\n";
 
                     Data += "</tr>";
 
                 }
-
+                $('.sl-all').prop('checked', true);
                 $("#demo-foo-addrow2 > tbody > tr").remove();
                 footable.appendRow(Data);
             }

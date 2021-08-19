@@ -273,7 +273,7 @@ class SmsController extends Controller
                 $newArray = [];
 
                 $MSAccess = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$AccessDatabase; Uid=; Pwd=;");
-                $SqlQuery = "SELECT CHECKINOUT.USERID, CHECKINOUT.CHECKTIME, USERINFO.Badgenumber AS card_number FROM USERINFO INNER JOIN CHECKINOUT ON USERINFO.USERID = CHECKINOUT.USERID WHERE (CHECKINOUT.CHECKTIME>=#2/6/2018 0:0:01#)";
+                $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber FROM USERINFO WHERE USERINFO.USERID NOT IN  (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME BETWEEN #2/6/2018 0:0:1# and #2/6/2018 23:59:59# ) GROUP BY USERID )";
                 foreach ($MSAccess->query($SqlQuery) as $record) {
                     $Rcd = Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
                         ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
