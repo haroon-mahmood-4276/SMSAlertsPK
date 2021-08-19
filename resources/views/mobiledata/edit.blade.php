@@ -171,7 +171,7 @@
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">text_format</i>
                             <input id="card_number" name="card_number" type="text"
-                                class="@error('card_number') error @enderror" value="{{ old('card_number') }}">
+                                class="@error('card_number') error @enderror" value="{{ $MobileData->card_number }}">
                             <label for="card_number">Device Card Number (if any)</label>
                             @error('card_number')
                             <span style="color: red">{{ $message }}</span>
