@@ -36,8 +36,8 @@
                 <div class="card">
                     <div class="card-content">
                         <h3 class="card-title">Birthday Template</h3>
-                        <form action="{{ route('r.birthdaysettings') }}" class="formValidate" id="birthday_settings_form"
-                            method="POST">
+                        <form action="{{ route('r.birthdaysettings') }}" class="formValidate"
+                            id="birthday_settings_form" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col s12 m6 l3">
@@ -162,8 +162,8 @@
                 <div class="card">
                     <div class="card-content">
                         <h3 class="card-title">Attendance Template</h3>
-                        <form action="{{ route('r.attendancesettings') }}" class="formValidate" id="attendance_settings_form"
-                            method="POST">
+                        <form action="{{ route('r.attendancesettings') }}" class="formValidate"
+                            id="attendance_settings_form" enctype="multipart/form-data" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col s12 m6 l3">
@@ -268,19 +268,37 @@
                                     </p>
                                 </div>
 
-                                <div class="input-field col s12 m6 l6">
+                                <div class="input-field col s12 m12 l12">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="attendance_database_path" name="attendance_database_path" type="text"
                                         class="@error('attendance_database_path') error @enderror"
                                         value="{{ $Setting->attendance_database_path }}"
-                                        placeholder="\path\to\file.mdb or \path\to\file.accdb"
-                                        {{ $Setting->attendance_enabled == 'N' ? 'disabled' : '' }}
-                                        {{ $Setting->attendance_database_path_enabled == 'Y' ? 'checked' : '' }}
-                                        required>
+                                    placeholder="\path\to\file.mdb or \path\to\file.accdb"
+                                    {{ $Setting->attendance_enabled == 'N' ? 'disabled' : '' }}
+                                    {{ $Setting->attendance_database_path_enabled == 'Y' ? '' : 'disabled' }}
+                                    required>
                                     <label for="attendance_database_path">Access Database Path</label>
                                     @error('attendance_database_path')
                                     <span style="color: red">{{ $message }}</span>
                                     @enderror
+
+                                    {{-- <div class="row">
+                                        <div class="col s12">
+                                            <div class="file-field input-field col s12 m12 l12 ">
+                                                <div class="btn">
+                                                    <span>File</span>
+                                                    <input type="file" name="attendance_database_path">
+                                                </div>
+                                                <div class="file-path-wrapper">
+                                                    <input class="file-path validate" type="text"
+                                                        placeholder="Please upload only .mdb or .accdb">
+                                                </div>
+                                            </div>
+                                            <div class="progress" style="display: none;">
+                                                <div class="determinate" style="width: 0%;"></div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="col s12 m12 l12">
@@ -305,6 +323,7 @@
 <script src="{{ asset('dist/js/app.js') }}"></script>
 <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
 <script src="{{ asset('dist/js/custom.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 
 <script>
     function textbox(Element) {
@@ -365,5 +384,21 @@
             ctl.focus();
         }
     }
+
+    // var percent = $('.determinate');
+    // $('#attendance_settings_form').ajaxForm({
+    //     beforeSend: function() {
+    //         $('.progress').show();
+    //         percent.width('0%');
+    //     },
+    //     uploadProgress: function(event, position, total, percentComplete) {
+    //         console.log(percentComplete);
+    //         percent.width(percentComplete+'%');
+    //     },
+    //     complete: function(xhr) {
+    //         // $('#attendance_settings_form').submit();
+    //         window.location.href = "/attendance-settings";
+    //     }
+    // });
 </script>
 @endsection

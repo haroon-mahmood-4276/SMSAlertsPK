@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="_token" content="{{ csrf_token() }}" />
     <title>@yield('PageTitle') - SMS Alerts PK</title>
 
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png') }}">
@@ -13,7 +14,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap"
         rel="stylesheet">
-
     @yield('BeforeCommonCss')
     <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
     @yield('AfterCommonCss')
@@ -55,7 +55,7 @@
 
         <!-- Back to top button -->
         <div class="bar-long"></div>
-        <button type="button" class="btn btn-floating btn-large" id="btn-back-to-top">
+        <button type="button" style="z-index: 99" class="btn btn-floating btn-large" id="btn-back-to-top">
             <i class="material-icons">arrow_upward</i>
         </button>
 

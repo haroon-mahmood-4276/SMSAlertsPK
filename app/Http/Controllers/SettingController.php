@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mobiledatas;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use PDO;
 
 class SettingController extends Controller
 {
@@ -39,6 +39,8 @@ class SettingController extends Controller
 
     public function AttendanceSMS(Request $request)
     {
+        // return  $request->input();
+        // return  $request->attendance_database_path->extension();
         $AttendanceSetting = Setting::where('user_id', '=', session('Data.id'))->first();
         $AttendanceSetting->attendance_enabled = ($request->attendance_enabled == 'on') ? 'Y' : 'N';
 
@@ -46,8 +48,12 @@ class SettingController extends Controller
         $AttendanceSetting->attendance_parent_primary_number = ($request->attendance_parent_primary_number == 'on') ? 'Y' : 'N';
         $AttendanceSetting->attendance_parent_secondary_number = ($request->attendance_parent_secondary_number == 'on') ? 'Y' : 'N';
 
-        // $AttendanceSetting->attendance_student_primary_number = ($request->attendance_student_primary_number == 'on') ? 'Y' : 'N';
-        // $AttendanceSetting->attendance_student_secondary_number = ($request->attendance_student_secondary_number == 'on') ? 'Y' : 'N';
+        $AttendanceSetting->attendance_database_path_enabled = ($request->attendance_database_path_enabled == 'on') ? 'Y' : 'N';
+        $AttendanceSetting->attendance_database_path = ($request->has('attendance_database_path')) ? $request->attendance_database_path : null;
+
+        if ($request->has('attendance_database_path') && !file_exists($request->attendance_database_path)) {
+            return redirect()->route('r.settings')->with('AlertType', 'danger')->with('AlertMsg', 'File not found');
+        }
 
         if ($AttendanceSetting->save()) {
             if (session()->has('Data') && session()->has('UserSettings')) {
@@ -56,22 +62,7 @@ class SettingController extends Controller
             }
             return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Attendance setting saved.');
         } else {
-            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Attendance setting saved.');
+            return redirect()->route('r.settings')->with('AlertType', 'danger')->with('AlertMsg', 'Attendance setting not saved.');
         }
     }
-
-    // public function Test()
-    // {
-    //     $Messages =
-    //     Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
-    //     ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
-    //     ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
-    //     ->join('settings', 'mobiledatas.user_id', '=', 'settings.user_id')
-    //     ->select('users.id', 'users.company_name', 'users.mobile_1', 'users.mobile_2', 'users.company_email', 'users.company_nature', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2',  'groups.name AS group_name', 'sections.name AS section_name', 'settings.birthday_message', 'settings.birthday_enabled', 'settings.parent_primary_number', 'settings.parent_secondary_number', 'settings.student_primary_number', 'settings.student_secondary_number')
-    //     ->where('dob', '=', '1999-07-06')
-    //     ->where('active', '=', 'Y')
-    //     ->where('settings.birthday_enabled', '=', 'Y')->get();
-
-    //     return $Messages;
-    // }
 }
