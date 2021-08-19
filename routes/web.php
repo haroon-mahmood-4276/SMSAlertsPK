@@ -188,24 +188,18 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
 
-// Route::get('test', function () {
+Route::get('test', function () {
+    $AccessDatabase = session('UserSettings.attendance_database_path');
 
-//     $db = "G:\\att2000.mdb";
-//     if (!file_exists($db)) {
-//         die("No database file.");
-//     }
-//     $dbNew = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$db; Uid=; Pwd=;");
-//     $sql = "select * from CHECKINOUT ";
-//     $rs = $dbNew->query($sql);
+    if (!file_exists($AccessDatabase)) {
+        die("No database file.");
+    }
 
-//     while ($result = $rs->fetch()) {
-//         echo $result[0] . ": " . $result[1] . "<br />";
-//     }
-// });
+    $MSAccess = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$AccessDatabase; Uid=; Pwd=;");
+    $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber FROM USERINFO WHERE USERINFO.USERID NOT IN (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME>=#2/6/2018 0:0:1#));";
 
-// Route::get('test/jobs/{job}', function ($job) {
-//     for ($i = 0; $i < $job; $i++) {
-//         TestJob::dispatch();
-//     }
-//     return "Done";
-// });
+    foreach ($MSAccess->query($SqlQuery) as $record) {
+        echo $record[0] . " ----- " . $record[1]. "<br />";
+    }
+
+});

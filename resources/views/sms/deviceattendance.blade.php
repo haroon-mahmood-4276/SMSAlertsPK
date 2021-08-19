@@ -29,13 +29,13 @@
             <div class="card">
                 <div class="card-content">
                     @if (Session::has('AlertType') && Session::has('AlertMsg'))
-                        <div class="row">
-                            <div class="col l12 m12 s12 m-5">
-                                <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
-                                    {{ Session::get('AlertMsg') }}
-                                </div>
+                    <div class="row">
+                        <div class="col l12 m12 s12 m-5">
+                            <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
+                                {{ Session::get('AlertMsg') }}
                             </div>
                         </div>
+                    </div>
                     @endif
                     <form class="formValidate" id="formValidate" action="{{ route('r.device-attendance') }}"
                         method="POST">
@@ -50,7 +50,7 @@
                                 <span class="character-counter" id="message-character-counter"
                                     style="float: right; font-size: 12px;"> &nbsp;</span>
                                 @error('message')
-                                    <span style="color: red">{{ $message }}</span>
+                                <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="col s12 m12 l12 m-b-20">
@@ -88,115 +88,83 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="input-field col s12">
-                                <a href="javascript:void(0)" class="btn btn-small" id="getmember">
-                                    Get Students
-                                </a>
-                            </div>
-                            {{-- <div class="col s12 m-t-25">
-                                <p><strong>SMS To</strong></p>
-                                <div class="row">
-                                    <div class="col s12 m6 l3">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="parent_primary_number" class="filled-in"
-                                                    name="parent_primary_number" checked />
-                                                <span>Parent Primary Number</span>
-                                            </label>
-                                        </p>
-                                    </div>
+                            <div class="input-field col s12" id="SDTTable1">
+                                <table id="demo-foo-addrow2"
+                                    class="table m-b-0 toggle-arrow-tiny centered responsive-table" data-page-size="10">
+                                    <thead>
+                                        <tr>
+                                            <th data-toggle="true">Code</th>
+                                            <th>Name</th>
+                                            <th>Parent Name</th>
+                                            <th>Parent Primary Number</th>
+                                            <th>Parent Secondary Number</th>
+                                            <th>Student Primary Number</th>
+                                            <th>Student Secondary Number</th>
+                                            <th>Stauts</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <div class="">
+                                        <div class="d-flex">
+                                            <div class="ml-auto">
+                                                <div class="form-group">
+                                                    <input id="demo-input-search2" type="text" placeholder="Search"
+                                                        autocomplete="off">
+                                                    <p>
+                                                        <label>
+                                                            <input type="checkbox" class="sl-all filled-in" />
+                                                            <span>Check All</span>
+                                                        </label>
+                                                    </p>
 
-                                    <div class="col s12 m6 l3">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="parent_secondary_number" class="filled-in"
-                                                    name="parent_secondary_number" />
-                                                <span>Parent Secondary Number</span>
-                                            </label>
-                                        </p>
-                                    </div>
-                                     <div class="col s12 m6 l3">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="student_primary_number" class="filled-in"
-                                                    name="student_primary_number" />
-                                                <span>Student Primary Number</span>
-                                            </label>
-                                        </p>
-                                    </div>
-                                    <div class="col s12 m6 l3">
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="student_secondary_number" class="filled-in"
-                                                    name="student_secondary_number" />
-                                                <span>Student Secondary Number</span>
-                                            </label>
-                                        </p>
-                                    </div>
-                                </div>
-                                </div>--}}
-
-                                {{-- Table 1 --}}
-                                <div class="input-field m-t-10 col s12" id="SDTTable1">
-                                    <table id="demo-foo-addrow2"
-                                        class="table m-b-0 toggle-arrow-tiny centered responsive-table"
-                                        data-page-size="10">
-                                        <thead>
-                                            <tr>
-                                                <th data-toggle="true">Code</th>
-                                                <th>Name</th>
-                                                <th>Parent Name</th>
-                                                <th>Parent Primary Number</th>
-                                                <th>Parent Secondary Number</th>
-                                                <th>Student Primary Number</th>
-                                                <th>Student Secondary Number</th>
-                                                <th>Stauts</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <div class="">
-                                            <div class="d-flex">
-                                                <div class="ml-auto">
-                                                    <div class="form-group">
-                                                        <input id="demo-input-search2" type="text" placeholder="Search"
-                                                            autocomplete="off">
-                                                        <p>
-                                                            <label>
-                                                                <input type="checkbox" class="sl-all filled-in" />
-                                                                <span>Check All</span>
-                                                            </label>
-                                                        </p>
-
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <tbody>
-                                            <tr colspan="9">
-                                                <td>No Data Yet</td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="9">
-                                                    <div class="text-right">
-                                                        <ul class="pagination pagination-split"> </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                                    </div>
+                                    <tbody>
+                                        @foreach ($Records as $Record)
+                                        <tr>
+                                            <td>{{ $Record[0]->code }}</td>
+                                            <td>{{ $Record[0]->student_first_name }} {{ $Record[0]->student_last_name }}</td>
+                                            <td>{{ $Record[0]->parent_first_name }} {{ $Record[0]->parent_last_name }}</td>
+                                            <td>{{ $Record[0]->parent_mobile_1 }}</td>
+                                            <td>{{ $Record[0]->parent_mobile_2 }}</td>
+                                            <td>{{ $Record[0]->student_mobile_1 }}</td>
+                                            <td>{{ $Record[0]->student_mobile_2 }}</td>
+                                            @if ($Record[0]->active == "Y")
+                                            <td><span class='label label-table label-success'>Active</span></td>
+                                            @else
+                                            <td><span class='label label-table label-danger'>Not Active</span></td>
+                                            @endif
+                                            <td class='chknone'>
+                                                <p><label><input type='checkbox' name="{{ $Record[0]->code }}chk" class='chkbox filled-in'
+                                                            value='{{ $Record[0]->code }}chk' /><span>SMS</span></label></p>
+                                            </td>
+
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="9">
+                                                <div class="text-right">
+                                                    <ul class="pagination pagination-split"> </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <button class="btn waves-effect waves-light right submit" type="submit"
-                                        name="action">Send SMS
-                                    </button>
-                                    <button class="btn waves-effect red waves-light right m-r-10 reset"
-                                        type="reset">Reset</button>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button class="btn waves-effect waves-light right submit" type="submit"
+                                    name="action">Send SMS
+                                </button>
+                                <button class="btn waves-effect red waves-light right m-r-10 reset"
+                                    type="reset">Reset</button>
                             </div>
+                        </div>
                     </form>
                 </div>
             </div>

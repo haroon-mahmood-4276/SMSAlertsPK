@@ -17,6 +17,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use PDO;
 
 class SmsController extends Controller
 {
@@ -263,9 +264,30 @@ class SmsController extends Controller
         $User = User::find(session('Data.id'));
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
             if ($User->remaining_of_sms > 0) {
-                $Templates = Template::where('user_id', '=', session('Data.id'))->get();
+                $AccessDatabase = session('UserSettings.attendance_database_path');
 
-                return view('sms.deviceattendance', ['DuesData' => [], 'Templates' => $Templates, 'Template_Code' => 0, 'Message' => '']);
+                if (!file_exists($AccessDatabase)) {
+                    die("No database file.");
+                }
+
+                $newArray = [];
+
+                $MSAccess = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$AccessDatabase; Uid=; Pwd=;");
+                $SqlQuery = "SELECT CHECKINOUT.USERID, CHECKINOUT.CHECKTIME, USERINFO.Badgenumber AS card_number FROM USERINFO INNER JOIN CHECKINOUT ON USERINFO.USERID = CHECKINOUT.USERID WHERE (CHECKINOUT.CHECKTIME>=#2/6/2018 0:0:01#)";
+                foreach ($MSAccess->query($SqlQuery) as $record) {
+                    $Rcd = Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
+                        ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
+                        ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
+                        ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active', 'groups.name AS group_name', 'sections.name AS section_name')
+                        ->where('mobiledatas.user_id', '=', session('Data.id'))
+                        ->where('mobiledatas.card_number', '=', $record['card_number'])
+                        ->where('mobiledatas.active', '=', 'Y')->get();
+                    if ($Rcd->count() > 0)
+                        $newArray[] = $Rcd;
+                }
+                // return $newArray;
+
+                return view('sms.deviceattendance', ['Records' => $newArray]);
             } else
                 return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
         }
@@ -273,68 +295,9 @@ class SmsController extends Controller
 
     public function DeviceAttendance(Request $request)
     {
-        if (isset($request->fileupload)) {
-            if ($request->duesfile != null) {
-                $DuesData = Excel::toArray(new DuesImport, $request->file('duesfile'));
-                $newArray = [];
-                foreach ($DuesData as $array) {
-                    foreach ($array as $k => $v) {
-                        $newArray[$k] = Mobiledatas::join('users', 'mobiledatas.user_id', '=', 'users.id')
-                            ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
-                            ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
-                            ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active', 'groups.name AS group_name', 'sections.name AS section_name')
-                            ->where('mobiledatas.user_id', '=', session('Data.id'))
-                            ->where('mobiledatas.code', '=', $v['student_code'])->get();
-                        $newArray[$k]['dues'] = $v['dues'];
-                    }
-                }
+        // return $request->input();
 
-                session()->put(['DuesData' => $newArray]);
-                $Templates = Template::where('user_id', '=', session('Data.id'))->get();
-
-                return view('sms.deviceattendance', ['DuesData' => $newArray, 'Templates' => $Templates, 'Template_Code' => $request->template, 'Message' => $request->message]);
-            } else
-                return redirect()->route('r.dues-sms-view')->with('AlertType', 'info')->with('AlertMsg', "Upload file first.");
-        } else {
-            if ($request->session()->has('DuesData')) {
-
-                foreach (session('DuesData') as $Member) {
-
-                    if (Arr::exists($request->input(), $Member[0]->id . 'chk')) {
-
-                        $ReplacedMessage = "";
-
-                        $ReplacedMessage = str_replace('[student_full_name]', $Member[0]->student_first_name . " " . $Member[0]->student_last_name, $request->message);
-                        $ReplacedMessage = str_replace('[class_name]', $Member[0]->group_name, $ReplacedMessage);
-                        $ReplacedMessage = str_replace('[section_name]', $Member[0]->section_name, $ReplacedMessage);
-                        $ReplacedMessage = str_replace('[school_name]', session('Data.company_name'), $ReplacedMessage);
-                        $ReplacedMessage = str_replace('[school_phone_1]', session('Data.mobile_1'), $ReplacedMessage);
-                        $ReplacedMessage = str_replace('[school_phone_2]', session('Data.mobile_2'), $ReplacedMessage);
-                        $ReplacedMessage = str_replace('[school_email]', session('Data.company_email'), $ReplacedMessage);
-                        $ReplacedMessage = str_replace('[dues]', $Member['dues'], $ReplacedMessage);
-                        // return $ReplacedMessage;
-
-                        JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->parent_mobile_1, $ReplacedMessage);
-
-                        if (isset($this->RequestInput['parent_secondary_number']) && $request->parent_secondary_number == "on")
-                            if ($Member[0]->parent_mobile_2 != null && $Member[0]->parent_mobile_2 != '')
-                                JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->parent_mobile_2, $ReplacedMessage);
-
-                        if (isset($this->RequestInput['student_primary_number']) && $request->student_primary_number == "on")
-                            if ($Member[0]->student_mobile_1 != null && $Member[0]->student_mobile_1 != '')
-                                JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->student_mobile_1, $ReplacedMessage);
-
-                        if (isset($this->RequestInput['student_secondary_number']) && $request->student_secondary_number == "on")
-                            if ($Member[0]->student_mobile_2 != null && $Member[0]->student_mobile_2 != '')
-                                JobSendSms::dispatch(session('Data.id'), session('Data.company_username'), session('Data.company_password'), session('Data.company_mask_id'), $Member[0]->student_mobile_2, $ReplacedMessage);
-                    }
-                }
-            }
-        }
-        if ($request->session()->has('DuesData')) {
-            Session()->forget('DuesData');
-        }
-
-        return redirect()->route('r.dues-sms-view')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
+        JobMain::dispatch(session('Data'), $request->all());
+        return redirect()->route('r.device-attendance-view')->with('AlertType', 'success')->with('AlertMsg', "Messages will be sent shortly");
     }
 }
