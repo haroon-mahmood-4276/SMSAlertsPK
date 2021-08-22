@@ -28,7 +28,7 @@ class AddFieldsToMobiledataTable extends Migration
     public function down()
     {
         Schema::table('mobiledatas', function (Blueprint $table) {
-            $table->dropColumn('card_number');
+            $table->dropIfExists('card_number');
         });
     }
 }

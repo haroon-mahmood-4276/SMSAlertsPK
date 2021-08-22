@@ -33,7 +33,7 @@ class AddFieldsToSettingsTable extends Migration
     public function down()
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->dropIfExists()->dropColumn(['attendance_message', 'attendance_enabled','attendance_parent_primary_number', 'attendance_parent_secondary_number','attendance_database_path', 'attendance_database_path_enabled']);
+            $table->dropIfExists(['attendance_message', 'attendance_enabled','attendance_parent_primary_number', 'attendance_parent_secondary_number','attendance_database_path', 'attendance_database_path_enabled']);
         });
     }
 }
