@@ -20,19 +20,37 @@ class Settings extends Seeder
                 'birthday_enabled' => 'N',
                 'birthday_message' => null,
                 'parent_primary_number' => 'Y',
-                'parent_secondary_number' => null,
-                'student_primary_number' => null,
-                'student_secondary_number' => null,
+                'parent_secondary_number' => 'N',
+                'student_primary_number' => 'N',
+                'student_secondary_number' => 'N',
+                'attendance_enabled' => 'N',
+                'attendance_message' => null,
+                'attendance_parent_primary_number' => 'N',
+                'attendance_parent_secondary_number' => 'N',
+                'attendance_database_path_enabled' => 'N',
+                'attendance_database_path' => null,
             ],
             [
                 'user_id' => '2',
                 'birthday_enabled' => 'N',
                 'birthday_message' => null,
                 'parent_primary_number' => 'Y',
-                'parent_secondary_number' => null,
-                'student_primary_number' => null,
-                'student_secondary_number' => null,
+                'parent_secondary_number' => 'N',
+                'student_primary_number' => 'N',
+                'student_secondary_number' => 'N',
+                'attendance_enabled' => 'N',
+                'attendance_message' => null,
+                'attendance_parent_primary_number' => 'N',
+                'attendance_parent_secondary_number' => 'N',
+                'attendance_database_path_enabled' => 'N',
+                'attendance_database_path' => null,
             ],
         ]);
     }
 }
+// $Setting->attendance_message = null;
+// $Setting->attendance_enabled = 'N';
+// $Setting->attendance_parent_primary_number = 'Y';
+// $Setting->attendance_parent_secondary_number = 'N';
+// $Setting->attendance_database_path_enabled = 'N';
+// $Setting->attendance_database_path = null;
