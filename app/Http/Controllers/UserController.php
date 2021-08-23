@@ -247,17 +247,22 @@ class UserController extends Controller
                 $GroupCount = User::count() - 1;
                 $SectionCount = User::where('company_nature', '=', 'B')->count();
                 $MobileDatasCount = User::where('company_nature', '=', 'S')->count();
-                $BirthdayData=[];
+                $TeachersCount = 0;
+                $SubjectsCount = 0;
+                $BirthdayData = [];
             } else {
                 $GroupCount = Group::where('user_id', '=', session('Data.id'))->count();
                 $SectionCount = Section::where('user_id', '=', session('Data.id'))->count();
                 $MobileDatasCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
+                $TeachersCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
+                $SubjectsCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
 
                 if (strval(new DateTime(Date('Y-m-d')) > new DateTime($User->expiry_date))) {
                     $User->remaining_of_sms = 0;
                     $User->save();
                     session()->put(['Data' => $User]);
                 }
+
                 $BirthdayData = Mobiledatas::join('groups', 'mobiledatas.group_id', '=', 'groups.id')
                     ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
                     ->select('mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.dob', 'groups.name AS group_name', 'sections.name AS section_name')
@@ -267,7 +272,7 @@ class UserController extends Controller
                     ->where('mobiledatas.active', '=', 'Y')->get();
             }
         }
-        return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData' => $BirthdayData]);
+        return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData' => $BirthdayData, 'TeachersCount' => $TeachersCount, 'SubjectsCount' => $SubjectsCount]);
     }
 
     public function logout(Request $request)
