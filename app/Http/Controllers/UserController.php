@@ -99,6 +99,9 @@ class UserController extends Controller
             $Setting->attendance_parent_secondary_number = 'N';
             $Setting->attendance_database_path_enabled = 'N';
             $Setting->attendance_database_path = null;
+            $Setting->longitude = 0;
+            $Setting->latitude = 0;
+            $Setting->raduis = 0;
             $Setting->save();
 
             return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
