@@ -155,7 +155,7 @@
                         </div>
 
                         <div class="col s12 m6 l6">
-                            <div class="card info-gradient card-hover">
+                            <div class="card danger-gradient card-hover">
                                 <div class="card-content">
                                     <div class="d-flex no-block align-items-center">
                                         <div>
