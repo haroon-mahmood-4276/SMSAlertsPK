@@ -247,7 +247,7 @@ class UserController extends Controller
                 $GroupCount = User::count() - 1;
                 $SectionCount = User::where('company_nature', '=', 'B')->count();
                 $MobileDatasCount = User::where('company_nature', '=', 'S')->count();
-                $Data = [];
+                $BirthdayData=[];
             } else {
                 $GroupCount = Group::where('user_id', '=', session('Data.id'))->count();
                 $SectionCount = Section::where('user_id', '=', session('Data.id'))->count();
@@ -258,7 +258,7 @@ class UserController extends Controller
                     $User->save();
                     session()->put(['Data' => $User]);
                 }
-                $Data = Mobiledatas::join('groups', 'mobiledatas.group_id', '=', 'groups.id')
+                $BirthdayData = Mobiledatas::join('groups', 'mobiledatas.group_id', '=', 'groups.id')
                     ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
                     ->select('mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.dob', 'groups.name AS group_name', 'sections.name AS section_name')
                     ->where('mobiledatas.user_id', '=', session('Data.id'))
@@ -267,7 +267,7 @@ class UserController extends Controller
                     ->where('mobiledatas.active', '=', 'Y')->get();
             }
         }
-        return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'Data' => $Data]);
+        return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData' => $BirthdayData]);
     }
 
     public function logout(Request $request)

@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('company_password')->nullable();
             $table->string('company_name')->nullable();
             $table->string('company_mask_id', 30)->nullable();
-            $table->char('company_nature')->nullable();
+            $table->char('company_nature',5)->nullable();
             $table->string('company_email')->unique();
             $table->string('mobile_1')->nullable();
             $table->string('mobile_2')->nullable();
