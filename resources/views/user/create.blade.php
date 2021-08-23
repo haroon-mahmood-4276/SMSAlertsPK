@@ -13,7 +13,7 @@
 
 @section('content')
     <div class="page-wrapper">
-            <div class="container-fluid row">
+        <div class="container-fluid row">
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
@@ -33,17 +33,21 @@
 
                             <div class="row">
 
-                                <div class="input-field col s12 m12 l12">
-                                    <i class="material-icons prefix">text_format</i>
-                                    <input id="code" name="code" type="text" class="@error('code') error @enderror"
-                                        value="{{ old('code') }}">
-                                    <label for="code">Code *</label>
-                                    @error('code')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
+                                <div class="col s12 m12 l12">
+                                    <div class="row">
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">text_format</i>
+                                            <input id="code" name="code" type="text" class="@error('code') error @enderror"
+                                                value="{{ old('code') }}">
+                                            <label for="code">Code *</label>
+                                            @error('code')
+                                                <span style="color: red">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="first_name" name="first_name" type="text"
                                         class="@error('first_name') error @enderror" value="{{ old('first_name') }}">
@@ -53,7 +57,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="last_name" name="last_name" type="text"
                                         class="@error('last_name') error @enderror" value="{{ old('last_name') }}">
@@ -63,7 +67,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="email" name="email" type="email" class="@error('email') error @enderror"
                                         value="{{ old('email') }}">
@@ -73,7 +77,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="password" name="password" type="password"
                                         class="@error('password') error @enderror" value="{{ old('password') }}">
@@ -88,7 +92,7 @@
                                     <h3 class="card-title">Company Details</h3>
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="company_name" name="company_name" type="text"
                                         class="@error('company_name') error @enderror" value="{{ old('company_name') }}">
@@ -98,7 +102,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="company_mask_id" name="company_mask_id" type="text"
                                         class="@error('company_mask_id') error @enderror"
@@ -109,7 +113,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="company_username" name="company_username" type="text"
                                         class="@error('company_username') error @enderror"
@@ -120,7 +124,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="company_password" name="company_password" type="password"
                                         class="@error('company_password') error @enderror"
@@ -131,7 +135,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="company_email" name="company_email" type="email"
                                         class="@error('company_email') error @enderror"
@@ -142,7 +146,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <select class="form-select" name="company_nature" id="company_nature">
                                         <option value="">Select</option>
                                         <option value="B" {{ old('company_nature') == 'B' ? 'selected' : '' }}>Business User
@@ -158,7 +162,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="mobile_1" name="mobile_1" type="text"
                                         class="@error('mobile_1') error @enderror" value="{{ old('mobile_1') }}"
@@ -169,7 +173,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="input-field col s6">
+                                <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="mobile_2" name="mobile_2" type="text"
                                         class="@error('mobile_2') error @enderror" value="{{ old('mobile_2') }}"

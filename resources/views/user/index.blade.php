@@ -59,10 +59,9 @@
                                                 <select class="form-select inline" name="user_type"
                                                     onchange="this.form.submit()">
                                                     <option value="">All</option>
-                                                    <option value="B" {{ $Selection == 'B' ? 'selected' : '' }}>Business
-                                                        Users</option>
-                                                    <option value="S" {{ $Selection == 'S' ? 'selected' : '' }}>School
-                                                        Users</option>
+                                                    <option value="B" {{ $Selection == 'B' ? 'selected' : '' }}>Business Users</option>
+                                                    <option value="S" {{ $Selection == 'S' ? 'selected' : '' }}>School Users</option>
+                                                    <option value="HE" {{ $Selection == 'HE' ? 'selected' : '' }}>Higher Education Users</option>
                                                 </select>
                                                 <label for="group_name" class="form-label">Users</label>
                                             </div>
@@ -123,7 +122,8 @@
                                             <td>{{ $User->company_nature == 'B' ? 'Business' : 'School' . ' User' }}</td>
                                             <td>{{ $User->mobile_2 }}</td>
                                             <td>
-                                                <a href="{{ route('r.add-package-view', ['package' => $User->id]) }}" type="button"
+                                                <a href="{{ route('r.add-package-view', ['package' => $User->id]) }}"
+                                                    type="button"
                                                     class="btn btn-small blue m-5 left waves-effect waves-light">Add
                                                     Package</a>
                                                 <a href="{{ route('users.edit', ['user' => $User->id]) }}" type="button"

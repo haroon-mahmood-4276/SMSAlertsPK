@@ -13,12 +13,12 @@
 
 @section('content')
     <div class="page-wrapper">
-            <div class="container-fluid row">
+        <div class="container-fluid row">
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
                         <h5 class="card-title">Edit User</h5>
-                        <form action="{{ route('users.update',['user'=>$User->id]) }}" method="POST">
+                        <form action="{{ route('users.update', ['user' => $User->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
                             @if (Session::get('AlertType') && Session::get('AlertMsg'))
@@ -33,14 +33,18 @@
 
                             <div class="row">
 
-                                <div class="input-field col s12 m12 l12">
-                                    <i class="material-icons prefix">text_format</i>
-                                    <input id="code" name="code" type="text" class="@error('code') error @enderror"
-                                        value="{{ $User->code }}">
-                                    <label for="code">Code *</label>
-                                    @error('code')
-                                        <span style="color: red">{{ $message }}</span>
-                                    @enderror
+                                <div class="col s12 m12 l12">
+                                    <div class="row">
+                                        <div class="input-field col s12 m6 l6">
+                                            <i class="material-icons prefix">text_format</i>
+                                            <input id="code" name="code" type="text" class="@error('code') error @enderror"
+                                                value="{{ $User->code }}">
+                                            <label for="code">Code *</label>
+                                            @error('code')
+                                                <span style="color: red">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="input-field col s6">
