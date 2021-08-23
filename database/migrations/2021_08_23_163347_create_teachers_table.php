@@ -26,7 +26,7 @@ class CreateTeachersTable extends Migration
             $table->string('password');
             $table->string('mobile_1', 12)->nullable();
             $table->string('mobile_2', 12)->nullable();
-            $table->string('coodinator')->nullable();
+            $table->string('coodinator_number')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
