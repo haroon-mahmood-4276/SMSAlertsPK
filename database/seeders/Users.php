@@ -33,7 +33,6 @@ class Users extends Seeder
                 'remaining_of_sms' => 100,
                 'no_of_sms' => 100,
                 'expiry_date' => '2021-09-25',
-
             ],
             [
                 'code' => '00002',
@@ -52,7 +51,6 @@ class Users extends Seeder
                 'remaining_of_sms' => 150,
                 'no_of_sms' => 150,
                 'expiry_date' => '2021-09-25',
-
             ], [
                 'code' => '00003',
                 'first_name' => 'Higher',
@@ -70,7 +68,6 @@ class Users extends Seeder
                 'remaining_of_sms' => 150,
                 'no_of_sms' => 150,
                 'expiry_date' => '2021-09-25',
-
             ],
             [
                 'code' => '00000',
@@ -89,7 +86,6 @@ class Users extends Seeder
                 'remaining_of_sms' => 0,
                 'no_of_sms' => 0,
                 'expiry_date' => null,
-
             ],
         ]);
     }
