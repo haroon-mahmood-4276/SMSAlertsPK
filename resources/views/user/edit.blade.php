@@ -145,12 +145,14 @@
                                 <div class="input-field col s6">
                                     <select class="form-select" name="company_nature" id="company_nature">
                                         <option value="">Select</option>
-                                        <option value="B" {{ $User->company_nature == 'B' ? 'selected' : '' }}>Business User
+                                        <option value="B" {{ old('company_nature') == 'B' ? 'selected' : '' }}>Business User
                                         </option>
-                                        <option value="S" {{ $User->company_nature == 'S' ? 'selected' : '' }}>School User
+                                        <option value="S" {{ old('company_nature') == 'S' ? 'selected' : '' }}>School User
+                                        </option>
+                                        <option value="HE" {{ old('company_nature') == 'HE' ? 'selected' : '' }}>Higher Education User
                                         </option>
                                     </select>
-                                    <label for="company_nature" class="form-label">Group</label>
+                                    <label for="company_nature" class="form-label">Company Nature</label>
                                     @error('company_nature')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror

@@ -149,8 +149,10 @@
                                         </option>
                                         <option value="S" {{ old('company_nature') == 'S' ? 'selected' : '' }}>School User
                                         </option>
+                                        <option value="HE" {{ old('company_nature') == 'HE' ? 'selected' : '' }}>Higher Education User
+                                        </option>
                                     </select>
-                                    <label for="company_nature" class="form-label">Group</label>
+                                    <label for="company_nature" class="form-label">Company Nature</label>
                                     @error('company_nature')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
