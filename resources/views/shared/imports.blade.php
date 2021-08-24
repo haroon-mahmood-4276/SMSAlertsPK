@@ -100,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (session('Data.company_nature') == 'S')
+                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                         <div class="card">
                             <div class="card-content">
                                 <div class="row">

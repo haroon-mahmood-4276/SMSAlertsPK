@@ -17,7 +17,6 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
             $table->foreignId('group_id')->constrained();
-            $table->foreignId('section_id')->constrained();
             $table->id();
             $table->string('code', 5);
             $table->string('name', 50);

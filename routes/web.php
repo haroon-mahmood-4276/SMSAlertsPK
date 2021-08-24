@@ -16,6 +16,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\SmsController;
+use App\Http\Controllers\SubjectController;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -48,6 +49,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         'sections' => SectionController::class,
         'data' => MobileDataController::class,
         'templates' => TemplateController::class,
+        'subjects' => SubjectController::class,
     ]);
 
     Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');

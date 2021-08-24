@@ -25,8 +25,8 @@
                     @endif
                     @if (session('Data.company_nature') == 'HE')
                         <li>
-                            <a href="{{ route('sections.index') }}"
-                                class="collapsible-header {{ Request::is(route('sections.index')) ? 'active' : null }}"><i
+                            <a href="{{ route('subjects.index') }}"
+                                class="collapsible-header {{ Request::is(route('subjects.index')) ? 'active' : null }}"><i
                                     class="material-icons">subject</i>
                                 <span class="hide-menu"> Subjects Management</span></a>
                         </li>
