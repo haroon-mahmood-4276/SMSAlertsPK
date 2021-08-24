@@ -20,6 +20,7 @@ class CreateStudentTeacherSubjectJunctionTable extends Migration
             $table->foreignId('mobiledata_id')->constrained();
             $table->foreignId('subject_id')->constrained();
             $table->id();
+            $table->date('today_date');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
