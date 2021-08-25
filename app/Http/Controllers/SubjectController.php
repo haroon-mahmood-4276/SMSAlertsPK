@@ -65,9 +65,9 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show($id)
     {
-        return $subject;
+        return Subject::find($id);
     }
 
     /**
@@ -76,10 +76,11 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subject $subject)
+    public function edit($id)
     {
         $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-        return view('subject.edit', ['Groups' => $Groups, 'Subject' => $subject]);
+        $Subject = Subject::find($id);
+        return view('subject.edit', ['Groups' => $Groups, 'Subject' => $Subject]);
     }
 
     /**
@@ -89,15 +90,15 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'group' => 'required',
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSubjectRule($request->group, true, $subject->id)],
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSubjectRule($request->group, true, $id)],
             'name' => 'bail|required|between:1,50',
         ]);
 
-        $Subject = Subject::find($subject->id);
+        $Subject = Subject::find($id);
         $Subject->group_id = $request->group;
         $Subject->code = $request->code;
         $Subject->name = $request->name;
@@ -115,10 +116,10 @@ class SubjectController extends Controller
      * @param  \App\Models\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy($id)
     {
 
-        $Subject = Subject::find($subject->id);
+        $Subject = Subject::find($id);
 
         if ($Subject->delete()) {
             return redirect()->route('subjects.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
