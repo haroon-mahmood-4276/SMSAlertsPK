@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\GroupController;
-use App\Http\Controllers\API\MemberController;
-use App\Http\Controllers\API\StudentController;
-use App\Http\Controllers\API\SectionController;
-use App\Http\Controllers\API\SmsController;
+use App\Http\Controllers\API\{
+    GroupController,
+    MemberController,
+    StudentController,
+    SectionController,
+    SmsController
+};
 
 /*
 |--------------------------------------------------------------------------

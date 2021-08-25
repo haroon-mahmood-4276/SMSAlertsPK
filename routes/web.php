@@ -1,23 +1,27 @@
 <?php
 
-use App\Exports\DuesExport;
-use App\Exports\GroupsExport;
-use App\Exports\MembersExport;
-use App\Exports\SectionsExport;
-use App\Exports\StudentsExport;
-use App\Http\Controllers\ExportPDFController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\GroupController;
-use App\Http\Controllers\ImportController;
-use App\Http\Controllers\MobileDataController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\PackageController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\TemplateController;
-use App\Http\Controllers\SmsController;
-use App\Http\Controllers\SubjectController;
-use Carbon\Carbon;
+use App\Exports\{
+    DuesExport,
+    GroupsExport,
+    MembersExport,
+    SectionsExport,
+    StudentsExport};
+    
+use App\Http\Controllers\{
+    ExportPDFController,
+    UserController,
+    GroupController,
+    ImportController,
+    MobileDataController,
+    SettingController,
+    PackageController,
+    ReportController,
+    SectionController,
+    TemplateController,
+    SmsController,
+    SubjectController,
+    TeacherController
+};
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -50,6 +54,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         'data' => MobileDataController::class,
         'templates' => TemplateController::class,
         'subjects' => SubjectController::class,
+        'teachers' => TeacherController::class,
     ]);
 
     Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');

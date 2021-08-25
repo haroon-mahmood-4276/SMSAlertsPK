@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
-use App\Models\Sms;
-use Barryvdh\DomPDF\Facade as PDF;
+use App\Models\{Group, Sms};
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 

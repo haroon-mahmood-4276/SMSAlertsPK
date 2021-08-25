@@ -2,20 +2,24 @@
 
 namespace App\Imports;
 
-use App\Models\Group;
-use App\Models\Mobiledatas;
-use App\Models\Section;
+use App\Models\{
+    Group,
+    Mobiledatas,
+    Section
+};
 use App\Rules\CheckMemberCode;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\SkipsErrors;
-use Maatwebsite\Excel\Concerns\SkipsFailures;
-use Maatwebsite\Excel\Concerns\SkipsOnError;
-use Maatwebsite\Excel\Concerns\SkipsOnFailure;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\{
+    Importable,
+    SkipsErrors,
+    SkipsFailures,
+    SkipsOnError,
+    SkipsOnFailure,
+    ToModel,
+    WithBatchInserts,
+    WithHeadingRow,
+    WithValidation
+};
 
 class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel
 {

@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\MembersImport;
-use App\Imports\GroupsImport;
-use App\Imports\StudentsImport;
-use App\Imports\SectionsImport;
+use App\Imports\{MembersImport, GroupsImport, StudentsImport, SectionsImport};
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends Controller
 {

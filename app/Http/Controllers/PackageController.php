@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Package;
-use App\Models\User;
+use App\Models\{Package, User};
 use DateTime;
 use Illuminate\Http\Request;
 

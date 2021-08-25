@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
-use App\Models\Section;
-use App\Models\Subject;
+use App\Models\{Group, Subject};
 use App\Rules\CheckSubjectRule;
 use Illuminate\Http\Request;
 

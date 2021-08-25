@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
-use App\Models\Section;
-use App\Models\User;
-use App\Models\Mobiledatas;
-use App\Models\Package;
-use App\Models\Setting;
-use App\Models\Sms;
-use App\Models\Template;
+use App\Models\{
+    Group,
+    Section,
+    User,
+    Mobiledatas,
+    Package,
+    Setting,
+    Sms,
+    Template
+};
 use App\Rules\CheckUserCode;
 use Carbon\Carbon;
 use DateTime;

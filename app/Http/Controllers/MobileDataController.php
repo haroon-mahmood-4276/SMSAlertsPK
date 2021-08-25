@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
-use App\Models\Mobiledatas;
-use App\Models\Section;
+use App\Models\{Group, Mobiledatas, Section};
 use App\Rules\CheckMemberCode;
 use Illuminate\Http\Request;
 

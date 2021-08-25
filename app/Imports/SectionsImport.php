@@ -2,19 +2,20 @@
 
 namespace App\Imports;
 
-use App\Models\Group;
-use App\Models\Section;
+use App\Models\{Group, Section};
 use App\Rules\CheckSectionCode;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\SkipsErrors;
-use Maatwebsite\Excel\Concerns\SkipsFailures;
-use Maatwebsite\Excel\Concerns\SkipsOnError;
-use Maatwebsite\Excel\Concerns\SkipsOnFailure;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\{
+    Importable,
+    SkipsErrors,
+    SkipsFailures,
+    SkipsOnError,
+    SkipsOnFailure,
+    ToModel,
+    WithBatchInserts,
+    WithHeadingRow,
+    WithValidation
+};
 
 class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel
 {
@@ -24,7 +25,7 @@ class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation
 
     public function model(array $row)
     {
-       return new Section([
+        return new Section([
             'user_id' => session('Data.id'),
             'group_id' => $this->group_id[$this->SaveIndex++],
             'code' => $row['code'],

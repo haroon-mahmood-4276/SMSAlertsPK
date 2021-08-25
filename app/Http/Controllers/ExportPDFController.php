@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mobiledatas;
-use App\Models\Sms;
+use App\Models\{Mobiledatas, Sms};
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

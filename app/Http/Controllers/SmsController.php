@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Imports\DuesImport;
-use App\Jobs\JobMain;
-use App\Jobs\JobSendSms;
-use App\Models\Group;
-use App\Models\Mobiledatas;
-use App\Models\Setting;
-use App\Models\Sms;
-use App\Models\Template;
-use App\Models\User;
+use App\Jobs\{
+    JobMain,
+    JobSendSms
+};
+use App\Models\{
+    Group,
+    Mobiledatas,
+    Setting,
+    Sms,
+    Template,
+    User
+};
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
+use Illuminate\Support\{Arr, Str, Facades\Http};
 use Maatwebsite\Excel\Facades\Excel;
 use PDO;
 

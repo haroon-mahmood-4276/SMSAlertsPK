@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
-use App\Models\Section;
+use App\Models\{Group, Section};
 use App\Rules\CheckSectionCode;
 use Illuminate\Http\Request;
 
