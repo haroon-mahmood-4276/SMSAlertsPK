@@ -5,12 +5,12 @@
 
             <a href="javascript:void(0)" class="brand-logo">
                 <span class="icon">
-                    <img class="light-logo" src="{{ asset('assets/images/logo-light-icon.png') }}">
-                    <img class="dark-logo" src="{{ asset('assets/images/logo-icon.png') }}">
+                    <img class="light-logo" src="{{ asset('assets/images/icon-light.png') }}">
+                    <img class="dark-logo" src="{{ asset('assets/images/icon-dark.png') }}">
                 </span>
                 <span class="text">
-                    <img class="light-logo" src="{{ asset('assets/images/logo-light-text.png') }}">
-                    <img class="dark-logo" src="{{ asset('assets/images/logo-text.png') }}">
+                    <img class="light-logo" src="{{ asset('assets/images/text-light.png') }}">
+                    <img class="dark-logo" src="{{ asset('assets/images/text-dark.png') }}">
                 </span>
             </a>
             <!-- ============================================================== -->
