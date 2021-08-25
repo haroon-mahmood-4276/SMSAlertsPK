@@ -3,7 +3,7 @@
     <nav>
         <div class="nav-wrapper">
 
-            <a href="javascript:void(0)" class="brand-logo">
+            <a href="{{ route('r.dashboard') }}" class="brand-logo">
                 <span class="icon">
                     <img class="light-logo" src="{{ asset('assets/images/icon-light.png') }}">
                     <img class="dark-logo" src="{{ asset('assets/images/icon-dark.png') }}">
