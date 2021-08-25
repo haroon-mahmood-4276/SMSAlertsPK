@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Edit Section')
+@section('PageTitle', 'Edit Subject')
 
 @section('BeforeCommonCss')
 
@@ -15,11 +15,11 @@
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
-                        <h5 class="card-title">Create Section</h5>
-                        <form action="{{ route('sections.update', ['section' => $Section->id]) }}" class="formValidate"
+                        <h5 class="card-title">Create Subject</h5>
+                        <form action="{{ route('subjects.update', ['subject' => $Subject->id]) }}" class="formValidate"
                             id="formValidate" method="POST">
                             @csrf
-                            @method('PATCH')
+                            @method('PUT')
                             @if (Session::get('AlertType') && Session::get('AlertMsg'))
                                 <div class="row">
                                     <div class="col l12 m12 s12 m-5">
@@ -29,9 +29,9 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 m12 l4">
                                 <i class="material-icons prefix">text_format</i>
-                                <select class="form-select" name="group_name" id="group_name">
+                                <select class="form-select" name="group" id="group">
                                     <option value="">Select</option>
                                     @foreach ($Groups as $Group)
                                         <option value="{{ $Group->id }}"
@@ -39,26 +39,26 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <label for="group_name"
+                                <label for="group"
                                     class="form-label">Classes</label>
-                                @error('group_name')
+                                @error('group')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            <div class="input-field col s12">
+                            <div class="input-field col s12 m6 l4">
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="code" name="code" type="text" class="@error('code') error @enderror"
                                     value="{{ $Subject->code }}" maxlength="5">
-                                <label for="code">Suject Code*</label>
+                                <label for="code">Subject Code*</label>
                                 @error('code')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="input-field col s12">
-                                <label for="name" class="form-label">Subject Name</label>
+                            <div class="input-field col s12 m5 l4">
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                    id="name" value="{{ $Subject->name }}" placeholder="Subject Name">
+                                id="name" value="{{ $Subject->name }}">
+                                <label for="name" class="form-label">Subject Name</label>
                                 @error('name')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
@@ -68,8 +68,8 @@
                                     <button class="btn waves-effect waves-light right submit" type="submit"
                                         name="action">Save
                                     </button>
-                                    <a href="{{ route('sections.index') }}"
-                                        class="btn waves-effect red waves-light right m-r-10">Back to Section
+                                    <a href="{{ route('subjects.index') }}"
+                                        class="btn waves-effect red waves-light right m-r-10">Back to Subject
                                         List</a>
                                 </div>
                             </div>
