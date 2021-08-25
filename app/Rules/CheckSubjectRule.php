@@ -29,13 +29,13 @@ class CheckSubjectRule implements Rule
     public function passes($attribute, $value)
     {
         if ($this->IsUpdate) {
-            $Data = Subject::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
+            $Data = Subject::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
             // dd($Data);
             if (!$Data->isEmpty()) {
                 return true;
             }
         }
-        $Data = Subject::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->get();
+        $Data = Subject::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->get();
         return $Data->isEmpty();
     }
 
