@@ -14,7 +14,8 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        $Teachers = Teacher::where('user_id', '=', session('Data.id'))->get();
+        return view('teacher.index', ['Teachers' => $Teachers]);
     }
 
     /**
@@ -44,7 +45,7 @@ class TeacherController extends Controller
      * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function show(Teacher $teacher)
+    public function show($id)
     {
         //
     }
@@ -55,7 +56,7 @@ class TeacherController extends Controller
      * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function edit(Teacher $teacher)
+    public function edit($id)
     {
         //
     }
@@ -67,7 +68,7 @@ class TeacherController extends Controller
      * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -78,7 +79,7 @@ class TeacherController extends Controller
      * @param  \App\Models\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Teacher $teacher)
+    public function destroy($id)
     {
         //
     }
