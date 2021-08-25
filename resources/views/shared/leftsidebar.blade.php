@@ -31,8 +31,8 @@
                                 <span class="hide-menu"> Subjects Management</span></a>
                         </li>
                         <li>
-                            <a href="{{ route('sections.index') }}"
-                                class="collapsible-header {{ Request::is(route('sections.index')) ? 'active' : null }}"><i
+                            <a href="{{ route('teachers.index') }}"
+                                class="collapsible-header {{ Request::is(route('teachers.index')) ? 'active' : null }}"><i
                                     class="material-icons">school</i>
                                 <span class="hide-menu"> Teachers Management</span></a>
                         </li>
