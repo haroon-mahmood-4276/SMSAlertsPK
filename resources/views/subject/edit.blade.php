@@ -35,27 +35,13 @@
                                     <option value="">Select</option>
                                     @foreach ($Groups as $Group)
                                         <option value="{{ $Group->id }}"
-                                            {{ $Group->id == $Section->group_id ? 'selected' : '' }}>{{ $Group->name }}
+                                            {{ $Group->id == $Subject->group_id ? 'selected' : '' }}>{{ $Group->name }}
                                         </option>
                                     @endforeach
                                 </select>
                                 <label for="group_name"
-                                    class="form-label">{{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}</label>
+                                    class="form-label">Classes</label>
                                 @error('group_name')
-                                    <span style="color: red">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="input-field col s6">
-                                <select class="form-select" name="section" id="section">
-                                    @foreach ($Sections as $Section)
-                                        <option value="{{ $Section->id }}"
-                                            {{ $Section->id == $MobileData->section_id ? 'selected' : '' }}>{{ $Section->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <label for="section" class="form-label">Section</label>
-                                @error('section')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -63,16 +49,16 @@
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="code" name="code" type="text" class="@error('code') error @enderror"
-                                    value="{{ $Section->code }}" maxlength="5">
-                                <label for="code">Section ID *</label>
+                                    value="{{ $Subject->code }}" maxlength="5">
+                                <label for="code">Suject Code*</label>
                                 @error('code')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="input-field col s12">
-                                <label for="name" class="form-label">Section Name</label>
+                                <label for="name" class="form-label">Subject Name</label>
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                    id="name" value="{{ $Section->name }}" placeholder="Section Name">
+                                    id="name" value="{{ $Subject->name }}" placeholder="Subject Name">
                                 @error('name')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror

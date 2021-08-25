@@ -19,8 +19,7 @@
             <div class="error-body center-align">
                 <h1>@yield('code')</h1>
                 <h3>@yield('message')</h3>
-                <a href="{{ route('r.login') }}" class="btn btn-round red waves-effect waves-light m-t-40 m-b-40">Back to
-                    home</a>
+                <a href="{{ url()->previous() }}" class="btn btn-round red waves-effect waves-light m-t-40 m-b-40">Back</a>
             </div>
         </div>
     </section>

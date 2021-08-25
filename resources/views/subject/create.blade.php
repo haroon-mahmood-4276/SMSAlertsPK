@@ -28,11 +28,13 @@
                                 </div>
                             @endif
 
-                            <div class="input-field col s12 m6 l6">
+                            <div class="input-field col s12 m12 l4">
                                 <select class="form-select" name="group" id="group">
                                     <option value="">Select</option>
                                     @foreach ($Groups as $Group)
-                                        <option value="{{ $Group->id }}">{{ $Group->name }}</option>
+                                        <option value="{{ $Group->id }}"
+                                            {{ old('group') == $Group->id ? ' selected' : '' }}>{{ $Group->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 <label for="group" class="form-label">Classes</label>
@@ -41,17 +43,7 @@
                                 @enderror
                             </div>
 
-                            <div class="input-field col s12 m6 l6">
-                                <select class="form-select" name="section" id="section">
-                                    <option value="">Select</option>
-                                </select>
-                                <label for="section" class="form-label">Section</label>
-                                @error('section')
-                                    <span style="color: red">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="input-field col s12 m6 l6">
+                            <div class="input-field col s12 m6 l4">
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="code" name="code" type="text" class="@error('code') error @enderror"
                                     value="{{ old('code') }}" maxlength="5">
@@ -61,7 +53,7 @@
                                 @enderror
                             </div>
 
-                            <div class="input-field col s12 m6 l6">
+                            <div class="input-field col s12 m6 l4">
                                 <i class="material-icons prefix">text_format</i>
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" name="name"
@@ -74,11 +66,11 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <button class="btn waves-effect waves-light right submit" type="submit"
+                                    <button class="btn waves-effect waves-light right submit m-5" type="submit"
                                         name="action">Save
                                     </button>
-                                    <a href="{{ route('sections.index') }}"
-                                        class="btn waves-effect red waves-light right m-r-10">Back to Subject
+                                    <a href="{{ route('subjects.index') }}"
+                                        class="btn waves-effect red waves-light right m-5">Back to Subject
                                         List</a>
                                 </div>
                             </div>
@@ -97,26 +89,4 @@
     <script src="{{ asset('dist/js/app.js') }}"></script>
     <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
-    <script>
-        $('#group').on('change', function() {
-            var GroupId = ($(this).val()) ? $(this).val() : '0';
-            var Data = '<option value="">Select</option>';
-            $.ajax({
-                type: "get",
-                url: "{{ route('r.sectionlist', ['section' => ':id']) }}".replace(':id', GroupId),
-                dataType: 'json',
-                success: function(response) {
-                    for (let index = 0; index < response.length; index++) {
-                        Data += '<option value="' + response[index].id + '">' + response[index].name +
-                            '</option>';
-                    }
-                    $('#section').html(Data);
-                    M.FormSelect.init(document.querySelector('#section'));
-                }
-            });
-            $('#section').html(Data);
-            M.FormSelect.init(document.querySelector('#section'));
-        });
-    </script>
-
 @endsection
