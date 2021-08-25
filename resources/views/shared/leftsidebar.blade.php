@@ -173,7 +173,7 @@
                                                 API</span>
                                         </a>
                                     </li>
-                                    @if (session('Data.company_nature') == 'S')
+                                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                         <li>
                                             <a href="{{ route('r.apisection') }}">
                                                 <i class="material-icons">developer_mode</i>
