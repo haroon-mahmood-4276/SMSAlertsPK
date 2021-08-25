@@ -12,7 +12,7 @@ class CheckSubjectRule implements Rule
      *
      * @return void
      */
-    public function __construct($group_id,$IsUpdate = false, $PKID = 0)
+    public function __construct($group_id, $IsUpdate = false, $PKID = 0)
     {
         $this->group_id = $group_id;
         $this->IsUpdate = $IsUpdate;
@@ -30,10 +30,7 @@ class CheckSubjectRule implements Rule
     {
         if ($this->IsUpdate) {
             $Data = Subject::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            // dd($Data);
-            if (!$Data->isEmpty()) {
-                return true;
-            }
+            return !$Data->isEmpty();
         }
         $Data = Subject::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->get();
         return $Data->isEmpty();

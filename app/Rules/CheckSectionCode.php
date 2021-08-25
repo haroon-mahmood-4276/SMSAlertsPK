@@ -30,18 +30,10 @@ class CheckSectionCode implements Rule
     {
         if ($this->IsUpdate) {
             $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            // dd($Data);
-            if (!$Data->isEmpty()) {
-                return true;
-            } else {
-                $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->get();
-                return $Data->isEmpty();
-            }
-        } else {
-            $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->get();
-            return $Data->isEmpty();
+            return !$Data->isEmpty();
         }
-
+        $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->get();
+        return $Data->isEmpty();
     }
 
     /**

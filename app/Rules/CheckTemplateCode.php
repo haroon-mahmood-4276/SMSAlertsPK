@@ -29,17 +29,10 @@ class CheckTemplateCode implements Rule
     {
         if ($this->IsUpdate) {
             $Data = Template::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            // dd($Data);
-            if (!$Data->isEmpty()) {
-                return true;
-            } else {
-                $Data = Template::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-                return $Data->isEmpty();
-            }
-        } else {
-            $Data = Template::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-            return $Data->isEmpty();
+            return !$Data->isEmpty();
         }
+        $Data = Template::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
+        return $Data->isEmpty();
     }
 
     /**

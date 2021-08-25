@@ -29,17 +29,10 @@ class CheckGroupCode implements Rule
     {
         if ($this->IsUpdate) {
             $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            // dd($Data);
-            if (!$Data->isEmpty()) {
-                return true;
-            } else {
-                $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-                return $Data->isEmpty();
-            }
-        } else {
-            $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-            return $Data->isEmpty();
+            return !$Data->isEmpty();
         }
+        $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
+        return $Data->isEmpty();
     }
 
     /**

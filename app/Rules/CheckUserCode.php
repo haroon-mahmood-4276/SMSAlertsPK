@@ -30,9 +30,7 @@ class CheckUserCode implements Rule
         // dd($attribute ." - ".$value);
         if ($this->IsUpdate) {
             $Data = User::where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            if (!$Data->isEmpty()) {
-                return true;
-            }
+            return !$Data->isEmpty();
         }
         $Data = User::where('code', '=', $value)->get();
         return $Data->isEmpty();

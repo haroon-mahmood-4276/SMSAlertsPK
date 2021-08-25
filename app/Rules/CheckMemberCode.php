@@ -26,19 +26,9 @@ class CheckMemberCode implements Rule
      */
     public function passes($attribute, $value)
     {
-        // if ($this->IsUpdate) {
-        //     $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-        //     // dd($Data);
-        //     if (!$Data->isEmpty()) {
-        //         return true;
-        //     } else {
-        //         $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->get();
-        //         return $Data->isEmpty();
-        //     }
-        // } else {
-            $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-            return $Data->isEmpty();
-        // }
+
+        $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
+        return $Data->isEmpty();
     }
 
     /**
