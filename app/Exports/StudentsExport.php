@@ -2,8 +2,7 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromArray;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\{FromArray, WithHeadings};
 
 class StudentsExport implements FromArray, WithHeadings
 {
