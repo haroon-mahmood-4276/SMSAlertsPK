@@ -2,17 +2,17 @@
 
 namespace App\Rules;
 
-use App\Models\Section;
+use App\Models\Subject;
 use Illuminate\Contracts\Validation\Rule;
 
-class CheckSectionCode implements Rule
+class CheckSubjectRule implements Rule
 {
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($group_id, $IsUpdate = false, $PKID = 0)
+    public function __construct($group_id,$IsUpdate = false, $PKID = 0)
     {
         $this->group_id = $group_id;
         $this->IsUpdate = $IsUpdate;
@@ -29,19 +29,14 @@ class CheckSectionCode implements Rule
     public function passes($attribute, $value)
     {
         if ($this->IsUpdate) {
-            $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
+            $Data = Subject::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
             // dd($Data);
             if (!$Data->isEmpty()) {
                 return true;
-            } else {
-                $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->get();
-                return $Data->isEmpty();
             }
-        } else {
-            $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->get();
-            return $Data->isEmpty();
         }
-
+        $Data = Subject::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('section_id', '=', $this->section_id)->where('code', '=', $value)->get();
+        return $Data->isEmpty();
     }
 
     /**

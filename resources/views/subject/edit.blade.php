@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="page-wrapper">
-            <div class="container-fluid row">
+        <div class="container-fluid row">
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
@@ -39,11 +39,27 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <label for="group_name" class="form-label">{{session('Data.company_nature') == 'B' ? 'Groups' : 'Classes'}}</label>
+                                <label for="group_name"
+                                    class="form-label">{{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}</label>
                                 @error('group_name')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
+
+                            <div class="input-field col s6">
+                                <select class="form-select" name="section" id="section">
+                                    @foreach ($Sections as $Section)
+                                        <option value="{{ $Section->id }}"
+                                            {{ $Section->id == $MobileData->section_id ? 'selected' : '' }}>{{ $Section->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <label for="section" class="form-label">Section</label>
+                                @error('section')
+                                    <span style="color: red">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="code" name="code" type="text" class="@error('code') error @enderror"

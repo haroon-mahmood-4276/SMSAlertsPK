@@ -48,7 +48,7 @@
                                     @enderror
                                 </div>
 
-                                @if (session('Data.company_nature') == 'S')
+                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                     <div class="input-field col s6">
                                         <select class="form-select" name="section" id="section">
                                             <option value="">Select</option>

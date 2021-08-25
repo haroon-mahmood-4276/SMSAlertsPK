@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\Section;
 use App\Models\Subject;
+use App\Rules\CheckSubjectRule;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -26,7 +28,8 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        return view('subject.create', ['Groups' => $Groups]);
     }
 
     /**
@@ -37,7 +40,27 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'group' => 'required',
+            'section' => 'required',
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSubjectRule($request->group)],
+            'name' => 'bail|required|between:1,50',
+        ]);
+
+        dd($request);
+
+        $Subject = new Subject;
+        $Subject->user_id = session('Data.id');
+        $Subject->group_id = $request->group;
+        $Subject->section_id = $request->section;
+        $Subject->code = $request->code;
+        $Subject->name = $request->name;
+
+        if ($Subject->save()) {
+            return redirect()->route('sections.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
+        } else {
+            return redirect()->route('sections.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+        }
     }
 
     /**
@@ -48,7 +71,10 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        //
+        return $subject;
+        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        $Sections = Section::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        return view('mobiledata.create', ['Groups' => $Groups, 'Sections' => $Sections]);
     }
 
     /**
