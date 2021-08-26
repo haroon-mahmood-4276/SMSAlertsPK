@@ -38,8 +38,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 l8 m6 demo-text">
-                        <span class="db"><img src="{{ asset('assets/images/icon-dark4x.png') }}" alt="logo" /></span>
-                        <span class="db"><img src="{{ asset('assets/images/text-dark4x.png') }}" alt="logo" /></span>
+                        <span class="db"><img class="responsive-img"
+                                src="{{ asset('assets/images/icon-dark4x.png') }}" alt="logo" /></span>
+                        <span class="db"><img class="responsive-img"
+                                src="{{ asset('assets/images/text-dark4x.png') }}" alt="logo" /></span>
                         {{-- <h1 class="font-light m-t-40">Welcome to the <span class="font-medium black-text">SMS Alerts
                                 PK</span></h1> --}}
                         <p class="m-t-40">This is just a demo text which you can change as per your requeirment, so
@@ -90,7 +92,8 @@
                                         <button class="btn-large btn w100 blue accent-4" type="submit">Login</button>
                                     </div>
                                     <div class="col s12 center-align db m-t-10">
-                                        Have an teacher account? <a href="{{ route('r.teacher-login-view') }}">Teacher Login</a>
+                                        Have an teacher account? <a
+                                            href="{{ route('r.teacher-login-view') }}">Teacher Login</a>
                                     </div>
                                 </div>
                             </form>
