@@ -11,12 +11,6 @@ use Barryvdh\Debugbar\Facade as Debugbar;
 
 class GroupController extends Controller
 {
-    private $comapny_nature;
-
-    public function __construct()
-    {
-        $this->comapny_nature = Str::of(session('Data.company_nature') == 'B' ? 'group' : 'class')->plural();
-    }
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +18,6 @@ class GroupController extends Controller
      */
     public function index()
     {
-        Debugbar::info('asdadasdas');
         $Groups = Group::where('user_id', '=', session('Data.id'))->orderBy('code')->get();
         return view('group.index', ['Groups' => $Groups]);
     }
@@ -58,9 +51,9 @@ class GroupController extends Controller
         $Groups->name = $request->name;
 
         if ($Groups->save()) {
-            return redirect()->route($this->comapny_nature . '.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
         } else {
-            return redirect()->route($this->comapny_nature . '.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
         }
     }
 
@@ -105,9 +98,9 @@ class GroupController extends Controller
         $Groups->name = $request->name;
 
         if ($Groups->save()) {
-            return redirect()->route($this->comapny_nature . '.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
         } else {
-            return redirect()->route($this->comapny_nature . '.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
         }
     }
 
@@ -122,9 +115,9 @@ class GroupController extends Controller
         $Groups = Group::find($id);
 
         if ($Groups->delete()) {
-            return redirect()->route($this->comapny_nature . '.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
         } else {
-            return redirect()->route($this->comapny_nature . '.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
         }
     }
 }
