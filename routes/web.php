@@ -42,11 +42,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('teacher')->group(function () {
-    Route::get('login', [TeacherController::class, 'loginform'])->name('r.teacher-login-view');
-    Route::post('login', [TeacherController::class, 'login'])->name('r.teacher-login');
-});
-
 Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('login', [UserController::class, 'loginform'])->name('r.showlogin');
     Route::post('login', [UserController::class, 'login'])->name('r.login');

@@ -232,6 +232,17 @@ class UserController extends Controller
                 return back()->with('AlertType', 'danger')->with('AlertMsg', 'Incorrect Password.');
             }
         } else {
+
+            $Teacher = Teacher::where('email', '=', $request->email)->first();
+            // return $User;
+            if ($Teacher) {
+                if (Hash::check($request->password, $Teacher->password)) {
+                    $request->session()->put('TeacherData', $Teacher);
+                    return $request;
+                } else {
+                    return back()->with('AlertType', 'danger')->with('AlertMsg', 'Incorrect Password.');
+                }
+            }
             return back()->with('AlertType', 'danger')->with('AlertMsg', 'No account found for this email.');
         }
         return $User;
@@ -275,9 +286,8 @@ class UserController extends Controller
                     ->whereDay('mobiledatas.dob', '=', Carbon::now()->format('d'))
                     ->where('mobiledatas.active', '=', 'Y')->get();
 
-                    if(session('Data.company_nature') == 'HE'){
-
-                    }
+                if (session('Data.company_nature') == 'HE') {
+                }
             }
         }
         return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData' => $BirthdayData, 'TeachersCount' => $TeachersCount, 'SubjectsCount' => $SubjectsCount]);
