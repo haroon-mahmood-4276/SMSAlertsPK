@@ -40,7 +40,7 @@
                         <form class="formValidate" id="formValidate" action="{{ route('r.bulksms') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="input-field col {{ session('Data.company_nature') == 'S' ? 's4' : 's6' }}">
+                                <div class="input-field col {{ session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' ? 's4' : 's6'  }}">
                                     <select class="form-select" name="group" id="group">
                                         <option value="0">All</option>
                                         @foreach ($Groups as $Group)
@@ -54,7 +54,7 @@
                                     @enderror
                                 </div>
 
-                                @if (session('Data.company_nature') == 'S')
+                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                     <div class="input-field col s4">
                                         <select class="form-select" name="section" id="section">
                                             <option value="0">All</option>
@@ -467,14 +467,14 @@
             myParent = $(this).closest('table').attr('id');
             if (myParent == "demo-foo-addrow2") {
                 myTableRow = $(this).closest('table tr').html().replace('add_to_queue', 'remove_from_queue');
-                $('.my_final_table tbody').append('<tr>' + myTableRow + '</tr>');
+                $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
                 $('.my_final_table tbody td.chknone').show();
                 $('.my_final_table tbody td.chknone input[type=checkbox]').prop("disabled", false).prop("checked",
                     true);
 
             } else {
                 myTableRow = $(this).closest('table tr').html().replace('remove_from_queue', 'add_to_queue');
-                $('#demo-foo-addrow2 tbody').append('<tr>' + myTableRow + '</tr>');
+                $('#demo-foo-addrow2').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
                 $('#demo-foo-addrow2 tbody td.chknone').hide();
                 $('#demo-foo-addrow2 tbody td.chknone input[type=checkbox]').prop("disabled", true);
             }
@@ -484,7 +484,7 @@
         $('#add_all_data').on('click', function() {
             $("#demo-foo-addrow2 > tbody > tr").each(function() {
                 myTableRow = $(this).html().replace('add_to_queue', 'remove_from_queue');
-                $('.my_final_table tbody').append('<tr>' + myTableRow + '</tr>');
+                $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
                 $('.my_final_table tbody td.chknone').show();
                 $('.my_final_table tbody td.chknone input[type=checkbox]').prop("disabled", false).prop(
                     "checked", true);
