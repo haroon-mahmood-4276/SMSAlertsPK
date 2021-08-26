@@ -95,18 +95,18 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('teachers.edit', ['teacher' => $Teacher->id]) }}"
+                                                <a href="{{ route('teachers.edit', ['teacher' => $Teacher->code]) }}"
                                                     type="button"
                                                     class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                         class="material-icons">edit</i></a>
-                                                <form method="POST"
-                                                    action="{{ route('teachers.destroy', ['teacher' => $Teacher->id]) }}">
+                                                {{-- <form method="POST"
+                                                    action="{{ route('teachers.destroy', ['teacher' => $Teacher->code]) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" onclick="return confirm('Are you sure?')"
                                                         class="btn btn-small red m-5 left waves-effect waves-light"><i
                                                             class="material-icons">delete_sweep</i></button>
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach

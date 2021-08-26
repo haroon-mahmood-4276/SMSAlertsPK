@@ -40,7 +40,7 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'), $request->code)],
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'))],
             'first_name' => 'bail|required|alpha|between:1,50',
             'last_name' => 'bail|required|alpha|between:1,50',
             'mobile_1' => 'bail|required|numeric|digits:12',
@@ -103,20 +103,18 @@ class TeacherController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'), $request->code, true, $id)],
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'), true)],
             'first_name' => 'bail|required|alpha|between:1,50',
             'last_name' => 'bail|required|alpha|between:1,50',
             'mobile_1' => 'bail|required|numeric|digits:12',
             'mobile_2' => 'bail|numeric|digits:12',
-            'email' => 'required|email|unique:teachers,email',
+            'email' => 'required|email',
             'password' => 'bail|nullable|alpha_num|between:5,15',
             'coodinator_number' => 'bail|numeric|digits:12',
             'active' => 'required',
         ]);
 
         $Teacher = Teacher::where('user_id', session('Data.id'))->where('code', $id)->first();
-        $Teacher->user_id = session('Data.id');
-        $Teacher->code = $request->code;
         $Teacher->first_name = $request->first_name;
         $Teacher->last_name = $request->last_name;
         $Teacher->mobile_1 = $request->mobile_1;

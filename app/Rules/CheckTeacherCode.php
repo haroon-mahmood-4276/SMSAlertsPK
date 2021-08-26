@@ -12,10 +12,9 @@ class CheckTeacherCode implements Rule
      *
      * @return void
      */
-    public function __construct($user_id, $group_id, $IsUpdate = false, $PKID = 0)
+    public function __construct($user_id, $IsUpdate = false, $PKID = 0)
     {
         $this->user_id = $user_id;
-        $this->group_id = $group_id;
         $this->IsUpdate = $IsUpdate;
         $this->PKID = $PKID;
     }
@@ -29,11 +28,10 @@ class CheckTeacherCode implements Rule
      */
     public function passes($attribute, $value)
     {
+        $Data = Teacher::where('user_id', '=', $this->user_id)->where('code', '=', $value)->get();
         if ($this->IsUpdate) {
-            $Data = Teacher::where('user_id', '=', $this->user_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
             return !$Data->isEmpty();
         }
-        $Data = Teacher::where('user_id', '=', $this->user_id)->where('code', '=', $value)->get();
         return $Data->isEmpty();
     }
 

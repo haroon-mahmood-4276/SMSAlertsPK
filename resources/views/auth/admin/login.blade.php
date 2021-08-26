@@ -91,10 +91,6 @@
                                     <div class="col s12">
                                         <button class="btn-large btn w100 blue accent-4" type="submit">Login</button>
                                     </div>
-                                    <div class="col s12 center-align db m-t-10">
-                                        Have an teacher account? <a
-                                            href="{{ route('r.teacher-login-view') }}">Teacher Login</a>
-                                    </div>
                                 </div>
                             </form>
                         </div>
