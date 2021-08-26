@@ -5,7 +5,8 @@ use App\Exports\{
     GroupsExport,
     MembersExport,
     SectionsExport,
-    StudentsExport};
+    StudentsExport
+};
 
 use App\Http\Controllers\{
     ExportPDFController,
@@ -39,6 +40,11 @@ use Maatwebsite\Excel\Facades\Excel;
 Route::get('/', function () {
     return redirect()->route('r.showlogin');
     return view('welcome');
+});
+
+Route::prefix('teacher')->group(function () {
+    Route::get('login', [TeacherController::class, 'loginform'])->name('r.teacher-login-view');
+    Route::post('login', [TeacherController::class, 'login'])->name('r.teacher-login');
 });
 
 Route::group(['middleware' => ['AuthRoute']], function () {

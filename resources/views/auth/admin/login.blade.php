@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login - SMS Alerts PK</title>
+    <title>Admin Login - SMS Alerts PK</title>
 
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon.png') }}">
     {{-- <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"> --}}
@@ -42,7 +42,8 @@
                         <span class="db"><img src="{{ asset('assets/images/text-dark4x.png') }}" alt="logo" /></span>
                         {{-- <h1 class="font-light m-t-40">Welcome to the <span class="font-medium black-text">SMS Alerts
                                 PK</span></h1> --}}
-                        <p class="m-t-40">This is just a demo text which you can change as per your requeirment, so change once you
+                        <p class="m-t-40">This is just a demo text which you can change as per your requeirment, so
+                            change once you
                             get
                             chance. this is default text.</p>
                         <a class="btn btn-round red m-t-5">Know more</a>
@@ -87,6 +88,9 @@
                                 <div class="row m-t-5">
                                     <div class="col s12">
                                         <button class="btn-large btn w100 blue accent-4" type="submit">Login</button>
+                                    </div>
+                                    <div class="col s12 center-align db m-t-10">
+                                        Have an teacher account? <a href="{{ route('r.teacher-login-view') }}">Teacher Login</a>
                                     </div>
                                 </div>
                             </form>

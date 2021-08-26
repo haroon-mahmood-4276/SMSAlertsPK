@@ -151,4 +151,35 @@ class TeacherController extends Controller
             return redirect()->route('teachers.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
         }
     }
+
+    /*
+     * Custom Login
+     */
+    public function loginform()
+    {
+        // return dd(session('Data'));
+        return view('auth.teacher.login');
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:5|max:12'
+        ]);
+return $request->input();
+        $User = Teacher::where('email', '=', $request->email)->first();
+        // return $User;
+        if ($User) {
+            if (Hash::check($request->password, $User->password)) {
+                $request->session()->put('Data', $User);
+                return redirect()->route('r.dashboard');
+            } else {
+                return back()->with('AlertType', 'danger')->with('AlertMsg', 'Incorrect Password.');
+            }
+        } else {
+            return back()->with('AlertType', 'danger')->with('AlertMsg', 'No account found for this email.');
+        }
+        return $User;
+    }
 }

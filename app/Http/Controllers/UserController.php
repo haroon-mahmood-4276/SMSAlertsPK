@@ -212,7 +212,7 @@ class UserController extends Controller
     public function loginform()
     {
         // return dd(session('Data'));
-        return view('auth.login');
+        return view('auth.admin.login');
     }
 
     public function login(Request $request)
