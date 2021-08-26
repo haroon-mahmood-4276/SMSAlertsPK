@@ -17,7 +17,7 @@
                     <div class="card-content">
                         <h5 class="card-title">Create
                             {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}</h5>
-                        <form class="formValidate" id="formValidate" action="{{ route('groups.store') }}" method="POST">
+                        <form class="formValidate" id="formValidate" action="{{ session('Data.company_nature') == 'B' ? route('groups.store') : route('classes.store') }}" method="POST">
                             @csrf
                             @if (Session::get('AlertType') && Session::get('AlertMsg'))
                                 <div class="row">
@@ -54,7 +54,7 @@
                                     <button class="btn waves-effect waves-light right submit" type="submit"
                                         name="action">Save
                                     </button>
-                                    <a href="{{ route('groups.index') }}"
+                                    <a href="{{ session('Data.company_nature') == 'B' ? route('groups.index') : route('classes.index') }}"
                                         class="btn waves-effect red waves-light right m-r-10">Back to
                                         {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
                                         List</a>

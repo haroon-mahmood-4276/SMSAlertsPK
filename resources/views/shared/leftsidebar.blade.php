@@ -9,8 +9,8 @@
                                 class="material-icons">dashboard</i><span class="hide-menu"> Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="{{ route('groups.index') }}"
-                            class="collapsible-header {{ Request::is(route('groups.index')) ? 'active' : null }}"><i
+                        <a href="{{ session('Data.company_nature') == 'B' ? route('groups.index') : route('classes.index') }}"
+                            class="collapsible-header {{ Request::is(route(session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index')) ? 'active' : null }}"><i
                                 class="material-icons">school</i><span class="hide-menu">
                                 {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
                                 Management</span></a>

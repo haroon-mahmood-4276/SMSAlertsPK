@@ -10,6 +10,8 @@ use App\Models\{
     Package,
     Setting,
     Sms,
+    Subject,
+    Teacher,
     Template
 };
 use App\Rules\CheckUserCode;
@@ -240,6 +242,8 @@ class UserController extends Controller
         $GroupCount = 0;
         $SectionCount = 0;
         $MobileDatasCount = 0;
+        $TeachersCount = 0;
+        $SubjectsCount = 0;
         // return dd(session('Data'));
         if (session()->has('Data')) {
             $User = User::find(session()->get('Data.id'));
@@ -249,15 +253,13 @@ class UserController extends Controller
                 $GroupCount = User::count() - 1;
                 $SectionCount = User::where('company_nature', '=', 'B')->count();
                 $MobileDatasCount = User::where('company_nature', '=', 'S')->count();
-                $TeachersCount = 0;
-                $SubjectsCount = 0;
                 $BirthdayData = [];
             } else {
                 $GroupCount = Group::where('user_id', '=', session('Data.id'))->count();
                 $SectionCount = Section::where('user_id', '=', session('Data.id'))->count();
                 $MobileDatasCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
-                $TeachersCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
-                $SubjectsCount = MobileDatas::where('user_id', '=', session('Data.id'))->count();
+                $TeachersCount = Teacher::where('user_id', '=', session('Data.id'))->count();
+                $SubjectsCount = Subject::where('user_id', '=', session('Data.id'))->count();
 
                 if (strval(new DateTime(Date('Y-m-d')) > new DateTime($User->expiry_date))) {
                     $User->remaining_of_sms = 0;
@@ -272,6 +274,10 @@ class UserController extends Controller
                     ->whereMonth('mobiledatas.dob', '=', Carbon::now()->format('m'))
                     ->whereDay('mobiledatas.dob', '=', Carbon::now()->format('d'))
                     ->where('mobiledatas.active', '=', 'Y')->get();
+
+                    if(session('Data.company_nature') == 'HE'){
+
+                    }
             }
         }
         return view('user.dashboard', ['GroupCount' => $GroupCount, 'SectionCount' => $SectionCount, 'MobileDatasCount' => $MobileDatasCount, 'BirthdayData' => $BirthdayData, 'TeachersCount' => $TeachersCount, 'SubjectsCount' => $SubjectsCount]);

@@ -6,7 +6,7 @@ use App\Exports\{
     MembersExport,
     SectionsExport,
     StudentsExport};
-    
+
 use App\Http\Controllers\{
     ExportPDFController,
     UserController,
@@ -50,6 +50,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::resources([
         'users' => UserController::class,
         'groups' => GroupController::class,
+        'classes' => GroupController::class,
         'sections' => SectionController::class,
         'data' => MobileDataController::class,
         'templates' => TemplateController::class,

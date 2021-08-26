@@ -85,17 +85,19 @@
                     <div class="col l4 m6 s12">
                         <div class="card danger-gradient card-hover">
                             <div class="card-content">
-                                <div class="d-flex no-block align-items-center">
-                                    <div>
-                                        <h2 class="white-text m-b-5">{{ $GroupCount }}</h2>
-                                        <h6 class="white-text op-5 light-blue-text">
-                                            {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
-                                        </h6>
+                                <a href="{{ session('Data.company_nature') == 'B' ? route('groups.index') : route('classes.index') }}">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <h2 class="white-text m-b-5">{{ $GroupCount }}</h2>
+                                            <h6 class="white-text op-5 light-blue-text">
+                                                {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
+                                            </h6>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <span class="white-text display-6"><i class="material-icons">portrait</i></span>
+                                        </div>
                                     </div>
-                                    <div class="ml-auto">
-                                        <span class="white-text display-6"><i class="material-icons">portrait</i></span>
-                                    </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -321,10 +323,10 @@
                                 <div>
                                     <p>It is a GET Request API.</p>
                                     <pre>
-                                        <code class="language-markup">
-                                            <span>{{ urldecode(route('api.sms.quick', ['email' => session('Data.email'), 'password' => '*********', 'phone_number' => '923012345678', 'message' => "Hello I'm testing message"])) }}</span>
-                                        </code>
-                                    </pre>
+                                                    <code class="language-markup">
+                                                        <span>{{ urldecode(route('api.sms.quick', ['email' => session('Data.email'), 'password' => '*********', 'phone_number' => '923012345678', 'message' => "Hello I'm testing message"])) }}</span>
+                                                    </code>
+                                                </pre>
 
                                     {{-- <div>
                                     <br>

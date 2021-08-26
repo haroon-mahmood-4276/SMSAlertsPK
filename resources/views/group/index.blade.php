@@ -57,7 +57,7 @@
                                     <div class="d-flex">
                                         <div class="mr-auto">
                                             <div class="form-group">
-                                                <a href="{{ route('groups.create') }}"
+                                                <a href="{{ session('Data.company_nature') == 'B' ? route('groups.create') : route('classes.create') }}"
                                                     class="btn btn-small waves-effect waves-light">Add New
                                                     {{ Session::get('Data.company_nature') == 'B' ? 'Group' : 'Class' }}
                                                 </a>
@@ -83,11 +83,11 @@
                                             <td>{{ $Group->name }}</td>
                                             <td><span class="label label-table label-success">Active</span> </td>
                                             <td>
-                                                <a href="{{ route('groups.edit', ['group' => $Group->id]) }}" type="button"
+                                                <a href="{{ session('Data.company_nature') == 'B' ? route('groups.edit', ['group' => $Group->id]): route('classes.edit', ['class' => $Group->id]) }}" type="button"
                                                     class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                         class="material-icons">edit</i></a>
                                                 <form method="POST"
-                                                    action="{{ route('groups.destroy', ['group' => $Group->id]) }}">
+                                                    action="{{ session('Data.company_nature') == 'B' ? route('groups.destroy', ['group' => $Group->id]): route('classes.destroy', ['class' => $Group->id]) }}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" onclick="return confirm('Are you sure?')"
