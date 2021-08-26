@@ -85,7 +85,8 @@
                     <div class="col l4 m6 s12">
                         <div class="card danger-gradient card-hover">
                             <div class="card-content">
-                                <a href="{{ session('Data.company_nature') == 'B' ? route('groups.index') : route('classes.index') }}">
+                                <a
+                                    href="{{ session('Data.company_nature') == 'B' ? route('groups.index') : route('classes.index') }}">
                                     <div class="d-flex no-block align-items-center">
                                         <div>
                                             <h2 class="white-text m-b-5">{{ $GroupCount }}</h2>
@@ -106,15 +107,18 @@
                         <div class="col l4 m6 s12">
                             <div class="card info-gradient card-hover">
                                 <div class="card-content">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h2 class="white-text m-b-5">{{ $SectionCount }}</h2>
-                                            <h6 class="white-text op-5 text-darken-2">Sections</h6>
+                                    <a href="{{ route('sections.index') }}">
+                                        <div class="d-flex no-block align-items-center">
+                                            <div>
+                                                <h2 class="white-text m-b-5">{{ $SectionCount }}</h2>
+                                                <h6 class="white-text op-5 text-darken-2">Sections</h6>
+                                            </div>
+                                            <div class="ml-auto">
+                                                <span class="white-text display-6"><i
+                                                        class="material-icons">group</i></span>
+                                            </div>
                                         </div>
-                                        <div class="ml-auto">
-                                            <span class="white-text display-6"><i class="material-icons">group</i></span>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -123,18 +127,20 @@
                     <div class="col l4 m6 s12">
                         <div class="card success-gradient card-hover">
                             <div class="card-content">
-                                <div class="d-flex no-block align-items-center">
-                                    <div>
-                                        <h2 class="white-text m-b-5">{{ $MobileDatasCount }}</h2>
-                                        <h6 class="white-text op-5 light-blue-text">
-                                            {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
-                                        </h6>
+                                <a href="{{ route('data.index') }}">
+                                    <div class="d-flex no-block align-items-center">
+                                        <div>
+                                            <h2 class="white-text m-b-5">{{ $MobileDatasCount }}</h2>
+                                            <h6 class="white-text op-5 light-blue-text">
+                                                {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
+                                            </h6>
+                                        </div>
+                                        <div class="ml-auto">
+                                            <span class="white-text display-6"><i
+                                                    class="material-icons">account_circle</i></span>
+                                        </div>
                                     </div>
-                                    <div class="ml-auto">
-                                        <span class="white-text display-6"><i
-                                                class="material-icons">account_circle</i></span>
-                                    </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -143,15 +149,18 @@
                         <div class="col s12 m6 l6">
                             <div class="card info-gradient card-hover">
                                 <div class="card-content">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h2 class="white-text m-b-5">{{ $TeachersCount }}</h2>
-                                            <h6 class="white-text op-5 text-darken-2">Teachers</h6>
+                                    <a href="{{ route('teachers.index') }}">
+                                        <div class="d-flex no-block align-items-center">
+                                            <div>
+                                                <h2 class="white-text m-b-5">{{ $TeachersCount }}</h2>
+                                                <h6 class="white-text op-5 text-darken-2">Teachers</h6>
+                                            </div>
+                                            <div class="ml-auto">
+                                                <span class="white-text display-6"><i
+                                                        class="material-icons">school</i></span>
+                                            </div>
                                         </div>
-                                        <div class="ml-auto">
-                                            <span class="white-text display-6"><i class="material-icons">school</i></span>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -159,15 +168,18 @@
                         <div class="col s12 m6 l6">
                             <div class="card danger-gradient card-hover">
                                 <div class="card-content">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div>
-                                            <h2 class="white-text m-b-5">{{ $SubjectsCount }}</h2>
-                                            <h6 class="white-text op-5 text-darken-2">Subjects</h6>
+                                    <a href="{{ route('subjects.index') }}">
+                                        <div class="d-flex no-block align-items-center">
+                                            <div>
+                                                <h2 class="white-text m-b-5">{{ $SubjectsCount }}</h2>
+                                                <h6 class="white-text op-5 text-darken-2">Subjects</h6>
+                                            </div>
+                                            <div class="ml-auto">
+                                                <span class="white-text display-6"><i
+                                                        class="material-icons">subject</i></span>
+                                            </div>
                                         </div>
-                                        <div class="ml-auto">
-                                            <span class="white-text display-6"><i class="material-icons">subject</i></span>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -323,10 +335,10 @@
                                 <div>
                                     <p>It is a GET Request API.</p>
                                     <pre>
-                                                    <code class="language-markup">
-                                                        <span>{{ urldecode(route('api.sms.quick', ['email' => session('Data.email'), 'password' => '*********', 'phone_number' => '923012345678', 'message' => "Hello I'm testing message"])) }}</span>
-                                                    </code>
-                                                </pre>
+                                                                <code class="language-markup">
+                                                                    <span>{{ urldecode(route('api.sms.quick', ['email' => session('Data.email'), 'password' => '*********', 'phone_number' => '923012345678', 'message' => "Hello I'm testing message"])) }}</span>
+                                                                </code>
+                                                            </pre>
 
                                     {{-- <div>
                                     <br>
