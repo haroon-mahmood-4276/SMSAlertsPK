@@ -74,7 +74,7 @@
                                                 </h4>
                                                 <div class="file-field input-field col s10 m11 l11 ">
                                                     <div class="btn">
-                                                        <span>File</span>
+                                                        <span>Upload File</span>
                                                         <input type="file" name="groupsfile">
                                                     </div>
                                                     <div class="file-path-wrapper">
@@ -113,7 +113,7 @@
                                                     <h4>Import Sections</h4>
                                                     <div class="file-field input-field col s10 m11 l11">
                                                         <div class="btn">
-                                                            <span>File</span>
+                                                            <span>Upload File</span>
                                                             <input type="file" name="sectionsfile">
                                                         </div>
                                                         <div class="file-path-wrapper">
@@ -153,7 +153,7 @@
                                                 </h4>
                                                 <div class="file-field input-field col s10 m11 l11">
                                                     <div class="btn">
-                                                        <span>File</span>
+                                                        <span>Upload File</span>
                                                         <input type="file" name="membersfile">
                                                     </div>
                                                     <div class="file-path-wrapper">
