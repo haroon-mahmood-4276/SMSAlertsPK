@@ -15,12 +15,12 @@
     <div class="page-wrapper">
         <div class="page-titles">
             <div class="d-flex align-items-center">
-                <h3 class="font-medium m-b-0">{{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}</h3>
+                <h3 class="font-medium m-b-0">Teachers</h3>
                 {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
                 <div class="custom-breadcrumb ml-auto">
                     <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
                     <a href="javascript:void(0)"
-                        class="breadcrumb">{{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}</a>
+                        class="breadcrumb">Teachers</a>
                 </div>
             </div>
         </div>
@@ -51,8 +51,8 @@
                                         <th data-hide="phone">Name</th>
                                         <th data-hide="phone">Email</th>
                                         <th data-hide="phone">Primary Number</th>
-                                        <th data-hide="phone">Secondary Number</th>
-                                        <th data-hide="phone">Coodinator Number</th>
+                                        <th data-hide="all">Secondary Number</th>
+                                        <th data-hide="all">Coodinator Number</th>
                                         <th data-hide="phone">Stauts</th>
                                         <th data-hide="phone">Actions</th>
                                     </tr>
@@ -61,7 +61,7 @@
                                     <div class="d-flex">
                                         <div class="mr-auto">
                                             <div class="form-group">
-                                                <a href="{{ route('data.create') }}" class="btn btn-small"><i
+                                                <a href="{{ route('teachers.create') }}" class="btn btn-small"><i
                                                         class="icon wb-plus waves-effect waves-light"
                                                         aria-hidden="true"></i>Add New Teacher
                                                 </a>

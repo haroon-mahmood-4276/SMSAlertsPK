@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use App\Rules\CheckTeacherCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
@@ -25,7 +28,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        return view('teacher.create');
     }
 
     /**
@@ -36,7 +39,35 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'), $request->code)],
+            'first_name' => 'bail|required|alpha|between:1,50',
+            'last_name' => 'bail|required|alpha|between:1,50',
+            'mobile_1' => 'bail|required|numeric|digits:12',
+            'mobile_2' => 'bail|numeric|digits:12',
+            'email' => 'required|email|unique:teachers,email',
+            'password' => 'bail|required|alpha_num|between:5,15',
+            'coodinator_number' => 'bail|numeric|digits:12',
+            'active' => 'required',
+        ]);
+
+        $Teacher = new Teacher;
+        $Teacher->user_id = session('Data.id');
+        $Teacher->code = $request->code;
+        $Teacher->first_name = $request->first_name;
+        $Teacher->last_name = $request->last_name;
+        $Teacher->mobile_1 = $request->mobile_1;
+        $Teacher->mobile_2 = $request->mobile_2;
+        $Teacher->email = $request->email;
+        $Teacher->password = Hash::make($request->password);
+        $Teacher->coodinator_number = $request->coodinator_number;
+        $Teacher->active = $request->active;
+
+        if ($Teacher->save()) {
+            return redirect()->route('teachers.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
+        } else {
+            return redirect()->route('teachers.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+        }
     }
 
     /**
@@ -47,7 +78,7 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        //
+        return Teacher::where('user_id', session('Data.id'))->where('code', $id)->first();
     }
 
     /**
@@ -58,7 +89,8 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        //
+        $Teacher = Teacher::where('user_id', session('Data.id'))->where('code', $id)->first();
+        return view('teacher.edit', ['Teacher' => $Teacher]);
     }
 
     /**
@@ -70,7 +102,37 @@ class TeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'), $request->code, true, $id)],
+            'first_name' => 'bail|required|alpha|between:1,50',
+            'last_name' => 'bail|required|alpha|between:1,50',
+            'mobile_1' => 'bail|required|numeric|digits:12',
+            'mobile_2' => 'bail|numeric|digits:12',
+            'email' => 'required|email|unique:teachers,email',
+            'password' => 'bail|nullable|alpha_num|between:5,15',
+            'coodinator_number' => 'bail|numeric|digits:12',
+            'active' => 'required',
+        ]);
+
+        $Teacher = Teacher::where('user_id', session('Data.id'))->where('code', $id)->first();
+        $Teacher->user_id = session('Data.id');
+        $Teacher->code = $request->code;
+        $Teacher->first_name = $request->first_name;
+        $Teacher->last_name = $request->last_name;
+        $Teacher->mobile_1 = $request->mobile_1;
+        $Teacher->mobile_2 = $request->mobile_2;
+        $Teacher->email = $request->email;
+        if (Str::length($request->password) > 0) {
+            $Teacher->password = Hash::make($request->password);
+        }
+        $Teacher->coodinator_number = $request->coodinator_number;
+        $Teacher->active = $request->active;
+
+        if ($Teacher->save()) {
+            return redirect()->route('teachers.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
+        } else {
+            return redirect()->route('teachers.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
+        }
     }
 
     /**
@@ -81,6 +143,12 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Teacher = Teacher::where('user_id', session('Data.id'))->where('code', $id)->first();
+
+        if ($Teacher->delete()) {
+            return redirect()->route('teachers.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
+        } else {
+            return redirect()->route('teachers.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+        }
     }
 }
