@@ -83,8 +83,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="input-field col s2 m1 l1">
-                                                    <button class="btn pulse blue waves-effect waves-light"
-                                                        type="submit"><i
+                                                    <button class="btn pulse blue waves-effect waves-light" type="submit"><i
                                                             class="material-icons">file_upload</i></button>
                                                 </div>
                                             </div>
@@ -123,8 +122,7 @@
                                                     </div>
                                                     <div class="input-field col s2 m1 l1">
                                                         <button class="btn pulse blue waves-effect waves-light"
-                                                            type="submit"><i
-                                                                class="material-icons">file_upload</i></button>
+                                                            type="submit"><i class="material-icons">file_upload</i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,8 +160,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="input-field col s2 m1 l1">
-                                                    <button class="btn pulse blue waves-effect waves-light"
-                                                        type="submit"><i
+                                                    <button class="btn pulse blue waves-effect waves-light" type="submit"><i
                                                             class="material-icons">file_upload</i></button>
                                                 </div>
                                             </div>
@@ -179,6 +176,43 @@
                             </div>
                         </div>
                     </div>
+
+                    @if (session('Data.company_nature') == 'HE')
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="col s12 l12">
+                                        <form class="m-t-10" action="{{ route('r.importsubjects') }}"
+                                            enctype="multipart/form-data" method="POST">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <h4>Import Subjects</h4>
+                                                    <div class="file-field input-field col s10 m11 l11">
+                                                        <div class="btn">
+                                                            <span>Upload File</span>
+                                                            <input type="file" name="subjectsfile">
+                                                        </div>
+                                                        <div class="file-path-wrapper">
+                                                            <input class="file-path validate" type="text"
+                                                                placeholder="Please upload only .csv or .xls document">
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-field col s2 m1 l1">
+                                                        <button class="btn pulse blue waves-effect waves-light"
+                                                            type="submit"><i class="material-icons">file_upload</i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <p>Don't have sample file? Download <a href="{{ route('r.csvsubjects') }}">.csv
+                                                file</a> or <a href="{{ route('r.xlssubjects') }}">.xls file</a>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
 
                 </div>
             </div>
