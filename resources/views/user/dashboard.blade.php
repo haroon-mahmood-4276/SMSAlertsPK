@@ -31,7 +31,7 @@
                 @if (session('Data.company_nature') != 'A')
 
                     <div class="col l4 m6 s12">
-                        <div class="card warning-gradient card-hover">
+                        <div class="card success-gradient card-hover">
                             <div class="card-content">
                                 <div class="d-flex no-block align-items-center">
                                     <div>
