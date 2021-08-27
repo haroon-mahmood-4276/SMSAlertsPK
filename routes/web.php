@@ -149,6 +149,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::post('students', [ImportController::class, 'ImportMembers'])->name('students');
         Route::post('members', [ImportController::class, 'ImportMembers'])->name('members');
         Route::post('dues', [SmsController::class, 'DuesSMS'])->name('dues');
+        Route::post('subjects', [ImportController::class, 'ImportSubjects'])->name('subjects');
     });
 
     Route::get('settings', [SettingController::class, 'Settings'])->name('r.settings');
