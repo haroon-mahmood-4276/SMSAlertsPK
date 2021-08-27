@@ -51,8 +51,9 @@
                                         <th data-hide="phone">Name</th>
                                         <th data-hide="phone">Email</th>
                                         <th data-hide="phone">Primary Number</th>
+                                        <th data-hide="phone">Assigned for</th>
                                         <th data-hide="all">Secondary Number</th>
-                                        <th data-hide="all">Coodinator Number</th>
+                                        <th data-hide="phone">Coodinator Number</th>
                                         <th data-hide="phone">Stauts</th>
                                         <th data-hide="phone">Actions</th>
                                     </tr>
@@ -85,6 +86,7 @@
                                             </td>
                                             <td>{{ $Teacher->email }}</td>
                                             <td>{{ $Teacher->mobile_1 }}</td>
+                                            <td>{{ $Teacher->group_name }} - {{ $Teacher->subject_name }}</td>
                                             <td>{{ $Teacher->mobile_2 }}</td>
                                             <td>{{ $Teacher->coodinator_number }}</td>
                                             <td>

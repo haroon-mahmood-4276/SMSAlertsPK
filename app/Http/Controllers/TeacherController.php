@@ -10,7 +10,6 @@ use App\Rules\CheckTeacherCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use Barryvdh\Debugbar\Facade as DebugBar;
 
 class TeacherController extends Controller
 {
@@ -21,7 +20,13 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $Teachers = Teacher::where('user_id', '=', session('Data.id'))->get();
+        $Teachers = Teacher::join('student_teacher_subject_junction', 'student_teacher_subject_junction.teacher_id', '=', 'teachers.id')
+            ->join('subjects', 'student_teacher_subject_junction.subject_id', '=', 'subjects.id')
+            ->join('groups', 'subjects.group_id', '=', 'groups.id')
+            ->select('teachers.code', 'teachers.first_name', 'teachers.last_name', 'teachers.email', 'teachers.mobile_1', 'teachers.mobile_2', 'teachers.coodinator_number', 'teachers.active', 'subjects.name AS subject_name', 'groups.name AS group_name')
+            ->where('teachers.user_id', session('Data.id'))->distinct()->get();
+
+
         return view('teacher.index', ['Teachers' => $Teachers]);
     }
 
