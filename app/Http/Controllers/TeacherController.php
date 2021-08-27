@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\StudentTeacherSubjectJunction;
 use App\Models\Subject;
 use App\Models\Teacher;
 use App\Rules\CheckTeacherCode;
@@ -44,8 +45,6 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
 
-        return $request->input();
-
         $request->validate([
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'))],
             'first_name' => 'bail|required|alpha|between:1,50',
@@ -71,6 +70,18 @@ class TeacherController extends Controller
         $Teacher->active = $request->active;
 
         if ($Teacher->save()) {
+
+            foreach ($request->input() as $Data) {
+                if (substr($Data, -6) == 'std_id') {
+                    $Junction = new StudentTeacherSubjectJunction;
+                    $Junction->user_id = session('Data.id');
+                    $Junction->teacher_id = Teacher::where('code', '=', $request->code)->first()->id;
+                    $Junction->mobiledata_id = substr($Data, 0, -6);
+                    $Junction->subject_id = $request->subject;
+                    $Junction->save();
+                }
+            }
+
             return redirect()->route('teachers.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
         } else {
             return redirect()->route('teachers.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');

@@ -295,8 +295,9 @@
                                 "<td><span class='label label-table label-danger'>Not Active</span></td>\n";
                         }
                         Data +=
-                            "<td><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button><input type='hidden' name='" +
-                            response[index].id + "std_id' value='" + response[index].id + "'/></td>\n";
+                            "<td class='student_id'><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button><input type='hidden' name='" +
+                            response[index].id + "std_id' value='" +
+                            response[index].id + "std_id' disabled/></td>\n";
 
                         Data += "</tr>";
                     }
@@ -312,9 +313,11 @@
             if (myParent == "demo-foo-addrow2") {
                 myTableRow = $(this).closest('table tr').html().replace('add_to_queue', 'remove_from_queue');
                 $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
+                $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
             } else {
                 myTableRow = $(this).closest('table tr').html().replace('remove_from_queue', 'add_to_queue');
                 $('#demo-foo-addrow2').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
+                $('#demo-foo-addrow2 tbody td.student_id input[type=hidden]').prop("disabled", true);
             }
             $(this).closest('table tr').remove();
         });
@@ -323,6 +326,7 @@
             $("#demo-foo-addrow2 > tbody > tr").each(function() {
                 myTableRow = $(this).html().replace('add_to_queue', 'remove_from_queue');
                 $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
+                $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
                 $(this).remove();
             });
         });
