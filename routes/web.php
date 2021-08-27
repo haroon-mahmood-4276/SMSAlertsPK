@@ -9,6 +9,7 @@ use App\Exports\{
 };
 
 use App\Http\Controllers\{
+    AjaxController,
     ExportPDFController,
     UserController,
     GroupController,
@@ -193,6 +194,10 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
         Route::get('device-attendance', [SmsController::class, 'DeviceAttendanceView'])->name('r.device-attendance-view');
         Route::post('device-attendance', [SmsController::class, 'DeviceAttendance'])->name('r.device-attendance');
+    });
+
+    Route::prefix('ajax')->group(function () {
+        Route::get('students-against-subject/{id}', [AjaxController::class, 'StudentsAgainstSubject'])->name('r.students-against-subject');
     });
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

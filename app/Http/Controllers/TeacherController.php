@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
+use App\Models\Subject;
 use App\Models\Teacher;
 use App\Rules\CheckTeacherCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\Debugbar\Facade as DebugBar;
 
 class TeacherController extends Controller
 {
@@ -28,7 +31,8 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('teacher.create');
+        $Subjects = Subject::join('groups', 'subjects.group_id', '=', 'groups.id')->select('subjects.*', 'groups.name AS group_name')->where('subjects.user_id', session('Data.id'))->get();
+        return view('teacher.create', ['Subjects' => $Subjects]);
     }
 
     /**
@@ -39,6 +43,9 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
+
+        return $request->input();
+
         $request->validate([
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'))],
             'first_name' => 'bail|required|alpha|between:1,50',
@@ -90,7 +97,8 @@ class TeacherController extends Controller
     public function edit($id)
     {
         $Teacher = Teacher::where('user_id', session('Data.id'))->where('code', $id)->first();
-        return view('teacher.edit', ['Teacher' => $Teacher]);
+        $Subjects = Subject::where('user_id', session('Data.id'))->get();
+        return view('teacher.edit', ['Teacher' => $Teacher, 'Subjects' => $Subjects]);
     }
 
     /**
