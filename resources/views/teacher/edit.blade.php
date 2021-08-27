@@ -81,7 +81,8 @@
                                 <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="password" name="password" type="password"
-                                        class="@error('password') error @enderror" placeholder="Leave empty if you don't want to change the password">
+                                        class="@error('password') error @enderror"
+                                        placeholder="Leave empty if you don't want to change the password">
                                     <label for="password">Password *</label>
                                     @error('password')
                                         <span style="color: red">{{ $message }}</span>
@@ -124,7 +125,8 @@
                                 <div class="input-field col s12 m6 l6">
                                     <select class="form-select" name="active" id="active">
                                         <option value="">Select</option>
-                                        <option value="Y" {{ $Teacher->active == 'Y' ? ' selected' : '' }}>Active</option>
+                                        <option value="Y" {{ $Teacher->active == 'Y' ? ' selected' : '' }}>Active
+                                        </option>
                                         <option value="N" {{ $Teacher->active == 'N' ? 'selected' : '' }}>Not Active
                                         </option>
                                     </select>
@@ -132,6 +134,112 @@
                                     @error('active')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
+                                </div>
+
+                                <div class="m-t-20 col s12 m12 l12">
+                                    <hr>
+                                    <h3 class="card-title">Assign Subjects to teacher</h3>
+                                </div>
+
+                                <div class="input-field col s12 m4 l4">
+                                    <select class="form-select" name="subject" id="subject">
+                                        <option value="">Select</option>
+                                        @foreach ($Subjects as $Subject)
+                                            <option value="{{ $Subject->id }}"
+                                                {{ $Subject->id == $Students[0]->subject_id ? 'selected' : '' }}>{{ $Subject->group_name }} - {{ $Subject->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label for="subject" class="form-label">Subjects</label>
+                                    @error('subject')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                {{-- Table 1 --}}
+                                <div class="input-field m-t-10 col s12" id="SDTTable1">
+                                    <table id="demo-foo-addrow2"
+                                        class="table m-b-0 toggle-arrow-tiny centered responsive-table" data-page-size="10">
+                                        <thead>
+                                            <tr>
+                                                <th data-toggle="true">Code</th>
+                                                <th>Name</th>
+                                                <th>Class - Section</th>
+                                                <th>Stauts</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <div class="">
+                                            <div class="d-flex">
+                                                <div class="ml-auto">
+                                                    <div class="form-group">
+                                                        <input id="demo-input-search2" type="text" placeholder="Search"
+                                                            autocomplete="off">
+
+                                                        <a href="javascript:void(0)" id="add_all_data"
+                                                            class="waves-effect waves-light btn"><i
+                                                                class="material-icons left">add</i>Add All</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <tbody>
+                                            {{-- <tr colspan="9">
+                                                <td>No Data Yet</td>
+                                            </tr> --}}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="text-right">
+                                                        <ul class="pagination pagination-split"> </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                                {{-- Table 2 --}}
+                                <div class="input-field col s12 rounded"
+                                    style="border: 2px solid rgb(230, 230, 230) !important; margin-top: 50px !important; padding: 30px 15px !important;">
+                                    <table id="demo-foo-addrow"
+                                        class="table my_final_table m-b-0 toggle-arrow-tiny centered responsive-table"
+                                        data-page-size="10">
+                                        <thead>
+                                            <tr>
+                                                <th data-toggle="true">Code</th>
+                                                <th>Name</th>
+                                                <th>Class - Section</th>
+                                                <th>Stauts</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($Students as $Student)
+                                                <tr>
+                                                    <td>{{ $Student->code }}</td>
+                                                    <td>{{ $Student->student_first_name }}
+                                                        {{ $Student->student_last_name }}</td>
+                                                    <td>{{ $Student->group_name }} - {{ $Student->section_name }}</td>
+                                                    <td><span class="label label-table label-success">Active</span></td>
+                                                    <td class='student_id'><button class='btn add-student' type='button'><i
+                                                                class='material-icons'>remove_from_queue</i></button><input
+                                                            type='hidden' name="{{ $Student->id }}std_id"
+                                                            value="{{ $Student->id }}std_id" /></td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="text-right">
+                                                        <ul class="pagination pagination-split"> </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
                                 </div>
 
                                 <div class="input-field m-t-20 col s12">
@@ -162,6 +270,100 @@
     <script src="{{ asset('assets/libs/moment/moment.js') }}"></script>
     <script
         src="{{ asset('assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js') }}">
+    </script>
+
+    <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
+    <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
+    <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
+    <script>
+        $('#subject').on('change', function() {
+
+            var addrow = $('#demo-foo-addrow2');
+            var footable = addrow.data('footable');
+
+            var Data = "";
+            var SubjectId = $(this).val();
+
+            $.ajax({
+                type: "get",
+                url: "{{ route('r.students-against-subject', ['id' => ':id']) }}".replace(':id',
+                    SubjectId),
+                dataType: 'json',
+                success: function(response) {
+
+                    for (let index = 0; index < response.length; index++) {
+                        Data += "<tr>\n";
+                        Data += "<td>" + response[index].code + "</td>\n";
+                        Data += "<td>" + response[index].student_first_name + " " + response[index]
+                            .student_last_name + "</td>\n";
+                        Data += "<td>" + response[index].group_name + " - " + response[index]
+                            .section_name + "</td>\n";
+
+                        if (response[index].active == "Y") {
+                            Data +=
+                                "<td><span class='label label-table label-success'>Active</span></td>\n";
+                        } else {
+                            Data +=
+                                "<td><span class='label label-table label-danger'>Not Active</span></td>\n";
+                        }
+                        Data +=
+                            "<td class='student_id'><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button><input type='hidden' name='" +
+                            response[index].id + "std_id' value='" +
+                            response[index].id + "std_id' disabled/></td>\n";
+
+                        Data += "</tr>";
+                    }
+
+                    $("#demo-foo-addrow2 > tbody > tr").remove();
+                    footable.appendRow(Data);
+                }
+            });
+        });
+
+        $('tbody').on('click', '.add-student', function() {
+            myParent = $(this).closest('table').attr('id');
+            if (myParent == "demo-foo-addrow2") {
+                flag = 0;
+                myTableRow = $(this).closest('table tr').html().replace('add_to_queue', 'remove_from_queue');
+
+                $(".my_final_table > tbody > tr > td.student_id input[type=hidden]").each(function() {
+                    if ($(this).val() == $(myTableRow).closest('td.student_id').find('input[type=hidden]')
+                        .val()) {
+                        flag = 1;
+                    }
+                });
+                if (flag == 0) {
+                    $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
+                    $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
+                }
+            } else {
+                myTableRow = $(this).closest('table tr').html().replace('remove_from_queue', 'add_to_queue');
+                $('#demo-foo-addrow2').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
+                $('#demo-foo-addrow2 tbody td.student_id input[type=hidden]').prop("disabled", true);
+            }
+            $(this).closest('table tr').remove();
+        });
+
+        $('#add_all_data').on('click', function() {
+            $("#demo-foo-addrow2 > tbody > tr").each(function() {
+                flag = 0;
+                myTableRow = $(this).closest('table tr').html().replace('add_to_queue',
+                    'remove_from_queue');
+
+                $(".my_final_table > tbody > tr > td.student_id input[type=hidden]").each(function() {
+                    if ($(this).val() == $(myTableRow).closest('td.student_id').find(
+                            'input[type=hidden]')
+                        .val()) {
+                        flag = 1;
+                    }
+                });
+                if (flag == 0) {
+                    $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
+                    $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
+                }
+                $(this).remove();
+            });
+        });
     </script>
 
 @endsection

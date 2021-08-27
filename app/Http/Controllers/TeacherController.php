@@ -114,8 +114,17 @@ class TeacherController extends Controller
     public function edit($id)
     {
         $Teacher = Teacher::where('user_id', session('Data.id'))->where('code', $id)->first();
-        $Subjects = Subject::where('user_id', session('Data.id'))->get();
-        return view('teacher.edit', ['Teacher' => $Teacher, 'Subjects' => $Subjects]);
+        $Subjects = Subject::join('groups', 'subjects.group_id', '=', 'groups.id')->select('subjects.*', 'groups.name AS group_name')->where('subjects.user_id', session('Data.id'))->get();
+
+        $Students = StudentTeacherSubjectJunction::join('mobiledatas', 'student_teacher_subject_junction.mobiledata_id', '=', 'mobiledatas.id')
+            ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
+            ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
+            ->select('student_teacher_subject_junction.subject_id', 'mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'groups.name AS group_name', 'sections.name AS section_name')
+            ->where('student_teacher_subject_junction.user_id', session('Data.id'))
+            ->where('student_teacher_subject_junction.teacher_id', $Teacher->id)
+            ->get();
+
+        return view('teacher.edit', ['Teacher' => $Teacher, 'Subjects' => $Subjects, 'Students' => $Students]);
     }
 
     /**
@@ -152,6 +161,20 @@ class TeacherController extends Controller
         $Teacher->active = $request->active;
 
         if ($Teacher->save()) {
+
+
+            if (StudentTeacherSubjectJunction::where('user_id', session('Data.id'))->where('teacher_id', $Teacher->id)->delete()) {
+                foreach ($request->input() as $Data) {
+                    if (substr($Data, -6) == 'std_id') {
+                        $Junction = new StudentTeacherSubjectJunction;
+                        $Junction->user_id = session('Data.id');
+                        $Junction->teacher_id = Teacher::where('code', '=', $request->code)->first()->id;
+                        $Junction->mobiledata_id = substr($Data, 0, -6);
+                        $Junction->subject_id = $request->subject;
+                        $Junction->save();
+                    }
+                }
+            }
             return redirect()->route('teachers.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
         } else {
             return redirect()->route('teachers.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
