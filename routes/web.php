@@ -40,7 +40,7 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::get('/', function () {
-    return redirect()->route('r.showlogin');
+    // return redirect()->route('r.showlogin');
     return view('welcome');
 });
 
