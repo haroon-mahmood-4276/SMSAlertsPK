@@ -52,7 +52,7 @@ class ImportController extends Controller
     public function ImportSubjects(Request $request)
     {
         $import = new SubjectsImport;
-        $import->import($request->file('sectionsfile'));
+        $import->import($request->file('subjectsfile'));
 
         if ($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());
