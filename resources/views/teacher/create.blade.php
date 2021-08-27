@@ -142,8 +142,7 @@
                                     <select class="form-select" name="subject" id="subject">
                                         <option value="">Select</option>
                                         @foreach ($Subjects as $Subject)
-                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} -
-                                                {{ $Subject->name }}
+                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} - {{ $Subject->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -335,9 +334,19 @@
 
         $('#add_all_data').on('click', function() {
             $("#demo-foo-addrow2 > tbody > tr").each(function() {
-                myTableRow = $(this).html().replace('add_to_queue', 'remove_from_queue');
-                $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
-                $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
+                flag = 0;
+                myTableRow = $(this).closest('table tr').html().replace('add_to_queue', 'remove_from_queue');
+
+                $(".my_final_table > tbody > tr > td.student_id input[type=hidden]").each(function() {
+                    if ($(this).val() == $(myTableRow).closest('td.student_id').find('input[type=hidden]')
+                        .val()) {
+                        flag = 1;
+                    }
+                });
+                if (flag == 0) {
+                    $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
+                    $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
+                }
                 $(this).remove();
             });
         });
