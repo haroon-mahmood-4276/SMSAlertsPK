@@ -43,7 +43,7 @@
                                 @enderror
                             </div>
 
-                            <div class="input-field col s12 m6 l4">
+                            <div class="input-field col s12 m6 l2">
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="code" name="code" type="text" class="@error('code') error @enderror"
                                     value="{{ old('code') }}" maxlength="5">
@@ -53,7 +53,7 @@
                                 @enderror
                             </div>
 
-                            <div class="input-field col s12 m6 l4">
+                            <div class="input-field col s12 m6 l6">
                                 <i class="material-icons prefix">text_format</i>
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" name="name"

@@ -46,7 +46,7 @@
                                 @enderror
                             </div>
 
-                            <div class="input-field col s12 m6 l4">
+                            <div class="input-field col s12 m6 l2">
                                 <i class="material-icons prefix">text_format</i>
                                 <input id="code" name="code" type="text" class="@error('code') error @enderror"
                                     value="{{ $Subject->code }}" maxlength="5">
@@ -55,7 +55,7 @@
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="input-field col s12 m5 l4">
+                            <div class="input-field col s12 m5 l6">
                                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                                 id="name" value="{{ $Subject->name }}">
                                 <label for="name" class="form-label">Subject Name</label>
