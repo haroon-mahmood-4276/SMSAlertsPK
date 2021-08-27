@@ -5,7 +5,8 @@ use App\Exports\{
     GroupsExport,
     MembersExport,
     SectionsExport,
-    StudentsExport
+    StudentsExport,
+    SubjectsExport
 };
 
 use App\Http\Controllers\{
@@ -104,6 +105,10 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('dues', function () {
             return Excel::download(new DuesExport, 'dues.xls', \Maatwebsite\Excel\Excel::XLS);
         })->name('dues');
+
+        Route::get('subjects', function () {
+            return Excel::download(new SubjectsExport, 'subjects.xls', \Maatwebsite\Excel\Excel::XLS);
+        })->name('subjects');
     });
 
     Route::group(['prefix' => 'export/csv', 'as' => 'r.csv'], function () {
@@ -130,6 +135,10 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('dues', function () {
             return Excel::download(new DuesExport, 'dues.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
         })->name('dues');
+
+        Route::get('subjects', function () {
+            return Excel::download(new SubjectsExport, 'subjects.csv', \Maatwebsite\Excel\Excel::CSV, ['Content-Type' => 'text/csv']);
+        })->name('subjects');
     });
 
     // Data Import
