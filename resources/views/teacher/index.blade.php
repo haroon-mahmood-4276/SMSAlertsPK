@@ -44,7 +44,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <table id="demo-foo-addrow2" class="table m-b-0 toggle-arrow-tiny" data-page-size="10">
+                            <table id="demo-foo-addrow2" class="table m-b-0 responsive-table toggle-arrow-tiny" data-page-size="10">
                                 <thead>
                                     <tr>
                                         <th data-toggle="true">Code</th>
