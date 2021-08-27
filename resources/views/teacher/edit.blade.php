@@ -156,6 +156,16 @@
                                     @enderror
                                 </div>
 
+                                <div class="input-field col s12 m6 l4">
+                                    <select class="form-select" name="section" id="section">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <label for="section" class="form-label">Section</label>
+                                    @error('section')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
                                 {{-- Table 1 --}}
                                 <div class="input-field m-t-10 col s12" id="SDTTable1">
                                     <table id="demo-foo-addrow2"
@@ -277,17 +287,39 @@
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
     <script>
         $('#subject').on('change', function() {
+            var SubjectId = $(this).val() != "" ? $(this).val() : 0;
+            var Data = "";
+            $.ajax({
+                type: "get",
+                url: "{{ route('r.sections-against-subject', ['id' => ':id']) }}".replace(':id',
+                    SubjectId),
+                dataType: 'json',
+                success: function(response) {
+                    Data += "<option value=''>Select</option>";
+                    for (let index = 0; index < response.length; index++) {
+                        Data += '<option value="' + response[index].id + '">' + response[index].name +
+                            '</option>';
+                    }
+                    $('#section').html(Data);
+                    var elem = document.querySelector('#section');
+                    var instance = M.FormSelect.init(elem);
+                }
+            });
+        });
+
+        $('#section').on('change', function() {
 
             var addrow = $('#demo-foo-addrow2');
             var footable = addrow.data('footable');
 
             var Data = "";
-            var SubjectId = $(this).val();
+            var SubjectId = $('#subject').val() != "" ? $('#subject').val() : 0;
+            var SectionId = $(this).val() != "" ? $(this).val() : 0;
 
             $.ajax({
                 type: "get",
-                url: "{{ route('r.students-against-subject', ['id' => ':id']) }}".replace(':id',
-                    SubjectId),
+                url: "{{ route('r.students-against-subject', ['subject_id' => ':subject_id', 'id' => ':id']) }}"
+                    .replace(':subject_id', SubjectId).replace(':id', SectionId),
                 dataType: 'json',
                 success: function(response) {
 
@@ -299,13 +331,9 @@
                         Data += "<td>" + response[index].group_name + " - " + response[index]
                             .section_name + "</td>\n";
 
-                        if (response[index].active == "Y") {
-                            Data +=
-                                "<td><span class='label label-table label-success'>Active</span></td>\n";
-                        } else {
-                            Data +=
-                                "<td><span class='label label-table label-danger'>Not Active</span></td>\n";
-                        }
+                        Data +=
+                            "<td><span class='label label-table label-success'>Active</span></td>\n";
+
                         Data +=
                             "<td class='student_id'><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button><input type='hidden' name='" +
                             response[index].id + "std_id' value='" +

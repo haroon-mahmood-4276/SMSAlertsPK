@@ -197,7 +197,8 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     });
 
     Route::prefix('ajax')->group(function () {
-        Route::get('students-against-subject/{id}', [AjaxController::class, 'StudentsAgainstSubject'])->name('r.students-against-subject');
+        Route::get('sections-against-subject/{id}', [AjaxController::class, 'SectionsAgainstSubject'])->name('r.sections-against-subject');
+        Route::get('students-against-subject/{subject_id}/sections/{id}', [AjaxController::class, 'StudentsAgainstSubject'])->name('r.students-against-subject');
     });
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

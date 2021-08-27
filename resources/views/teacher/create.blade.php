@@ -138,7 +138,7 @@
                                     <h3 class="card-title">Assign Subjects to teacher</h3>
                                 </div>
 
-                                <div class="input-field col s12 m4 l4">
+                                <div class="input-field col s12 m6 l4">
                                     <select class="form-select" name="subject" id="subject">
                                         <option value="">Select</option>
                                         @foreach ($Subjects as $Subject)
@@ -148,6 +148,16 @@
                                     </select>
                                     <label for="subject" class="form-label">Subjects</label>
                                     @error('subject')
+                                        <span style="color: red">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="input-field col s12 m6 l4">
+                                    <select class="form-select" name="section" id="section">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <label for="section" class="form-label">Section</label>
+                                    @error('section')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -264,17 +274,39 @@
 
     <script>
         $('#subject').on('change', function() {
+            var SubjectId = $(this).val() != "" ? $(this).val() : 0;
+            var Data = "";
+            $.ajax({
+                type: "get",
+                url: "{{ route('r.sections-against-subject', ['id' => ':id']) }}".replace(':id',
+                    SubjectId),
+                dataType: 'json',
+                success: function(response) {
+                    Data += "<option value=''>Select</option>";
+                    for (let index = 0; index < response.length; index++) {
+                        Data += '<option value="' + response[index].id + '">' + response[index].name +
+                            '</option>';
+                    }
+                    $('#section').html(Data);
+                    var elem = document.querySelector('#section');
+                    var instance = M.FormSelect.init(elem);
+                }
+            });
+        });
+
+        $('#section').on('change', function() {
 
             var addrow = $('#demo-foo-addrow2');
             var footable = addrow.data('footable');
 
             var Data = "";
-            var SubjectId = $(this).val();
+            var SubjectId = $('#subject').val() != "" ? $('#subject').val() : 0;
+            var SectionId = $(this).val() != "" ? $(this).val() : 0;
 
             $.ajax({
                 type: "get",
-                url: "{{ route('r.students-against-subject', ['id' => ':id']) }}".replace(':id',
-                    SubjectId),
+                url: "{{ route('r.students-against-subject', ['subject_id' => ':subject_id', 'id' => ':id']) }}"
+                    .replace(':subject_id', SubjectId).replace(':id', SectionId),
                 dataType: 'json',
                 success: function(response) {
 
@@ -286,13 +318,9 @@
                         Data += "<td>" + response[index].group_name + " - " + response[index]
                             .section_name + "</td>\n";
 
-                        if (response[index].active == "Y") {
-                            Data +=
-                                "<td><span class='label label-table label-success'>Active</span></td>\n";
-                        } else {
-                            Data +=
-                                "<td><span class='label label-table label-danger'>Not Active</span></td>\n";
-                        }
+                        Data +=
+                            "<td><span class='label label-table label-success'>Active</span></td>\n";
+
                         Data +=
                             "<td class='student_id'><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button><input type='hidden' name='" +
                             response[index].id + "std_id' value='" +
@@ -334,10 +362,12 @@
         $('#add_all_data').on('click', function() {
             $("#demo-foo-addrow2 > tbody > tr").each(function() {
                 flag = 0;
-                myTableRow = $(this).closest('table tr').html().replace('add_to_queue', 'remove_from_queue');
+                myTableRow = $(this).closest('table tr').html().replace('add_to_queue',
+                    'remove_from_queue');
 
                 $(".my_final_table > tbody > tr > td.student_id input[type=hidden]").each(function() {
-                    if ($(this).val() == $(myTableRow).closest('td.student_id').find('input[type=hidden]')
+                    if ($(this).val() == $(myTableRow).closest('td.student_id').find(
+                            'input[type=hidden]')
                         .val()) {
                         flag = 1;
                     }
