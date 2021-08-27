@@ -44,6 +44,7 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->input();
 
         $request->validate([
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'))],

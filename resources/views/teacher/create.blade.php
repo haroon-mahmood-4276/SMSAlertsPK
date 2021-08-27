@@ -142,7 +142,8 @@
                                     <select class="form-select" name="subject" id="subject">
                                         <option value="">Select</option>
                                         @foreach ($Subjects as $Subject)
-                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} - {{ $Subject->name }}
+                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} -
+                                                {{ $Subject->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -311,9 +312,19 @@
         $('tbody').on('click', '.add-student', function() {
             myParent = $(this).closest('table').attr('id');
             if (myParent == "demo-foo-addrow2") {
+                flag = 0;
                 myTableRow = $(this).closest('table tr').html().replace('add_to_queue', 'remove_from_queue');
-                $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
-                $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
+
+                $(".my_final_table > tbody > tr > td.student_id input[type=hidden]").each(function() {
+                    if ($(this).val() == $(myTableRow).closest('td.student_id').find('input[type=hidden]')
+                        .val()) {
+                        flag = 1;
+                    }
+                });
+                if (flag == 0) {
+                    $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
+                    $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
+                }
             } else {
                 myTableRow = $(this).closest('table tr').html().replace('remove_from_queue', 'add_to_queue');
                 $('#demo-foo-addrow2').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
