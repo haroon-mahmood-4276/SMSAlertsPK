@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\{MembersImport, GroupsImport, StudentsImport, SectionsImport};
+use App\Imports\{MembersImport, GroupsImport, StudentsImport, SectionsImport, SubjectsImport};
 use Illuminate\Http\Request;
 
 class ImportController extends Controller
@@ -42,6 +42,18 @@ class ImportController extends Controller
         $import->import($request->file('membersfile'));
 
         // dd($import);
+        if ($import->failures()->isNotEmpty()) {
+            return back()->withFailures($import->failures());
+        }
+
+        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
+    }
+
+    public function ImportSubjects(Request $request)
+    {
+        $import = new SubjectsImport;
+        $import->import($request->file('sectionsfile'));
+
         if ($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());
         }
