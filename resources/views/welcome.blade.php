@@ -46,23 +46,23 @@
                                 <img class="dark-logo" src="{{ asset('assets/images/text-dark.png') }}">
                             </span>
                         </a>
-                        <a href="#" data-target="mobile-demo" class="sidenav-trigger sml-icon"><i
-                                class="material-icons">menu</i></a>
                         <ul class="right hide-on-med-and-down">
                             <li><a href="#why-us">Why Us</a></li>
                             <li><a href="#feature">Features</a></li>
                             <li><a href="#pricing">Pricing</a></li>
                             <li>
-                                <a href="{{route('r.login')}}"
+                                <a href="{{ route('r.login') }}"
                                     class="waves-effect waves-light btn danger-gradient white-text">Login</a>
                             </li>
                         </ul>
+                        <a href="#" data-target="mobile-demo" class="sidenav-trigger sml-icon"><i
+                                class="material-icons">menu</i></a>
                         <ul class="sidenav sml-font" id="mobile-demo">
                             <li><a href="#why-us">Why Us</a></li>
                             <li><a href="#feature">Features</a></li>
                             <li><a href="#pricing">Pricing</a></li>
                             <li>
-                                <a href="{{route('r.login')}}"
+                                <a href="{{ route('r.login') }}"
                                     class="waves-effect waves-light btn danger-gradient white-text">Login</a>
                             </li>
                         </ul>
@@ -88,8 +88,8 @@
                         <img src="{{ asset('welcome/assets/images/technology.png') }}" alt="logos" />
                     </div>
                     <div class="col l6 right-align p-l-40">
-                        <img class="img-shadow responsive-img" src="{{ asset('welcome/assets/images/dashbord.png') }}"
-                            alt="db">
+                        <img class="img-shadow responsive-img"
+                            src="{{ asset('welcome/assets/images/dashbord.png') }}" alt="db">
                     </div>
                 </div>
             </div>
@@ -118,7 +118,8 @@
                                 Now</a>
                         </div>
                         <div class="col l6 p-l-40">
-                            <img class="responsive-img" src="{{ asset('welcome/assets/images/dashbord.png') }}" alt="cdb">
+                            <img class="responsive-img" src="{{ asset('welcome/assets/images/dashbord.png') }}"
+                                alt="cdb">
                         </div>
                     </div>
                     <div class="row">
