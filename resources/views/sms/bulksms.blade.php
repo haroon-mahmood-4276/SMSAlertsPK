@@ -179,7 +179,7 @@
                                                 </label>
                                             </p>
                                         </div>
-                                        @if (session('Data.company_nature') == 'S')
+                                        @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                                             <div class="col s12 m6 l3">
                                                 <p>
                                                     <label>
@@ -210,14 +210,14 @@
                                             <tr>
                                                 <th data-toggle="true">Code</th>
                                                 <th>Name</th>
-                                                @if (session('Data.company_nature') == 'S')
+                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                                                     <th>Parent Name</th>
                                                 @endif
                                                 <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
                                                     Primary Number</th>
                                                 <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
                                                     Secondary Number</th>
-                                                @if (session('Data.company_nature') == 'S')
+                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                                                     <th>Student Primary Number</th>
                                                     <th>Student Secondary Number</th>
                                                 @endif
@@ -266,14 +266,14 @@
                                             <tr>
                                                 <th data-toggle="true">Code</th>
                                                 <th>Name</th>
-                                                @if (session('Data.company_nature') == 'S')
+                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                                                     <th>Parent Name</th>
                                                 @endif
                                                 <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
                                                     Primary Number</th>
                                                 <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
                                                     Secondary Number</th>
-                                                @if (session('Data.company_nature') == 'S')
+                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                                                     <th>Student Primary Number</th>
                                                     <th>Student Secondary Number</th>
                                                 @endif

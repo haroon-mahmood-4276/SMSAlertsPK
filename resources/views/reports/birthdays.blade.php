@@ -73,7 +73,7 @@
                                         <td>{{ $Member->student_first_name }}
                                             {{ $Member->student_last_name }}
                                         </td>
-                                        <td>{{ $Member->group_name }} @if (session('Data.company_nature') == 'S')
+                                        <td>{{ $Member->group_name }} @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                                                 - {{ $Member->section_name }}
                                             @endif
                                         </td>

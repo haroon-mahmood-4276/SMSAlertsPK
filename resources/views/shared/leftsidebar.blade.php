@@ -63,7 +63,7 @@
                                             <span class="hide-menu">Bulk SMS</span>
                                         </a>
                                     </li>
-                                    @if (session('Data.company_nature') == 'S')
+                                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                                         <li>
                                             <a href="{{ route('r.dues-sms-view') }}">
                                                 <i class="material-icons">message</i>
@@ -88,7 +88,7 @@
                             </ul>
                         </div>
                     </li>
-                    @if (session('Data.company_nature') == 'S')
+                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                         @if (session('UserSettings.attendance_enabled') == 'Y')
                             <li>
                                 <a href="javascript: void(0);" class="collapsible-header has-arrow"><i
@@ -148,7 +148,7 @@
                                 class="material-icons">file_upload</i>
                             <span class="hide-menu"> Imports</span></a>
                     </li>
-                    @if (session('Data.company_nature') == 'S')
+                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                         <li>
                             <a href="{{ route('r.settings') }}"
                                 class="collapsible-header {{ Request::is(route('r.settings')) ? 'active' : null }}"><i

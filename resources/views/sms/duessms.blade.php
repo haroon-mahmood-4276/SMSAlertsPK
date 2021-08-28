@@ -156,7 +156,7 @@
                                                 </label>
                                             </p>
                                         </div>
-                                        @if (session('Data.company_nature') == 'S')
+                                        @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
                                             <div class="col s12 m6 l3">
                                                 <p>
                                                     <label>
