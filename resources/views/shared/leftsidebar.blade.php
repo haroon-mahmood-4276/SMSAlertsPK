@@ -88,7 +88,7 @@
                             </ul>
                         </div>
                     </li>
-                    @if (session('Data.company_nature') == 'S' )
+                    @if (session('Data.company_nature') == 'S')
                         @if (session('UserSettings.attendance_enabled') == 'Y')
                             <li>
                                 <a href="javascript: void(0);" class="collapsible-header has-arrow"><i

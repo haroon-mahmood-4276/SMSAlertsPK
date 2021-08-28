@@ -259,7 +259,7 @@
                 @endif
             </div>
 
-            @if (session('Data.company_nature') != 'A')
+            @if (session('Data.company_nature') == 'B' || session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                 @if ($BirthdayData->count() > 0)
                     <div class="row">
                         <div class="col l12 m12 s12">
