@@ -57,7 +57,7 @@ class MobileDataController extends Controller
                 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
                 'student_first_name' => 'bail|required|alpha|between:1,50',
                 'student_last_name' => 'bail|required|alpha|between:1,50',
-                'student_mobile_1' => 'bail|required|numeric|digits:12',
+                'student_mobile_1' => 'bail|required|numeric|digits:12|unique:mobiledatas,student_mobile_1',
                 'student_mobile_2' => 'bail|numeric|digits:12',
                 'dob' => 'bail|required',
                 // 'cnic' => 'bail|required',
@@ -78,7 +78,7 @@ class MobileDataController extends Controller
                 'dob' => 'bail|required',
                 // 'cnic' => 'bail|required',
                 'gender' => 'required',
-                'student_mobile_1' => 'required|digits:12',
+                'student_mobile_1' => 'required|digits:12|unique:mobiledatas,student_mobile_1',
                 'student_mobile_2' => 'nullable|digits:12',
                 'group' => 'required',
                 'active' => 'required',
@@ -174,7 +174,7 @@ class MobileDataController extends Controller
             ]);
         } else {
             $request->validate([
-                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
+                // 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
                 'student_first_name' => 'bail|required|alpha|between:1,50',
                 'student_last_name' => 'bail|required|alpha|between:1,50',
                 'dob' => 'bail|required',
