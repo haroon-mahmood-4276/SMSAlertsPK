@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Teacher List')
+@section('PageTitle', 'Teacher Attendance')
 
 @section('BeforeCommonCss')
 

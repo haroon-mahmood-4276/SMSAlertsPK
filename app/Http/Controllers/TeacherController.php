@@ -197,4 +197,12 @@ class TeacherController extends Controller
             return redirect()->route('teachers.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
         }
     }
+
+    public function TeacherAttendanceView()
+    {
+        return view('teacher.attendance');
+    }
+    public function TeacherAttendance()
+    {
+    }
 }

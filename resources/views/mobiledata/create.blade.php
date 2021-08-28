@@ -161,7 +161,7 @@
                                     @enderror
                                 </div>
 
-                                @if (session('Data.company_nature') == 'S')
+                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                     <div class="m-t-20 col s12 m12 l12">
                                         <hr>
                                         <h3 class="card-title">Parents</h3>

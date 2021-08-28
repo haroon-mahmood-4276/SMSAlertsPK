@@ -40,7 +40,6 @@ use Maatwebsite\Excel\Facades\Excel;
 */
 
 Route::get('/', function () {
-    // return redirect()->route('r.showlogin');
     return view('welcome');
 })->name('r.welcome');
 
@@ -197,7 +196,6 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         })->name('sms');
     });
 
-
     Route::prefix('attendance')->group(function () {
         Route::get('manual-attendance', [SmsController::class, 'ManualAttendanceView'])->name('r.manual-attendance-view');
         Route::post('manual-attendance', [SmsController::class, 'ManualAttendance'])->name('r.manual-attendance');
@@ -210,6 +208,9 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('sections-against-subject/{id}', [AjaxController::class, 'SectionsAgainstSubject'])->name('r.sections-against-subject');
         Route::get('students-against-subject/{subject_id}/sections/{id}', [AjaxController::class, 'StudentsAgainstSubject'])->name('r.students-against-subject');
     });
+
+    Route::get('teacher-attendance', [TeacherController::class, 'TeacherAttendanceView'])->name('r.teacher-attendance');
+    Route::post('teacher-attendance', [TeacherController::class, 'TeacherAttendance'])->name('r.teacher-attendance');
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });

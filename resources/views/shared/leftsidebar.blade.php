@@ -2,7 +2,7 @@
     <ul id="slide-out" class="sidenav ">
         <li>
             <ul class="collapsible m-t-40">
-                @if (session('Data.company_nature') != 'A')
+                @if (session('Data.company_nature') == 'B' || session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                     <li>
                         <a href="{{ route('r.dashboard') }}"
                             class="collapsible-header {{ Request::is(route('r.dashboard')) ? 'active' : null }}"><i
@@ -193,6 +193,13 @@
                                 </ul>
                             </ul>
                         </div>
+                    </li>
+                @elseif (session('Data.company_nature') == 'T')
+                    <li>
+                        <a href="{{ route('r.teacher-attendance') }}"
+                            class="collapsible-header {{ Request::is(route('r.teacher-attendance')) ? 'active' : null }}"><i
+                                class="material-icons">group</i>
+                            <span class="hide-menu"> Attendance</span></a>
                     </li>
                 @else
                     <li>

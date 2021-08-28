@@ -237,11 +237,10 @@ class UserController extends Controller
             // return $User;
             if ($Teacher) {
 
-                $User = User::where('id', '=', $Teacher->user_id)->first();
-
                 if (Hash::check($request->password, $Teacher->password)) {
-                    $request->session()->put('TeacherData', $Teacher);
-                    return redirect()->route('r.dashboard');
+                    $Teacher['company_nature'] = 'T';
+                    $request->session()->put('Data', $Teacher);
+                    return redirect()->route('r.teacher-attendance');
                 } else {
                     return back()->with('AlertType', 'danger')->with('AlertMsg', 'Incorrect Password.');
                 }
