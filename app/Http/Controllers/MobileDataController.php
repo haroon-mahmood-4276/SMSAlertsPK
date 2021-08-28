@@ -52,7 +52,7 @@ class MobileDataController extends Controller
      */
     public function store(Request $request)
     {
-        if (session('Data.company_nature') == 'S') {
+        if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE') {
             $request->validate([
                 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
                 'student_first_name' => 'bail|required|alpha|between:1,50',
@@ -138,7 +138,7 @@ class MobileDataController extends Controller
     {
         $MobileDatas = MobileDatas::find($id);
         $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-        if (session('Data.company_nature') == 'S') {
+        if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE') {
             $Sections = Section::select('id', 'name')->where('group_id', '=', $MobileDatas->group_id)->where('user_id', '=', session('Data.id'))->get();
             return view('mobiledata.edit', ['Groups' => $Groups, 'Sections' => $Sections, 'MobileData' => $MobileDatas]);
         } else
@@ -154,7 +154,7 @@ class MobileDataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (session('Data.company_nature') == 'S') {
+        if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE') {
             $request->validate([
                 // 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
                 'student_first_name' => 'bail|required|alpha|between:1,50',
