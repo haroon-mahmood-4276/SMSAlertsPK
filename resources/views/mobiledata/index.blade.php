@@ -72,7 +72,7 @@
                                 <tr>
                                     <th data-toggle="true">Code</th>
                                     <th data-hide="phone">Name</th>
-                                    @if (session('Data.company_nature') == 'S')
+                                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                     <th data-hide="phone">Parent Name</th>
                                     @endif
                                     <th data-hide="phone">{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
@@ -84,7 +84,7 @@
                                     <th data-sort-initial="true" data-toggle="true" data-hide="phone">
                                         {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class - Section' }}
                                     </th>
-                                    @if (session('Data.company_nature') == 'S')
+                                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                     <th data-hide="all">Student Primary Number</th>
                                     <th data-hide="all">Student Secondary Number</th>
                                     @endif
@@ -120,18 +120,18 @@
                                     <td>{{ $MobileData->student_first_name }}
                                         {{ $MobileData->student_last_name }}
                                     </td>
-                                    @if (session('Data.company_nature') == 'S')
+                                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                     <td>{{ $MobileData->parent_first_name }}
                                         {{ $MobileData->parent_last_name }}
                                     </td>
                                     @endif
                                     <td>{{ $MobileData->parent_mobile_1 }}</td>
                                     <td>{{ $MobileData->parent_mobile_2 }}</td>
-                                    <td>{{ $MobileData->group_name }} @if (session('Data.company_nature') == 'S')
+                                    <td>{{ $MobileData->group_name }} @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                         - {{ $MobileData->section_name }}
                                         @endif
                                     </td>
-                                    @if (session('Data.company_nature') == 'S')
+                                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                     <td>{{ $MobileData->student_mobile_1 }}</td>
                                     <td>{{ $MobileData->student_mobile_2 }}</td>
                                     @endif
