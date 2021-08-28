@@ -208,7 +208,7 @@
 
                     for (let index = 0; index < response.length; index++) {
 
-                        if ("{{ @session('Data.company_nature') }}" == "S") {
+                        if ("{{ @session('Data.company_nature') }}" == "S"|| "{{ @session('Data.company_nature') }}" == "HE") {
                             SectionName = " - " + response[index].section_name;
                         } else {
                             SectionName = "";
@@ -218,14 +218,14 @@
                         Data += "<td>" + response[index].code + "</td>\n";
                         Data += "<td>" + response[index].student_first_name + " " + response[index]
                             .student_last_name + "</td>\n";
-                        if ("{{ @session('Data.company_nature') }}" == "S") {
+                        if ("{{ @session('Data.company_nature') }}" == "S"|| "{{ @session('Data.company_nature') }}" == "HE") {
                             Data += "<td>" + response[index].parent_first_name + " " + response[index]
                                 .parent_last_name + "</td>\n";
                         }
 
                         Data += "<td>" + response[index].parent_mobile_1 + "</td>\n";
                         Data += "<td>" + response[index].parent_mobile_2 + "</td>\n";
-                        if ("{{ @session('Data.company_nature') }}" == "S") {
+                        if ("{{ @session('Data.company_nature') }}" == "S"|| "{{ @session('Data.company_nature') }}" == "HE") {
                             Data += "<td>" + response[index].student_mobile_1 + "</td>\n";
                             Data += "<td>" + response[index].student_mobile_2 + "</td>\n";
                         }

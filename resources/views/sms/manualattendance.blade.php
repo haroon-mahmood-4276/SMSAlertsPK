@@ -287,7 +287,7 @@
 
                 for (let index = 0; index < response.length; index++) {
 
-                    if ("{{ @session('Data.company_nature') }}" == "S") {
+                    if ("{{ @session('Data.company_nature') }}" == "S"|| "{{ @session('Data.company_nature') }}" == "HE") {
                         SectionName = " - " + response[index].section_name;
                     } else {
                         SectionName = "";
