@@ -51,9 +51,9 @@ class SubjectController extends Controller
         $Subject->name = $request->name;
 
         if ($Subject->save()) {
-            return redirect()->route('sections.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
+            return redirect()->route('subjects.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
         } else {
-            return redirect()->route('sections.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+            return redirect()->route('subjects.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
         }
     }
 
