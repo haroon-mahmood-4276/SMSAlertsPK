@@ -42,7 +42,7 @@ use Maatwebsite\Excel\Facades\Excel;
 Route::get('/', function () {
     // return redirect()->route('r.showlogin');
     return view('welcome');
-});
+})->name('r.welcome');
 
 Route::group(['middleware' => ['AuthRoute']], function () {
     Route::get('login', [UserController::class, 'loginform'])->name('r.showlogin');

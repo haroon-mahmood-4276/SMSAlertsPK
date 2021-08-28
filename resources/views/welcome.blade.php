@@ -36,7 +36,7 @@
             <div class="header">
                 <nav class="sml-nav p-r-0">
                     <div class="nav-wrapper info-gradient">
-                        <a href="{{ route('r.dashboard') }}" class="brand-logo sml-logo">
+                        <a href="{{ route('r.welcome') }}" class="brand-logo sml-logo">
                             <span class="icon">
                                 <img class="light-logo" src="{{ asset('assets/images/icon-light.png') }}">
                                 <img class="dark-logo" src="{{ asset('assets/images/icon-dark.png') }}">
@@ -53,9 +53,8 @@
                             <li><a href="#feature">Features</a></li>
                             <li><a href="#pricing">Pricing</a></li>
                             <li>
-                                <a href="https://themeforest.net/item/materialart-powerful-material-admin-template/22511427?ref=Maruti"
-                                    class="waves-effect waves-light btn danger-gradient white-text" target="_blank">Buy
-                                    Now</a>
+                                <a href="{{route('r.login')}}"
+                                    class="waves-effect waves-light btn danger-gradient white-text">Login</a>
                             </li>
                         </ul>
                         <ul class="sidenav sml-font" id="mobile-demo">
@@ -63,9 +62,8 @@
                             <li><a href="#feature">Features</a></li>
                             <li><a href="#pricing">Pricing</a></li>
                             <li>
-                                <a href="https://themeforest.net/item/materialart-powerful-material-admin-template/22511427?ref=Maruti"
-                                    class="waves-effect waves-light btn danger-gradient white-text" target="_blank">Buy
-                                    Now</a>
+                                <a href="{{route('r.login')}}"
+                                    class="waves-effect waves-light btn danger-gradient white-text">Login</a>
                             </li>
                         </ul>
                     </div>
@@ -90,7 +88,7 @@
                         <img src="{{ asset('welcome/assets/images/technology.png') }}" alt="logos" />
                     </div>
                     <div class="col l6 right-align p-l-40">
-                        <img class="img-shadow responsive-img" src="{{ asset('welcome/assets/images/db.jpg') }}"
+                        <img class="img-shadow responsive-img" src="{{ asset('welcome/assets/images/dashbord.png') }}"
                             alt="db">
                     </div>
                 </div>
@@ -120,8 +118,7 @@
                                 Now</a>
                         </div>
                         <div class="col l6 p-l-40">
-                            <img class="responsive-img" src="{{ asset('welcome/assets/images/code-db.png') }}"
-                                alt="cdb">
+                            <img class="responsive-img" src="{{ asset('welcome/assets/images/dashbord.png') }}" alt="cdb">
                         </div>
                     </div>
                     <div class="row">
