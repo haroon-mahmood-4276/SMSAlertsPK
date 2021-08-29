@@ -39,8 +39,7 @@
                                         <option value="">Select</option>
                                         @foreach ($Groups as $Group)
                                             <option value="{{ $Group->id }}"
-                                                {{ $Group->id == $MobileData->group_id ? 'selected' : '' }}>
-                                                {{ $Group->name }}
+                                                {{ $Group->id == $MobileData->group_id ? 'selected' : '' }}>{{ $Group->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -54,10 +53,10 @@
                                 @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                     <div class="input-field col s6">
                                         <select class="form-select" name="section" id="section">
+                                            <option value="">Select</option>
                                             @foreach ($Sections as $Section)
                                                 <option value="{{ $Section->id }}"
-                                                    {{ $Section->id == $MobileData->section_id ? 'selected' : '' }}>
-                                                    {{ $Section->name }}
+                                                    {{ $Section->id == $MobileData->section_id ? 'selected' : '' }}>{{ $Section->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -144,7 +143,7 @@
 
                                 <div class="input-field col s12 m6 l6">
                                     <select class="form-select" name="gender" id="gender">
-                                        <option>Select</option>
+                                        <option value="">Select</option>
                                         <option value="M" {{ $MobileData->gender == 'M' ? ' selected' : '' }}>Male
                                         </option>
                                         <option value="F" {{ $MobileData->gender == 'F' ? 'selected' : '' }}>Female
@@ -158,7 +157,7 @@
 
                                 <div class="input-field col s12 m6 l6">
                                     <select class="form-select" name="active" id="active">
-                                        <option>Select</option>
+                                        <option value="">Select</option>
                                         <option value="Y" {{ $MobileData->active == 'Y' ? ' selected' : '' }}>Active
                                         </option>
                                         <option value="N" {{ $MobileData->active == 'N' ? 'selected' : '' }}>Not Active

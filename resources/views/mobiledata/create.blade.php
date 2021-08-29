@@ -125,7 +125,7 @@
 
                                 <div class="input-field col s12 m6 l6">
                                     <select class="form-select" name="gender" id="gender">
-                                        <option>Select</option>
+                                        <option value="">Select</option>
                                         <option value="M" {{ old('gender') == 'M' ? ' selected' : '' }}>Male
                                         </option>
                                         <option value="F" {{ old('gender') == 'F' ? 'selected' : '' }}>Female
@@ -139,7 +139,7 @@
 
                                 <div class="input-field col s12 m6 l6">
                                     <select class="form-select" name="active" id="active">
-                                        <option>Select</option>
+                                        <option value="">Select</option>
                                         <option value="Y" {{ old('active') == 'Y' ? ' selected' : '' }}>Active</option>
                                         <option value="N" {{ old('active') == 'N' ? 'selected' : '' }}>Not Active
                                         </option>
