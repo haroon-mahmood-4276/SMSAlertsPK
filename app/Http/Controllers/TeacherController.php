@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
-use App\Models\StudentTeacherSubjectJunction;
-use App\Models\Subject;
-use App\Models\Teacher;
+
+use App\Models\{StudentTeacherSubjectJunction, Subject, Teacher};
 use App\Rules\CheckTeacherCode;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\{Str, Facades\Hash};
 
 class TeacherController extends Controller
 {
@@ -55,10 +52,10 @@ class TeacherController extends Controller
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'))],
             'first_name' => 'bail|required|alpha|between:1,50',
             'last_name' => 'bail|required|alpha|between:1,50',
-            'mobile_1' => 'bail|required|numeric|digits:12',
-            'mobile_2' => 'bail|numeric|digits:12',
+            'mobile_1' => 'bail|required|numeric|digits:12|unique:teachers,mobile_1',
+            'mobile_2' => 'bail|nullable|numeric|digits:12',
             'email' => 'required|email|unique:teachers,email',
-            'password' => 'bail|required|alpha_num|between:5,15',
+            'password' => 'bail|required|alpha_dash|between:5,15',
             'coodinator_number' => 'bail|numeric|digits:12',
             'active' => 'required',
         ]);
@@ -140,10 +137,10 @@ class TeacherController extends Controller
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'), true)],
             'first_name' => 'bail|required|alpha|between:1,50',
             'last_name' => 'bail|required|alpha|between:1,50',
-            'mobile_1' => 'bail|required|numeric|digits:12',
-            'mobile_2' => 'bail|numeric|digits:12',
-            'email' => 'required|email',
-            'password' => 'bail|nullable|alpha_num|between:5,15',
+            'mobile_1' => 'bail|required|numeric|digits:12|unique:teachers,mobile_1',
+            'mobile_2' => 'bail|nullable|numeric|digits:12',
+            'email' => 'required|email|unique:teachers,email',
+            'password' => 'bail|required|alpha_dash|between:5,15',
             'coodinator_number' => 'bail|numeric|digits:12',
             'active' => 'required',
         ]);

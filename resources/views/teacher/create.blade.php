@@ -322,9 +322,8 @@
                             "<td><span class='label label-table label-success'>Active</span></td>\n";
 
                         Data +=
-                            "<td class='student_id'><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button><input type='hidden' name='" +
-                            response[index].id + "std_id' value='" +
-                            response[index].id + "std_id' disabled/></td>\n";
+                            "<td class='student_id'><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button>"+
+                            "<input type='hidden' name='" + response[index].id + "std_id' value='" + response[index].id + "std_id' disabled/></td>\n";
 
                         Data += "</tr>";
                     }
