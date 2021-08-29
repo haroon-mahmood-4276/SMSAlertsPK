@@ -23,6 +23,13 @@
                                 <span class="hide-menu"> Sections Management</span></a>
                         </li>
                     @endif
+                    <li>
+                        <a href="{{ route('data.index') }}"
+                            class="collapsible-header {{ Request::is(route('data.index')) ? 'active' : null }}"><i
+                                class="material-icons">person_add</i><span class="hide-menu">
+                                {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
+                                Management</span></a>
+                    </li>
                     @if (session('Data.company_nature') == 'HE')
                         <li>
                             <a href="{{ route('subjects.index') }}"
@@ -37,13 +44,6 @@
                                 <span class="hide-menu"> Teachers Management</span></a>
                         </li>
                     @endif
-                    <li>
-                        <a href="{{ route('data.index') }}"
-                            class="collapsible-header {{ Request::is(route('data.index')) ? 'active' : null }}"><i
-                                class="material-icons">person_add</i><span class="hide-menu">
-                                {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}
-                                Management</span></a>
-                    </li>
                     <li>
                         <a href="{{ route('templates.index') }}"
                             class="collapsible-header {{ Request::is(route('templates.index')) ? 'active' : null }}"><i
