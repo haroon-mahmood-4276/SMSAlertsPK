@@ -108,7 +108,7 @@
                                     <input id="student_mobile_2" name="student_mobile_2" type="text"
                                         class="@error('student_mobile_2') error @enderror"
                                         value="{{ old('student_mobile_2') }}" placeholder="923001234567">
-                                    <label for="student_mobile_2">Secondary Mobile Number *</label>
+                                    <label for="student_mobile_2">Secondary Mobile Number</label>
                                     @error('student_mobile_2')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
@@ -205,7 +205,7 @@
                                         <input id="parent_mobile_2" name="parent_mobile_2" type="text"
                                             class="@error('parent_mobile_2') error @enderror"
                                             value="{{ old('parent_mobile_2') }}" placeholder="923001234567">
-                                        <label for="parent_mobile_2">Secondary Mobile Number *</label>
+                                        <label for="parent_mobile_2">Secondary Mobile Number</label>
                                         @error('parent_mobile_2')
                                             <span style="color: red">{{ $message }}</span>
                                         @enderror
