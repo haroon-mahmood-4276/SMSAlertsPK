@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Edit ' . @(session('Data.company_nature') == 'B') ? 'Member' : 'Student')
+@section('PageTitle', 'Edit ' . (@(session('Data.company_nature') == 'B') ? 'Member' : 'Student'))
 
 @section('BeforeCommonCss')
 
