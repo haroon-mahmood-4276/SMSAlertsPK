@@ -3,7 +3,6 @@
 namespace App\Imports;
 
 use App\Models\{Group, Subject};
-use App\Rules\CheckSectionCode;
 use App\Rules\CheckSubjectRule;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\{
