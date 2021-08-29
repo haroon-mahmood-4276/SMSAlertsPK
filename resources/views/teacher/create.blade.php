@@ -142,7 +142,8 @@
                                     <select class="form-select" name="subject" id="subject">
                                         <option value="">Select</option>
                                         @foreach ($Subjects as $Subject)
-                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} - {{ $Subject->name }}
+                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} -
+                                                {{ $Subject->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -171,6 +172,7 @@
                                                 <th data-toggle="true">Code</th>
                                                 <th>Name</th>
                                                 <th>Class - Section</th>
+                                                <th>For subject</th>
                                                 <th>Stauts</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -217,6 +219,7 @@
                                                 <th data-toggle="true">Code</th>
                                                 <th>Name</th>
                                                 <th>Class - Section</th>
+                                                <th>For subject</th>
                                                 <th>Stauts</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -303,6 +306,8 @@
             var SubjectId = $('#subject').val() != "" ? $('#subject').val() : 0;
             var SectionId = $(this).val() != "" ? $(this).val() : 0;
 
+            var SubjectName = $('#subject').find(":selected").text();
+
             $.ajax({
                 type: "get",
                 url: "{{ route('r.students-against-subject', ['subject_id' => ':subject_id', 'id' => ':id']) }}"
@@ -318,12 +323,16 @@
                         Data += "<td>" + response[index].group_name + " - " + response[index]
                             .section_name + "</td>\n";
 
+                        Data += "<td>" + SubjectName + "</td>\n";
+
                         Data +=
                             "<td><span class='label label-table label-success'>Active</span></td>\n";
 
                         Data +=
-                            "<td class='student_id'><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button>"+
-                            "<input type='hidden' name='" + response[index].id + "std_id' value='" + response[index].id + "std_id' disabled/></td>\n";
+                            "<td class='student_id'><button class='btn add-student' type='button'><i class='material-icons'>add_to_queue</i></button>" +
+                            "<input type='hidden' name='stdid" +
+                            SubjectId + "_" + response[index].id + "' value='stdid" +
+                            SubjectId + "_" + response[index].id + "' disabled/></td>\n";
 
                         Data += "</tr>";
                     }
@@ -346,14 +355,11 @@
                         flag = 1;
                     }
                 });
+
                 if (flag == 0) {
                     $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
                     $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
                 }
-            } else {
-                myTableRow = $(this).closest('table tr').html().replace('remove_from_queue', 'add_to_queue');
-                $('#demo-foo-addrow2').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
-                $('#demo-foo-addrow2 tbody td.student_id input[type=hidden]').prop("disabled", true);
             }
             $(this).closest('table tr').remove();
         });
@@ -371,6 +377,7 @@
                         flag = 1;
                     }
                 });
+
                 if (flag == 0) {
                     $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
                     $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
