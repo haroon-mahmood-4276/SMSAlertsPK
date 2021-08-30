@@ -105,7 +105,7 @@
                                     <input id="mobile_2" name="mobile_2" type="text"
                                         class="@error('mobile_2') error @enderror" value="{{ $Teacher->mobile_2 }}"
                                         placeholder="923001234567">
-                                    <label for="mobile_2">Secondary Mobile Number *</label>
+                                    <label for="mobile_2">Secondary Mobile Number</label>
                                     @error('mobile_2')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror

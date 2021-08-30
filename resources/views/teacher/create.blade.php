@@ -103,7 +103,7 @@
                                     <input id="mobile_2" name="mobile_2" type="text"
                                         class="@error('mobile_2') error @enderror" value="{{ old('mobile_2') }}"
                                         placeholder="923001234567">
-                                    <label for="mobile_2">Secondary Mobile Number *</label>
+                                    <label for="mobile_2">Secondary Mobile Number</label>
                                     @error('mobile_2')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
@@ -142,8 +142,7 @@
                                     <select class="form-select" name="subject" id="subject">
                                         <option value="">Select</option>
                                         @foreach ($Subjects as $Subject)
-                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} -
-                                                {{ $Subject->name }}
+                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} - {{ $Subject->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -177,7 +176,7 @@
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
-                                        <div class="">
+                                        <div class="___class_+?49___">
                                             <div class="d-flex">
                                                 <div class="ml-auto">
                                                     <div class="form-group">
@@ -242,8 +241,8 @@
                                 </div>
 
                                 <div class="input-field m-t-20 col s12">
-                                    <button class="btn waves-effect waves-light right submit" type="submit"
-                                        name="action">Save
+                                    <button class="btn waves-effect waves-light right submit" type="submit" name="action"
+                                        disabled>Save
                                     </button>
                                     <a href="{{ route('teachers.index') }}"
                                         class="btn waves-effect red waves-light right m-r-10">Back to Teachers List</a>
@@ -362,6 +361,7 @@
                 }
             }
             $(this).closest('table tr').remove();
+            TableRowsCount();
         });
 
         $('#add_all_data').on('click', function() {
@@ -383,7 +383,17 @@
                     $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
                 }
                 $(this).remove();
+                TableRowsCount();
             });
         });
+
+        function TableRowsCount() {
+            var tableRows = $('.my_final_table>tbody>tr').length;
+            if (tableRows > 0) {
+                $('.submit').prop("disabled", false);
+            } else {
+                $('.submit').prop("disabled", true);
+            }
+        }
     </script>
 @endsection
