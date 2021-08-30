@@ -33,6 +33,11 @@
 .img-shadow {
     -webkit-box-shadow: 16px 20px 30px rgba(103, 119, 157, 0.3);
     box-shadow: 16px 20px 30px rgba(103, 119, 157, 0.3);
+    transition: transform 330ms ease-in-out;
+}
+
+.img-shadow:hover {
+    transform: scale(1.2);
 }
 
 .live-box {

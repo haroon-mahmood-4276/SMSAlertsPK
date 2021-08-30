@@ -118,7 +118,7 @@
                                 Now</a>
                         </div>
                         <div class="col l6 p-l-40">
-                            <img class="responsive-img" src="{{ asset('welcome/assets/images/dashbord.png') }}"
+                            <img class="img-shadow responsive-img" src="{{ asset('welcome/assets/images/dashbord.png') }}"
                                 alt="cdb">
                         </div>
                     </div>
