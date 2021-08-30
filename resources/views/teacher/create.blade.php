@@ -42,6 +42,8 @@
                                             <label for="code">Code *</label>
                                             @error('code')
                                                 <span style="color: red">{{ $message }}</span>
+                                            @else
+                                                <span style="color: red">&nbsp;</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -54,6 +56,8 @@
                                     <label for="first_name">First Name *</label>
                                     @error('first_name')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -64,6 +68,8 @@
                                     <label for="last_name">Last Name *</label>
                                     @error('last_name')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -74,6 +80,8 @@
                                     <label for="email">Email*</label>
                                     @error('email')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -84,6 +92,8 @@
                                     <label for="password">Password *</label>
                                     @error('password')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -93,7 +103,7 @@
                                         class="@error('mobile_1') error @enderror" value="{{ old('mobile_1') }}"
                                         placeholder="923001234567">
                                     <label for="mobile_1">Primary Mobile Number *</label>
-                                    @error('mobile_2')
+                                    @error('mobile_1')
                                         <span style="color: red">{{ $message }}</span>
                                     @else
                                         <span style="color: red">&nbsp;</span>
@@ -136,6 +146,8 @@
                                     <label for="active" class="form-label">Status</label>
                                     @error('active')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 

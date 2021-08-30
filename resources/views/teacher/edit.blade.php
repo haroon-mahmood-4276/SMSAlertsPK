@@ -33,7 +33,6 @@
                             @endif
 
                             <div class="row">
-
                                 <div class="col s12 m12 l12">
                                     <div class="row">
                                         <div class="input-field col s12 m6 l6">
@@ -145,8 +144,8 @@
                                     <select class="form-select" name="subject" id="subject">
                                         <option value="">Select</option>
                                         @foreach ($Subjects as $Subject)
-                                            <option value="{{ $Subject->id }}"
-                                                {{ $Subject->id == $Students[0]->subject_id ? 'selected' : '' }}>{{ $Subject->group_name }} - {{ $Subject->name }}
+                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} -
+                                                {{ $Subject->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -166,6 +165,7 @@
                                     @enderror
                                 </div>
 
+
                                 {{-- Table 1 --}}
                                 <div class="input-field m-t-10 col s12" id="SDTTable1">
                                     <table id="demo-foo-addrow2"
@@ -175,11 +175,12 @@
                                                 <th data-toggle="true">Code</th>
                                                 <th>Name</th>
                                                 <th>Class - Section</th>
+                                                <th>For subject</th>
                                                 <th>Stauts</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
-                                        <div class="">
+                                        <div class="___class_+?49___">
                                             <div class="d-flex">
                                                 <div class="ml-auto">
                                                     <div class="form-group">
@@ -221,6 +222,7 @@
                                                 <th data-toggle="true">Code</th>
                                                 <th>Name</th>
                                                 <th>Class - Section</th>
+                                                <th>For subject</th>
                                                 <th>Stauts</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -232,11 +234,16 @@
                                                     <td>{{ $Student->student_first_name }}
                                                         {{ $Student->student_last_name }}</td>
                                                     <td>{{ $Student->group_name }} - {{ $Student->section_name }}</td>
+                                                    <td>{{ $Student->group_name }} - {{ $Student->subject_name }}</td>
                                                     <td><span class="label label-table label-success">Active</span></td>
-                                                    <td class='student_id'><button class='btn add-student' type='button'><i
-                                                                class='material-icons'>remove_from_queue</i></button><input
-                                                            type='hidden' name="{{ $Student->id }}std_id"
-                                                            value="{{ $Student->id }}std_id" /></td>
+                                                    <td class="student_id">
+                                                        <button class="btn add-student" type="button">
+                                                            <i class="material-icons">remove_from_queue</i>
+                                                        </button>
+                                                        <input type="hidden"
+                                                            name="stdid{{ $Student->subject_id }}_{{ $Student->id }}"
+                                                            value="stdid{{ $Student->subject_id }}_{{ $Student->id }}" />
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -253,8 +260,8 @@
                                 </div>
 
                                 <div class="input-field m-t-20 col s12">
-                                    <button class="btn waves-effect waves-light right submit" type="submit"
-                                        name="action">Save
+                                    <button class="btn waves-effect waves-light right submit" type="submit" name="action"
+                                        disabled>Save
                                     </button>
                                     <a href="{{ route('teachers.index') }}"
                                         class="btn waves-effect red waves-light right m-r-10">Back to Teachers List</a>
@@ -285,6 +292,7 @@
     <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
+
     <script>
         $('#subject').on('change', function() {
             var SubjectId = $(this).val() != "" ? $(this).val() : 0;
@@ -372,6 +380,7 @@
                 }
             }
             $(this).closest('table tr').remove();
+            TableRowsCount();
         });
 
         $('#add_all_data').on('click', function() {
@@ -393,8 +402,17 @@
                     $('.my_final_table tbody td.student_id input[type=hidden]').prop("disabled", false);
                 }
                 $(this).remove();
+                TableRowsCount();
             });
         });
-    </script>
 
+        function TableRowsCount() {
+            var tableRows = $('.my_final_table>tbody>tr').length;
+            if (tableRows > 0) {
+                $('.submit').prop("disabled", false);
+            } else {
+                $('.submit').prop("disabled", true);
+            }
+        }
+    </script>
 @endsection

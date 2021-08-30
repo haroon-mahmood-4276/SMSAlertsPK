@@ -18,9 +18,7 @@ class TeacherController extends Controller
     public function index()
     {
         $Teachers = Teacher::join('student_teacher_subject_junction', 'student_teacher_subject_junction.teacher_id', '=', 'teachers.id')
-            ->join('subjects', 'student_teacher_subject_junction.subject_id', '=', 'subjects.id')
-            ->join('groups', 'subjects.group_id', '=', 'groups.id')
-            ->select('teachers.code', 'teachers.first_name', 'teachers.last_name', 'teachers.email', 'teachers.mobile_1', 'teachers.mobile_2', 'teachers.coodinator_number', 'teachers.active', 'subjects.name AS subject_name', 'groups.name AS group_name')
+            ->select('teachers.code', 'teachers.first_name', 'teachers.last_name', 'teachers.email', 'teachers.mobile_1', 'teachers.mobile_2', 'teachers.coodinator_number', 'teachers.active')
             ->where('teachers.user_id', session('Data.id'))->distinct()->get();
 
 
@@ -117,7 +115,8 @@ class TeacherController extends Controller
         $Students = StudentTeacherSubjectJunction::join('mobiledatas', 'student_teacher_subject_junction.mobiledata_id', '=', 'mobiledatas.id')
             ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
             ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
-            ->select('student_teacher_subject_junction.subject_id', 'mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'groups.name AS group_name', 'sections.name AS section_name')
+            ->join('subjects', 'student_teacher_subject_junction.subject_id', '=', 'subjects.id')
+            ->select('student_teacher_subject_junction.subject_id', 'mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'groups.name AS group_name', 'sections.name AS section_name', 'subjects.name AS subject_name')
             ->where('student_teacher_subject_junction.user_id', session('Data.id'))
             ->where('student_teacher_subject_junction.teacher_id', $Teacher->id)
             ->get();
@@ -138,9 +137,9 @@ class TeacherController extends Controller
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'), true)],
             'first_name' => 'bail|required|alpha|between:1,50',
             'last_name' => 'bail|required|alpha|between:1,50',
-            'mobile_1' => 'bail|required|numeric|digits:12|unique:teachers,mobile_1',
+            'mobile_1' => 'bail|required|numeric|digits:12',
             'mobile_2' => 'bail|nullable|numeric|digits:12',
-            'email' => 'required|email|unique:teachers,email',
+            'email' => 'required|email',
             'password' => 'bail|required|alpha_dash|between:5,15',
             'coodinator_number' => 'bail|numeric|digits:12',
             'active' => 'required',
