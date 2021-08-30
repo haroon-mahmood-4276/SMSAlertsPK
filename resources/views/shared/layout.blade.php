@@ -54,7 +54,8 @@
         </div>
 
         <!-- Back to top button -->
-        <div class="bar-long"></div>
+        {{-- <div class="bar-long"></div> --}}
+        <div class="loading-bar" id="loading-bar"></div>
         <button type="button" style="z-index: 99" class="btn btn-floating btn-large" id="btn-back-to-top">
             <i class="material-icons">arrow_upward</i>
         </button>
@@ -82,11 +83,20 @@
     </div>
 
     @yield('Js')
+    <script src="{{ asset('dist/js/nanobar.min.js') }}"></script>
     <script>
-        $(document).ready(function() {
-            resizeTopBar();
+        var nanobar = new Nanobar({
+            classname: 'loading-bar',
+            id: 'loading-bar'
         });
+        nanobar.go(30);
+
         $(function() {
+
+            // resizeTopBar();
+            nanobar.go(100);
+
+
             "use strict";
             $("#main-wrapper").AdminSettings({
                 Theme: false, // this can be true or false ( true means dark and false means light ),
@@ -100,18 +110,19 @@
                 BoxedLayout: false, // it can be true / false ( true means Boxed and false means Fluid )
             });
 
-            $(window).scroll(function() {
-                resizeTopBar();
-            });
+            // $(window).scroll(function() {
+            //     resizeTopBar();
+            // });
         });
 
-        function resizeTopBar() {
-            var currY = $(window).scrollTop();
-            var postHeight = $(document).height();
-            var scrollHeight = $(window).height();
-            var scrollPercent = (currY / (scrollHeight - postHeight)) * 100;
-            $('.bar-long').width(Math.abs(scrollPercent) + "%");
-        }
+
+        // function resizeTopBar() {
+        //     var currY = $(window).scrollTop();
+        //     var postHeight = $(document).height();
+        //     var scrollHeight = $(window).height();
+        //     var scrollPercent = (currY / (scrollHeight - postHeight)) * 100;
+        //     $('.bar-long').width(Math.abs(scrollPercent) + "%");
+        // }
     </script>
     <script>
         let mybutton = document.getElementById("btn-back-to-top");
