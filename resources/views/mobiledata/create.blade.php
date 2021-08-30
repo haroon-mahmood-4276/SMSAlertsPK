@@ -100,6 +100,8 @@
                                     <label for="student_mobile_1">Primary Mobile Number *</label>
                                     @error('student_mobile_1')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -111,6 +113,8 @@
                                     <label for="student_mobile_2">Secondary Mobile Number</label>
                                     @error('student_mobile_2')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 

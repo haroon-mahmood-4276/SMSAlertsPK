@@ -106,8 +106,10 @@
                                         value="{{ session('Data.company_nature') == 'B' ? $MobileData->parent_mobile_1 : $MobileData->student_mobile_1 }}"
                                         placeholder="923001234567">
                                     <label for="student_mobile_1">Primary Mobile Number *</label>
-                                    @error('student_mobile_1')
+                                     @error('student_mobile_1')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -118,8 +120,10 @@
                                         value="{{ session('Data.company_nature') == 'B' ? $MobileData->parent_mobile_2 : $MobileData->student_mobile_2 }}"
                                         placeholder="923001234567">
                                     <label for="student_mobile_2">Secondary Mobile Number</label>
-                                    @error('student_mobile_2')
+                                     @error('student_mobile_2')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
