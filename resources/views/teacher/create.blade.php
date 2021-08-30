@@ -93,8 +93,10 @@
                                         class="@error('mobile_1') error @enderror" value="{{ old('mobile_1') }}"
                                         placeholder="923001234567">
                                     <label for="mobile_1">Primary Mobile Number *</label>
-                                    @error('mobile_1')
+                                    @error('mobile_2')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -106,6 +108,8 @@
                                     <label for="mobile_2">Secondary Mobile Number</label>
                                     @error('mobile_2')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -117,6 +121,8 @@
                                     <label for="coodinator_number">Coodinator Number *</label>
                                     @error('coodinator_number')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -142,7 +148,8 @@
                                     <select class="form-select" name="subject" id="subject">
                                         <option value="">Select</option>
                                         @foreach ($Subjects as $Subject)
-                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} - {{ $Subject->name }}
+                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} -
+                                                {{ $Subject->name }}
                                             </option>
                                         @endforeach
                                     </select>
