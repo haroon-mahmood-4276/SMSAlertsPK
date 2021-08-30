@@ -160,8 +160,7 @@
                                     <select class="form-select" name="subject" id="subject">
                                         <option value="">Select</option>
                                         @foreach ($Subjects as $Subject)
-                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} -
-                                                {{ $Subject->name }}
+                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} - {{ $Subject->name }}
                                             </option>
                                         @endforeach
                                     </select>

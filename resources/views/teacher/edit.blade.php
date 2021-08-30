@@ -42,6 +42,8 @@
                                             <label for="code">Code *</label>
                                             @error('code')
                                                 <span style="color: red">{{ $message }}</span>
+                                            @else
+                                                <span style="color: red">&nbsp;</span>
                                             @enderror
                                         </div>
                                     </div>
@@ -54,6 +56,8 @@
                                     <label for="first_name">First Name *</label>
                                     @error('first_name')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -64,6 +68,8 @@
                                     <label for="last_name">Last Name *</label>
                                     @error('last_name')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -74,6 +80,8 @@
                                     <label for="email">Email*</label>
                                     @error('email')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -85,6 +93,8 @@
                                     <label for="password">Password *</label>
                                     @error('password')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -96,6 +106,8 @@
                                     <label for="mobile_1">Primary Mobile Number *</label>
                                     @error('mobile_1')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -107,6 +119,8 @@
                                     <label for="mobile_2">Secondary Mobile Number</label>
                                     @error('mobile_2')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -118,6 +132,8 @@
                                     <label for="coodinator_number">Coodinator Number *</label>
                                     @error('coodinator_number')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -132,6 +148,8 @@
                                     <label for="active" class="form-label">Status</label>
                                     @error('active')
                                         <span style="color: red">{{ $message }}</span>
+                                    @else
+                                        <span style="color: red">&nbsp;</span>
                                     @enderror
                                 </div>
 
@@ -144,8 +162,7 @@
                                     <select class="form-select" name="subject" id="subject">
                                         <option value="">Select</option>
                                         @foreach ($Subjects as $Subject)
-                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} -
-                                                {{ $Subject->name }}
+                                            <option value="{{ $Subject->id }}">{{ $Subject->group_name }} - {{ $Subject->name }}
                                             </option>
                                         @endforeach
                                     </select>
