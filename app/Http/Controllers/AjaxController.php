@@ -20,7 +20,6 @@ class AjaxController extends Controller
 
     public function StudentsAgainstSubject($subject_id, $id)
     {
-        // return $subject_id." - ". $id;
         $Subject = Subject::find($subject_id);
         if ($Subject) {
 
@@ -36,6 +35,23 @@ class AjaxController extends Controller
                     ->where('mobiledatas.active', 'Y')
                     ->get();
             }
+        }
+        return [];
+    }
+
+    public function StudentsAssignedToSubject($id)
+    {
+        if ($id != "") {
+            return Mobiledatas::join('student_teacher_subject_junction', 'student_teacher_subject_junction.mobiledata_id', '=', 'mobiledatas.id')
+                ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
+                ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
+                ->join('subjects', 'student_teacher_subject_junction.subject_id', '=', 'subjects.id')
+                ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'subjects.name AS subject_name', 'groups.name AS group_name', 'sections.name AS section_name')
+                ->where('student_teacher_subject_junction.user_id', session('Data.user_id'))
+                ->where('student_teacher_subject_junction.teacher_id', session('Data.id'))
+                ->where('student_teacher_subject_junction.subject_id', $id)
+                ->where('mobiledatas.active', 'Y')
+                ->get();
         }
         return [];
     }

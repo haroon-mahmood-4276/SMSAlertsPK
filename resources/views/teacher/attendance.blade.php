@@ -1,6 +1,6 @@
 @extends('shared.layout')
 
-@section('PageTitle', 'Teacher Attendance')
+@section('PageTitle', 'Student Attendance')
 
 @section('BeforeCommonCss')
 
@@ -15,11 +15,9 @@
     <div class="page-wrapper">
         <div class="page-titles">
             <div class="d-flex align-items-center">
-                <h3 class="font-medium m-b-0">Teachers</h3>
-                {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
+                <h3 class="font-medium m-b-0">Student Attendance</h3>
                 <div class="custom-breadcrumb ml-auto">
-                    <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
-                    <a href="javascript:void(0)" class="breadcrumb">Teachers</a>
+                    <a href="javascript:void(0)" class="breadcrumb">Attendance</a>
                 </div>
             </div>
         </div>
@@ -29,7 +27,89 @@
                 <div class="col l12 m12 s12">
                     <div class="card">
                         <div class="card-content">
-                            <p>sdsda</p>
+                            @if (Session::has('AlertType') && Session::has('AlertMsg'))
+                                <div class="row">
+                                    <div class="col l12 m12 s12 m-5">
+                                        <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
+                                            {{ Session::get('AlertMsg') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <form class="formValidate" id="formValidate" action="{{ route('r.teacher-attendance') }}"
+                                method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="input-field col s12 m3 l4">
+                                        <select class="form-select" name="subject" id="subject">
+                                            <option value="">Select</option>
+                                            @foreach ($TeacherSubjects as $TeacherSubject)
+                                                <option value="{{ $TeacherSubject->subject_id }}">{{ $TeacherSubject->group_name }} - {{ $TeacherSubject->subject_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="subject" class="form-label">Subjects</label>
+                                        @error('subject')
+                                            <span style="color: red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Table 1 --}}
+                                    <div class="input-field m-t-10 col s12" id="SDTTable1">
+                                        <table id="demo-foo-addrow2"
+                                            class="table m-b-0 toggle-arrow-tiny centered responsive-table"
+                                            data-page-size="10">
+                                            <thead>
+                                                <tr>
+                                                    <th data-toggle="true">Code</th>
+                                                    <th>Name</th>
+                                                    <th>Class - Section</th>
+                                                    <th>Subject</th>
+                                                    <th>Stauts</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <div class="d-flex">
+                                                <div class="ml-auto">
+                                                    <div class="form-group">
+                                                        <input id="demo-input-search2" type="text" placeholder="Search"
+                                                            autocomplete="off">
+
+                                                        <p>
+                                                            <label>
+                                                                <input type="checkbox" class="sl-all filled-in" checked />
+                                                                <span>Check All</span>
+                                                            </label>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <tbody>
+                                                {{-- <tr colspan="9">
+                                                <td>No Data Yet</td>
+                                            </tr> --}}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="9">
+                                                        <div class="text-right">
+                                                            <ul class="pagination pagination-split"> </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light right submit" type="submit"
+                                            name="action">Save Attendance
+                                        </button>
+                                        <button class="btn waves-effect red waves-light right m-r-10 reset"
+                                            type="reset">Reset</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -48,4 +128,52 @@
 
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
+    <script>
+        $('#subject').on('change', function() {
+
+            var addrow = $('#demo-foo-addrow2');
+            var footable = addrow.data('footable');
+
+            var Data = "";
+            var SubjectId = $('#subject').val() != "" ? $('#subject').val() : 0;
+
+            $.ajax({
+                type: "get",
+                url: "{{ route('r.students-assigned-to-subject', ['id' => ':id']) }}".replace(':id',
+                    SubjectId),
+                dataType: 'json',
+                success: function(response) {
+
+                    for (let index = 0; index < response.length; index++) {
+                        Data += "<tr>\n";
+                        Data += "<td>" + response[index].code + "</td>\n";
+                        Data += "<td>" + response[index].student_first_name + " " + response[index]
+                            .student_last_name + "</td>\n";
+                        Data += "<td>" + response[index].group_name + " - " + response[index]
+                            .section_name + "</td>\n";
+
+                        Data += "<td>" + response[index].subject_name + "</td>\n";
+
+                        Data +=
+                            "<td><span class='label label-table label-success'>Active</span></td>\n";
+
+                        Data +=
+                            "<td class='chknone'><p><label><input type='checkbox' checked name='" +
+                            response[index].code +
+                            "chk' class='chkbox filled-in' value='" + response[index].code +
+                            "chk'/><span>Present</span></label></p></td>\n";
+
+
+                        Data += "</tr>";
+                    }
+
+                    $("#demo-foo-addrow2 > tbody > tr").remove();
+                    footable.appendRow(Data);
+                }
+            });
+        });
+        $(".sl-all").on('click', function() {
+            $('.chkbox').prop('checked', this.checked);
+        });
+    </script>
 @endsection

@@ -207,6 +207,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::prefix('ajax')->group(function () {
         Route::get('sections-against-subject/{id}', [AjaxController::class, 'SectionsAgainstSubject'])->name('r.sections-against-subject');
         Route::get('students-against-subject/{subject_id}/sections/{id}', [AjaxController::class, 'StudentsAgainstSubject'])->name('r.students-against-subject');
+        Route::get('students-assigned-to-subject/{id}', [AjaxController::class, 'StudentsAssignedToSubject'])->name('r.students-assigned-to-subject');
     });
 
     Route::get('teacher-attendance', [TeacherController::class, 'TeacherAttendanceView'])->name('r.teacher-attendance');
@@ -214,20 +215,3 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
-
-// Route::get('test', function () {
-// // return  Carbon::parse('2/6/18')->format('d/m/Y');
-
-//     $AccessDatabase = session('UserSettings.attendance_database_path');
-
-//     if (!file_exists($AccessDatabase)) {
-//         die("No database file.");
-//     }
-
-//     $MSAccess = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)}; DBQ=$AccessDatabase; Uid=; Pwd=;");
-//     return $SqlQuery = "SELECT USERINFO.USERID, USERINFO.Badgenumber AS card_number FROM USERINFO WHERE USERINFO.USERID NOT IN (SELECT CHECKINOUT.USERID FROM CHECKINOUT WHERE (CHECKTIME BETWEEN #" . Carbon::parse(Carbon::now())->format('m/d/Y') . " 0:0:1# and #" . Carbon::parse(Carbon::now())->format('m/d/Y') . " 23:59:59# ) GROUP BY USERID )";
-//     foreach ($MSAccess->query($SqlQuery) as $record) {
-//         echo $record[0] . " ----- " . $record[1]. "<br />";
-//     }
-
-// });

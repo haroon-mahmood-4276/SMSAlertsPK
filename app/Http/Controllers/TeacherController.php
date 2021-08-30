@@ -198,9 +198,18 @@ class TeacherController extends Controller
 
     public function TeacherAttendanceView()
     {
-        return view('teacher.attendance');
+        $TeacherSubjects =
+            StudentTeacherSubjectJunction::join('subjects', 'student_teacher_subject_junction.subject_id', '=', 'subjects.id')
+            ->join('groups', 'subjects.group_id', '=', 'groups.id')
+            ->select('student_teacher_subject_junction.subject_id', 'groups.name AS group_name', 'subjects.name AS subject_name')
+            ->where('student_teacher_subject_junction.teacher_id', session('Data.id'))
+            ->distinct()
+            ->get();
+
+        return view('teacher.attendance', ['TeacherSubjects' => $TeacherSubjects]);
     }
-    public function TeacherAttendance()
+    public function TeacherAttendance(Request $request)
     {
+        return $request->input();
     }
 }
