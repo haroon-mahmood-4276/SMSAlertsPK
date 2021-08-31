@@ -46,7 +46,7 @@ class AjaxController extends Controller
                 ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
                 ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
                 ->join('subjects', 'student_teacher_subject_junction.subject_id', '=', 'subjects.id')
-                ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'subjects.name AS subject_name', 'groups.name AS group_name', 'sections.name AS section_name')
+                ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'subjects.name AS subject_name', 'groups.name AS group_name', 'sections.name AS section_name')
                 ->where('student_teacher_subject_junction.user_id', session('Data.user_id'))
                 ->where('student_teacher_subject_junction.teacher_id', session('Data.id'))
                 ->where('student_teacher_subject_junction.subject_id', $id)

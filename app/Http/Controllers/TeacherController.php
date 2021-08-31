@@ -227,8 +227,27 @@ class TeacherController extends Controller
             $TeacherAttendance->is_present = $request->has($Record->code . 'chk') ? "Y" : "N";
             $TeacherAttendance->save();
 
-        }
+            if ($UserSettings->attendance_enabled == "Y") {
+                if (!$request->has($Record->code . 'chk')) {
+                    $ReplacedMessage = "";
+                    $ReplacedMessage = str_replace('[student_full_name]', $Record->student_first_name . " " . $Record->student_last_name, $UserSettings->attendance_message);
+                    $ReplacedMessage = str_replace('[class_name]', $Record->group_name, $ReplacedMessage);
+                    $ReplacedMessage = str_replace('[section_name]', $Record->section_name, $ReplacedMessage);
+                    $ReplacedMessage = str_replace('[school_name]', $User->company_name, $ReplacedMessage);
+                    $ReplacedMessage = str_replace('[school_phone_1]', $User->mobile_1, $ReplacedMessage);
+                    $ReplacedMessage = str_replace('[school_phone_2]', $User->mobile_2, $ReplacedMessage);
+                    $ReplacedMessage = str_replace('[school_email]', $User->company_email, $ReplacedMessage);
 
+                    if ($UserSettings->attendance_parent_primary_number == "Y")
+                        if ($Record->parent_mobile_1 != null && $Record->parent_mobile_1 != '')
+                            JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, $Record->parent_mobile_1, $ReplacedMessage);
+
+                    if ($UserSettings->attendance_parent_secondary_number == "Y")
+                        if ($Record->parent_mobile_2 != null && $Record->parent_mobile_2 != '')
+                            JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, $Record->parent_mobile_2, $ReplacedMessage);
+                }
+            }
+        }
 
         return redirect()->route('r.teacher-attendance')->with('AlertType', 'success')->with('AlertMsg', "Attendance Saved.");
     }
