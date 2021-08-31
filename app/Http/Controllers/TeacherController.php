@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\JobSendSms;
 use App\Models\{Mobiledatas, Setting, StudentTeacherSubjectJunction, Subject, Teacher, TeacherAttendance, User};
 use App\Rules\CheckTeacherCode;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\{Str, Facades\Hash};
 
@@ -211,12 +212,13 @@ class TeacherController extends Controller
 
     public function TeacherAttendance(Request $request)
     {
-        // return $request->input();
+        $IsMessageSent = true;
         $User = User::find(session('Data.user_id'));
 
         $UserSettings = Setting::where('user_id', session('Data.user_id'))->first();
 
         $StudentRecords = app('App\Http\Controllers\AjaxController')->StudentsAssignedToSubject($request->subject);
+
         foreach ($StudentRecords as $Record) {
 
             $TeacherAttendance = new TeacherAttendance;
@@ -227,32 +229,39 @@ class TeacherController extends Controller
             $TeacherAttendance->status = $request->input($Record->code . 'chk');
             $TeacherAttendance->save();
 
-            if ($UserSettings->attendance_enabled == "Y") {
-                if ($request->input($Record->code . 'chk') == "A") {
-                    $ReplacedMessage = "";
-                    $ReplacedMessage = str_replace('[student_full_name]', $Record->student_first_name . " " . $Record->student_last_name, $UserSettings->attendance_message);
-                    $ReplacedMessage = str_replace('[class_name]', $Record->group_name, $ReplacedMessage);
-                    $ReplacedMessage = str_replace('[section_name]', $Record->section_name, $ReplacedMessage);
-                    $ReplacedMessage = str_replace('[school_name]', $User->company_name, $ReplacedMessage);
-                    $ReplacedMessage = str_replace('[school_phone_1]', $User->mobile_1, $ReplacedMessage);
-                    $ReplacedMessage = str_replace('[school_phone_2]', $User->mobile_2, $ReplacedMessage);
-                    $ReplacedMessage = str_replace('[school_email]', $User->company_email, $ReplacedMessage);
+            if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
+                if ($User->remaining_of_sms > 0) {
+                    if ($UserSettings->attendance_enabled == "Y") {
+                        if ($request->input($Record->code . 'chk') == "A") {
+                            $ReplacedMessage = "";
+                            $ReplacedMessage = str_replace('[student_full_name]', $Record->student_first_name . " " . $Record->student_last_name, $UserSettings->attendance_message);
+                            $ReplacedMessage = str_replace('[class_name]', $Record->group_name, $ReplacedMessage);
+                            $ReplacedMessage = str_replace('[section_name]', $Record->section_name, $ReplacedMessage);
+                            $ReplacedMessage = str_replace('[school_name]', $User->company_name, $ReplacedMessage);
+                            $ReplacedMessage = str_replace('[school_phone_1]', $User->mobile_1, $ReplacedMessage);
+                            $ReplacedMessage = str_replace('[school_phone_2]', $User->mobile_2, $ReplacedMessage);
+                            $ReplacedMessage = str_replace('[school_email]', $User->company_email, $ReplacedMessage);
 
-                    if ($UserSettings->attendance_parent_primary_number == "Y")
-                        if ($Record->parent_mobile_1 != null && $Record->parent_mobile_1 != '')
-                            JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, $Record->parent_mobile_1, $ReplacedMessage);
+                            if ($UserSettings->attendance_parent_primary_number == "Y")
+                                if ($Record->parent_mobile_1 != null && $Record->parent_mobile_1 != '')
+                                    JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, $Record->parent_mobile_1, $ReplacedMessage);
 
-                    if ($UserSettings->attendance_parent_secondary_number == "Y")
-                        if ($Record->parent_mobile_2 != null && $Record->parent_mobile_2 != '')
-                            JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, $Record->parent_mobile_2, $ReplacedMessage);
-                }
+                            if ($UserSettings->attendance_parent_secondary_number == "Y")
+                                if ($Record->parent_mobile_2 != null && $Record->parent_mobile_2 != '')
+                                    JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, $Record->parent_mobile_2, $ReplacedMessage);
+                        }
+                    }
+                } else
+                    $IsMessageSent = false;
+
+                $Message = session('Data.first_name') . " " . session('Data.last_name') . " has marked the Attendance.";
+                if (session('Data.coodinator_number') != null && session('Data.coodinator_number') != '')
+                    JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, session('Data.coodinator_number'), $Message);
             }
+            if ($IsMessageSent) {
+                return redirect()->route('r.teacher-attendance')->with('AlertType', 'success')->with('AlertMsg', "Attendance Saved.");
+            } else
+                return redirect()->route('r.teacher-attendance')->with('AlertType', 'info')->with('AlertMsg', 'Attendance Saved. Something went wrong');
         }
-
-        $Message = session('Data.first_name') . " " . session('Data.last_name') . " has marked the Attendance.";
-        if (session('Data.coodinator_number') != null && session('Data.coodinator_number') != '')
-            JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, session('Data.coodinator_number'), $Message);
-
-        return redirect()->route('r.teacher-attendance')->with('AlertType', 'success')->with('AlertMsg', "Attendance Saved.");
     }
 }
