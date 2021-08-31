@@ -44,9 +44,7 @@
                                         <select class="form-select" name="subject" id="subject">
                                             <option value="">Select</option>
                                             @foreach ($TeacherSubjects as $TeacherSubject)
-                                                <option value="{{ $TeacherSubject->subject_id }}">
-                                                    {{ $TeacherSubject->group_name }} -
-                                                    {{ $TeacherSubject->subject_name }}</option>
+                                                <option value="{{ $TeacherSubject->subject_id }}">{{ $TeacherSubject->group_name }} - {{ $TeacherSubject->subject_name }}</option>
                                             @endforeach
                                         </select>
                                         <label for="subject" class="form-label">Subjects</label>
