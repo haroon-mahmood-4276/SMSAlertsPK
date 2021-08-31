@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\{StudentTeacherSubjectJunction, Subject, Teacher};
+use App\Jobs\JobSendSms;
+use App\Models\{Mobiledatas, Setting, StudentTeacherSubjectJunction, Subject, Teacher, TeacherAttendance, User};
 use App\Rules\CheckTeacherCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\{Str, Facades\Hash};
@@ -208,8 +208,28 @@ class TeacherController extends Controller
 
         return view('teacher.attendance', ['TeacherSubjects' => $TeacherSubjects]);
     }
+
     public function TeacherAttendance(Request $request)
     {
-        return $request->input();
+        $request->input();
+        $User = User::find(session('Data.user_id'));
+
+        $UserSettings = Setting::where('user_id', session('Data.user_id'))->first();
+
+        $StudentRecords = app('App\Http\Controllers\AjaxController')->StudentsAssignedToSubject($request->subject);
+        foreach ($StudentRecords as $Record) {
+
+            $TeacherAttendance = new TeacherAttendance;
+            $TeacherAttendance->user_id = session('Data.user_id');
+            $TeacherAttendance->teacher_id = session('Data.id');
+            $TeacherAttendance->subject_id = $request->subject;
+            $TeacherAttendance->mobiledata_id = $Record->id;
+            $TeacherAttendance->is_present = $request->has($Record->code . 'chk') ? "Y" : "N";
+            $TeacherAttendance->save();
+
+        }
+
+
+        return redirect()->route('r.teacher-attendance')->with('AlertType', 'success')->with('AlertMsg', "Attendance Saved.");
     }
 }
