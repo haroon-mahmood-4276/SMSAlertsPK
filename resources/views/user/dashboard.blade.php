@@ -303,7 +303,7 @@
                                                     <td>{{ $Member->student_first_name }}
                                                         {{ $Member->student_last_name }}
                                                     </td>
-                                                    <td>{{ $Member->group_name }} @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
+                                                    <td>{{ $Member->group_name }} @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                                             - {{ $Member->section_name }}
                                                         @endif
                                                     </td>
@@ -335,10 +335,10 @@
                                 <div>
                                     <p>It is a GET Request API.</p>
                                     <pre>
-                                                                <code class="language-markup">
-                                                                    <span>{{ urldecode(route('api.sms.quick', ['email' => session('Data.email'), 'password' => '*********', 'phone_number' => '923012345678', 'message' => "Hello I'm testing message"])) }}</span>
-                                                                </code>
-                                                            </pre>
+                                                                    <code class="language-markup">
+                                                                        <span>{{ urldecode(route('api.sms.quick', ['email' => session('Data.email'), 'password' => '*********', 'phone_number' => '923012345678', 'message' => "Hello I'm testing message"])) }}</span>
+                                                                    </code>
+                                                                </pre>
 
                                     {{-- <div>
                                     <br>
@@ -402,10 +402,10 @@
     <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
     <!--c3 JavaScript -->
-    <script src="{{ asset('assets/extra-libs/c3/d3.min.js') }}"></script>
-    <script src="{{ asset('assets/extra-libs/c3/c3.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script>
-    <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script>
+    {{-- <script src="{{ asset('assets/extra-libs/c3/d3.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/extra-libs/c3/c3.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('dist/js/pages/dashboards/dashboard1.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/extra-libs/sparkline/sparkline.js') }}"></script> --}}
 
     <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
 
