@@ -211,7 +211,7 @@ class TeacherController extends Controller
 
     public function TeacherAttendance(Request $request)
     {
-        $request->input();
+        // return $request->input();
         $User = User::find(session('Data.user_id'));
 
         $UserSettings = Setting::where('user_id', session('Data.user_id'))->first();
@@ -224,11 +224,11 @@ class TeacherController extends Controller
             $TeacherAttendance->teacher_id = session('Data.id');
             $TeacherAttendance->subject_id = $request->subject;
             $TeacherAttendance->mobiledata_id = $Record->id;
-            $TeacherAttendance->is_present = $request->has($Record->code . 'chk') ? "Y" : "N";
+            $TeacherAttendance->status = $request->input($Record->code . 'chk');
             $TeacherAttendance->save();
 
             if ($UserSettings->attendance_enabled == "Y") {
-                if (!$request->has($Record->code . 'chk')) {
+                if ($request->input($Record->code . 'chk') == "A") {
                     $ReplacedMessage = "";
                     $ReplacedMessage = str_replace('[student_full_name]', $Record->student_first_name . " " . $Record->student_last_name, $UserSettings->attendance_message);
                     $ReplacedMessage = str_replace('[class_name]', $Record->group_name, $ReplacedMessage);
@@ -248,6 +248,10 @@ class TeacherController extends Controller
                 }
             }
         }
+
+        $Message = session('Data.first_name') . " " . session('Data.last_name') . " has marked the Attendance.";
+        if (session('Data.coodinator_number') != null && session('Data.coodinator_number') != '')
+            JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, session('Data.coodinator_number'), $Message);
 
         return redirect()->route('r.teacher-attendance')->with('AlertType', 'success')->with('AlertMsg', "Attendance Saved.");
     }

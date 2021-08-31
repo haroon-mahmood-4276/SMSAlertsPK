@@ -44,7 +44,9 @@
                                         <select class="form-select" name="subject" id="subject">
                                             <option value="">Select</option>
                                             @foreach ($TeacherSubjects as $TeacherSubject)
-                                                <option value="{{ $TeacherSubject->subject_id }}">{{ $TeacherSubject->group_name }} - {{ $TeacherSubject->subject_name }}</option>
+                                                <option value="{{ $TeacherSubject->subject_id }}">
+                                                    {{ $TeacherSubject->group_name }} -
+                                                    {{ $TeacherSubject->subject_name }}</option>
                                             @endforeach
                                         </select>
                                         <label for="subject" class="form-label">Subjects</label>
@@ -55,49 +57,47 @@
 
                                     {{-- Table 1 --}}
                                     <div class="input-field m-t-10 col s12" id="SDTTable1">
-                                        <table id="demo-foo-addrow2"
-                                            class="table m-b-0 toggle-arrow-tiny centered responsive-table"
-                                            data-page-size="10">
-                                            <thead>
-                                                <tr>
-                                                    <th data-toggle="true">Code</th>
-                                                    <th>Name</th>
-                                                    <th>Class - Section</th>
-                                                    <th>Subject</th>
-                                                    <th>Stauts</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <div class="d-flex">
-                                                <div class="ml-auto">
-                                                    <div class="form-group">
-                                                        <input id="demo-input-search2" type="text" placeholder="Search"
-                                                            autocomplete="off">
+                                        <div class="responsive-table">
+                                            <table id="demo-foo-addrow2" class="table m-b-0 toggle-arrow-tiny centered"
+                                                data-page-size="10">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                {{-- <div class="d-flex">
+                                                    <div class="ml-auto">
+                                                        <div class="form-group">
+                                                            <input id="demo-input-search2" type="text" placeholder="Search"
+                                                                autocomplete="off">
 
-                                                        <p>
-                                                            <label>
-                                                                <input type="checkbox" class="sl-all filled-in" checked />
-                                                                <span>Check All</span>
-                                                            </label>
-                                                        </p>
+                                                            <p>
+                                                                <label>
+                                                                    <input type="checkbox" class="sl-all filled-in"
+                                                                        checked />
+                                                                    <span>Check All</span>
+                                                                </label>
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <tbody>
-                                                {{-- <tr colspan="9">
+                                                </div> --}}
+                                                <tbody>
+                                                    {{-- <tr colspan="9">
                                                 <td>No Data Yet</td>
                                             </tr> --}}
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <td colspan="9">
-                                                        <div class="text-right">
-                                                            <ul class="pagination pagination-split"> </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="9">
+                                                            <div class="text-right">
+                                                                <ul class="pagination pagination-split"> </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -146,22 +146,20 @@
 
                     for (let index = 0; index < response.length; index++) {
                         Data += "<tr>\n";
-                        Data += "<td>" + response[index].code + "</td>\n";
                         Data += "<td>" + response[index].student_first_name + " " + response[index]
                             .student_last_name + "</td>\n";
-                        Data += "<td>" + response[index].group_name + " - " + response[index]
-                            .section_name + "</td>\n";
-
-                        Data += "<td>" + response[index].subject_name + "</td>\n";
 
                         Data +=
-                            "<td><span class='label label-table label-success'>Active</span></td>\n";
-
-                        Data +=
-                            "<td class='chknone'><p><label><input type='checkbox' checked name='" +
+                            "<td class='chknone'><div class='row'><div class='col s12 m4 l4>'><p><label><input class='with-gap' name='" +
+                            response[
+                                index].code +
+                            "chk' type='radio' value='L'  /><span>Leave</span></label></p></div>" +
+                            "<div class='col s12 m4 l4>'><p><label><input class='with-gap' name='" +
                             response[index].code +
-                            "chk' class='chkbox filled-in' value='" + response[index].code +
-                            "chk'/><span>Present</span></label></p></td>\n";
+                            "chk' type='radio' value='P' checked /><span>Present</span></label></p></div>" +
+                            "<div class='col s12 m4 l4>'><p><label><input class='with-gap' name='" +
+                            response[index].code +
+                            "chk' type='radio' value='A' /><span>Absent</span></label></p></div></div></td>\n";
 
 
                         Data += "</tr>";
