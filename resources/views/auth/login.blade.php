@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -21,85 +21,65 @@
 </head>
 
 <body>
-
     <div class="main-wrapper">
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
         <div class="preloader">
             <div class="loader">
                 <div class="loader__figure"></div>
                 <p class="loader__label">SMS Alerts PK</p>
             </div>
         </div>
-
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
-            style="background:url({{ asset('assets/images/big/auth-bg2.jpg') }}) no-repeat left center;">
-            <div class="container">
-                <div class="row">
-                    <div class="col s12 l8 m6 demo-text">
-                        <span class="db"><img class="responsive-img"
-                                src="{{ asset('assets/images/icon-dark4x.png') }}" alt="logo" /></span>
-                        <span class="db"><img class="responsive-img"
-                                src="{{ asset('assets/images/text-dark4x.png') }}" alt="logo" /></span>
-                        {{-- <h1 class="font-light m-t-40">Welcome to the <span class="font-medium black-text">SMS Alerts
-                                PK</span></h1> --}}
-                        <p class="m-t-40">This is just a demo text which you can change as per your requeirment, so
-                            change once you
-                            get
-                            chance. this is default text.</p>
-                        <a class="btn btn-round red m-t-5">Know more</a>
+            style="background:url({{ asset('assets/images/big/auth-bg.jpg') }}) no-repeat center center;">
+            <div class="auth-box" style="border-radius: 10px;">
+                <div id="loginform">
+                    <div class="logo">
+                        <span class="db"><img src="{{ asset('assets/images/icon-dark4x.png') }}"
+                                style="transform: scale(0.5)" alt="logo" /></span>
+                        <h5 class="font-medium m-b-20">Sign In to Portal</h5>
                     </div>
-                </div>
-                <div class="auth-box auth-sidebar">
-                    <div id="loginform">
-                        <div class="p-l-10">
-                            <h5 class="font-medium m-b-0 m-t-40">Sign In to Account</h5>
-                            <small>Just login to your account</small>
-                        </div>
+                    <!-- Form -->
+                    <div class="row">
                         @if (Session::get('AlertType') && Session::get('AlertMsg'))
                             <div class="{{ Session::get('AlertType') }}-alert-bar p-15 m-b-20 white-text">
                                 {{ Session::get('AlertMsg') }}
                             </div>
                         @endif
+                        <form class="col s12" action="{{ route('r.login') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input type="email" name="email" class="validate @error('email') invalid @enderror"
+                                        id="email" value="{{ old('email') }}">
+                                    <span class="text-danger">@error('email') {{ $message }}
+                                        @enderror</span>
+                                </div>
+                            </div>
 
-                        <!-- Form -->
-                        <div class="row">
-                            <form class="col s12" action="{{ route('r.login') }}" method="POST">
-                                <!-- email -->
-                                @csrf
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <label for="email" class="form-label">Email address</label>
-                                        <input type="email" name="email"
-                                            class="validate @error('email') invalid @enderror" id="email"
-                                            value="{{ old('email') }}">
-                                        <span class="text-danger">@error('email') {{ $message }} @enderror</span>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" name="password"
+                                        class="validate @error('password') invalid @enderror" id="password">
+                                    <span class="text-danger">@error('password') {{ $message }}
+                                        @enderror</span>
                                 </div>
-                                <!-- pwd -->
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" name="password"
-                                            class="validate @error('password') invalid @enderror" id="password">
-                                        <span class="text-danger">@error('password') {{ $message }}
-                                            @enderror</span>
-                                    </div>
+                            </div>
+
+                            <div class="row m-t-10">
+                                <div class="col s12">
+                                    <button class="btn-large w100 btn blue accent-4" type="submit">Login</button>
                                 </div>
-                                <div class="row m-t-5">
-                                    <div class="col s12">
-                                        <button class="btn-large btn w100 blue accent-4" type="submit">Login</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="center-align m-t-20 db">
+                        {{-- Don't have an account? <a href="authentication-register1.html">Sign Up!</a> --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
 
