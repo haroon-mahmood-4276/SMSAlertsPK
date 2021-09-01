@@ -155,7 +155,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::group(['prefix' => 'settings', 'as' => 'r.settings-'],function () {
         Route::post('birthday', [SettingController::class, 'BirthDaySMS'])->name('birthday');
         Route::post('attendance', [SettingController::class, 'AttendanceSMS'])->name('attendance');
-        Route::post('geo-location', [SettingController::class, 'AttendanceSMS'])->name('geo-location');
+        Route::post('geo-location', [SettingController::class, 'GeoLocation'])->name('geo-location');
     });
 
 
