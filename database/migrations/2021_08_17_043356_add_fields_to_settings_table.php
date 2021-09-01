@@ -21,9 +21,6 @@ class AddFieldsToSettingsTable extends Migration
                 $table->string('attendance_parent_secondary_number', 1)->nullable();
                 $table->string('attendance_database_path_enabled', 1)->nullable();
                 $table->string('attendance_database_path')->nullable();
-                $table->double('longitude')->nullable();
-                $table->double('latitude')->nullable();
-                $table->double('raduis')->nullable();
             });
         });
     }
@@ -38,8 +35,7 @@ class AddFieldsToSettingsTable extends Migration
         Schema::table('settings', function (Blueprint $table) {
             $table->dropIfExists([
                 'attendance_message', 'attendance_enabled', 'attendance_parent_primary_number',
-                'attendance_parent_secondary_number', 'attendance_database_path', 'attendance_database_path_enabled',
-                'longitude', 'latitude', 'raduis'
+                'attendance_parent_secondary_number', 'attendance_database_path', 'attendance_database_path_enabled'
             ]);
         });
     }
