@@ -393,7 +393,7 @@
                 lng: parseFloat(document.getElementById("logitude").value)
             };
             const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 15,
+                zoom: 17,
                 center: Coordinates,
                 scaleControl: true,
             });
@@ -442,16 +442,17 @@
         }
 
         function showPosition(position) {
-            x.innerHTML = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
+            // x.innerHTML = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
             document.getElementById("latitude").value = parseFloat(position.coords.latitude);
             document.getElementById("logitude").value = parseFloat(position.coords.longitude);
+            document.getElementById("radius").value = parseFloat(0);
             initMap();
         }
 
         function showError(error) {
             switch (error.code) {
                 case error.PERMISSION_DENIED:
-                    x.innerHTML = "User denied the request for Geolocation."
+                    x.innerHTML = "User denied the request for Geolocation.";
                     break;
                 case error.POSITION_UNAVAILABLE:
                     x.innerHTML = "Location information is unavailable."
@@ -463,6 +464,10 @@
                     x.innerHTML = "An unknown error occurred."
                     break;
             }
+            document.getElementById("latitude").value = parseFloat(0);
+            document.getElementById("logitude").value = parseFloat(0);
+            document.getElementById("radius").value = parseFloat(0);
+            initMap();
         }
     </script>
     <script>
