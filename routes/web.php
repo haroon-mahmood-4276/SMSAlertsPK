@@ -152,9 +152,12 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     });
 
     Route::get('settings', [SettingController::class, 'Settings'])->name('r.settings');
-    Route::post('birthday-settings', [SettingController::class, 'BirthDaySMS'])->name('r.birthdaysettings');
-    Route::post('attendance-settings', [SettingController::class, 'AttendanceSMS'])->name('r.attendancesettings');
-    // Route::get('test', [SettingController::class, 'Test']);
+    Route::prefix('settings')->group(function () {
+        Route::post('birthday-settings', [SettingController::class, 'BirthDaySMS'])->name('r.birthday-settings');
+        Route::post('attendance-settings', [SettingController::class, 'AttendanceSMS'])->name('r.attendance-settings');
+        Route::post('geo-location-settings', [SettingController::class, 'AttendanceSMS'])->name('r.geo-location-settings');
+    });
+
 
     Route::get('packages/{package}/add', [PackageController::class, 'AddPackageView'])->name('r.add-package-view');
     Route::post('packages/{package}/add', [PackageController::class, 'AddPackage'])->name('r.add-package');
