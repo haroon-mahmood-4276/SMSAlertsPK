@@ -18,7 +18,7 @@ class AddGeoLocatoinFieldsToSettingsTable extends Migration
                 $table->string('geo_location_enabled', 1)->nullable();
                 $table->double('longitude', 9, 6)->nullable();
                 $table->double('latitude', 9, 6)->nullable();
-                $table->double('raduis')->nullable();
+                $table->double('radius')->nullable();
             });
         });
     }
@@ -32,7 +32,7 @@ class AddGeoLocatoinFieldsToSettingsTable extends Migration
     {
         Schema::table('settings', function (Blueprint $table) {
             $table->dropIfExists([
-                'geo_location_enabled', 'longitude', 'latitude', 'raduis'
+                'geo_location_enabled', 'longitude', 'latitude', 'radius'
             ]);
         });
     }
