@@ -368,23 +368,23 @@
                                                             <input id="latitude" onchange="initMap()" name="latitude"
                                                                 type="number"
                                                                 {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
-                                                                class="___class_+?96___" value="0" step="any">
+                                                                class="___class_+?96___" value="{{ $Setting->latitude}}" step="any">
                                                             <label for="latitude">Latitude</label>
                                                         </div>
                                                         <div class="input-field col s12 m12 l6">
                                                             <i class="material-icons prefix">text_format</i>
-                                                            <input id="logitude" onchange="initMap()" name="logitude"
+                                                            <input id="longitude" onchange="initMap()" name="longitude"
                                                                 type="number"
                                                                 {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
-                                                                class="___class_+?99___" value="0" step="any">
-                                                            <label for="logitude">Longitude</label>
+                                                                class="___class_+?99___" value="{{ $Setting->longitude}}" step="any">
+                                                            <label for="longitude">Longitude</label>
                                                         </div>
                                                         <div class="input-field col s12 m12 l6">
                                                             <i class="material-icons prefix">text_format</i>
                                                             <input id="radius" onchange="initMap()" name="radius"
                                                                 type="number"
                                                                 {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
-                                                                class="___class_+?99___" value="0">
+                                                                class="___class_+?99___" value="{{ $Setting->radius}}">
                                                             <label for="radius">Radius(m)</label>
                                                         </div>
                                                         <div class="col s12 m12 l12">
@@ -426,17 +426,17 @@
         function initMap() {
             const Coordinates = {
                 lat: parseFloat(document.getElementById("latitude").value),
-                lng: parseFloat(document.getElementById("logitude").value)
+                lng: parseFloat(document.getElementById("longitude").value)
             };
             const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 18,
+                zoom: 17,
                 center: Coordinates,
                 scaleControl: true,
             });
 
             // map.addListener("click", (mapsMouseEvent) => {
             //     document.getElementById("latitude").value = parseFloat(mapsMouseEvent.latLng.toJSON().lat);
-            //     document.getElementById("logitude").value = parseFloat(mapsMouseEvent.latLng.toJSON().lng);
+            //     document.getElementById("longitude").value = parseFloat(mapsMouseEvent.latLng.toJSON().lng);
             //     initMap();
             // });
 
@@ -448,18 +448,18 @@
             });
 
             google.maps.event.addListener(marker, "dragend", (evt) => {
-                document.getElementById("latitude").value = parseFloat(evt.latLng.lat().toFixed(6));
-                document.getElementById("logitude").value = parseFloat(evt.latLng.lng().toFixed(6));
+                document.getElementById("latitude").value = parseFloat(evt.latLng.lat().toFixed(7));
+                document.getElementById("longitude").value = parseFloat(evt.latLng.lng().toFixed(7));
                 initMap();
             });
 
 
             var cityCircle = new google.maps.Circle({
-                strokeColor: '#FF0000',
+                strokeColor: '#6b00b5',
                 strokeOpacity: 1,
                 strokeWeight: 1,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35,
+                fillColor: '#6b00b5',
+                fillOpacity: 0.25,
                 map: map,
                 center: Coordinates,
                 radius: parseFloat(document.getElementById("radius").value),
@@ -480,7 +480,7 @@
         function showPosition(position) {
             x.innerHTML = "";
             document.getElementById("latitude").value = parseFloat(position.coords.latitude);
-            document.getElementById("logitude").value = parseFloat(position.coords.longitude);
+            document.getElementById("longitude").value = parseFloat(position.coords.longitude);
             document.getElementById("radius").value = parseFloat(0);
             initMap();
         }
@@ -501,7 +501,7 @@
                     break;
             }
             document.getElementById("latitude").value = parseFloat(0);
-            document.getElementById("logitude").value = parseFloat(0);
+            document.getElementById("longitude").value = parseFloat(0);
             document.getElementById("radius").value = parseFloat(0);
             initMap();
         }
@@ -569,13 +569,21 @@
             $('#demo').text('');
             $('#location').prop("disabled", !this.checked);
             $('#latitude').prop("disabled", !this.checked);
-            $('#logitude').prop("disabled", !this.checked);
+            $('#longitude').prop("disabled", !this.checked);
             $('#radius').prop("disabled", !this.checked);
 
             if ($('#geo_location_enabled').prop("checked") == false) {
                 $('#latitude').val('0');
-                $('#logitude').val('0');
+                $('#longitude').val('0');
                 $('#radius').val('0');
+            }
+        });
+
+        $('#geo_settings_form').on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) {
+                e.preventDefault();
+                return false;
             }
         });
     </script>

@@ -16,8 +16,8 @@ class AddGeoLocatoinFieldsToSettingsTable extends Migration
         Schema::table('settings', function (Blueprint $table) {
             $table->after('attendance_database_path', function ($table) {
                 $table->string('geo_location_enabled', 1)->nullable();
-                $table->double('longitude', 9, 6)->nullable();
-                $table->double('latitude', 9, 6)->nullable();
+                $table->double('longitude', 10, 7)->nullable();
+                $table->double('latitude', 10, 7)->nullable();
                 $table->double('radius')->nullable();
             });
         });

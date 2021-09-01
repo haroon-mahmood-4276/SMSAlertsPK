@@ -29,9 +29,10 @@ class Settings extends Seeder
                 'attendance_parent_secondary_number' => 'N',
                 'attendance_database_path_enabled' => 'N',
                 'attendance_database_path' => null,
+                'geo_location_enabled' => 'N',
                 'longitude' => 0,
                 'latitude' => 0,
-                'raduis' => 0,
+                'radius' => 0,
             ],
             [
                 'user_id' => '2',
@@ -47,9 +48,10 @@ class Settings extends Seeder
                 'attendance_parent_secondary_number' => 'N',
                 'attendance_database_path_enabled' => 'N',
                 'attendance_database_path' => null,
+                'geo_location_enabled' => 'N',
                 'longitude' => 0,
                 'latitude' => 0,
-                'raduis' => 0,
+                'radius' => 0,
             ], [
                 'user_id' => '3',
                 'birthday_enabled' => 'N',
@@ -64,9 +66,10 @@ class Settings extends Seeder
                 'attendance_parent_secondary_number' => 'N',
                 'attendance_database_path_enabled' => 'N',
                 'attendance_database_path' => null,
+                'geo_location_enabled' => 'N',
                 'longitude' => 0,
                 'latitude' => 0,
-                'raduis' => 0,
+                'radius' => 0,
             ],
         ]);
     }

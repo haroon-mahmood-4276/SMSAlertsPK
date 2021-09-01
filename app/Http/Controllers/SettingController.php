@@ -62,4 +62,24 @@ class SettingController extends Controller
             return redirect()->route('r.settings')->with('AlertType', 'danger')->with('AlertMsg', 'Attendance setting not saved.');
         }
     }
+
+    public function GeoLocation(Request $request)
+    {
+        $GeoLoaction = Setting::where('user_id', '=', session('Data.id'))->first();
+        $GeoLoaction->geo_location_enabled = ($request->geo_location_enabled == 'on') ? 'Y' : 'N';
+
+        $GeoLoaction->latitude = ($request->has('latitude')) ? $request->latitude : 0;
+        $GeoLoaction->longitude = ($request->has('longitude')) ? $request->longitude : 0;
+        $GeoLoaction->radius = ($request->has('radius')) ? $request->radius : 0;
+
+        if ($GeoLoaction->save()) {
+            if (session()->has('Data') && session()->has('UserSettings')) {
+                $UserSettings = Setting::where('user_id', session()->get('Data.id'))->first();
+                session()->put(['UserSettings' => $UserSettings]);
+            }
+            return redirect()->route('r.settings')->with('AlertType', 'success')->with('AlertMsg', 'Geo Location saved.');
+        } else {
+            return redirect()->route('r.settings')->with('AlertType', 'danger')->with('AlertMsg', 'Geo Location not saved.');
+        }
+    }
 }
