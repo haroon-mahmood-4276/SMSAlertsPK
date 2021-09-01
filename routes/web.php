@@ -152,10 +152,10 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     });
 
     Route::get('settings', [SettingController::class, 'Settings'])->name('r.settings');
-    Route::prefix('settings')->group(function () {
-        Route::post('birthday-settings', [SettingController::class, 'BirthDaySMS'])->name('r.birthday-settings');
-        Route::post('attendance-settings', [SettingController::class, 'AttendanceSMS'])->name('r.attendance-settings');
-        Route::post('geo-location-settings', [SettingController::class, 'AttendanceSMS'])->name('r.geo-location-settings');
+    Route::group(['prefix' => 'settings', 'as' => 'r.settings-'],function () {
+        Route::post('birthday', [SettingController::class, 'BirthDaySMS'])->name('birthday');
+        Route::post('attendance', [SettingController::class, 'AttendanceSMS'])->name('attendance');
+        Route::post('geo-location', [SettingController::class, 'AttendanceSMS'])->name('geo-location');
     });
 
 
