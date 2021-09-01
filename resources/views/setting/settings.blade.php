@@ -36,7 +36,7 @@
                     <div class="card">
                         <div class="card-content">
                             <h3 class="card-title">Birthday Template</h3>
-                            <form action="{{ route('r.birthdaysettings') }}" class="formValidate"
+                            <form action="{{ route('r.settings-birthday') }}" class="formValidate"
                                 id="birthday_settings_form" method="POST">
                                 @csrf
                                 <div class="row">
@@ -165,7 +165,7 @@
                     <div class="card">
                         <div class="card-content">
                             <h3 class="card-title">Attendance Template</h3>
-                            <form action="{{ route('r.attendancesettings') }}" class="formValidate"
+                            <form action="{{ route('r.settings-attendance') }}" class="formValidate"
                                 id="attendance_settings_form" enctype="multipart/form-data" method="POST">
                                 @csrf
                                 <div class="row">
@@ -332,41 +332,69 @@
                                             style="width:100%; height:500px; border: 2px solid #6b00b5; border-radius: 10px;">
                                         </div>
                                     </div>
-                                    <div class="col s12 m6 l6">
+                                    <div class="col s12 m6 l6 m-t-30">
                                         <div class="row">
-                                            <div class="input-field col s12 m12 l12">
-                                                <button class=" btn-floating waves-effect waves-light right" type="button"
-                                                    name="location" onclick="getLocation()" id="location"><i
-                                                        class="material-icons">my_location</i>
-                                                </button>
-                                                <p id="demo"></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="input-field col s12 m6 l6">
-                                                <i class="material-icons prefix">text_format</i>
-                                                <input id="latitude" onchange="initMap()" name="latitude" type="number"
-                                                    class="___class_+?96___" value="0" step="0.000091234567891">
-                                                <label for="latitude">Latitude</label>
-
-                                            </div>
-                                            <div class="input-field col s12 m6 l6">
-                                                <i class="material-icons prefix">text_format</i>
-                                                <input id="logitude" onchange="initMap()" name="logitude" type="number"
-                                                    class="___class_+?99___" value="0" step="0.000091234567891">
-                                                <label for="logitude">Longitude</label>
-
-                                            </div>
-                                            <div class="input-field col s12 m6 l6">
-                                                <i class="material-icons prefix">text_format</i>
-                                                <input id="radius" onchange="initMap()" name="radius" type="number"
-                                                    class="___class_+?99___" value="0">
-                                                <label for="radius">Radius(m)</label>
-                                            </div>
                                             <div class="col s12 m12 l12">
-                                                <button class="btn waves-effect waves-light right submit" type="submit"
-                                                    name="attendance_settings_button" id="attendance_settings_button">Save
-                                                </button>
+                                                <form action="{{ route('r.settings-geo-location') }}"
+                                                    class="formValidate" id="geo_settings_form" method="POST">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col s12 m12 l12">
+                                                            <div class="row">
+                                                                <div class="col s12 m6 l6">
+                                                                    <p>
+                                                                        <label>
+                                                                            <input type="checkbox" id="geo_location_enabled"
+                                                                                class="filled-in"
+                                                                                name="geo_location_enabled"
+                                                                                {{ $Setting->geo_location_enabled == 'Y' ? 'checked' : '' }} />
+                                                                            <span>Enabled</span>
+                                                                        </label>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col s12 m6 l6"><button
+                                                                        class=" btn-floating waves-effect waves-light right"
+                                                                        type="button" name="location"
+                                                                        {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
+                                                                        onclick="getLocation()" id="location"><i
+                                                                            class="material-icons">my_location</i>
+                                                                    </button>
+                                                                    <p id="demo" style="color: red !important;">&nbsp;</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-field col s12 m12 l6">
+                                                            <i class="material-icons prefix">text_format</i>
+                                                            <input id="latitude" onchange="initMap()" name="latitude"
+                                                                type="number"
+                                                                {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
+                                                                class="___class_+?96___" value="0" step="any">
+                                                            <label for="latitude">Latitude</label>
+                                                        </div>
+                                                        <div class="input-field col s12 m12 l6">
+                                                            <i class="material-icons prefix">text_format</i>
+                                                            <input id="logitude" onchange="initMap()" name="logitude"
+                                                                type="number"
+                                                                {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
+                                                                class="___class_+?99___" value="0" step="any">
+                                                            <label for="logitude">Longitude</label>
+                                                        </div>
+                                                        <div class="input-field col s12 m12 l6">
+                                                            <i class="material-icons prefix">text_format</i>
+                                                            <input id="radius" onchange="initMap()" name="radius"
+                                                                type="number"
+                                                                {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
+                                                                class="___class_+?99___" value="0">
+                                                            <label for="radius">Radius(m)</label>
+                                                        </div>
+                                                        <div class="col s12 m12 l12">
+                                                            <button class="btn waves-effect waves-light right submit"
+                                                                type="submit" name="geo_settings_button"
+                                                                id="geo_settings_button">Save
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -401,16 +429,16 @@
                 lng: parseFloat(document.getElementById("logitude").value)
             };
             const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 17,
+                zoom: 18,
                 center: Coordinates,
                 scaleControl: true,
             });
 
-            map.addListener("click", (mapsMouseEvent) => {
-                document.getElementById("latitude").value = parseFloat(mapsMouseEvent.latLng.toJSON().lat);
-                document.getElementById("logitude").value = parseFloat(mapsMouseEvent.latLng.toJSON().lng);
-                initMap();
-            });
+            // map.addListener("click", (mapsMouseEvent) => {
+            //     document.getElementById("latitude").value = parseFloat(mapsMouseEvent.latLng.toJSON().lat);
+            //     document.getElementById("logitude").value = parseFloat(mapsMouseEvent.latLng.toJSON().lng);
+            //     initMap();
+            // });
 
             const marker = new google.maps.Marker({
                 position: Coordinates,
@@ -420,8 +448,8 @@
             });
 
             google.maps.event.addListener(marker, "dragend", (evt) => {
-                document.getElementById("latitude").value = parseFloat(evt.latLng.lat());
-                document.getElementById("logitude").value = parseFloat(evt.latLng.lng());
+                document.getElementById("latitude").value = parseFloat(evt.latLng.lat().toFixed(6));
+                document.getElementById("logitude").value = parseFloat(evt.latLng.lng().toFixed(6));
                 initMap();
             });
 
@@ -450,7 +478,7 @@
         }
 
         function showPosition(position) {
-            // x.innerHTML = "Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude;
+            x.innerHTML = "";
             document.getElementById("latitude").value = parseFloat(position.coords.latitude);
             document.getElementById("logitude").value = parseFloat(position.coords.longitude);
             document.getElementById("radius").value = parseFloat(0);
@@ -477,8 +505,7 @@
             document.getElementById("radius").value = parseFloat(0);
             initMap();
         }
-    </script>
-    <script>
+
         function textbox(Element) {
             if (document.getElementById('is_enabled').checked) {
                 var ctl = document.getElementById('message');
@@ -537,5 +564,19 @@
                 ctl.focus();
             }
         }
+
+        $("#geo_location_enabled").on('click', function() {
+            $('#demo').text('');
+            $('#location').prop("disabled", !this.checked);
+            $('#latitude').prop("disabled", !this.checked);
+            $('#logitude').prop("disabled", !this.checked);
+            $('#radius').prop("disabled", !this.checked);
+
+            if ($('#geo_location_enabled').prop("checked") == false) {
+                $('#latitude').val('0');
+                $('#logitude').val('0');
+                $('#radius').val('0');
+            }
+        });
     </script>
 @endsection
