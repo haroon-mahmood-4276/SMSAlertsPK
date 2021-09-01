@@ -264,53 +264,54 @@
                                         </div>
                                     </div>
 
-                                    <div class="col s12 m12 l12 m-t-40">
-                                        <h6><strong>In case you have ZKTeco Device, enter the path of MS Access
-                                                database(.mdb, .accdb)</strong></h6>
-                                        <p>
-                                            <label>
-                                                <input type="checkbox" id="attendance_database_path_enabled"
-                                                    class="filled-in" name="attendance_database_path_enabled"
-                                                    {{ $Setting->attendance_enabled == 'N' ? 'disabled' : '' }}
-                                                    {{ $Setting->attendance_database_path_enabled == 'Y' ? 'checked' : '' }} />
-                                                <span>Enable</span>
-                                            </label>
-                                        </p>
-                                    </div>
-
-                                    <div class="input-field col s12 m12 l12">
-                                        <i class="material-icons prefix">text_format</i>
-                                        <input id="attendance_database_path" name="attendance_database_path" type="text"
-                                            class="@error('attendance_database_path') error @enderror"
-                                            value="{{ $Setting->attendance_database_path }}"
-                                            placeholder="\path\to\file.mdb or \path\to\file.accdb"
-                                            {{ $Setting->attendance_enabled == 'N' ? 'disabled' : '' }}
-                                            {{ $Setting->attendance_database_path_enabled == 'Y' ? '' : 'disabled' }}
-                                            required>
-                                        <label for="attendance_database_path">Access Database Path</label>
-                                        @error('attendance_database_path')
-                                            <span style="color: red">{{ $message }}</span>
-                                        @enderror
-
-                                        {{-- <div class="row">
-                                        <div class="col s12">
-                                            <div class="file-field input-field col s12 m12 l12 ">
-                                                <div class="btn">
-                                                    <span>File</span>
-                                                    <input type="file" name="attendance_database_path">
-                                                </div>
-                                                <div class="file-path-wrapper">
-                                                    <input class="file-path validate" type="text"
-                                                        placeholder="Please upload only .mdb or .accdb">
-                                                </div>
-                                            </div>
-                                            <div class="progress" style="display: none;">
-                                                <div class="determinate" style="width: 0%;"></div>
-                                            </div>
+                                    @if (session('Data.company_nature') == 'S')
+                                        <div class="col s12 m12 l12 m-t-40">
+                                            <h6><strong>In case you have ZKTeco Device, enter the path of MS Access
+                                                    database(.mdb, .accdb)</strong></h6>
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" id="attendance_database_path_enabled"
+                                                        class="filled-in" name="attendance_database_path_enabled"
+                                                        {{ $Setting->attendance_enabled == 'N' ? 'disabled' : '' }}
+                                                        {{ $Setting->attendance_database_path_enabled == 'Y' ? 'checked' : '' }} />
+                                                    <span>Enable</span>
+                                                </label>
+                                            </p>
                                         </div>
-                                    </div> --}}
-                                    </div>
 
+                                        <div class="input-field col s12 m12 l12">
+                                            <i class="material-icons prefix">text_format</i>
+                                            <input id="attendance_database_path" name="attendance_database_path" type="text"
+                                                class="@error('attendance_database_path') error @enderror"
+                                                value="{{ $Setting->attendance_database_path }}"
+                                                placeholder="\path\to\file.mdb or \path\to\file.accdb"
+                                                {{ $Setting->attendance_enabled == 'N' ? 'disabled' : '' }}
+                                                {{ $Setting->attendance_database_path_enabled == 'Y' ? '' : 'disabled' }}
+                                                required>
+                                            <label for="attendance_database_path">Access Database Path</label>
+                                            @error('attendance_database_path')
+                                                <span style="color: red">{{ $message }}</span>
+                                            @enderror
+
+                                            {{-- <div class="row">
+                                            <div class="col s12">
+                                                <div class="file-field input-field col s12 m12 l12 ">
+                                                    <div class="btn">
+                                                        <span>File</span>
+                                                        <input type="file" name="attendance_database_path">
+                                                    </div>
+                                                    <div class="file-path-wrapper">
+                                                        <input class="file-path validate" type="text"
+                                                            placeholder="Please upload only .mdb or .accdb">
+                                                    </div>
+                                                </div>
+                                                <div class="progress" style="display: none;">
+                                                    <div class="determinate" style="width: 0%;"></div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        </div>
+                                    @endif
                                     <div class="col s12 m12 l12">
                                         <button class="btn waves-effect waves-light right submit" type="submit"
                                             name="attendance_settings_button" id="attendance_settings_button">Save
@@ -321,51 +322,58 @@
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-content">
-                            <h3 class="card-title">Premises Geo Location</h3>
-                            <div class="row">
-                                <div class="col s12 m6 l5">
-                                    <div id="map"
-                                        style="width:100%;height:400px; border: 2px solid #6b00b5; border-radius: 10px;">
-                                    </div>
-                                </div>
-                                <div class="col s12 m6 l7">
-                                    <div class="row">
-                                        <div class="input-field col s12 m12 l12">
-                                            <button class=" btn-floating waves-effect waves-light right" type="button"
-                                                name="location" onclick="getLocation()" id="location"><i
-                                                    class="material-icons">my_location</i>
-                                            </button>
-                                            <p id="demo"></p>
+                    @if (session('Data.company_nature') == 'HE')
+                        <div class="card">
+                            <div class="card-content">
+                                <h3 class="card-title">Premises Geo Location</h3>
+                                <div class="row">
+                                    <div class="col s12 m6 l6">
+                                        <div id="map"
+                                            style="width:100%; height:500px; border: 2px solid #6b00b5; border-radius: 10px;">
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="input-field col s12 m6 l6">
-                                            <i class="material-icons prefix">text_format</i>
-                                            <input id="latitude" onchange="initMap()" name="latitude" type="number"
-                                                class="___class_+?96___" value="0" step="0.0000009">
-                                            <label for="latitude">Latitude</label>
-
+                                    <div class="col s12 m6 l6">
+                                        <div class="row">
+                                            <div class="input-field col s12 m12 l12">
+                                                <button class=" btn-floating waves-effect waves-light right" type="button"
+                                                    name="location" onclick="getLocation()" id="location"><i
+                                                        class="material-icons">my_location</i>
+                                                </button>
+                                                <p id="demo"></p>
+                                            </div>
                                         </div>
-                                        <div class="input-field col s12 m6 l6">
-                                            <i class="material-icons prefix">text_format</i>
-                                            <input id="logitude" onchange="initMap()" name="logitude" type="number"
-                                                class="___class_+?99___" value="0" step="0.0000009">
-                                            <label for="logitude">Longitude</label>
+                                        <div class="row">
+                                            <div class="input-field col s12 m6 l6">
+                                                <i class="material-icons prefix">text_format</i>
+                                                <input id="latitude" onchange="initMap()" name="latitude" type="number"
+                                                    class="___class_+?96___" value="0" step="0.000091234567891">
+                                                <label for="latitude">Latitude</label>
 
-                                        </div>
-                                        <div class="input-field col s12 m6 l6">
-                                            <i class="material-icons prefix">text_format</i>
-                                            <input id="radius" onchange="initMap()" name="radius" type="number"
-                                                class="___class_+?99___" value="0">
-                                            <label for="radius">Radius</label>
+                                            </div>
+                                            <div class="input-field col s12 m6 l6">
+                                                <i class="material-icons prefix">text_format</i>
+                                                <input id="logitude" onchange="initMap()" name="logitude" type="number"
+                                                    class="___class_+?99___" value="0" step="0.000091234567891">
+                                                <label for="logitude">Longitude</label>
+
+                                            </div>
+                                            <div class="input-field col s12 m6 l6">
+                                                <i class="material-icons prefix">text_format</i>
+                                                <input id="radius" onchange="initMap()" name="radius" type="number"
+                                                    class="___class_+?99___" value="0">
+                                                <label for="radius">Radius(m)</label>
+                                            </div>
+                                            <div class="col s12 m12 l12">
+                                                <button class="btn waves-effect waves-light right submit" type="submit"
+                                                    name="attendance_settings_button" id="attendance_settings_button">Save
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
