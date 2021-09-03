@@ -311,6 +311,7 @@
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
 
     <script>
+        TableRowsCount();
         $('#subject').on('change', function() {
             var SubjectId = $(this).val() != "" ? $(this).val() : 0;
             var Data = "";
