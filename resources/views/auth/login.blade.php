@@ -44,7 +44,7 @@
                                 {{ Session::get('AlertMsg') }}
                             </div>
                         @endif
-                        <form class="col s12" action="{{ route('r.login') }}" method="POST">
+                        <form class="col s12" id="login_form" action="{{ route('r.login') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="input-field col s12">
@@ -64,11 +64,16 @@
                                     <span class="text-danger">@error('password') {{ $message }}
                                         @enderror</span>
                                 </div>
+                                <div>
+                                    <input type="hidden" name="latitude" value="0" id="latitude">
+                                    <input type="hidden" name="longitude" value="0" id="longitude">
+                                    <input type="hidden" name="message" value="" id="message">
+                                </div>
                             </div>
 
                             <div class="row m-t-10">
                                 <div class="col s12">
-                                    <button class="btn-large w100 btn blue accent-4" type="submit">Login</button>
+                                    <button class="btn-large w100 btn blue accent-4 submit" type="submit">Login</button>
                                 </div>
                             </div>
                         </form>
@@ -88,6 +93,44 @@
         $(function() {
             $(".preloader").fadeOut();
         });
+
+        $('.submit').on('click', function(e) {
+            e.preventDefault();
+            getLocation();
+        });
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(setPosition, setError);
+            }
+        }
+
+        function setPosition(position) {
+            document.getElementById("latitude").value = parseFloat(position.coords.latitude);
+            document.getElementById("longitude").value = parseFloat(position.coords.longitude);
+            document.getElementById("message").value = 'SUCCESS';
+            $("#login_form").submit();
+        }
+
+        function setError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    document.getElementById("message").value = "PERMISSION_DENIED";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    document.getElementById("message").value = "POSITION_UNAVAILABLE"
+                    break;
+                case error.TIMEOUT:
+                    document.getElementById("message").value = "TIMEOUT"
+                    break;
+                case error.UNKNOWN_ERROR:
+                    document.getElementById("message").value = "UNKNOWN_ERROR"
+                    break;
+            }
+            document.getElementById("latitude").value = parseFloat(0);
+            document.getElementById("longitude").value = parseFloat(0);
+            $("#login_form").submit();
+        }
     </script>
 </body>
 

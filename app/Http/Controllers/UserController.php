@@ -69,7 +69,7 @@ class UserController extends Controller
             'company_email' => 'required|email|unique:users,company_email',
             'company_nature' => 'required',
             'mobile_1' => 'required|digits:12',
-            'mobile_2' => 'nullable||digits:12',
+            'mobile_2' => 'nullable|digits:12',
         ]);
         // dd($request->input());
         $User = new User;
@@ -159,7 +159,7 @@ class UserController extends Controller
             'company_email' => 'required|email',
             'company_nature' => 'required',
             'mobile_1' => 'required|digits:12',
-            'mobile_2' => 'nullable||digits:12',
+            'mobile_2' => 'nullable|digits:12',
         ]);
 
         $User = User::find($id);
@@ -217,7 +217,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        return $request->input();
+        // return $request->input();
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:5|max:12'
@@ -239,6 +239,28 @@ class UserController extends Controller
             if ($Teacher) {
 
                 if (Hash::check($request->password, $Teacher->password)) {
+                    $UserSettings = Setting::where('user_id', $Teacher->user_id)->first();
+                    if ($UserSettings->geo_location_enabled == "Y") {
+                        $ErrorMessage = "";
+                        if ($request->message == "SUCCESS") {
+
+                            $degrees = rad2deg(acos((sin(deg2rad($UserSettings->latitude)) * sin(deg2rad($request->latitude))) + (cos(deg2rad($UserSettings->latitude)) * cos(deg2rad($request->latitude)) * cos(deg2rad($UserSettings->longitude - $request->longitude)))));
+                            if ((round(($degrees * 111.13384), 2) * 1000) > $UserSettings->radius) {
+                                return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You are not in the premises. You can\'t login.');
+                            };
+                        } elseif ($request->message == "PERMISSION_DENIED") {
+                            return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. User denied the request for Geolocation.');
+                        } elseif ($request->message == "POSITION_UNAVAILABLE") {
+                            return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. Location information is unavailable.');
+                        } elseif ($request->message == "TIMEOUT") {
+                            return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. The request to get user location timed out.');
+                        } elseif ($request->message == "UNKNOWN_ERROR") {
+                            return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. An unknown error occurred.');
+                        } else {
+                            return back()->with('AlertType', 'danger')->with('AlertMsg', 'Something went wrong');
+                        }
+                    }
+
                     $Teacher['company_nature'] = 'T';
                     $request->session()->put('Data', $Teacher);
                     return redirect()->route('r.teacher-attendance');
