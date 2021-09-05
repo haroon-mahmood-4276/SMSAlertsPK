@@ -141,7 +141,7 @@ class TeacherController extends Controller
             'mobile_1' => 'bail|required|numeric|digits:12',
             'mobile_2' => 'bail|nullable|numeric|digits:12',
             'email' => 'required|email',
-            'password' => 'bail|nullable|alpha_dash|between:5,15',
+            'password' => 'bail|sometimes|alpha_dash|between:5,15',
             'coodinator_number' => 'bail|numeric|digits:12',
             'active' => 'required',
         ]);

@@ -151,7 +151,7 @@ class UserController extends Controller
             'first_name' => 'bail|required|alpha|between:1,50',
             'last_name' => 'bail|required|alpha|between:1,50',
             'email' => 'required|email',
-            'password' => 'nullable|alpha_dash|between:5,15',
+            'password' => 'sometimes|alpha_dash|between:5,15',
             'company_name' => 'required|alpha|between:1,50',
             'company_mask_id' => 'required|max:11',
             'company_username' => 'required|max:11',
@@ -217,6 +217,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
+        return $request->input();
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:5|max:12'
