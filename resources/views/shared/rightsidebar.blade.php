@@ -109,9 +109,18 @@
                         </ul>
                         <!-- Logo BG -->
                     </div>
+                    <div class="p-10">
+                        <!-- Logo BG -->
+                        <ul class="">
+                            <li style=" color: red !important;">Find any error?<a
+                                href="mailto:errors@smsalerts.pk?subject=Error&body=We%20are%20extremely%20sorry%20that%20you%20have%20faced%20the%20error.%20Write%20brief%20email%20about%20error%20you%20are%20having%20with%20screenshots.%20We%20will%20resolve%20within%2024%20hours.(Please%20remove%20this%20text%20before%20writing%20the%20email.)"><i
+                                    class="material-icons small">email</i>Email Us</a>
+                            </li>
+                        </ul>
+    <!-- Logo BG -->
+                    </div>
                 </div>
             </div>
         </li>
     </ul>
 </aside>
-<div class="chat-windows"></div>
