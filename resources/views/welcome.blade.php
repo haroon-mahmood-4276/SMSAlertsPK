@@ -55,14 +55,9 @@
                                     class="waves-effect waves-light btn danger-gradient white-text">Login</a>
                             </li>
                         </ul>
-                        <a href="#" data-target="mobile-demo" class="sidenav-trigger sml-icon"><i
-                                class="material-icons">menu</i></a>
-                        <ul class="sidenav sml-font" id="mobile-demo">
-                            <li><a href="#why-us">Why Us</a></li>
-                            <li><a href="#feature">Features</a></li>
-                            <li><a href="#pricing">Pricing</a></li>
+                        <ul class="show-on-medium-and-down hide-on-med-and-up right sml-font" id="mobile-demo">
                             <li>
-                                <a href="{{ route('r.login') }}"
+                                <a style="color: white !important;" href="{{ route('r.login') }}"
                                     class="waves-effect waves-light btn danger-gradient white-text">Login</a>
                             </li>
                         </ul>
@@ -73,10 +68,13 @@
             <div class="container">
                 <div class="row d-flex header-banner align-items-center">
                     <div class="col l5">
-                        <h2>Build your Dashboard and Application with <span class="blue-text"> Materialart </span> in
+                        <h2>Build your Dashboard and Application with <span class="blue-text"> Materialart </span>
+                            in
                             Record Time!</h2>
-                        <p class="m-t-40"><span class="font-bold">4 Dashboard Variations,</span> 1600+ Page Templates,
-                            Unlimited Color Schemes, <span class="font-bold">10+ Unique Demos,</span> 500+ UI Elements,
+                        <p class="m-t-40"><span class="font-bold">4 Dashboard Variations,</span> 1600+ Page
+                            Templates,
+                            Unlimited Color Schemes, <span class="font-bold">10+ Unique Demos,</span> 500+ UI
+                            Elements,
                             100+ Integrated Plugins, Google material base design & more...</p>
                         <div>
                             <a href="#demos"
@@ -118,8 +116,8 @@
                                 Now</a>
                         </div>
                         <div class="col l6 p-l-40">
-                            <img class="img-shadow responsive-img" src="{{ asset('welcome/assets/images/dashbord.png') }}"
-                                alt="cdb">
+                            <img class="img-shadow responsive-img"
+                                src="{{ asset('welcome/assets/images/dashbord.png') }}" alt="cdb">
                         </div>
                     </div>
                     <div class="row">
@@ -291,16 +289,21 @@
                                             <div class="pricing-body b-l">
                                                 <div class="pricing-header">
                                                     <h5 class="center-align">Silver</h5>
-                                                    <h2 class="center-align"><span class="price-sign">$</span>24</h2>
+                                                    <h2 class="center-align"><span class="price-sign">$</span>24
+                                                    </h2>
                                                     <p class="uppercase">per month</p>
                                                 </div>
                                                 <div class="price-table-content">
-                                                    <div class="price-row"><i class="icon-user"></i> 3 Members</div>
-                                                    <div class="price-row"><i class="icon-screen-smartphone"></i> Single
+                                                    <div class="price-row"><i class="icon-user"></i> 3
+                                                        Members</div>
+                                                    <div class="price-row"><i class="icon-screen-smartphone"></i>
+                                                        Single
                                                         Device</div>
-                                                    <div class="price-row"><i class="icon-drawar"></i> 50GB Storage
+                                                    <div class="price-row"><i class="icon-drawar"></i> 50GB
+                                                        Storage
                                                     </div>
-                                                    <div class="price-row"><i class="icon-refresh"></i> Monthly Backups
+                                                    <div class="price-row"><i class="icon-refresh"></i> Monthly
+                                                        Backups
                                                     </div>
                                                     <div class="price-row">
                                                         <button class="btn waves-effect waves-light m-t-20">Sign
@@ -315,16 +318,21 @@
                                             <div class="pricing-body">
                                                 <div class="pricing-header">
                                                     <h5 class="center-align">Gold</h5>
-                                                    <h2 class="center-align"><span class="price-sign">$</span>34</h2>
+                                                    <h2 class="center-align"><span class="price-sign">$</span>34
+                                                    </h2>
                                                     <p class="uppercase">per month</p>
                                                 </div>
                                                 <div class="price-table-content">
-                                                    <div class="price-row"><i class="icon-user"></i> 5 Members</div>
-                                                    <div class="price-row"><i class="icon-screen-smartphone"></i> Single
+                                                    <div class="price-row"><i class="icon-user"></i> 5
+                                                        Members</div>
+                                                    <div class="price-row"><i class="icon-screen-smartphone"></i>
+                                                        Single
                                                         Device</div>
-                                                    <div class="price-row"><i class="icon-drawar"></i> 80GB Storage
+                                                    <div class="price-row"><i class="icon-drawar"></i> 80GB
+                                                        Storage
                                                     </div>
-                                                    <div class="price-row"><i class="icon-refresh"></i> Monthly Backups
+                                                    <div class="price-row"><i class="icon-refresh"></i> Monthly
+                                                        Backups
                                                     </div>
                                                     <div class="price-row">
                                                         <button class="btn waves-effect waves-light m-t-20">Sign
@@ -340,16 +348,21 @@
                                                 <div class="pricing-header">
                                                     <h6 class="price-lable yellow darken-4 white-text">Popular</h6>
                                                     <h5 class="center-align">Platinum</h5>
-                                                    <h2 class="center-align"><span class="price-sign">$</span>45</h2>
+                                                    <h2 class="center-align"><span class="price-sign">$</span>45
+                                                    </h2>
                                                     <p class="uppercase">per month</p>
                                                 </div>
                                                 <div class="price-table-content">
-                                                    <div class="price-row"><i class="icon-user"></i> 10 Members</div>
-                                                    <div class="price-row"><i class="icon-screen-smartphone"></i> Single
+                                                    <div class="price-row"><i class="icon-user"></i> 10
+                                                        Members</div>
+                                                    <div class="price-row"><i class="icon-screen-smartphone"></i>
+                                                        Single
                                                         Device</div>
-                                                    <div class="price-row"><i class="icon-drawar"></i> 120GB Storage
+                                                    <div class="price-row"><i class="icon-drawar"></i> 120GB
+                                                        Storage
                                                     </div>
-                                                    <div class="price-row"><i class="icon-refresh"></i> Monthly Backups
+                                                    <div class="price-row"><i class="icon-refresh"></i> Monthly
+                                                        Backups
                                                     </div>
                                                     <div class="price-row">
                                                         <button
@@ -365,15 +378,20 @@
                                             <div class="pricing-body b-r">
                                                 <div class="pricing-header">
                                                     <h5 class="center-align">Dimond</h5>
-                                                    <h2 class="center-align"><span class="price-sign">$</span>54</h2>
+                                                    <h2 class="center-align"><span class="price-sign">$</span>54
+                                                    </h2>
                                                     <p class="uppercase">per month</p>
                                                 </div>
                                                 <div class="price-table-content">
-                                                    <div class="price-row"><i class="icon-user"></i> 15 Members</div>
-                                                    <div class="price-row"><i class="icon-screen-smartphone"></i> Single
+                                                    <div class="price-row"><i class="icon-user"></i> 15
+                                                        Members</div>
+                                                    <div class="price-row"><i class="icon-screen-smartphone"></i>
+                                                        Single
                                                         Device</div>
-                                                    <div class="price-row"><i class="icon-drawar"></i> 1TB Storage</div>
-                                                    <div class="price-row"><i class="icon-refresh"></i> Monthly Backups
+                                                    <div class="price-row"><i class="icon-drawar"></i> 1TB
+                                                        Storage</div>
+                                                    <div class="price-row"><i class="icon-refresh"></i> Monthly
+                                                        Backups
                                                     </div>
                                                     <div class="price-row">
                                                         <button class="btn waves-effect waves-light m-t-20">Sign
