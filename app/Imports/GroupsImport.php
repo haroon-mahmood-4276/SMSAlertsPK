@@ -33,7 +33,8 @@ class GroupsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnEr
     public function rules(): array
     {
         return [
-            'code' => ['numeric', new CheckGroupCode()],
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode()],
+            'name' => 'bail|required|between:1,50',
         ];
     }
 

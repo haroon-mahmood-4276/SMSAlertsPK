@@ -33,17 +33,21 @@ class ImportController extends Controller
 
     public function ImportMembers(Request $request)
     {
-        if (session('Data.company_nature') == 'B')
-            $import = new MembersImport;
-        else
-            $import = new StudentsImport;
+        try {
+            if (session('Data.company_nature') == 'B')
+                $import = new MembersImport;
+            else
+                $import = new StudentsImport;
 
 
-        $import->import($request->file('membersfile'));
+            $import->import($request->file('membersfile'));
 
-        // dd($import);
-        if ($import->failures()->isNotEmpty()) {
-            return back()->withFailures($import->failures());
+            // dd($import);
+            if ($import->failures()->isNotEmpty()) {
+                return back()->withFailures($import->failures());
+            }
+        } catch (\Illuminate\Database\QueryException $th) {
+            return redirect()->route('r.imports')->with('AlertType', 'danger')->with('AlertMsg', $th);
         }
 
         return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');

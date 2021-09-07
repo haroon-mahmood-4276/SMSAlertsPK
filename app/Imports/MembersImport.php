@@ -5,6 +5,7 @@ namespace App\Imports;
 
 use App\Models\{Group, Mobiledatas};
 use App\Rules\CheckMemberCode;
+use App\Rules\IfExists;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\{
     Importable,
@@ -22,14 +23,12 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
 {
     use Importable, SkipsErrors, SkipsFailures;
 
-    private $group_id = [], $group_code_index = 2;
-
     public function model(array $row)
     {
         // dd($this->section_id);
         return new Mobiledatas([
             'user_id' => session('Data.id'),
-            'group_id' => $this->group_id[$this->group_code_index++],
+            'group_id' => Group::where('code', '=', Str::padLeft($row['group_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id,
             'section_id' => null,
             'code' => $row['code'],
             'student_first_name' => $row['member_first_name'],
@@ -50,15 +49,14 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
     public function rules(): array
     {
         return [
+            'class_id' => [
+                'bail',
+                'required',
+                'numeric',
+                new IfExists(session('Data.id'), 'groups', 'code')
+            ],
             'code' => ['alpha_num', 'between:1,20', new CheckMemberCode()],
         ];
-    }
-
-    public function prepareForValidation($data, $index)
-    {
-        $this->group_id[$index] = Group::where('code', '=', Str::padLeft($data['group_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
-        // $data['code'] = Str::padLeft($data['code'], 5, '0');
-        return $data;
     }
 
     public function batchSize(): int

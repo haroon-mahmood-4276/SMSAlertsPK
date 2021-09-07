@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\{Group, Subject};
 use App\Rules\CheckSubjectRule;
+use App\Rules\IfExists;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\{
     Importable,
@@ -21,14 +22,12 @@ class SubjectsImport implements WithHeadingRow, WithBatchInserts, WithValidation
 {
     use Importable, SkipsErrors, SkipsFailures;
 
-    private $group_id = [], $Arrindex = 2, $SaveIndex = 2;
-
     public function model(array $row)
     {
         return new Subject([
             'user_id' => session('Data.id'),
-            'group_id' => $this->group_id[$this->SaveIndex++],
-            'code' => $row['code'],
+            'group_id' => Group::where('code', '=', Str::padLeft($row['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id,
+            'code' => Str::padLeft($row['code'], 5, '0'),
             'name' => $row['name'],
         ]);
     }
@@ -36,15 +35,14 @@ class SubjectsImport implements WithHeadingRow, WithBatchInserts, WithValidation
     public function rules(): array
     {
         return [
-            'code' => ['numeric', new CheckSubjectRule($this->group_id[$this->Arrindex++])],
+            'class_id' => [
+                'bail',
+                'required',
+                'numeric',
+                new IfExists(session('Data.id'), 'groups', 'code')
+            ],
+            'code' => ['numeric', new CheckSubjectRule()],
         ];
-    }
-
-    public function prepareForValidation($data, $index)
-    {
-        $this->group_id[$index] = Group::where('code', '=', Str::padLeft($data['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
-        $data['code'] = Str::padLeft($data['code'], 5, '0');
-        return $data;
     }
 
     public function batchSize(): int

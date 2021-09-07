@@ -40,7 +40,7 @@ class SubjectController extends Controller
     {
         $request->validate([
             'group' => 'required',
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSubjectRule($request->group)],
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSubjectRule()],
             'name' => 'bail|required|between:1,50',
         ]);
 
@@ -78,7 +78,11 @@ class SubjectController extends Controller
     {
         $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         $Subject = Subject::find($id);
-        return view('subject.edit', ['Groups' => $Groups, 'Subject' => $Subject]);
+        if ($Subject) {
+            return view('subject.edit', ['Groups' => $Groups, 'Subject' => $Subject]);
+        } else {
+            return redirect()->route('subjects.index')->with('AlertType', 'danger')->with('AlertMsg', 'This Subject does not exists');
+        }
     }
 
     /**
@@ -92,7 +96,7 @@ class SubjectController extends Controller
     {
         $request->validate([
             'group' => 'required',
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSubjectRule($request->group, true, $id)],
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSubjectRule(true, $id)],
             'name' => 'bail|required|between:1,50',
         ]);
 

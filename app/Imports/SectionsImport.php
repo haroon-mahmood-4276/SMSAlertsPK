@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\{Group, Section};
 use App\Rules\CheckSectionCode;
+use App\Rules\IfExists;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\{
     Importable,
@@ -28,7 +29,7 @@ class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation
         return new Section([
             'user_id' => session('Data.id'),
             'group_id' => $this->group_id[$this->SaveIndex++],
-            'code' => $row['code'],
+            'code' => Str::padLeft($row['code'], 5, '0'),
             'name' => $row['name'],
         ]);
     }
@@ -36,15 +37,23 @@ class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation
     public function rules(): array
     {
         return [
+            'class_id' => [
+                'bail',
+                'required',
+                'numeric',
+                new IfExists(session('Data.id'), 'groups', 'code')
+            ],
             'code' => ['numeric', new CheckSectionCode($this->group_id[$this->Arrindex++])],
+            'name' => 'bail|required|between:1,50',
         ];
     }
 
     public function prepareForValidation($data, $index)
     {
-        // dd(Group::where('code', '=', Str::padLeft($data['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id);
-        $this->group_id[$index] = Group::where('code', '=', Str::padLeft($data['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
-        $data['code'] = Str::padLeft($data['code'], 5, '0');
+        $this->group_id[$index] = 0;
+        if (Group::where('code', '=', Str::padLeft($data['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->exists()) {
+            $this->group_id[$index] = Group::where('code', '=', Str::padLeft($data['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
+        }
         return $data;
     }
 
