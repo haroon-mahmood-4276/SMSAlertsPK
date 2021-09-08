@@ -118,7 +118,7 @@
                                     <input id="company_username" name="company_username" type="text"
                                         class="@error('company_username') error @enderror"
                                         value="{{ $User->company_username }}">
-                                    <label for="company_username">Company Username*</label>
+                                    <label for="company_username">Company Username (Mask)*</label>
                                     @error('company_username')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
@@ -129,7 +129,7 @@
                                     <input id="company_password" name="company_password" type="password"
                                         class="@error('company_password') error @enderror"
                                         value="{{ $User->company_password }}">
-                                    <label for="company_password">Company Password *</label>
+                                    <label for="company_password">Company Password (Mask)*</label>
                                     @error('company_password')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
@@ -149,11 +149,11 @@
                                 <div class="input-field col s6">
                                     <select class="form-select" name="company_nature" id="company_nature">
                                         <option value="">Select</option>
-                                        <option value="B" {{ old('company_nature') == 'B' ? 'selected' : '' }}>Business User
+                                        <option value="B" {{ $User->company_nature == 'B' ? 'selected' : '' }}>Business User
                                         </option>
-                                        <option value="S" {{ old('company_nature') == 'S' ? 'selected' : '' }}>School User
+                                        <option value="S" {{ $User->company_nature == 'S' ? 'selected' : '' }}>School User
                                         </option>
-                                        <option value="HE" {{ old('company_nature') == 'HE' ? 'selected' : '' }}>Higher Education User
+                                        <option value="HE" {{ $User->company_nature == 'HE' ? 'selected' : '' }}>Higher Education User
                                         </option>
                                     </select>
                                     <label for="company_nature" class="form-label">Company Nature</label>

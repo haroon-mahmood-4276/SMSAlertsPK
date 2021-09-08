@@ -58,11 +58,11 @@ class UserController extends Controller
     {
         $request->validate([
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckUserCode()],
-            'first_name' => 'bail|required|alpha|between:1,50',
-            'last_name' => 'bail|required|alpha|between:1,50',
+            'first_name' => 'bail|required|string|between:1,50',
+            'last_name' => 'bail|required|string|between:1,50',
             'email' => 'required|email|unique:users,email',
             'password' => 'bail|required|alpha_dash|between:5,15',
-            'company_name' => 'required|alpha|between:1,50',
+            'company_name' => 'required|string|between:1,50',
             'company_mask_id' => 'required|max:11',
             'company_username' => 'required|max:11',
             'company_password' => 'required|max:11',
@@ -148,11 +148,11 @@ class UserController extends Controller
     {
         $request->validate([
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckUserCode(true, $id)],
-            'first_name' => 'bail|required|alpha|between:1,50',
-            'last_name' => 'bail|required|alpha|between:1,50',
+            'first_name' => 'bail|required|string|between:1,50',
+            'last_name' => 'bail|required|string|between:1,50',
             'email' => 'required|email',
-            'password' => 'sometimes|alpha_dash|between:5,15',
-            'company_name' => 'required|alpha|between:1,50',
+            'password' => 'bail|nullable|alpha_dash|between:5,15',
+            'company_name' => 'required|string|between:1,50',
             'company_mask_id' => 'required|max:11',
             'company_username' => 'required|max:11',
             'company_password' => 'required|max:11',
