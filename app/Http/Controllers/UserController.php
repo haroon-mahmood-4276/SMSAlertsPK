@@ -63,7 +63,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'bail|required|alpha_dash|between:5,15',
             'company_name' => 'required|string|between:1,50',
-            'company_mask_id' => 'required|max:11',
+            'company_mask_id' => 'bail|string|max:11',
             'company_username' => 'required|max:11',
             'company_password' => 'required|max:11',
             'company_email' => 'required|email|unique:users,company_email',
