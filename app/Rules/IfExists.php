@@ -30,7 +30,7 @@ class IfExists implements Rule
      */
     public function passes($attribute, $value)
     {
-        return DB::table($this->Table)->where('user_id', '=', $this->Session_Id)->where($this->Column, '=', Str::padLeft($value, 5, '0'))->exists();
+        return DB::table($this->Table)->where('user_id', '=', $this->Session_Id)->where($this->Column, '=', Str::padLeft($value, 5, '0'))->toSql();
     }
 
     /**

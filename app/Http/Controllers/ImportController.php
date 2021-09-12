@@ -39,10 +39,8 @@ class ImportController extends Controller
             else
                 $import = new StudentsImport;
 
-
             $import->import($request->file('membersfile'));
 
-            // dd($import);
             if ($import->failures()->isNotEmpty()) {
                 return back()->withFailures($import->failures());
             }

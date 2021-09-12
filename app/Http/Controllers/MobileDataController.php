@@ -56,14 +56,13 @@ class MobileDataController extends Controller
             $request->validate([
                 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
                 'student_first_name' => 'bail|required|string|between:1,50',
-                'student_last_name' => 'bail|required|alpha|between:1,50',
+                'student_last_name' => 'bail|required|string|between:1,50',
                 'student_mobile_1' => 'bail|required|numeric|digits:12|unique:mobiledatas,student_mobile_1',
                 'student_mobile_2' => 'bail|nullable|numeric|digits:12',
                 'dob' => 'bail|required',
-                // 'cnic' => 'bail|required',
                 'gender' => 'required',
-                'parent_first_name' => 'bail|required|alpha|between:1,50',
-                'parent_last_name' => 'bail|required|alpha|between:1,50',
+                'parent_first_name' => 'bail|required|string|between:1,50',
+                'parent_last_name' => 'bail|required|string|between:1,50',
                 'parent_mobile_1' => 'required|numeric|digits:12',
                 'parent_mobile_2' => 'nullable|numeric|digits:12',
                 'group' => 'required',
@@ -73,10 +72,9 @@ class MobileDataController extends Controller
         } else {
             $request->validate([
                 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
-                'student_first_name' => 'bail|required|alpha|between:1,50',
-                'student_last_name' => 'bail|required|alpha|between:1,50',
+                'student_first_name' => 'bail|required|string|between:1,50',
+                'student_last_name' => 'bail|required|string|between:1,50',
                 'dob' => 'bail|required',
-                // 'cnic' => 'bail|required',
                 'gender' => 'required',
                 'student_mobile_1' => 'required|numeric|digits:12|unique:mobiledatas,student_mobile_1',
                 'student_mobile_2' => 'nullable|numeric|digits:12',
@@ -156,16 +154,14 @@ class MobileDataController extends Controller
     {
         if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE') {
             $request->validate([
-                // 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
-                'student_first_name' => 'bail|required|alpha|between:1,50',
-                'student_last_name' => 'bail|required|alpha|between:1,50',
+                'student_first_name' => 'bail|required|string|between:1,50',
+                'student_last_name' => 'bail|required|string|between:1,50',
                 'student_mobile_1' => 'bail|required|numeric|digits:12',
                 'student_mobile_2' => 'bail|nullable|numeric|digits:12',
                 'dob' => 'bail|required',
-                // 'cnic' => 'bail|required',
                 'gender' => 'required',
-                'parent_first_name' => 'bail|required|alpha|between:1,50',
-                'parent_last_name' => 'bail|required|alpha|between:1,50',
+                'parent_first_name' => 'bail|required|string|between:1,50',
+                'parent_last_name' => 'bail|required|string|between:1,50',
                 'parent_mobile_1' => 'required|numeric|digits:12',
                 'parent_mobile_2' => 'nullable|numeric|digits:12',
                 'group' => 'required',
@@ -174,11 +170,9 @@ class MobileDataController extends Controller
             ]);
         } else {
             $request->validate([
-                // 'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode($request->group, $request->section, true, $id)],
-                'student_first_name' => 'bail|required|alpha|between:1,50',
-                'student_last_name' => 'bail|required|alpha|between:1,50',
+                'student_first_name' => 'bail|required|string|between:1,50',
+                'student_last_name' => 'bail|required|string|between:1,50',
                 'dob' => 'bail|required',
-                // 'cnic' => 'bail|required',
                 'gender' => 'required',
                 'student_mobile_1' => 'required|digits:12',
                 'student_mobile_2' => 'nullable|digits:12',

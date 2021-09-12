@@ -3,8 +3,7 @@
 namespace App\Imports;
 
 use App\Models\{Group, Mobiledatas, Section};
-use App\Rules\CheckMemberCode;
-use App\Rules\IfExists;
+use App\Rules\{CheckMemberCode, IfExists};
 use Maatwebsite\Excel\Concerns\{Importable, SkipsErrors, SkipsFailures, SkipsOnError, SkipsOnFailure, ToModel, WithBatchInserts, WithHeadingRow, WithValidation};
 use Illuminate\Support\Str;
 
@@ -15,7 +14,7 @@ class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation
     public function model(array $row)
     {
         $Class_Id = Group::where('code', '=', Str::padLeft($row['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
-        $Section_Id = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $Class_Id)->where('code', '=', Str::padLeft($row['section_id'], 5, '0'))->first()->id;
+        $Section_Id = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $Class_Id->id)->where('code', '=', Str::padLeft($row['section_id'], 5, '0'))->first()->id;
         return new Mobiledatas([
             'user_id' => session('Data.id'),
             'group_id' => $Class_Id,
@@ -35,8 +34,8 @@ class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation
             'card_number' => $row['card_number'],
             'active' => $row['active'],
         ]);
-        // return ;
     }
+
 
     public function rules(): array
     {
@@ -54,11 +53,23 @@ class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation
                 new IfExists(session('Data.id'), 'sections', 'code')
             ],
             'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
+            'student_first_name' => 'bail|required|string|between:1,50',
+            'student_last_name' => 'bail|required|string|between:1,50',
+            'student_mobile_1' => 'bail|required|numeric|digits:12|unique:mobiledatas,student_mobile_1',
+            'student_mobile_2' => 'bail|nullable|numeric|digits:12',
+            'dob' => 'bail|required',
+            // 'cnic' => 'bail|required',
+            'gender' => 'required',
+            'parent_first_name' => 'bail|required|string|between:1,50',
+            'parent_last_name' => 'bail|required|string|between:1,50',
+            'parent_mobile_1' => 'required|numeric|digits:12',
+            'parent_mobile_2' => 'nullable|numeric|digits:12',
+            'active' => 'required',
         ];
     }
 
     public function batchSize(): int
     {
-        return 500;
+        return 700;
     }
 }
