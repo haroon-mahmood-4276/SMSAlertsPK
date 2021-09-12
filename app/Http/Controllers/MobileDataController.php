@@ -88,13 +88,11 @@ class MobileDataController extends Controller
         }
 
 
-        // dd($request->input());
         $MobileDatas = new MobileDatas;
         $MobileDatas->code = $request->code;
         $MobileDatas->student_first_name = $request->student_first_name;
         $MobileDatas->student_last_name = $request->student_last_name;
         $MobileDatas->dob = $request->dob;
-        // $MobileDatas->cnic = $request->cnic;
         $MobileDatas->gender = $request->gender;
         $MobileDatas->parent_first_name = $request->parent_first_name;
         $MobileDatas->student_mobile_1 = $request->student_mobile_1;

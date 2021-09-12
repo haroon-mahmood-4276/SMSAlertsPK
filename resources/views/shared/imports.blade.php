@@ -45,7 +45,7 @@
                                     <ul>
                                         @foreach (session()->get('failures') as $validation)
                                             <li>
-                                                File row: {{ $validation->row() }} - Code:
+                                                File row: {{ $validation->row() }} - Value:
                                                 {{ $validation->values()[$validation->attribute()] }} -
                                                 @foreach ($validation->errors() as $error)
                                                     Error: {{ $error }}
