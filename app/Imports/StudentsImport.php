@@ -3,18 +3,22 @@
 namespace App\Imports;
 
 use App\Models\{Group, Mobiledatas, Section};
-use App\Rules\{CheckMemberCode, IfExists};
-use Maatwebsite\Excel\Concerns\{Importable, SkipsErrors, SkipsFailures, SkipsOnError, SkipsOnFailure, ToModel, WithBatchInserts, WithHeadingRow, WithValidation};
+use App\Rules\{CheckMemberCode, IfGroupExist, IfSectionExist};
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Concerns\{Importable, SkipsErrors, SkipsFailures, SkipsOnError, OnEachRow, SkipsOnFailure, ToModel, WithBatchInserts, WithHeadingRow, WithValidation, ToCollection};
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Row;
 
-class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel
+class StudentsImport implements WithHeadingRow, ToModel, WithValidation
 {
-    use Importable, SkipsErrors, SkipsFailures;
+    use Importable, SkipsFailures;
 
+    private $Group_Ids = [], $Arrindex = 2, $SaveIndex = 2;
     public function model(array $row)
     {
-        $Class_Id = Group::where('code', '=', Str::padLeft($row['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first();
-        $Section_Id = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $Class_Id->id)->where('code', '=', Str::padLeft($row['section_id'], 5, '0'))->first();
+        $Class_Id = Group::where('code', '=', Str::padLeft($row['class_id'], 5, '0'))->where('user_id', '=', session('Data.id'))->first()->id;
+        $Section_Id = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $Class_Id->id)->where('code', '=', Str::padLeft($row['section_id'], 5, '0'))->first()->id;
         return new Mobiledatas([
             'user_id' => session('Data.id'),
             'group_id' => $Class_Id->id,
@@ -23,9 +27,9 @@ class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation
             'student_first_name' => $row['student_first_name'],
             'student_last_name' => $row['student_last_name'],
             'student_mobile_1' => $row['student_mobile_1'],
-            'student_mobile_2' => $row['student_mobile_2'],
             'dob' => $row['dob'],
             'gender' => $row['gender'],
+            'student_mobile_2' => $row['student_mobile_2'],
             'parent_first_name' => $row['parent_first_name'],
             'parent_last_name' => $row['parent_last_name'],
             'parent_mobile_1' => $row['parent_mobile_1'],
@@ -39,8 +43,8 @@ class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation
     public function rules(): array
     {
         return [
-            'class_id' => ['bail', 'required', 'numeric', 'exists:groups,code'],
-            'section_id' => ['bail', 'required', 'numeric', 'exists:sections,code,class_id'],
+            'class_id' => ['bail', 'required', 'numeric', new IfGroupExist(session('Data.id'))],
+            'section_id' => ['bail', 'required', 'numeric', new IfSectionExist(session('Data.id'), '')],
             'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
             'student_first_name' => 'bail|required|string|between:1,50',
             'student_last_name' => 'bail|nullable|string|between:1,50',
@@ -54,6 +58,12 @@ class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation
             'parent_mobile_2' => 'nullable|numeric|digits:12',
             'active' => 'required',
         ];
+    }
+
+    public function prepareForValidation($data, $index)
+    {
+
+        return $data;
     }
 
     public function batchSize(): int

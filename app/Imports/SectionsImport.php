@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\{Group, Section};
 use App\Rules\CheckSectionCode;
 use App\Rules\IfExists;
+use App\Rules\IfGroupExist;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\{
     Importable,
@@ -41,7 +42,7 @@ class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation
                 'bail',
                 'required',
                 'numeric',
-                new IfExists(session('Data.id'), 'groups', 'code')
+                new IfGroupExist(session('Data.id'))
             ],
             'code' => ['numeric', new CheckSectionCode($this->group_id[$this->Arrindex++])],
             'name' => 'bail|required|between:1,50',

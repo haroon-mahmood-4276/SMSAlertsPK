@@ -2,23 +2,19 @@
 
 namespace App\Rules;
 
+use App\Models\Group;
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
-class IfExists implements Rule
+class IfGroupExist implements Rule
 {
     /**
-   /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($Session_Id, $Table, $Column)
+    public function __construct($Session_Id)
     {
         $this->Session_Id = $Session_Id;
-        $this->Table = $Table;
-        $this->Column = $Column;
     }
 
     /**
@@ -30,7 +26,7 @@ class IfExists implements Rule
      */
     public function passes($attribute, $value)
     {
-        return DB::table($this->Table)->where('user_id', '=', $this->Session_Id)->where($this->Column, '=', Str::padLeft($value, 5, '0'))->exists();
+        return Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->exists();
     }
 
     /**
