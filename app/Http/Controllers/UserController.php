@@ -89,24 +89,27 @@ class UserController extends Controller
 
         if ($User->save()) {
 
-            $Setting = new Setting();
-            $Setting->user_id = User::where('code', '=', $request->code)->first()->id;
-            $Setting->_enabled = 'N';
-            $Setting->_message = null;
-            $Setting->parent_primary_number = 'Y';
-            $Setting->parent_secondary_number = 'N';
-            $Setting->student_primary_number = 'N';
-            $Setting->student_secondary_number = 'N';
-            $Setting->attendance_message = null;
-            $Setting->attendance_enabled = 'N';
-            $Setting->attendance_parent_primary_number = 'Y';
-            $Setting->attendance_parent_secondary_number = 'N';
-            $Setting->attendance_database_path_enabled = 'N';
-            $Setting->attendance_database_path = null;
-            $Setting->longitude = 0;
-            $Setting->latitude = 0;
-            $Setting->raduis = 0;
-            $Setting->save();
+            if ($request->company_nature == 'S' || $request->company_nature == 'HE') {
+                // dd(User::where('code', '=', $request->code)->first());
+                $Setting = new Setting();
+                $Setting->user_id = User::where('code', '=', $request->code)->first()->id;
+                $Setting->birthday_enabled = 'N';
+                $Setting->birthday_message = null;
+                $Setting->parent_primary_number = 'Y';
+                $Setting->parent_secondary_number = 'N';
+                $Setting->student_primary_number = 'N';
+                $Setting->student_secondary_number = 'N';
+                $Setting->attendance_message = null;
+                $Setting->attendance_enabled = 'N';
+                $Setting->attendance_parent_primary_number = 'Y';
+                $Setting->attendance_parent_secondary_number = 'N';
+                $Setting->attendance_database_path_enabled = 'N';
+                $Setting->attendance_database_path = null;
+                $Setting->longitude = 0;
+                $Setting->latitude = 0;
+                $Setting->radius = 0;
+                $Setting->save();
+            }
 
             return redirect()->route('users.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
         } else {

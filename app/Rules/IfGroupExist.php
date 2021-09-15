@@ -12,9 +12,8 @@ class IfGroupExist implements Rule
      *
      * @return void
      */
-    public function __construct($Session_Id)
+    public function __construct()
     {
-        $this->Session_Id = $Session_Id;
     }
 
     /**

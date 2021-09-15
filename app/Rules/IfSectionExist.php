@@ -12,9 +12,8 @@ class IfSectionExist implements Rule
      *
      * @return void
      */
-    public function __construct($Session_Id, $Group_Id)
+    public function __construct($Group_Id)
     {
-        $this->Session_Id = $Session_Id;
         $this->Group_Id = $Group_Id;
     }
 
