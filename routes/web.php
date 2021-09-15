@@ -213,7 +213,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::get('students-assigned-to-subject/{id}', [AjaxController::class, 'StudentsAssignedToSubject'])->name('r.students-assigned-to-subject');
     });
 
-    Route::get('teacher-attendance', [TeacherController::class, 'TeacherAttendanceView'])->name('r.teacher-attendance');
+    Route::get('teacher-attendance', [TeacherController::class, 'TeacherAttendanceView'])->name('r.teacher-attendance-view');
     Route::post('teacher-attendance', [TeacherController::class, 'TeacherAttendance'])->name('r.teacher-attendance');
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');

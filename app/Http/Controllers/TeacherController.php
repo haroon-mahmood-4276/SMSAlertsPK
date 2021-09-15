@@ -259,9 +259,9 @@ class TeacherController extends Controller
                     JobSendSms::dispatch($User->id, $User->company_username, $User->company_password, $User->company_mask_id, session('Data.coodinator_number'), $Message);
             }
             if ($IsMessageSent) {
-                return redirect()->route('r.teacher-attendance')->with('AlertType', 'success')->with('AlertMsg', "Attendance Saved.");
+                return redirect()->route('r.teacher-attendance-view')->with('AlertType', 'success')->with('AlertMsg', "Attendance Saved.");
             } else
-                return redirect()->route('r.teacher-attendance')->with('AlertType', 'info')->with('AlertMsg', 'Attendance Saved. Something went wrong');
+                return redirect()->route('r.teacher-attendance-view')->with('AlertType', 'info')->with('AlertMsg', 'Attendance Saved. Something went wrong');
         }
     }
 }

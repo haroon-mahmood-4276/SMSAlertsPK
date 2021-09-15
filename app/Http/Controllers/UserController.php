@@ -263,7 +263,7 @@ class UserController extends Controller
 
                     $Teacher['company_nature'] = 'T';
                     $request->session()->put('Data', $Teacher);
-                    return redirect()->route('r.teacher-attendance');
+                    return redirect()->route('r.teacher-attendance-view');
                 } else {
                     return back()->with('AlertType', 'danger')->with('AlertMsg', 'Incorrect Password.');
                 }

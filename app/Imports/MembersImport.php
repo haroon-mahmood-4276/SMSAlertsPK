@@ -4,20 +4,9 @@ namespace App\Imports;
 
 
 use App\Models\{Group, Mobiledatas};
-use App\Rules\CheckMemberCode;
-use App\Rules\IfExists;
+use App\Rules\{CheckMemberCode, IfGroupExist};
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Concerns\{
-    Importable,
-    SkipsErrors,
-    SkipsFailures,
-    SkipsOnError,
-    SkipsOnFailure,
-    ToModel,
-    WithBatchInserts,
-    WithHeadingRow,
-    WithValidation
-};
+use Maatwebsite\Excel\Concerns\{Importable, SkipsErrors, SkipsFailures, SkipsOnError, SkipsOnFailure, ToModel, WithBatchInserts, WithHeadingRow, WithValidation};
 
 class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel
 {
@@ -53,7 +42,7 @@ class MembersImport implements WithHeadingRow, WithBatchInserts, WithValidation,
                 'bail',
                 'required',
                 'numeric',
-                new IfExists(session('Data.id'), 'groups', 'code')
+                new IfGroupExist(session('Data.id'), 'groups', 'code')
             ],
             'code' => ['alpha_num', 'between:1,20', new CheckMemberCode()],
         ];
