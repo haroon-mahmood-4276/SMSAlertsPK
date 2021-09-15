@@ -72,6 +72,16 @@
                                                 <h4>Import
                                                     {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}
                                                 </h4>
+                                                <div>
+                                                    <ul class="collapsible popout">
+                                                        <li>
+                                                            <div class="collapsible-header"><i
+                                                                    class="material-icons">filter_drama</i>First</div>
+                                                            <div class="collapsible-body"><span>Lorem ipsum dolor sit
+                                                                    amet.</span></div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                                 <div class="file-field input-field col s10 m11 l11 ">
                                                     <div class="btn">
                                                         <span>Upload File</span>
