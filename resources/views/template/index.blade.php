@@ -46,75 +46,99 @@
                                     </div>
                                 </div>
                             @endif
-
-                            <table id="demo-foo-addrow2"
-                                class="table table-bordered responsive-table table-hover toggle-circle" data-page-size="10">
-                                <thead>
-                                    <tr>
-                                        <th data-sort-initial="true" data-toggle="true">Sr No</th>
-                                        <th>Name</th>
-                                        <th style="width: 50%;">Template</th>
-                                        <th>Status</th>
-                                        <th data-sort-ignore="true" class="min-width text-left">Actions</th>
-                                    </tr>
-                                </thead>
-                                <div class="m-t-5">
-                                    <div class="d-flex">
-                                        <div class="mr-auto">
-                                            <div class="form-group">
-                                                <a href="{{ route('templates.create') }}" class="btn btn-small"><i
-                                                        class="icon wb-plus waves-effect waves-light"
-                                                        aria-hidden="true"></i>Add New Template</a>
-                                                </a>
-                                                {{-- <small>New row will be added in last page.</small> --}}
+                            <form action="{{ route('r.delete-selected-templates') }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <table id="demo-foo-addrow2"
+                                    class="table table-bordered responsive-table table-hover toggle-circle"
+                                    data-page-size="10">
+                                    <thead>
+                                        <tr>
+                                            <th data-sort-initial="true" data-toggle="true">Sr No</th>
+                                            <th>Name</th>
+                                            <th style="width: 50%;">Template</th>
+                                            <th>Status</th>
+                                            <th data-sort-ignore="true" class="text-left">
+                                                <div class="row">
+                                                    <div class="col s6 m6 l6">Actions</div>
+                                                    <div class="col s6 m6 l6">
+                                                        <p>
+                                                            <label>
+                                                                <input type="checkbox" class="sl-all filled-in" />
+                                                                <span>&nbsp;</span>
+                                                            </label>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <div class="m-t-5">
+                                        <div class="d-flex">
+                                            <div class="mr-auto">
+                                                <div class="form-group">
+                                                    <a href="{{ route('templates.create') }}" class="btn btn-small"><i
+                                                            class="icon wb-plus waves-effect waves-light"
+                                                            aria-hidden="true"></i>Add New Template</a>
+                                                    </a>
+                                                    <button type="submit"
+                                                        class="btn btn-small waves-effect red waves-light">Delete selected
+                                                        {{ Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes' }}
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <div class="form-group">
-                                                <input id="demo-input-search2" type="text" placeholder="Search"
-                                                    autocomplete="off">
+                                            <div class="ml-auto">
+                                                <div class="form-group">
+                                                    <input id="demo-input-search2" type="text" placeholder="Search"
+                                                        autocomplete="off">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <tbody>
-                                    @php
-                                        $Count = 0;
-                                    @endphp
-                                    @foreach ($Templates as $Template)
+                                    <tbody>
+                                        @php
+                                            $Count = 0;
+                                        @endphp
+                                        @foreach ($Templates as $Template)
+                                            <tr>
+                                                <td>{{ ++$Count }}</td>
+                                                <td>{{ $Template->name }}</td>
+                                                <td>{{ $Template->template }}</td>
+                                                <td><span class="label label-table label-success">Active</span> </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col s6 m6 l6">
+                                                            <a href="{{ route('templates.edit', ['template' => $Template->id]) }}"
+                                                                type="button"
+                                                                class="btn btn-small blue m-5 left waves-effect waves-light"><i
+                                                                    class="material-icons">edit</i></a>
+                                                        </div>
+                                                        <div class="col s6 m6 l6">
+                                                            <p class="m-t-10 multidelchk">
+                                                                <label>
+                                                                    <input type="checkbox" class="chkbox filled-in"
+                                                                        name="template_ids[]" value="{{ $Template->id }}" />
+                                                                    <span>&nbsp;</span>
+                                                                </label>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
                                         <tr>
-                                            <td>{{ ++$Count }}</td>
-                                            <td>{{ $Template->name }}</td>
-                                            <td>{{ $Template->template }}</td>
-                                            <td><span class="label label-table label-success">Active</span> </td>
-                                            <td>
-                                                <a href="{{ route('templates.edit', ['template' => $Template->id]) }}"
-                                                    type="button"
-                                                    class="btn btn-small blue m-5 left waves-effect waves-light"><i
-                                                        class="material-icons">edit</i></a>
-                                                <form method="POST"
-                                                    action="{{ route('templates.destroy', ['template' => $Template->id]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Are you sure?')"
-                                                        class="btn btn-small red m-5 left waves-effect waves-light"><i
-                                                            class="material-icons">delete_sweep</i></button>
-                                                </form>
+                                            <td colspan="6">
+                                                <div class="text-right">
+                                                    <ul class="pagination">
+                                                    </ul>
+                                                </div>
                                             </td>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="6">
-                                            <div class="text-right">
-                                                <ul class="pagination">
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                    </tfoot>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -133,4 +157,9 @@
 
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
+    <script>
+        $(".sl-all").on('click', function() {
+            $('.chkbox').prop('checked', this.checked);
+        });
+    </script>
 @endsection

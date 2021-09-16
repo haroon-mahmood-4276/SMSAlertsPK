@@ -56,7 +56,7 @@
                                                 {{ Session::get('Data.company_nature') == 'B' ? 'Group' : 'Class' }} Name
                                             </th>
                                             <th>Status</th>
-                                            <th data-sort-ignore="true" class="text-left" >
+                                            <th data-sort-ignore="true" class="text-left">
                                                 <div class="row">
                                                     <div class="col s6 m6 l6">Actions</div>
                                                     <div class="col s6 m6 l6">
@@ -106,8 +106,8 @@
                                                 <td><span class="label label-table label-success">Active</span> </td>
                                                 <td class="chktd">
                                                     <div class="row">
-                                                        <div class="col s6 m6 l6"><a
-                                                                href="{{ session('Data.company_nature') == 'B' ? route('groups.edit', ['group' => $Group->id]) : route('classes.edit', ['class' => $Group->id]) }}"
+                                                        <div class="col s6 m6 l6">
+                                                            <a href="{{ session('Data.company_nature') == 'B' ? route('groups.edit', ['group' => $Group->id]) : route('classes.edit', ['class' => $Group->id]) }}"
                                                                 type="button"
                                                                 class="btn btn-small blue m-5 waves-effect waves-light"><i
                                                                     class="material-icons">edit</i></a>

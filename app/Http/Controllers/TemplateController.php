@@ -118,4 +118,30 @@ class TemplateController extends Controller
             return redirect()->route('templates.index')->with('AlertType', 'danger')->with('AlertMsg', 'Template could not deleted.');
         }
     }
+
+    public function deleteAll(Request $request)
+    {
+        // return $request->template_ids;
+        $AlertType = "";
+        $AlertMsg = "";
+        try {
+            if ($request->template_ids != null) {
+                Template::whereIn('id', $request->template_ids)->delete();
+                $AlertType = "success";
+                $AlertMsg = "Selected data deleted";
+            } else {
+                $AlertType = "warning";
+                $AlertMsg = "Please select atleast one row.";
+            }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() == 23000) {
+                $AlertType = "danger";
+                $AlertMsg = "These selected sections linked with other data, therefore system cannot delete them.";
+            } else {
+                $AlertType = "danger";
+                $AlertMsg = "Something went wrong";
+            }
+        }
+        return redirect()->route('templates.index')->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+    }
 }

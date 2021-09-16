@@ -56,6 +56,8 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::delete('members', [MobileDataController::class, 'deleteAll'])->name('members');
         Route::delete('students', [MobileDataController::class, 'deleteAll'])->name('students');
         Route::delete('subjects', [SubjectController::class, 'deleteAll'])->name('subjects');
+        Route::delete('teachers', [TeacherController::class, 'deleteAll'])->name('teachers');
+        Route::delete('templates', [TemplateController::class, 'deleteAll'])->name('templates');
     });
 
     Route::resources([

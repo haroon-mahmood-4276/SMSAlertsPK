@@ -19,8 +19,7 @@
                 {{-- <h4 class="font-medium m-b-0">{{$Groups->company_name}}</h4> --}}
                 <div class="custom-breadcrumb ml-auto">
                     <a href="{{ route('r.dashboard') }}" class="breadcrumb">Dashboard</a>
-                    <a href="javascript:void(0)"
-                        class="breadcrumb">Teachers</a>
+                    <a href="javascript:void(0)" class="breadcrumb">Teachers</a>
                 </div>
             </div>
         </div>
@@ -44,83 +43,110 @@
                                     @endif
                                 </div>
                             </div>
-                            <table id="demo-foo-addrow2" class="table m-b-0 responsive-table toggle-arrow-tiny" data-page-size="10">
-                                <thead>
-                                    <tr>
-                                        <th data-toggle="true">Code</th>
-                                        <th data-hide="phone">Name</th>
-                                        <th data-hide="phone">Email</th>
-                                        <th data-hide="phone">Primary Number</th>
-                                        <th data-hide="all">Secondary Number</th>
-                                        <th data-hide="phone">Coodinator Number</th>
-                                        <th data-hide="phone">Stauts</th>
-                                        <th data-hide="phone">Actions</th>
-                                    </tr>
-                                </thead>
-                                <div class="m-t-5">
-                                    <div class="d-flex">
-                                        <div class="mr-auto">
-                                            <div class="form-group">
-                                                <a href="{{ route('teachers.create') }}" class="btn btn-small"><i
-                                                        class="icon wb-plus waves-effect waves-light"
-                                                        aria-hidden="true"></i>Add New Teacher
-                                                </a>
+
+                            <form action="{{ route('r.delete-selected-teachers') }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <table id="demo-foo-addrow2" class="table m-b-0 responsive-table toggle-arrow-tiny"
+                                    data-page-size="10">
+                                    <thead>
+                                        <tr>
+                                            <th data-toggle="true">Code</th>
+                                            <th data-hide="phone">Name</th>
+                                            <th data-hide="phone">Email</th>
+                                            <th data-hide="phone">Primary Number</th>
+                                            <th data-hide="all">Secondary Number</th>
+                                            <th data-hide="phone">Coodinator Number</th>
+                                            <th data-hide="phone">Stauts</th>
+                                            <th data-sort-ignore="true" data-hide="phone" class="text-left">
+                                                <div class="row">
+                                                    <div class="col s6 m6 l6">Actions</div>
+                                                    <div class="col s6 m6 l6">
+                                                        <p>
+                                                            <label>
+                                                                <input type="checkbox" class="sl-all filled-in" />
+                                                                <span>&nbsp;</span>
+                                                            </label>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <div class="m-t-5">
+                                        <div class="d-flex">
+                                            <div class="mr-auto">
+                                                <div class="form-group">
+                                                    <a href="{{ route('teachers.create') }}" class="btn btn-small"><i
+                                                            class="icon wb-plus waves-effect waves-light"
+                                                            aria-hidden="true"></i>Add New Teacher
+                                                    </a>
+
+                                                    <button type="submit"
+                                                        class="btn btn-small waves-effect red waves-light">Delete selected
+                                                        {{ Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes' }}
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="ml-auto">
-                                            <div class="form-group">
-                                                <input id="demo-input-search2" type="text" placeholder="Search"
-                                                    autocomplete="off">
+                                            <div class="ml-auto">
+                                                <div class="form-group">
+                                                    <input id="demo-input-search2" type="text" placeholder="Search"
+                                                        autocomplete="off">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <tbody>
-                                    @foreach ($Teachers as $Teacher)
-                                        <tr>
+                                    <tbody>
+                                        @foreach ($Teachers as $Teacher)
+                                            <tr>
 
-                                            <td>{{ $Teacher->code }}</td>
-                                            <td>{{ $Teacher->first_name }}
-                                                {{ $Teacher->last_name }}
-                                            </td>
-                                            <td>{{ $Teacher->email }}</td>
-                                            <td>{{ $Teacher->mobile_1 }}</td>
-                                            <td>{{ $Teacher->mobile_2 }}</td>
-                                            <td>{{ $Teacher->coodinator_number }}</td>
-                                            <td>
-                                                @if ($Teacher->active == 'Y')
-                                                    <span class="label label-table label-success">Active</span>
-                                                @else
-                                                    <span class="label label-table label-danger">Not Active</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('teachers.edit', ['teacher' => $Teacher->code]) }}"
-                                                    type="button"
-                                                    class="btn btn-small blue m-5 left waves-effect waves-light"><i
-                                                        class="material-icons">edit</i></a>
-                                                {{-- <form method="POST"
-                                                    action="{{ route('teachers.destroy', ['teacher' => $Teacher->code]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Are you sure?')"
-                                                        class="btn btn-small red m-5 left waves-effect waves-light"><i
-                                                            class="material-icons">delete_sweep</i></button>
-                                                </form> --}}
+                                                <td>{{ $Teacher->code }}</td>
+                                                <td>{{ $Teacher->first_name }}
+                                                    {{ $Teacher->last_name }}
+                                                </td>
+                                                <td>{{ $Teacher->email }}</td>
+                                                <td>{{ $Teacher->mobile_1 }}</td>
+                                                <td>{{ $Teacher->mobile_2 }}</td>
+                                                <td>{{ $Teacher->coodinator_number }}</td>
+                                                <td>
+                                                    @if ($Teacher->active == 'Y')
+                                                        <span class="label label-table label-success">Active</span>
+                                                    @else
+                                                        <span class="label label-table label-danger">Not Active</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col s6 m6 l6">
+                                                            <a href="{{ route('teachers.edit', ['teacher' => $Teacher->code]) }}"
+                                                                type="button"
+                                                                class="btn btn-small blue m-5 left waves-effect waves-light"><i
+                                                                    class="material-icons">edit</i></a>
+                                                        </div>
+                                                        <div class="col s6 m6 l6">
+                                                            <p class="m-t-10 multidelchk">
+                                                                <label>
+                                                                    <input type="checkbox" class="chkbox filled-in"
+                                                                        name="teacher_ids[]" value="{{ $Teacher->id }}" />
+                                                                    <span>&nbsp;</span>
+                                                                </label>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="7">
+                                                <div class="text-right">
+                                                    <ul class="pagination pagination-split"> </ul>
+                                                </div>
                                             </td>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="7">
-                                            <div class="text-right">
-                                                <ul class="pagination pagination-split"> </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                    </tfoot>
+                                </table>
                         </div>
                     </div>
                 </div>
@@ -139,4 +165,9 @@
 
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
+     <script>
+        $(".sl-all").on('click', function() {
+            $('.chkbox').prop('checked', this.checked);
+        });
+    </script>
 @endsection
