@@ -49,6 +49,12 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('r.dashboard');
 
+    Route::delete('groups/delete-selected', [GroupController::class, 'deleteAll'])->name('r.delete-selected-groups');
+    Route::delete('classes/delete-selected', [GroupController::class, 'deleteAll'])->name('r.delete-selected-classes');
+    Route::delete('sections/delete-selected', [SectionController::class, 'deleteAll'])->name('r.delete-selected-sections');
+    Route::delete('members/delete-selected', [MobileDataController::class, 'deleteAll'])->name('r.delete-selected-members');
+    Route::delete('students/delete-selected', [MobileDataController::class, 'deleteAll'])->name('r.delete-selected-students');
+
     Route::resources([
         'users' => UserController::class,
         'groups' => GroupController::class,
@@ -59,6 +65,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         'subjects' => SubjectController::class,
         'teachers' => TeacherController::class,
     ]);
+
 
     Route::get('sections/{section}/list', [SectionController::class, 'GetSectionList'])->name('r.sectionlist');
     Route::get('data/{groupid}/{sectionid}/list', [MobileDataController::class, 'STDList'])->name('r.studentlist');
@@ -152,7 +159,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     });
 
     Route::get('settings', [SettingController::class, 'Settings'])->name('r.settings');
-    Route::group(['prefix' => 'settings', 'as' => 'r.settings-'],function () {
+    Route::group(['prefix' => 'settings', 'as' => 'r.settings-'], function () {
         Route::post('birthday', [SettingController::class, 'BirthDaySMS'])->name('birthday');
         Route::post('attendance', [SettingController::class, 'AttendanceSMS'])->name('attendance');
         Route::post('geo-location', [SettingController::class, 'GeoLocation'])->name('geo-location');
@@ -215,6 +222,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
     Route::get('teacher-attendance', [TeacherController::class, 'TeacherAttendanceView'])->name('r.teacher-attendance-view');
     Route::post('teacher-attendance', [TeacherController::class, 'TeacherAttendance'])->name('r.teacher-attendance');
+
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });

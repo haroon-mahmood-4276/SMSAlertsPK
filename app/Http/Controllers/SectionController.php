@@ -125,6 +125,28 @@ class SectionController extends Controller
         }
     }
 
+    public function deleteAll(Request $request)
+    {
+        // return $request->section_ids;
+        $AlertType = "";
+        $AlertMsg = "";
+        try {
+            Section::whereIn('id', $request->section_ids)->delete();
+
+            $AlertType = "success";
+            $AlertMsg = "Selected data deleted";
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() == 23000) {
+                $AlertType = "danger";
+                $AlertMsg = "These selected sections linked with other data, therefore system cannot delete them.";
+            } else {
+                $AlertType = "danger";
+                $AlertMsg = "Something went wrong";
+            }
+        }
+        return redirect()->route('sections.index')->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+    }
+
     public function GetSectionList($id)
     {
         return Section::where('group_id', '=', $id)->get();

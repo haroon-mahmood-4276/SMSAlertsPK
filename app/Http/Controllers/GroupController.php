@@ -120,4 +120,25 @@ class GroupController extends Controller
             return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
         }
     }
+
+    public function deleteAll(Request $request)
+    {
+        $AlertType = "";
+        $AlertMsg = "";
+        try {
+            Group::whereIn('id', $request->group_ids)->delete();
+
+            $AlertType = "success";
+            $AlertMsg = "Selected data deleted";
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() == 23000) {
+                $AlertType = "danger";
+                $AlertMsg = "These selected " . (session('Data.company_nature') == 'B' ? 'groups' : 'classes') . " linked with other data, therefore system cannot delete them.";
+            } else {
+                $AlertType = "danger";
+                $AlertMsg = "Something went wrong";
+            }
+        }
+        return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+    }
 }
