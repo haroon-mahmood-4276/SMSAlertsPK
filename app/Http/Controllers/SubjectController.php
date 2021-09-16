@@ -129,4 +129,30 @@ class SubjectController extends Controller
             return redirect()->route('subjects.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
         }
     }
+
+    public function deleteAll(Request $request)
+    {
+        // return $request->subject_ids;
+        $AlertType = "";
+        $AlertMsg = "";
+        try {
+            if ($request->subject_ids != null) {
+                Subject::whereIn('id', $request->subject_ids)->delete();
+                $AlertType = "success";
+                $AlertMsg = "Selected data deleted";
+            } else {
+                $AlertType = "warning";
+                $AlertMsg = "Please select atleast one row.";
+            }
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() == 23000) {
+                $AlertType = "danger";
+                $AlertMsg = "These selected sections linked with other data, therefore system cannot delete them.";
+            } else {
+                $AlertType = "danger";
+                $AlertMsg = "Something went wrong";
+            }
+        }
+        return redirect()->route('subjects.index')->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+    }
 }

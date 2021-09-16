@@ -49,11 +49,14 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('r.dashboard');
 
-    Route::delete('groups/delete-selected', [GroupController::class, 'deleteAll'])->name('r.delete-selected-groups');
-    Route::delete('classes/delete-selected', [GroupController::class, 'deleteAll'])->name('r.delete-selected-classes');
-    Route::delete('sections/delete-selected', [SectionController::class, 'deleteAll'])->name('r.delete-selected-sections');
-    Route::delete('members/delete-selected', [MobileDataController::class, 'deleteAll'])->name('r.delete-selected-members');
-    Route::delete('students/delete-selected', [MobileDataController::class, 'deleteAll'])->name('r.delete-selected-students');
+    Route::group(['prefix' => 'delete-selected', 'as' => 'r.delete-selected-'], function () {
+        Route::delete('groups', [GroupController::class, 'deleteAll'])->name('groups');
+        Route::delete('classes', [GroupController::class, 'deleteAll'])->name('classes');
+        Route::delete('sections', [SectionController::class, 'deleteAll'])->name('sections');
+        Route::delete('members', [MobileDataController::class, 'deleteAll'])->name('members');
+        Route::delete('students', [MobileDataController::class, 'deleteAll'])->name('students');
+        Route::delete('subjects', [SubjectController::class, 'deleteAll'])->name('subjects');
+    });
 
     Route::resources([
         'users' => UserController::class,

@@ -232,10 +232,14 @@ class MobileDataController extends Controller
         $AlertType = "";
         $AlertMsg = "";
         try {
-            Mobiledatas::whereIn('id', $request->members_ids)->delete();
-
-            $AlertType = "success";
-            $AlertMsg = "Selected data deleted";
+            if ($request->group_ids != null) {
+                Mobiledatas::whereIn('id', $request->members_ids)->delete();
+                $AlertType = "success";
+                $AlertMsg = "Selected data deleted";
+            } else {
+                $AlertType = "warning";
+                $AlertMsg = "Please select atleast one row.";
+            }
         } catch (\Illuminate\Database\QueryException $ex) {
             if ($ex->getCode() == 23000) {
                 $AlertType = "danger";

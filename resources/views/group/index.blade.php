@@ -56,7 +56,7 @@
                                                 {{ Session::get('Data.company_nature') == 'B' ? 'Group' : 'Class' }} Name
                                             </th>
                                             <th>Status</th>
-                                            <th data-sort-ignore="true" class="text-left" style="width: 20%">
+                                            <th data-sort-ignore="true" class="text-left" >
                                                 <div class="row">
                                                     <div class="col s6 m6 l6">Actions</div>
                                                     <div class="col s6 m6 l6">

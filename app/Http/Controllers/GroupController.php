@@ -126,10 +126,14 @@ class GroupController extends Controller
         $AlertType = "";
         $AlertMsg = "";
         try {
-            Group::whereIn('id', $request->group_ids)->delete();
-
-            $AlertType = "success";
-            $AlertMsg = "Selected data deleted";
+            if ($request->group_ids != null) {
+                Group::whereIn('id', $request->group_ids)->delete();
+                $AlertType = "success";
+                $AlertMsg = "Selected data deleted";
+            } else {
+                $AlertType = "warning";
+                $AlertMsg = "Please select atleast one row.";
+            }
         } catch (\Illuminate\Database\QueryException $ex) {
             if ($ex->getCode() == 23000) {
                 $AlertType = "danger";
