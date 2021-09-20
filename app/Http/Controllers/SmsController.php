@@ -3,18 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Imports\DuesImport;
-use App\Jobs\{
-    JobMain,
-    JobSendSms
-};
-use App\Models\{
-    Group,
-    Mobiledatas,
-    Setting,
-    Sms,
-    Template,
-    User
-};
+use App\Jobs\{JobMain, JobSendSms};
+use App\Models\{Group, Mobiledatas, Setting, Sms, Template, User};
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
@@ -54,11 +44,11 @@ class SmsController extends Controller
                 $Msgs = intval(((Str::length($request->message) / 160) + 1));
                 if ($Msgs <= $User->remaining_of_sms) {
 
-                    $response =  Http::get('http://sms.web.pk/sendsms.php', [
+                    $response =  Http::get('https://portal.sms.web.pk/api/send', [
                         'username' => session('Data.company_username'),
                         'password' => session('Data.company_password'),
-                        'sender' => session('Data.company_mask_id'),
-                        'phone' => $request->phone_number,
+                        'mask' => session('Data.company_mask_id'),
+                        'mobile' => $request->phone_number,
                         'message' => $request->message,
                     ]);
 
@@ -112,11 +102,11 @@ class SmsController extends Controller
                     $Msgs = intval(((Str::length($request->message) / 160) + 1));
                     if ($Msgs <= $User->remaining_of_sms) {
 
-                        $response =  Http::get('http://sms.web.pk/sendsms.php', [
+                        $response =  Http::get('https://portal.sms.web.pk/api/send', [
                             'username' => session('Data.company_username'),
                             'password' => session('Data.company_password'),
-                            'sender' => session('Data.company_mask_id'),
-                            'phone' => $request->phone_number,
+                            'mask' => session('Data.company_mask_id'),
+                            'mobile' => $request->phone_number,
                             'message' => $request->message,
                         ]);
                         // $response = "success";
