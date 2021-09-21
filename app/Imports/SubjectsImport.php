@@ -3,8 +3,7 @@
 namespace App\Imports;
 
 use App\Models\{Group, Subject};
-use App\Rules\CheckSubjectRule;
-use App\Rules\IfExists;
+use App\Rules\{CheckSubjectRule, IfGroupExist};
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\{
     Importable,
@@ -35,13 +34,9 @@ class SubjectsImport implements WithHeadingRow, WithBatchInserts, WithValidation
     public function rules(): array
     {
         return [
-            'class_id' => [
-                'bail',
-                'required',
-                'numeric',
-                new IfExists(session('Data.id'), 'groups', 'code')
-            ],
+            'class_id' => ['bail', 'required', 'numeric', new IfGroupExist(session('Data.id'))],
             'code' => ['numeric', new CheckSubjectRule()],
+            'name' => 'bail|required|between:1,50',
         ];
     }
 

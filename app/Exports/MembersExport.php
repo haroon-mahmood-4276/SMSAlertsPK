@@ -16,8 +16,6 @@ class MembersExport implements FromArray, WithHeadings
                 'last_name',
                 '923001234567',
                 '923001234567',
-                '06/07/1998',
-                // '35123-1234567-8',
                 'M',
                 'Y',
             ]
@@ -33,8 +31,6 @@ class MembersExport implements FromArray, WithHeadings
             'member_last_name',
             'member_mobile_1',
             'member_mobile_2',
-            'dob',
-            // 'cnic',
             'gender',
             'active',
         ];

@@ -38,8 +38,8 @@ class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation
     public function rules(): array
     {
         return [
-            'class_id' => [ 'bail', 'required', 'numeric', new IfGroupExist(session('Data.id')) ],
-            'code' => ['numeric', new CheckSectionCode($this->group_id[$this->Arrindex++])],
+            'class_id' => ['bail', 'required', 'numeric', new IfGroupExist(session('Data.id'))],
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSectionCode($this->group_id[$this->Arrindex++])],
             'name' => 'bail|required|between:1,50',
         ];
     }
