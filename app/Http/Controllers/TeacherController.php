@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\JobSendSms;
-use App\Models\{Mobiledatas, Setting, StudentTeacherSubjectJunction, Subject, Teacher, TeacherAttendance, User};
+use App\Models\{Setting, StudentTeacherSubjectJunction, Subject, Teacher, TeacherAttendance, User};
 use App\Rules\CheckTeacherCode;
 use DateTime;
 use Illuminate\Http\Request;
@@ -18,10 +18,11 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $Teachers = Teacher::join('student_teacher_subject_junction', 'student_teacher_subject_junction.teacher_id', '=', 'teachers.id')
-            ->select('teachers.code', 'teachers.first_name', 'teachers.last_name', 'teachers.email', 'teachers.mobile_1', 'teachers.mobile_2', 'teachers.coodinator_number', 'teachers.active')
-            ->where('teachers.user_id', session('Data.id'))->distinct()->get();
+        // $Teachers = Teacher::join('student_teacher_subject_junction', 'student_teacher_subject_junction.teacher_id', '=', 'teachers.id')
+        //     ->select('teachers.code', 'teachers.first_name', 'teachers.last_name', 'teachers.email', 'teachers.mobile_1', 'teachers.mobile_2', 'teachers.coodinator_number', 'teachers.active')
+        //     ->where('teachers.user_id', session('Data.id'))->distinct()->get();
 
+        $Teachers = Teacher::select('id', 'code', 'first_name', 'last_name', 'email', 'mobile_1', 'mobile_2', 'coodinator_number', 'active')->where('user_id', '=', session('Data.id'))->get();
 
         return view('teacher.index', ['Teachers' => $Teachers]);
     }
