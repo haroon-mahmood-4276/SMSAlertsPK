@@ -44,7 +44,7 @@ class SmsController extends Controller
                 $Msgs = intval(((Str::length($request->message) / 160) + 1));
                 if ($Msgs <= $User->remaining_of_sms) {
 
-                    $response =  Http::get('https://portal.sms.web.pk/api/send', [
+                    $response =  Http::get('http://161.97.70.24/smswebpk/api/send', [
                         'username' => session('Data.company_username'),
                         'password' => session('Data.company_password'),
                         'mask' => session('Data.company_mask_id'),
@@ -102,7 +102,7 @@ class SmsController extends Controller
                     $Msgs = intval(((Str::length($request->message) / 160) + 1));
                     if ($Msgs <= $User->remaining_of_sms) {
 
-                        $response =  Http::get('https://portal.sms.web.pk/api/send', [
+                        $response =  Http::get('http://161.97.70.24/smswebpk/api/send', [
                             'username' => session('Data.company_username'),
                             'password' => session('Data.company_password'),
                             'mask' => session('Data.company_mask_id'),
