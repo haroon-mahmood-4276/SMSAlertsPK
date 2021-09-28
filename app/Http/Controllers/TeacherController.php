@@ -51,7 +51,7 @@ class TeacherController extends Controller
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckTeacherCode(session('Data.id'))],
             'first_name' => 'bail|required|string|between:1,50',
             'last_name' => 'bail|required|string|between:1,50',
-            'mobile_1' => 'bail|required|numeric|digits:12|unique:teachers,mobile_1',
+            'mobile_1' => 'bail|required|numeric|digits:12',
             'mobile_2' => 'bail|nullable|numeric|digits:12',
             'email' => 'required|email|unique:teachers,email',
             'password' => 'bail|required|alpha_dash|between:5,15',
