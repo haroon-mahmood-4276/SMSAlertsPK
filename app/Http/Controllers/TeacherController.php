@@ -160,19 +160,17 @@ class TeacherController extends Controller
         $Teacher->active = $request->active;
 
         if ($Teacher->save()) {
+            StudentTeacherSubjectJunction::where('user_id', session('Data.id'))->where('teacher_id', $Teacher->id)->delete();
+            foreach ($request->input() as $Data) {
+                if (substr($Data, 0, 5) == 'stdid') {
+                    $Array = array_map('trim', explode('_', substr($Data, 5)));
 
-            if (StudentTeacherSubjectJunction::where('user_id', session('Data.id'))->where('teacher_id', $Teacher->id)->delete()) {
-                foreach ($request->input() as $Data) {
-                    if (substr($Data, 0, 5) == 'stdid') {
-                        $Array = array_map('trim', explode('_', substr($Data, 5)));
-
-                        $Junction = new StudentTeacherSubjectJunction;
-                        $Junction->user_id = session('Data.id');
-                        $Junction->teacher_id = Teacher::where('code', '=', $request->code)->first()->id;
-                        $Junction->subject_id = $Array[0];
-                        $Junction->mobiledata_id = $Array[1];
-                        $Junction->save();
-                    }
+                    $Junction = new StudentTeacherSubjectJunction;
+                    $Junction->user_id = session('Data.id');
+                    $Junction->teacher_id = Teacher::where('code', '=', $request->code)->first()->id;
+                    $Junction->subject_id = $Array[0];
+                    $Junction->mobiledata_id = $Array[1];
+                    $Junction->save();
                 }
             }
             return redirect()->route('teachers.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
