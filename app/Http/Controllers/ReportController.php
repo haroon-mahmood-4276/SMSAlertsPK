@@ -10,7 +10,7 @@ class ReportController extends Controller
 {
     public function TodaySummery()
     {
-        $SMSHistoryData = Sms::select('id', 'sms', 'response', 'phone_number', 'created_at')->where('user_id', '=', session('Data.id'))->where('created_at', '>', Carbon::today())->orderBy('created_at', 'desc')->dd();
+        $SMSHistoryData = Sms::select('id', 'sms', 'response', 'phone_number', 'created_at')->where('user_id', '=', session('Data.id'))->where('created_at', '>', Carbon::today())->orderBy('created_at', 'desc')->get();
         return view('reports.report', ['SMSHistoryData' => $SMSHistoryData, 'Title' => "Today's Report", 'DownloadLink' => route('r.todaysummerypdf')]);
     }
 

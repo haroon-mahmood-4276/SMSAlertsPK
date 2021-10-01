@@ -243,7 +243,7 @@ class TeacherController extends Controller
         $UserSettings = Setting::where('user_id', session('Data.user_id'))->first();
 
         $StudentRecords = app('App\Http\Controllers\AjaxController')->StudentsAssignedToSubject($request->subject);
-
+        $Subject = Subject::where('user_id', '=', session('Data.id'))->where('code', '=', $request->subject)->first();
         foreach ($StudentRecords as $Record) {
 
             $TeacherAttendance = new TeacherAttendance;
@@ -262,6 +262,8 @@ class TeacherController extends Controller
                             $ReplacedMessage = str_replace('[student_full_name]', $Record->student_first_name . " " . $Record->student_last_name, $UserSettings->attendance_message);
                             $ReplacedMessage = str_replace('[class_name]', $Record->group_name, $ReplacedMessage);
                             $ReplacedMessage = str_replace('[section_name]', $Record->section_name, $ReplacedMessage);
+                            $ReplacedMessage = str_replace('[father_full_name]', $Record->parent_first_name . " " . $Record->parent_last_name, $ReplacedMessage);
+                            $ReplacedMessage = str_replace('[subject_name]', $Subject->name, $ReplacedMessage);
                             $ReplacedMessage = str_replace('[school_name]', $User->company_name, $ReplacedMessage);
                             $ReplacedMessage = str_replace('[school_phone_1]', $User->mobile_1, $ReplacedMessage);
                             $ReplacedMessage = str_replace('[school_phone_2]', $User->mobile_2, $ReplacedMessage);
