@@ -243,7 +243,7 @@ class TeacherController extends Controller
         $UserSettings = Setting::where('user_id', session('Data.user_id'))->first();
 
         $StudentRecords = app('App\Http\Controllers\AjaxController')->StudentsAssignedToSubject($request->subject);
-        $Subject = Subject::where('user_id', '=', session('Data.id'))->where('code', '=', $request->subject)->first();
+        $Subject = Subject::where('user_id', '=', session('Data.id'))->where('id', '=', $request->subject)->first();
         foreach ($StudentRecords as $Record) {
 
             $TeacherAttendance = new TeacherAttendance;
