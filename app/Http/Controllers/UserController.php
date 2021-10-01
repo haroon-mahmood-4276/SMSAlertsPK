@@ -248,6 +248,7 @@ class UserController extends Controller
                         if ($request->message == "SUCCESS") {
 
                             $degrees = rad2deg(acos((sin(deg2rad($UserSettings->latitude)) * sin(deg2rad($request->latitude))) + (cos(deg2rad($UserSettings->latitude)) * cos(deg2rad($request->latitude)) * cos(deg2rad($UserSettings->longitude - $request->longitude)))));
+
                             if ((round(($degrees * 111.13384), 2) * 1000) > $UserSettings->radius) {
                                 return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You are not in the premises. You can\'t login.');
                             };
