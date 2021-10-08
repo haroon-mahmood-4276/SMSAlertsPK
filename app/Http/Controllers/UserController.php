@@ -251,23 +251,23 @@ class UserController extends Controller
                             $degrees = rad2deg(acos((sin(deg2rad($UserSettings->latitude)) * sin(deg2rad($request->latitude))) + (cos(deg2rad($UserSettings->latitude)) * cos(deg2rad($request->latitude)) * cos(deg2rad($UserSettings->longitude - $request->longitude)))));
 
                             if ((round(($degrees * 111.13384), 2) * 1000) > $UserSettings->radius) {
-                                Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
+                                Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Longitude: " . $request->longitude);
                                 return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You are not in the premises. You can\'t login.');
                             };
                         } elseif ($request->message == "PERMISSION_DENIED") {
-                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Longitude: " . $request->longitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. User denied the request for Geolocation.');
                         } elseif ($request->message == "POSITION_UNAVAILABLE") {
-                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Longitude: " . $request->longitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. Location information is unavailable.');
                         } elseif ($request->message == "TIMEOUT") {
-                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Longitude: " . $request->longitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. The request to get user location timed out.');
                         } elseif ($request->message == "UNKNOWN_ERROR") {
-                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Longitude: " . $request->longitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. An unknown error occurred.');
                         } else {
-                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Longitude: " . $request->longitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Something went wrong');
                         }
                     }
