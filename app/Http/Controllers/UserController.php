@@ -253,14 +253,19 @@ class UserController extends Controller
                                 return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You are not in the premises. You can\'t login.');
                             };
                         } elseif ($request->message == "PERMISSION_DENIED") {
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. User denied the request for Geolocation.');
                         } elseif ($request->message == "POSITION_UNAVAILABLE") {
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. Location information is unavailable.');
                         } elseif ($request->message == "TIMEOUT") {
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. The request to get user location timed out.');
                         } elseif ($request->message == "UNKNOWN_ERROR") {
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Sorry! You can\'t login. An unknown error occurred.');
                         } else {
+                            Log::error("User ID: " . $Teacher->id . "\t Latitude: " . $request->latitude . ", Logitude: " . $request->logitude);
                             return back()->with('AlertType', 'danger')->with('AlertMsg', 'Something went wrong');
                         }
                     }
