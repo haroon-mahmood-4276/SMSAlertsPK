@@ -11,12 +11,13 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class JobSaveSms implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $UserID, $UserName, $Password, $Sender, $Phone, $Message, $Response;
+    protected $UserID, $Phone, $Message, $Response;
     /**
      * Create a new job instance.
      *
@@ -27,7 +28,7 @@ class JobSaveSms implements ShouldQueue
         $this->UserID = $UserID;
         $this->Phone = $Phone;
         $this->Message = $Message;
-        $this->Response = $Response;
+        $this->Response = strval($Response);
     }
 
 
@@ -38,13 +39,16 @@ class JobSaveSms implements ShouldQueue
      */
     public function handle()
     {
-        // dd(intval((Str::length($this->Message) / 160) + 1));
         $User = User::find($this->UserID);
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
             if ($User->remaining_of_sms > 0) {
 
+                Log::info("User: " . $this->UserID);
+                Log::info("Phone: " . $this->Phone);
+                Log::info("Message: " . $this->Message);
+                Log::info("Response:" . $this->Response);
+
                 $SMS = new Sms();
-                $SMS->user_id = $this->UserID;
                 $SMS->user_id = $this->UserID;
                 $SMS->sms = $this->Message;
                 $SMS->phone_number = $this->Phone;

@@ -28,11 +28,11 @@ class CheckTemplateCode implements Rule
     public function passes($attribute, $value)
     {
         if ($this->IsUpdate) {
-            $Data = Template::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            return !$Data->isEmpty();
+            $Data = Template::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->where('id', '=', $this->PKID)->first();
+            return !($Data == null);
         }
-        $Data = Template::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-        return $Data->isEmpty();
+        $Data = Template::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->first();
+        return ($Data == null);
     }
 
     /**

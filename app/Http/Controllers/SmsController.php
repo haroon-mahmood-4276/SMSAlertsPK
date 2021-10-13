@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\{Arr, Str, Facades\Http};
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use PDO;
 
@@ -38,6 +39,9 @@ class SmsController extends Controller
             'phone_number' => 'required|digits:12',
             'message' => 'bail|required',
         ]);
+
+        Log::info($request->input());
+        Log::info(session('Data'));
         $User = User::find(session('Data.id'));
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
             if ($User->remaining_of_sms > 0) {
@@ -52,6 +56,9 @@ class SmsController extends Controller
                         'message' => $request->message,
                     ]);
 
+                    Log::info($response);
+
+
                     // $response = "success";
                     $SMS = new Sms();
                     $SMS->user_id = session('Data.id');
@@ -61,6 +68,8 @@ class SmsController extends Controller
 
                     $User = User::find(session('Data.id'));
                     $User->remaining_of_sms = $User->remaining_of_sms - $Msgs;
+
+                    Log::info($SMS->response);
 
                     if ($SMS->save() && $User->save()) {
                         return redirect()->route('r.quick-sms-view')->with('AlertType', 'success')->with('AlertMsg', strval($response));

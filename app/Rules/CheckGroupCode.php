@@ -28,11 +28,13 @@ class CheckGroupCode implements Rule
     public function passes($attribute, $value)
     {
         if ($this->IsUpdate) {
-            $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            return !$Data->isEmpty();
+            $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->where('id', '=', $this->PKID)->first();
+            if ($Data) {
+                return !($Data == null);
+            }
         }
-        $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-        return $Data->isEmpty();
+        $Data = Group::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->first();
+        return ($Data == null);
     }
 
     /**

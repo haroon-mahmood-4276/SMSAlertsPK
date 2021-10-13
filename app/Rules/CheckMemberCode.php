@@ -27,8 +27,8 @@ class CheckMemberCode implements Rule
     public function passes($attribute, $value)
     {
 
-        $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-        return $Data->isEmpty();
+        $Data = Mobiledatas::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->first();
+        return ($Data == null);
     }
 
     /**

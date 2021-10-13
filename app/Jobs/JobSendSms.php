@@ -10,6 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class JobSendSms implements ShouldQueue
@@ -45,15 +46,15 @@ class JobSendSms implements ShouldQueue
                 $Msgs = intval(((Str::length($this->Message) / 160) + 1));
                 if ($Msgs <= $User->remaining_of_sms) {
 
-                    // $response =  Http::get('http://161.97.70.24/smswebpk/api/send', [
-                    //     'username' => $this->UserName,
-                    //     'password' => $this->Password,
-                    //     'mask' => $this->Sender,
-                    //     'mobile' => $this->Phone,
-                    //     'message' => $this->Message,
-                    // ]);
+                    $response =  Http::get('http://161.97.70.24/smswebpk/api/send', [
+                        'username' => $this->UserName,
+                        'password' => $this->Password,
+                        'mask' => $this->Sender,
+                        'mobile' => $this->Phone,
+                        'message' => $this->Message,
+                    ]);
 
-                    $response = "success";
+                    // $response = "success";
                     JobSaveSms::dispatch($this->UserID, $this->Phone, $this->Message, $response);
                 }
             }

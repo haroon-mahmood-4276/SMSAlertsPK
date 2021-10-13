@@ -28,11 +28,11 @@ class CheckTeacherCode implements Rule
      */
     public function passes($attribute, $value)
     {
-        $Data = Teacher::where('user_id', '=', $this->user_id)->where('code', '=', $value)->get();
+        $Data = Teacher::where('user_id', '=', $this->user_id)->where('code', '=', $value)->first();
         if ($this->IsUpdate) {
-            return !$Data->isEmpty();
+            return !($Data == null);
         }
-        return $Data->isEmpty();
+        return ($Data == null);
     }
 
     /**

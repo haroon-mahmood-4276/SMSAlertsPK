@@ -29,11 +29,13 @@ class CheckSectionCode implements Rule
     public function passes($attribute, $value)
     {
         if ($this->IsUpdate) {
-            $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            return !$Data->isEmpty();
+            $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->where('id', '=', $this->PKID)->first();
+            if ($Data) {
+                return !($Data == null);
+            }
         }
-        $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->get();
-        return $Data->isEmpty();
+        $Data = Section::where('user_id', '=', session('Data.id'))->where('group_id', '=', $this->group_id)->where('code', '=', $value)->first();
+        return ($Data == null);
     }
 
     /**

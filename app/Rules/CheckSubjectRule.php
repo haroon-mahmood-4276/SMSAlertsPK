@@ -12,7 +12,7 @@ class CheckSubjectRule implements Rule
      *
      * @return void
      */
-    public function __construct( $IsUpdate = false, $PKID = 0)
+    public function __construct($IsUpdate = false, $PKID = 0)
     {
         $this->IsUpdate = $IsUpdate;
         $this->PKID = $PKID;
@@ -28,11 +28,11 @@ class CheckSubjectRule implements Rule
     public function passes($attribute, $value)
     {
         if ($this->IsUpdate) {
-            $Data = Subject::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->where('id', '=', $this->PKID)->get();
-            return !$Data->isEmpty();
+            $Data = Subject::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->where('id', '=', $this->PKID)->first();
+            return !($Data == null);
         }
-        $Data = Subject::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->get();
-        return $Data->isEmpty();
+        $Data = Subject::where('user_id', '=', session('Data.id'))->where('code', '=', $value)->first();
+        return ($Data == null);
     }
 
     /**
