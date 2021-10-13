@@ -55,7 +55,7 @@ class JobSendSms implements ShouldQueue
                     ]);
 
                     // $response = "success";
-                    JobSaveSms::dispatch($this->UserID, $this->Phone, $this->Message, $response);
+                    JobSaveSms::dispatch($this->UserID, $this->Phone, $this->Message, $response)->onQueue('savesms');
                 }
             }
         }
