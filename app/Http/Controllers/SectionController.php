@@ -39,6 +39,7 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'group_name' => 'required',
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSectionCode($request->code)],
             'name' => 'bail|required|between:1,50',
         ]);
@@ -91,6 +92,7 @@ class SectionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'group_name' => 'required',
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSectionCode($request->group_name, true, $id)],
             'name' => 'bail|required|between:1,50',
         ]);
@@ -131,7 +133,7 @@ class SectionController extends Controller
         $AlertType = "";
         $AlertMsg = "";
         try {
-            if ($request->group_ids != null) {
+            if ($request->section_ids != null) {
                 Section::whereIn('id', $request->section_ids)->delete();
                 $AlertType = "success";
                 $AlertMsg = "Selected data deleted";

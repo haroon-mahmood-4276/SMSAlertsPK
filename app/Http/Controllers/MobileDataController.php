@@ -232,7 +232,7 @@ class MobileDataController extends Controller
         $AlertType = "";
         $AlertMsg = "";
         try {
-            if ($request->group_ids != null) {
+            if ($request->members_ids != null) {
                 Mobiledatas::whereIn('id', $request->members_ids)->delete();
                 $AlertType = "success";
                 $AlertMsg = "Selected data deleted";
@@ -243,7 +243,7 @@ class MobileDataController extends Controller
         } catch (\Illuminate\Database\QueryException $ex) {
             if ($ex->getCode() == 23000) {
                 $AlertType = "danger";
-                $AlertMsg = "These selected sections linked with other data, therefore system cannot delete them.";
+                $AlertMsg = "These selected students linked with other data, therefore system cannot delete them.";
             } else {
                 $AlertType = "danger";
                 $AlertMsg = "Something went wrong";

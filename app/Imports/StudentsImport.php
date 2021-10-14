@@ -13,11 +13,12 @@ use Maatwebsite\Excel\Concerns\{
     ToModel,
     WithBatchInserts,
     WithHeadingRow,
+    WithChunkReading,
     WithValidation
 };
 use Illuminate\Support\Str;
 
-class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel
+class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel, WithChunkReading
 {
     use Importable, SkipsErrors, SkipsFailures;
 
@@ -84,6 +85,11 @@ class StudentsImport implements WithHeadingRow, WithBatchInserts, WithValidation
 
     public function batchSize(): int
     {
-        return 700;
+        return 1000;
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }
