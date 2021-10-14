@@ -43,11 +43,6 @@ class JobSaveSms implements ShouldQueue
         if (strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date))) {
             if ($User->remaining_of_sms > 0) {
 
-                Log::info("User: " . $this->UserID);
-                Log::info("Phone: " . $this->Phone);
-                Log::info("Message: " . $this->Message);
-                Log::info("Response:" . $this->Response);
-
                 $SMS = new Sms();
                 $SMS->user_id = $this->UserID;
                 $SMS->sms = $this->Message;

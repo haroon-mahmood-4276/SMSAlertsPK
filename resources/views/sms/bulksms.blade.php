@@ -40,7 +40,8 @@
                         <form class="formValidate" id="formValidate" action="{{ route('r.bulksms') }}" method="POST">
                             @csrf
                             <div class="row">
-                                <div class="input-field col {{ session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' ? 's4' : 's6'  }}">
+                                <div
+                                    class="input-field col {{ session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' ? 's4' : 's6' }}">
                                     <select class="form-select" name="group" id="group">
                                         <option value="0">All</option>
                                         @foreach ($Groups as $Group)
@@ -138,11 +139,13 @@
                                             </div>
                                             <div class="col s6 m3 l2 m-2">
                                                 <a href="javascript:void(0)" id="school_phone_1"
-                                                    onmouseup="textbox(this.id)" class="chip">School Phone No 1</a>
+                                                    onmouseup="textbox(this.id)" class="chip">School Phone No
+                                                    1</a>
                                             </div>
                                             <div class="col s6 m3 l2 m-2">
                                                 <a href="javascript:void(0)" id="school_phone_2"
-                                                    onmouseup="textbox(this.id)" class="chip">School Phone No 2</a>
+                                                    onmouseup="textbox(this.id)" class="chip">School Phone No
+                                                    2</a>
                                             </div>
                                             <div class="col s6 m3 l2 m-2">
                                                 <a href="javascript:void(0)" id="school_email" onmouseup="textbox(this.id)"
@@ -173,18 +176,18 @@
                                         <div class="col s12 m6 l3">
                                             <p>
                                                 <label>
-                                                    <input type="checkbox" id="parent_secondary_number" class="filled-in"
-                                                        name="parent_secondary_number" />
+                                                    <input type="checkbox" id="parent_secondary_number"
+                                                        class="filled-in" name="parent_secondary_number" />
                                                     <span>Parent Secondary Number</span>
                                                 </label>
                                             </p>
                                         </div>
-                                        @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
+                                        @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                             <div class="col s12 m6 l3">
                                                 <p>
                                                     <label>
-                                                        <input type="checkbox" id="student_primary_number" class="filled-in"
-                                                            name="student_primary_number" />
+                                                        <input type="checkbox" id="student_primary_number"
+                                                            class="filled-in" name="student_primary_number" />
                                                         <span>Student Primary Number</span>
                                                     </label>
                                                 </p>
@@ -210,14 +213,14 @@
                                             <tr>
                                                 <th data-toggle="true">Code</th>
                                                 <th>Name</th>
-                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
+                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                                     <th>Parent Name</th>
                                                 @endif
                                                 <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
                                                     Primary Number</th>
                                                 <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
                                                     Secondary Number</th>
-                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
+                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                                     <th>Student Primary Number</th>
                                                     <th>Student Secondary Number</th>
                                                 @endif
@@ -266,14 +269,14 @@
                                             <tr>
                                                 <th data-toggle="true">Code</th>
                                                 <th>Name</th>
-                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
+                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                                     <th>Parent Name</th>
                                                 @endif
                                                 <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
                                                     Primary Number</th>
                                                 <th>{{ session('Data.company_nature') == 'B' ? '' : 'Parent' }}
                                                     Secondary Number</th>
-                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE' )
+                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
                                                     <th>Student Primary Number</th>
                                                     <th>Student Secondary Number</th>
                                                 @endif
@@ -287,7 +290,7 @@
                                                     <div class="form-group">
                                                         <p>
                                                             <label>
-                                                                <input type="checkbox" class="sl-all filled-in" checked />
+                                                                <input type="checkbox" class="sl-all filled-in" />
                                                                 <span>Check All</span>
                                                             </label>
                                                         </p>
@@ -385,8 +388,10 @@
 
             var PrevValue = $('#getmember').html();
 
-            $('#getmember').html(
-                'Load Student Data...<div class="progress"><div class="indeterminate"></div></div>');
+            $(this).attr("disabled", true);
+            $(this).html(
+                'Load Student Data...<div class="progress"><div class="indeterminate"></div></div>')
+
 
             var GroupId = $('#group').val();
 
@@ -403,7 +408,8 @@
 
                     for (let index = 0; index < response.length; index++) {
 
-                        if ("{{ @session('Data.company_nature') }}" == "S" || "{{ @session('Data.company_nature') }}" == "HE") {
+                        if ("{{ @session('Data.company_nature') }}" == "S" ||
+                            "{{ @session('Data.company_nature') }}" == "HE") {
                             SectionName = " - " + response[index].section_name;
                         } else {
                             SectionName = "";
@@ -413,14 +419,16 @@
                         Data += "<td>" + response[index].code + "</td>\n";
                         Data += "<td>" + response[index].student_first_name + " " + response[index]
                             .student_last_name + "</td>\n";
-                        if ("{{ @session('Data.company_nature') }}" == "S"|| "{{ @session('Data.company_nature') }}" == "HE") {
+                        if ("{{ @session('Data.company_nature') }}" == "S" ||
+                            "{{ @session('Data.company_nature') }}" == "HE") {
                             Data += "<td>" + response[index].parent_first_name + " " + response[index]
                                 .parent_last_name + "</td>\n";
                         }
 
                         Data += "<td>" + response[index].parent_mobile_1 + "</td>\n";
                         Data += "<td>" + response[index].parent_mobile_2 + "</td>\n";
-                        if ("{{ @session('Data.company_nature') }}" == "S"|| "{{ @session('Data.company_nature') }}" == "HE") {
+                        if ("{{ @session('Data.company_nature') }}" == "S" ||
+                            "{{ @session('Data.company_nature') }}" == "HE") {
                             Data += "<td>" + response[index].student_mobile_1 + "</td>\n";
                             Data += "<td>" + response[index].student_mobile_2 + "</td>\n";
                         }
@@ -443,14 +451,14 @@
 
                         Data += "</tr>";
 
-                        // }
                     }
 
                     $("#demo-foo-addrow2 > tbody > tr").remove();
                     footable.appendRow(Data);
+                    $('#getmember').html(PrevValue);
+                    $('#getmember').attr("disabled", false);
                 }
             });
-            $('#getmember').html(PrevValue);
         });
 
         $('.reset').on('click', function() {
@@ -482,22 +490,27 @@
         });
 
         $('#add_all_data').on('click', function() {
+            var Data = "";
             $("#demo-foo-addrow2 > tbody > tr").each(function() {
-                myTableRow = $(this).html().replace('add_to_queue', 'remove_from_queue');
-                $('.my_final_table').data('footable').appendRow('<tr>' + myTableRow + '</tr>');
-                $('.my_final_table tbody td.chknone').show();
-                $('.my_final_table tbody td.chknone input[type=checkbox]').prop("disabled", false).prop(
-                    "checked", true);
-                $(this).remove();
+                Data += ('<tr>' + $(this).html().replace('add_to_queue', 'remove_from_queue').replace(
+                        "display: none", "display: block").replace("disabled", "") +
+                    '</tr>')
+                // $('.my_final_table tbody td.chknone').show();
+                // $('.my_final_table tbody td.chknone input[type=checkbox]').prop("disabled",
+                //     false).prop(
+                //     "checked", true);
             });
+            console.log(Data);
+            $('#demo-foo-addrow2 > tbody').empty();
+            $('.my_final_table').data('footable').appendRow(Data);
 
-            $('.my_final_table').footable();
-            $('.my_final_table').on('change', function(e) {
-                e.preventDefault();
-                var pageSize = $(this).val();
-                $('.my_final_table').data('page-size', pageSize);
-                $('.my_final_table').trigger('footable_initialized');
-            });
+            // $('.my_final_table').footable();
+            // $('.my_final_table').on('change', function(e) {
+            //     e.preventDefault();
+            //     var pageSize = $(this).val();
+            //     $('.my_final_table').data('page-size', pageSize);
+            //     $('.my_final_table').trigger('footable_initialized');
+            // });
         });
     </script>
     <script type="text/javascript">
