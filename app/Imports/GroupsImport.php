@@ -22,10 +22,16 @@ class GroupsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnEr
 {
     use Importable, SkipsErrors, SkipsFailures;
 
+    protected $UserID;
+    public function  __construct($UserID)
+    {
+        $this->UserID = $UserID;
+    }
+
     public function model(array $row)
     {
         return new Group([
-            'user_id' => session('Data.id'),
+            'user_id' => $this->UserID,
             'code' => Str::padLeft($row['code'], 5, '0'),
             'name' => $row['name'],
         ]);

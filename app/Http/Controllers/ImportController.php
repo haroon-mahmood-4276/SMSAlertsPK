@@ -3,25 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Imports\{MembersImport, GroupsImport, StudentsImport, SectionsImport, SubjectsImport};
+use App\Jobs\GroupsUploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\File;
 
 class ImportController extends Controller
 {
     public function ImportGroups(Request $request)
     {
-        // $collection = (new GroupsImport)->toCollection($request->file('groupsfile'));
-        // return $collection;
+        if ($request->hasFile('groupsfile')) {
+            $file = $request->file('groupsfile');
+            $path = $file->storeAs('public/uploads', 'main-' . $file->getClientOriginalName());
+            // dd($path);
+            GroupsUploadFile::dispatch(session('Data.id'), $path);
 
-        // return $request->input();
-        $import = new GroupsImport;
-        $import->import($request->file('groupsfile'));
-
-        if ($import->failures()->isNotEmpty()) {
-            return back()->withFailures($import->failures());
+            return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'File is queued. It will be uploaded shortly.');
+        } else {
+            return redirect()->route('r.imports')->with('AlertType', 'warning')->with('AlertMsg', 'Please select a csv or excel file.');
         }
 
-        return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
+
+        // $import = new GroupsImport;
+        // $import->import($request->file('groupsfile'));
+
+        // if ($import->failures()->isNotEmpty()) {
+        //     return back()->withFailures($import->failures());
+        // }
     }
 
     public function ImportSections(Request $request)
@@ -63,5 +72,10 @@ class ImportController extends Controller
         }
 
         return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'Data is imported.');
+    }
+
+    public function DeleteUploadedFile()
+    {
+        # code...
     }
 }

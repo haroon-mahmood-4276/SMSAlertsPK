@@ -2,26 +2,29 @@
 
 namespace App\Jobs;
 
+use App\Imports\GroupsImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
-class TestJob implements ShouldQueue
+class GroupsUploadFile implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $UserID, $Path;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($UserID, $Path)
     {
-        //
+        $this->UserID = $UserID;
+        $this->Path = $Path;
     }
 
     /**
@@ -31,7 +34,8 @@ class TestJob implements ShouldQueue
      */
     public function handle()
     {
-        sleep(1);
-        DB::table('test')->insert(['test' => 'Hi']);
+        $import = new GroupsImport($this->UserID);
+        $import->import($this->Path);
+        Storage::delete([$this->Path]);
     }
 }
