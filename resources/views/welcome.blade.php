@@ -51,14 +51,25 @@
                             <li><a href="#feature">Features</a></li>
                             <li><a href="#pricing">Pricing</a></li>
                             <li>
-                                <a href="{{ route('r.login') }}"
-                                    class="waves-effect waves-light btn danger-gradient white-text">Login</a>
+                                @if (session()->has('Data'))
+                                    <a href="{{ route('r.dashboard') }}"
+                                        class="waves-effect waves-light btn danger-gradient white-text">Dashboard</a>
+                                @else
+                                    <a href="{{ route('r.login') }}"
+                                        class="waves-effect waves-light btn danger-gradient white-text">Login</a>
+                                @endif
+
                             </li>
                         </ul>
                         <ul class="show-on-medium-and-down hide-on-med-and-up right sml-font" id="mobile-demo">
                             <li>
-                                <a style="color: white !important;" href="{{ route('r.login') }}"
-                                    class="waves-effect waves-light btn danger-gradient white-text">Login</a>
+                                @if (session()->has('Data'))
+                                    <a style="color: white !important;" href="{{ route('r.dashboard') }}"
+                                        class="waves-effect waves-light btn danger-gradient white-text">Dashboard</a>
+                                @else
+                                    <a style="color: white !important;" href="{{ route('r.login') }}"
+                                        class="waves-effect waves-light btn danger-gradient white-text">Login</a>
+                                @endif
                             </li>
                         </ul>
                     </div>

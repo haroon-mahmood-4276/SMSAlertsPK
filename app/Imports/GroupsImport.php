@@ -7,17 +7,18 @@ use App\Rules\CheckGroupCode;
 use Maatwebsite\Excel\Concerns\{
     ToModel,
     Importable,
+    WithChunkReading,
+    WithHeadingRow,
+    WithBatchInserts,
     SkipsErrors,
     SkipsFailures,
     SkipsOnError,
     SkipsOnFailure,
-    WithBatchInserts,
-    WithHeadingRow,
-    WithValidation
+    WithValidation,
 };
 use Illuminate\Support\Str;
 
-class GroupsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure, WithBatchInserts
+class GroupsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure, WithBatchInserts, WithChunkReading
 {
     use Importable, SkipsErrors, SkipsFailures;
 
@@ -41,5 +42,9 @@ class GroupsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnEr
     public function batchSize(): int
     {
         return 500;
+    }
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }

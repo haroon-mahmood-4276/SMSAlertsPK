@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Imports\{MembersImport, GroupsImport, StudentsImport, SectionsImport, SubjectsImport};
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ImportController extends Controller
 {
     public function ImportGroups(Request $request)
     {
+        // $collection = (new GroupsImport)->toCollection($request->file('groupsfile'));
+        // return $collection;
+
+        // return $request->input();
         $import = new GroupsImport;
         $import->import($request->file('groupsfile'));
 
