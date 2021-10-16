@@ -14,9 +14,10 @@ class ImportController extends Controller
     public function ImportGroups(Request $request)
     {
         if ($request->hasFile('groupsfile')) {
+
             $file = $request->file('groupsfile');
-            $path = $file->storeAs('public/uploads', 'main-' . $file->getClientOriginalName());
-            // dd($path);
+            $path = $file->storeAs('public/uploads', time() . '_' . $file->getClientOriginalName());
+
             GroupsUploadFile::dispatch(session('Data.id'), $path);
 
             return redirect()->route('r.imports')->with('AlertType', 'success')->with('AlertMsg', 'File is queued. It will be uploaded shortly.');
