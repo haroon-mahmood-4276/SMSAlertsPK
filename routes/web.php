@@ -29,9 +29,9 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('r.dashboard');
 
-    Route::group(['prefix' => 'delete-selected', 'as' => 'r.delete-selected-'], function () {
-        Route::delete('groups', [GroupController::class, 'deleteAll'])->name('groups');
-        Route::delete('classes', [GroupController::class, 'deleteAll'])->name('classes');
+    Route::group(['prefix' => 'delete-all', 'as' => 'r.delete-all-'], function () {
+        Route::get('groups', [GroupController::class, 'deleteAll'])->name('groups');
+        Route::get('classes', [GroupController::class, 'deleteAll'])->name('classes');
         Route::delete('sections', [SectionController::class, 'deleteAll'])->name('sections');
         Route::delete('members', [MobileDataController::class, 'deleteAll'])->name('members');
         Route::delete('students', [MobileDataController::class, 'deleteAll'])->name('students');

@@ -18,7 +18,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $Groups = Group::where('user_id', '=', session('Data.id'))->orderBy('code')->paginate(20);
+        $Groups = Group::where('user_id', '=', session('Data.id'))->orderBy('code')->paginate(50);
         return view('group.index', ['Groups' => $Groups]);
     }
 
@@ -110,18 +110,7 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $Groups = Group::find($id);
-
-        if ($Groups->delete()) {
-            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
-        } else {
-            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
-        }
-    }
-
-    public function deleteAll(Request $request)
+    public function destroy(Request $request)
     {
         $AlertType = "";
         $AlertMsg = "";
@@ -136,6 +125,25 @@ class GroupController extends Controller
             }
         } catch (\Illuminate\Database\QueryException $ex) {
             if ($ex->getCode() == 23000) {
+                $AlertType = "danger";
+                $AlertMsg = "These selected " . (session('Data.company_nature') == 'B' ? 'groups' : 'classes') . " linked with other data, therefore system cannot delete them.";
+            } else {
+                $AlertType = "danger";
+                $AlertMsg = "Something went wrong";
+            }
+        }
+        return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+    }
+
+    public function deleteAll()
+    {
+
+        try {
+            Group::where('user_id', '=', session('Data.id'))->delete();
+            $AlertType = "success";
+            $AlertMsg = "Data deleted";
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() == 23000 || $ex->getCode() == 42000) {
                 $AlertType = "danger";
                 $AlertMsg = "These selected " . (session('Data.company_nature') == 'B' ? 'groups' : 'classes') . " linked with other data, therefore system cannot delete them.";
             } else {

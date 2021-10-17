@@ -39,9 +39,13 @@
                                     </div>
                                 </div>
                             @endif
-
+                            <div>
+                                <a href="{{ session('Data.company_nature') == 'B' ? route('r.delete-all-groups') : route('r.delete-all-classes') }}"
+                                    class="btn btn-small waves-effect red waves-light right"
+                                    onclick="return confirm('Are you sure you want to delete all the data?')">Delete all</a>
+                            </div>
                             <form
-                                action="{{ session('Data.company_nature') == 'B' ? route('r.delete-selected-groups') : route('r.delete-selected-classes') }}"
+                                action="{{ session('Data.company_nature') == 'B' ? route('groups.destroy', ['group' => '0']) : route('classes.destroy', ['class' => '0']) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -84,6 +88,8 @@
                                                         class="btn btn-small waves-effect red waves-light">Delete selected
                                                         {{ Session::get('Data.company_nature') == 'B' ? 'groups' : 'classes' }}
                                                     </button>
+
+
                                                 </div>
                                             </div>
                                             {{-- <div class="ml-auto">
@@ -130,7 +136,7 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="3">
-                                                {{ $Groups->onEachSide(2)->appends(['sort' => 'votes'])->links('shared.pagination') }}
+                                                {{ $Groups->onEachSide(2)->links('shared.pagination') }}
                                             </td>
                                             <td colspan="3">
                                                 [{{ $Groups->firstItem() }} ~ {{ $Groups->lastItem() }}] out of

@@ -47,7 +47,7 @@ class GroupsImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnEr
 
     public function batchSize(): int
     {
-        return 500;
+        return 1000;
     }
     public function chunkSize(): int
     {
