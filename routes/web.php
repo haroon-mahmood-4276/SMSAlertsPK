@@ -211,8 +211,3 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
 });
-
-
-Route::get('test-pagination', function () {
-    return view('test', ['groups' => Group::paginate(50)]);
-});
