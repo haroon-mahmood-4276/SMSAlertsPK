@@ -2,6 +2,7 @@
 
 use App\Exports\{DuesExport,    GroupsExport,    MembersExport,    SectionsExport,    StudentsExport,    SubjectsExport};
 use App\Http\Controllers\{AjaxController,    ExportPDFController,    UserController,    GroupController,    ImportController,    MobileDataController,    SettingController,    PackageController,    ReportController,    SectionController,    TemplateController,    SmsController,    SubjectController,    TeacherController};
+use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\{Route, Validator};
@@ -209,4 +210,9 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
 
     Route::get('logout', [UserController::class, 'logout'])->name('r.logout');
+});
+
+
+Route::get('test-pagination', function () {
+    return view('test', ['groups' => Group::paginate(50)]);
 });

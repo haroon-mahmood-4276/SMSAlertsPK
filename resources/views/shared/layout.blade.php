@@ -16,6 +16,7 @@
         rel="stylesheet">
     @yield('BeforeCommonCss')
     <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
+
     @yield('AfterCommonCss')
     <style>
         html {

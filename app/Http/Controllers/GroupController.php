@@ -18,7 +18,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $Groups = Group::where('user_id', '=', session('Data.id'))->orderBy('code')->get();
+        $Groups = Group::where('user_id', '=', session('Data.id'))->orderBy('code')->paginate(20);
         return view('group.index', ['Groups' => $Groups]);
     }
 

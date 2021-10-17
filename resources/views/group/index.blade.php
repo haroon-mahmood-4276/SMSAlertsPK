@@ -45,13 +45,12 @@
                                 method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <table id="demo-foo-addrow2"
-                                    class="table table-bordered responsive-table table-hover toggle-circle centered"
-                                    data-page-size="10">
+
+                                <table class="striped highlight centered m-t-20">
                                     <thead>
                                         <tr>
                                             <th>Sr No</th>
-                                            <th data-sort-initial="true" data-toggle="true">ID</th>
+                                            <th data-sort-initial="true" data-toggle="true">Code</th>
                                             <th>
                                                 {{ Session::get('Data.company_nature') == 'B' ? 'Group' : 'Class' }} Name
                                             </th>
@@ -71,6 +70,7 @@
                                             </th>
                                         </tr>
                                     </thead>
+
                                     <div class="m-t-5">
                                         <div class="d-flex">
                                             <div class="mr-auto">
@@ -86,14 +86,15 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="ml-auto">
+                                            {{-- <div class="ml-auto">
                                                 <div class="form-group">
                                                     <input id="demo-input-search2" type="text" placeholder="Search"
                                                         autocomplete="off">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
+
                                     <tbody>
                                         @php
                                             $Count = 0;
@@ -111,15 +112,6 @@
                                                                 type="button"
                                                                 class="btn btn-small blue m-5 waves-effect waves-light"><i
                                                                     class="material-icons">edit</i></a>
-                                                            {{-- <form method="POST"
-                                                            action="{{ session('Data.company_nature') == 'B' ? route('groups.destroy', ['group' => $Group->id]) : route('classes.destroy', ['class' => $Group->id]) }}">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" onclick="return confirm('Are you sure?')"
-                                                            class="btn btn-small red m-5 left waves-effect waves-light"><i
-                                                                    class="material-icons">delete_sweep</i></button>
-
-                                                                </form> --}}
                                                         </div>
                                                         <div class="col s6 m6 l6">
                                                             <p class="m-t-10 multidelchk">
@@ -137,11 +129,12 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="5">
-                                                <div class="text-right">
-                                                    <ul class="pagination">
-                                                    </ul>
-                                                </div>
+                                            <td colspan="3">
+                                                {{ $Groups->onEachSide(2)->appends(['sort' => 'votes'])->links('shared.pagination') }}
+                                            </td>
+                                            <td colspan="3">
+                                                [{{ $Groups->firstItem() }} ~ {{ $Groups->lastItem() }}] out of
+                                                {{ $Groups->total() }}
                                             </td>
                                         </tr>
                                     </tfoot>
