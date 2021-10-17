@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="page-wrapper">
-            <div class="container-fluid row">
+        <div class="container-fluid row">
             <div class="col l12 m12 s12">
                 <div class="card">
                     <div class="card-content">
@@ -31,7 +31,7 @@
                             @endif
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">text_format</i>
-                                <select class="form-select" name="group_name" id="group_name">
+                                <select class="form-select" name="class" id="class">
                                     <option value="">Select</option>
                                     @foreach ($Groups as $Group)
                                         <option value="{{ $Group->id }}"
@@ -39,8 +39,8 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                <label for="group_name" class="form-label">{{session('Data.company_nature') == 'B' ? 'Groups' : 'Classes'}}</label>
-                                @error('group_name')
+                                <label for="class" class="form-label">Classes</label>
+                                @error('class')
                                     <span style="color: red">{{ $message }}</span>
                                 @enderror
                             </div>

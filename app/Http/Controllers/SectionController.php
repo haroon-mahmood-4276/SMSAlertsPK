@@ -15,7 +15,7 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('sections.id', 'sections.code', 'sections.name', 'groups.name AS group_name')->groupBy('group_name', 'sections.code')->where('sections.user_id', '=', session('Data.id'))->get();
+        $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('sections.id', 'sections.code', 'sections.name', 'groups.name AS group_name')->groupBy('group_name', 'sections.code')->where('sections.user_id', '=', session('Data.id'))->paginate(50);
         return view('section.index', ['Sections' => $Sections]);
     }
 
@@ -39,7 +39,7 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'group_name' => 'required',
+            'class' => 'required',
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSectionCode($request->code)],
             'name' => 'bail|required|between:1,50',
         ]);
@@ -92,7 +92,7 @@ class SectionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'group_name' => 'required',
+            'class' => 'required',
             'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckSectionCode($request->group_name, true, $id)],
             'name' => 'bail|required|between:1,50',
         ]);
@@ -116,20 +116,8 @@ class SectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $Sections = Section::find($id);
-
-        if ($Sections->delete()) {
-            return redirect()->route('sections.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
-        } else {
-            return redirect()->route('sections.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
-        }
-    }
-
-    public function deleteAll(Request $request)
-    {
-        // return $request->section_ids;
         $AlertType = "";
         $AlertMsg = "";
         try {
@@ -142,8 +130,26 @@ class SectionController extends Controller
                 $AlertMsg = "Please select atleast one row.";
             }
         } catch (\Illuminate\Database\QueryException $ex) {
-            if ($ex->getCode() == 23000) {
+            if ($ex->getCode() == 23000 || $ex->getCode() == 42000) {
+                $AlertType = "warning";
+                $AlertMsg = "These selected sections linked with other data, therefore system cannot delete them.";
+            } else {
                 $AlertType = "danger";
+                $AlertMsg = "Something went wrong";
+            }
+        }
+        return redirect()->route('sections.index')->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+    }
+
+    public function deleteAll()
+    {
+        try {
+            Section::where('user_id', session('Data.id'))->delete();
+            $AlertType = "success";
+            $AlertMsg = "Data deleted";
+        } catch (\Illuminate\Database\QueryException $ex) {
+            if ($ex->getCode() == 23000 || $ex->getCode() == 42000) {
+                $AlertType = "warning";
                 $AlertMsg = "These selected sections linked with other data, therefore system cannot delete them.";
             } else {
                 $AlertType = "danger";

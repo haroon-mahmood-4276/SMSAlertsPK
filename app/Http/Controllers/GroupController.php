@@ -124,8 +124,8 @@ class GroupController extends Controller
                 $AlertMsg = "Please select atleast one row.";
             }
         } catch (\Illuminate\Database\QueryException $ex) {
-            if ($ex->getCode() == 23000) {
-                $AlertType = "danger";
+            if ($ex->getCode() == 23000 || $ex->getCode() == 42000) {
+                $AlertType = "warning";
                 $AlertMsg = "These selected " . (session('Data.company_nature') == 'B' ? 'groups' : 'classes') . " linked with other data, therefore system cannot delete them.";
             } else {
                 $AlertType = "danger";
@@ -144,7 +144,7 @@ class GroupController extends Controller
             $AlertMsg = "Data deleted";
         } catch (\Illuminate\Database\QueryException $ex) {
             if ($ex->getCode() == 23000 || $ex->getCode() == 42000) {
-                $AlertType = "danger";
+                $AlertType = "warning";
                 $AlertMsg = "These selected " . (session('Data.company_nature') == 'B' ? 'groups' : 'classes') . " linked with other data, therefore system cannot delete them.";
             } else {
                 $AlertType = "danger";

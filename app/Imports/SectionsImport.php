@@ -3,32 +3,24 @@
 namespace App\Imports;
 
 use App\Models\{Group, Section};
-use App\Rules\CheckSectionCode;
-use App\Rules\IfExists;
-use App\Rules\IfGroupExist;
+use App\Rules\{CheckSectionCode, IfGroupExist};
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Concerns\{
-    Importable,
-    SkipsErrors,
-    SkipsFailures,
-    SkipsOnError,
-    SkipsOnFailure,
-    ToModel,
-    WithBatchInserts,
-    WithHeadingRow,
-    WithValidation
-};
+use Maatwebsite\Excel\Concerns\{Importable, SkipsErrors, SkipsFailures, SkipsOnError, SkipsOnFailure, ToModel, WithBatchInserts, WithHeadingRow, WithValidation, WithChunkReading};
 
-class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel
+class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation, SkipsOnError, SkipsOnFailure, ToModel, WithChunkReading
 {
     use Importable, SkipsErrors, SkipsFailures;
 
     private $group_id = [], $Arrindex = 2, $SaveIndex = 2;
-
+    protected $UserID;
+    public function  __construct($UserID)
+    {
+        $this->UserID = $UserID;
+    }
     public function model(array $row)
     {
         return new Section([
-            'user_id' => session('Data.id'),
+            'user_id' => $this->UserID,
             'group_id' => $this->group_id[$this->SaveIndex++],
             'code' => Str::padLeft($row['code'], 5, '0'),
             'name' => $row['name'],
@@ -55,6 +47,10 @@ class SectionsImport implements WithHeadingRow, WithBatchInserts, WithValidation
 
     public function batchSize(): int
     {
-        return 500;
+        return 1000;
+    }
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }

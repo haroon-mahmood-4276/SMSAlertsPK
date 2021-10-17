@@ -101,12 +101,15 @@
                                                 <div class="file-field input-field col s10 m11 l11 ">
                                                     <div class="btn">
                                                         <span>Upload File</span>
-                                                        <input type="file" name="groupsfile">
+                                                        <input type="file" name="groups_file">
                                                     </div>
                                                     <div class="file-path-wrapper">
                                                         <input class="file-path validate" type="text"
                                                             placeholder="Please upload only .csv or .xls document">
                                                     </div>
+                                                    @error('groups_file')
+                                                        <span style="color: red">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                                 <div class="input-field col s2 m1 l1">
                                                     <button class="btn pulse blue waves-effect waves-light" type="submit"><i
@@ -165,12 +168,15 @@
                                                     <div class="file-field input-field col s10 m11 l11">
                                                         <div class="btn">
                                                             <span>Upload File</span>
-                                                            <input type="file" name="sectionsfile">
+                                                            <input type="file" name="sections_file">
                                                         </div>
                                                         <div class="file-path-wrapper">
                                                             <input class="file-path validate" type="text"
                                                                 placeholder="Please upload only .csv or .xls document">
                                                         </div>
+                                                        @error('sections_file')
+                                                            <span style="color: red">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                     <div class="input-field col s2 m1 l1">
                                                         <button class="btn pulse blue waves-effect waves-light"
