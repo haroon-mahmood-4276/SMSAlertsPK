@@ -62,11 +62,11 @@
         </button>
 
         <div>
-            {{ View::make('shared.header') }}
+            {{ View::make('components.header') }}
         </div>
 
         <div>
-            {{ View::make('shared.leftsidebar') }}
+            {{ View::make('components.leftsidebar') }}
         </div>
 
         <div>
@@ -74,11 +74,11 @@
         </div>
 
         <div>
-            {{ View::make('shared.footer') }}
+            {{ View::make('components.footer') }}
         </div>
 
         <div>
-            {{ View::make('shared.rightsidebar') }}
+            {{ View::make('components.rightsidebar') }}
         </div>
 
     </div>

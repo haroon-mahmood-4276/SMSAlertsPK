@@ -136,7 +136,7 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="3">
-                                                {{ $Groups->onEachSide(2)->links('shared.pagination') }}
+                                                {{ $Groups->onEachSide(2)->links('components.pagination') }}
                                             </td>
                                             <td colspan="3">
                                                 [{{ $Groups->firstItem() }} ~ {{ $Groups->lastItem() }}] out of
