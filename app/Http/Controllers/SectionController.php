@@ -15,8 +15,9 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $Sections = Section::join('groups', 'sections.group_id', '=', 'groups.id')->select('sections.id', 'sections.code', 'sections.name', 'groups.name AS group_name')->groupBy('group_name', 'sections.code')->where('sections.user_id', '=', session('Data.id'))->paginate(50);
-        return view('section.index', ['Sections' => $Sections]);
+
+        $sections = (new Section())->getAllWithPagination(50);
+        return view('section.index', ['Sections' => $sections]);
     }
 
     /**
@@ -26,7 +27,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+        $Groups = (new Group())->getAll();
         return view('section.create', ['Groups' => $Groups]);
     }
 

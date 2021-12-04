@@ -17,10 +17,12 @@ use App\Models\{
 use App\Rules\CheckUserCode;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use PDO;
 
 class UserController extends Controller
 {
@@ -31,12 +33,16 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->user_type != "") {
-            $Users = User::where('company_nature', '=', $request->user_type)->where('company_nature', '!=', 'A')->get();
-        } else
-            $Users = User::where('company_nature', '!=', 'A')->get();
+        $users = (new User)->getAllWithPagination($request,1);
 
-        return view('user.index', ['Users' => $Users, 'Selection' => $request->user_type]);
+        // dd($users->getMessage());
+        if (is_a($users, 'Exception')) {
+            $request->session()->flash('AlertType', 'danger');
+            $request->session()->flash('AlertMsg', $users->getMessage());
+            return view('user.index', ['Selection' => $request->user_type]);
+        }
+
+        return view('user.index', ['Users' => $users, 'Selection' => $request->user_type]);
     }
 
     /**

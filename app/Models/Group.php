@@ -15,4 +15,8 @@ class Group extends Model
         'code',
         'name',
     ];
+
+    public function getAll(){
+        return $this->where('user_id', '=', session('Data.id'))->get();
+    }
 }

@@ -59,9 +59,12 @@
                                                 <select class="form-select inline" name="user_type"
                                                     onchange="this.form.submit()">
                                                     <option value="">All</option>
-                                                    <option value="B" {{ $Selection == 'B' ? 'selected' : '' }}>Business Users</option>
-                                                    <option value="S" {{ $Selection == 'S' ? 'selected' : '' }}>School Users</option>
-                                                    <option value="HE" {{ $Selection == 'HE' ? 'selected' : '' }}>Higher Education Users</option>
+                                                    <option value="B" {{ $Selection == 'B' ? 'selected' : '' }}>Business
+                                                        Users</option>
+                                                    <option value="S" {{ $Selection == 'S' ? 'selected' : '' }}>School
+                                                        Users</option>
+                                                    <option value="HE" {{ $Selection == 'HE' ? 'selected' : '' }}>Higher
+                                                        Education Users</option>
                                                 </select>
                                                 <label for="group_name" class="form-label">Users</label>
                                             </div>
@@ -69,7 +72,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <table id="demo-foo-addrow2" class="table m-b-0 responsive-table toggle-arrow-tiny" data-page-size="10">
+                            <table id="demo-foo-addrow2" class="table m-b-0 responsive-table toggle-arrow-tiny"
+                                data-page-size="10">
                                 <thead>
                                     <tr>
                                         <th data-toggle="true">Code</th>
@@ -105,48 +109,58 @@
                                     </div>
                                 </div>
                                 <tbody>
-                                    @foreach ($Users as $User)
-                                        <tr>
-                                            <td>{{ $User->code }}</td>
-                                            <td>{{ $User->first_name }}
-                                                {{ $User->last_name }}
-                                            </td>
-                                            <td>{{ $User->email }}</td>
-                                            <td>{{ $User->company_name }}</td>
-                                            <td>{{ $User->mobile_1 }}</td>
-                                            <td>{{ $User->remaining_of_sms }}</td>
-                                            <td>{{ $User->no_of_sms }}</td>
-                                            <td>{{ $User->expiry_date }}</td>
-                                            <td>{{ $User->company_mask_id }}</td>
-                                            <td>{{ $User->company_email }}</td>
-                                            <td>{{ $User->company_nature == 'B' ? 'Business' : 'School' . ' User' }}</td>
-                                            <td>{{ $User->mobile_2 }}</td>
-                                            <td>
-                                                <a href="{{ route('r.add-package-view', ['package' => $User->id]) }}"
-                                                    type="button"
-                                                    class="btn btn-small blue m-5 left waves-effect waves-light">Add
-                                                    Package</a>
-                                                <a href="{{ route('users.edit', ['user' => $User->id]) }}" type="button"
-                                                    class="btn btn-small blue m-5 left waves-effect waves-light"><i
-                                                        class="material-icons">edit</i></a>
-                                                <form method="POST"
-                                                    action="{{ route('users.destroy', ['user' => $User->id]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Are you sure?')"
-                                                        class="btn btn-small red m-5 left waves-effect waves-light"><i
-                                                            class="material-icons">delete_sweep</i></button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    @if (isset($Users))
+                                        @forelse ($Users as $User)
+                                            <tr>
+                                                <td>{{ $User->code }}</td>
+                                                <td>{{ $User->first_name }}
+                                                    {{ $User->last_name }}
+                                                </td>
+                                                <td>{{ $User->email }}</td>
+                                                <td>{{ $User->company_name }}</td>
+                                                <td>{{ $User->mobile_1 }}</td>
+                                                <td>{{ $User->remaining_of_sms }}</td>
+                                                <td>{{ $User->no_of_sms }}</td>
+                                                <td>{{ $User->expiry_date }}</td>
+                                                <td>{{ $User->company_mask_id }}</td>
+                                                <td>{{ $User->company_email }}</td>
+                                                <td>{{ $User->company_nature == 'B' ? 'Business' : 'School' . ' User' }}
+                                                </td>
+                                                <td>{{ $User->mobile_2 }}</td>
+                                                <td>
+                                                    <a href="{{ route('r.add-package-view', ['package' => $User->id]) }}"
+                                                        type="button"
+                                                        class="btn btn-small blue m-5 left waves-effect waves-light">Add
+                                                        Package</a>
+                                                    <a href="{{ route('users.edit', ['user' => $User->id]) }}"
+                                                        type="button"
+                                                        class="btn btn-small blue m-5 left waves-effect waves-light"><i
+                                                            class="material-icons">edit</i></a>
+                                                    <form method="POST"
+                                                        action="{{ route('users.destroy', ['user' => $User->id]) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" onclick="return confirm('Are you sure?')"
+                                                            class="btn btn-small red m-5 left waves-effect waves-light"><i
+                                                                class="material-icons">delete_sweep</i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="7">No record found</td>
+                                            </tr>
+                                        @endforelse
+                                    @endif
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="7">
-                                            <div class="text-right">
-                                                <ul class="pagination pagination-split"> </ul>
-                                            </div>
+                                        <td colspan="4">
+                                            {{ $Users->onEachSide(2)->links('components.pagination') }}
+                                        </td>
+                                        <td colspan="3">
+                                            [{{ $Users->firstItem() }} ~ {{ $Users->lastItem() }}] out of
+                                            {{ $Users->total() }}
                                         </td>
                                     </tr>
                                 </tfoot>
