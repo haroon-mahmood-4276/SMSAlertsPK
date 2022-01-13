@@ -112,6 +112,7 @@ class GroupController extends Controller
      */
     public function destroy(Request $request)
     {
+        // dd($request->input())
         $AlertType = "";
         $AlertMsg = "";
         try {
