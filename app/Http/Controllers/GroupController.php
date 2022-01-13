@@ -40,10 +40,10 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode()],
-            'name' => 'bail|required|between:1,50',
-        ]);
+        // $request->validate([
+        //     'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode()],
+        //     'name' => 'bail|required|between:1,50',
+        // ]);
 
         $Groups = new Group;
         $Groups->user_id = session('Data.id');
@@ -88,13 +88,13 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode(true, $id)],
-            'name' => 'bail|required|between:1,50',
-        ]);
+        // $request->validate([
+        //     'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode(true, $id)],
+        //     'name' => 'bail|required|between:1,50',
+        // ]);
 
         $Groups = Group::find($id);
-        $Groups->code = $request->code;
+        // $Groups->code = $request->code;
         $Groups->name = $request->name;
 
         if ($Groups->save()) {
@@ -152,5 +152,17 @@ class GroupController extends Controller
             }
         }
         return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+    }
+
+    public function CheckGroupCodeExistance(Request $request)
+    {
+        if ($request->has('code')) {
+            $group = (new Group())->checkCode($request->code);
+
+            if ($group) {
+                return ['code' => 'This code is taken.'];
+            }
+            return "true";
+        }
     }
 }

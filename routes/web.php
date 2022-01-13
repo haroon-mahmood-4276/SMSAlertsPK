@@ -40,6 +40,9 @@ Route::group(['middleware' => ['AuthRoute']], function () {
         Route::delete('templates', [TemplateController::class, 'deleteAll'])->name('templates');
     });
 
+    Route::get('check/groups', [GroupController::class, 'CheckGroupCodeExistance'])->name('r.check-group-code');
+    Route::get('check/classes', [GroupController::class, 'CheckGroupCodeExistance'])->name('r.check-class-code');
+
     Route::resources([
         'users' => UserController::class,
         'groups' => GroupController::class,
