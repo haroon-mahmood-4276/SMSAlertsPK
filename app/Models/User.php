@@ -37,8 +37,8 @@ class User extends Authenticatable
     {
         try {
             return $this->where('company_nature', '!=', 'A')
-                ->when($request->user_type, function ($query) use ($request) {
-                    return $query->where('company_nature', '=', $request->user_type);
+                ->when($request->user_type, function ($query, $user_type) {
+                    return $query->where('company_nature', '=', $user_type);
                 })
                 ->get();
         } catch (Exception $ex) {
