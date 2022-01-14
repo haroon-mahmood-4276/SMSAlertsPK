@@ -41,8 +41,7 @@
                             @endif
                             <div>
                                 <a href="{{ session('Data.company_nature') == 'B' ? route('r.delete-all-groups') : route('r.delete-all-classes') }}"
-                                    class="btn btn-small waves-effect red waves-light right" id="delete-all"
-                                    >Delete all</a>
+                                    class="btn btn-small waves-effect red waves-light right" id="delete-all">Delete all</a>
                             </div>
                             <form
                                 action="{{ session('Data.company_nature') == 'B' ? route('groups.destroy', ['group' => '0']) : route('classes.destroy', ['class' => '0']) }}"
@@ -167,7 +166,7 @@
 
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
-     <script src="{{ asset('dist/js/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('dist/js/sweetalert2.min.js') }}"></script>
     <script>
         $(".sl-all").on('click', function() {
             $('.chkbox').prop('checked', this.checked);
@@ -175,7 +174,7 @@
 
         $('#delete-all').on('click', function(e) {
             e.preventDefault();
-
+            var hrefLink = $(this).attr('href');
             Swal.fire({
                 allowOutsideClick: false,
                 showConfirmButton: true,
@@ -194,7 +193,7 @@
                 }
             }).then(function(dialogue) {
                 if (dialogue.isConfirmed) {
-                    window.location.replace($(this).attr('href'));
+                    window.location.href = hrefLink;
                 }
             });
         });
