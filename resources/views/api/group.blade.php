@@ -61,7 +61,7 @@
                                     </code>
                                 </pre>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -100,7 +100,7 @@
                                             </code>
                                         </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
 
                             <h4 class="card-title m-t-40" id="data-of-{{ Str::of($company_nature) }}">2. Data of
@@ -113,7 +113,7 @@
                                     </code>
                                 </pre>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -152,7 +152,7 @@
                                             </code>
                                         </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
 
                             <h4 class="card-title m-t-40" id="create-new-{{ Str::of($company_nature) }}">3. Create a new
@@ -167,7 +167,7 @@
                                                 <br>
                                                 form-data:[
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
+                                                    'password': '*********',
                                                     'code': '00001'
                                                     'name': 'Something'
                                                     '_method': 'POST'
@@ -180,9 +180,9 @@
                                             <code class="language-markup">
                                                 {{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.store')) }}
                                                 <br>
-                                                x-www-form-urlencoded:[
+                                                x-www-form-urlencoded: [
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
+                                                    'password': '*********',
                                                     'code': '00001'
                                                     'name': 'Something'
                                                     '_method': 'POST'
@@ -192,7 +192,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -257,7 +257,7 @@
                                             </code>
                                         </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
 
                             <h4 class="card-title m-t-40" id="update-a-{{ Str::of($company_nature) }}">4. Update a
@@ -272,7 +272,7 @@
                                                 <br>
                                                 form-data:[
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
+                                                    'password': '*********',
                                                     'name': 'Something'
                                                     '_method': 'PUT'
                                                 ]
@@ -286,7 +286,7 @@
                                                 <br>
                                                 x-www-form-urlencoded:[
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
+                                                    'password': '*********',
                                                     'name': 'Something'
                                                     '_method': 'PUT'
                                                 ]
@@ -295,7 +295,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -360,7 +360,7 @@
                                             </code>
                                         </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
 
                             <h4 class="card-title m-t-40" id="delete-a-{{ Str::of($company_nature) }}">5. Delete a
@@ -375,7 +375,7 @@
                                                 <br>
                                                 form-data:[
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
+                                                    'password': '*********',
                                                     '_method': 'DELETE'
                                                 ]
                                             </code>
@@ -388,7 +388,7 @@
                                                 <br>
                                                 x-www-form-urlencoded:[
                                                     'email': '{{ session('Data.email') }}',
-                                                    'password': '*********'],
+                                                    'password': '*********',
                                                     '_method': 'DELETE'
                                                 ]
                                             </code>
@@ -396,7 +396,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -461,7 +461,7 @@
                                             </code>
                                         </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>

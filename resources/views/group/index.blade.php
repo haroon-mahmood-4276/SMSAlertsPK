@@ -41,8 +41,8 @@
                             @endif
                             <div>
                                 <a href="{{ session('Data.company_nature') == 'B' ? route('r.delete-all-groups') : route('r.delete-all-classes') }}"
-                                    class="btn btn-small waves-effect red waves-light right"
-                                    onclick="return confirm('Are you sure you want to delete all the data?')">Delete all</a>
+                                    class="btn btn-small waves-effect red waves-light right" id="delete-all"
+                                    >Delete all</a>
                             </div>
                             <form
                                 action="{{ session('Data.company_nature') == 'B' ? route('groups.destroy', ['group' => '0']) : route('classes.destroy', ['class' => '0']) }}"
@@ -105,16 +105,16 @@
                                         @php
                                             $Count = 0;
                                         @endphp
-                                        @foreach ($Groups as $Group)
+                                        @foreach ($groups as $group)
                                             <tr>
                                                 <td>{{ ++$Count }}</td>
-                                                <td>{{ $Group->code }}</td>
-                                                <td>{{ $Group->name }}</td>
+                                                <td>{{ $group->code }}</td>
+                                                <td>{{ $group->name }}</td>
                                                 <td><span class="label label-table label-success">Active</span> </td>
                                                 <td class="chktd">
                                                     <div class="row">
                                                         <div class="col s6 m6 l6">
-                                                            <a href="{{ session('Data.company_nature') == 'B' ? route('groups.edit', ['group' => $Group->id]) : route('classes.edit', ['class' => $Group->id]) }}"
+                                                            <a href="{{ session('Data.company_nature') == 'B' ? route('groups.edit', ['group' => $group->id]) : route('classes.edit', ['class' => $group->id]) }}"
                                                                 type="button"
                                                                 class="btn btn-small blue m-5 waves-effect waves-light"><i
                                                                     class="material-icons">edit</i></a>
@@ -123,7 +123,7 @@
                                                             <p class="m-t-10 multidelchk">
                                                                 <label>
                                                                     <input type="checkbox" class="chkbox filled-in"
-                                                                        name="group_ids[]" value="{{ $Group->id }}" />
+                                                                        name="group_ids[]" value="{{ $group->id }}" />
                                                                     <span>&nbsp;</span>
                                                                 </label>
                                                             </p>
@@ -136,11 +136,14 @@
                                     <tfoot>
                                         <tr>
                                             <td colspan="3">
-                                                {{ $Groups->onEachSide(2)->links('components.pagination') }}
+                                                {{ $groups->onEachSide(2)->links('components.pagination') }}
                                             </td>
                                             <td colspan="3">
-                                                [{{ $Groups->firstItem() }} ~ {{ $Groups->lastItem() }}] out of
-                                                {{ $Groups->total() }}
+                                                <div style="text-align: right">
+                                                    [{{ $groups->firstItem() }} ~ {{ $groups->lastItem() }}] out of
+                                                    {{ $groups->total() }}
+
+                                                </div>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -164,9 +167,36 @@
 
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
+     <script src="{{ asset('dist/js/sweetalert2.min.js') }}"></script>
     <script>
         $(".sl-all").on('click', function() {
             $('.chkbox').prop('checked', this.checked);
+        });
+
+        $('#delete-all').on('click', function(e) {
+            e.preventDefault();
+
+            Swal.fire({
+                allowOutsideClick: false,
+                showConfirmButton: true,
+                showDenyButton: true,
+                allowEscapeKey: true,
+                allowEnterKey: true,
+                buttonsStyling: false,
+                title: "Do you want to delete all {{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}?",
+                backdrop: true,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+                customClass: {
+                    popup: 'rounded-5 p-t-3',
+                    confirmButton: 'btn btn-primary m-10',
+                    denyButton: 'btn btn-danger m-10',
+                }
+            }).then(function(dialogue) {
+                if (dialogue.isConfirmed) {
+                    window.location.replace($(this).attr('href'));
+                }
+            });
         });
     </script>
 @endsection

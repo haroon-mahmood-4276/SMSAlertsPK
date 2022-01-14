@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Group;
-use App\Rules\CheckGroupCode;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Barryvdh\Debugbar\Facade as Debugbar;
-
+use App\Models\{Group};
+use App\Rules\{CheckGroupCode};
+use Exception;
+use Illuminate\Http\{Request};
+use Illuminate\Support\{Str};
+use Illuminate\Support\Facades\{Session};
 
 class GroupController extends Controller
 {
@@ -18,8 +18,14 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $Groups = Group::where('user_id', '=', session('Data.id'))->orderBy('code')->paginate(50);
-        return view('group.index', ['Groups' => $Groups]);
+        if (!request()->ajax()) {
+            $data = [
+                'groups' => (new Group())->where('user_id', '=', session('Data.id'))->orderBy('code')->paginate(50),
+            ];
+            return view('group.index', $data);
+        } else {
+            return ApiErrorResponse('ajax request is not supported');
+        }
     }
 
     /**
@@ -40,20 +46,31 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode()],
-        //     'name' => 'bail|required|between:1,50',
-        // ]);
+        try {
+            if (!request()->ajax()) {
+                $request->validate([
+                    'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode()],
+                    'name' => 'bail|required|between:1,50',
+                ]);
 
-        $Groups = new Group;
-        $Groups->user_id = session('Data.id');
-        $Groups->code = $request->code;
-        $Groups->name = $request->name;
+                $data = [
+                    'user_id' => Session::get('Data.id'),
+                    'code' => $request->code,
+                    'name' => $request->name,
+                ];
 
-        if ($Groups->save()) {
-            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
-        } else {
-            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+                $response = (new Group())->insert($data);
+
+                if ($response) {
+                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
+                } else {
+                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+                }
+            } else {
+                return ApiErrorResponse('ajax request is not supported');
+            }
+        } catch (Exception $ex) {
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
     }
 
@@ -65,6 +82,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
+        abort(404);
     }
 
     /**
@@ -73,10 +91,21 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        $Groups = Group::find($id);
-        return view('group.edit', ['Group' => $Groups]);
+        try {
+            if (!request()->ajax()) {
+
+                $data = [
+                    'group' => (new Group())->find($id),
+                ];
+                return view('group.edit', $data);
+            } else {
+                return ApiErrorResponse('ajax request is not supported');
+            }
+        } catch (Exception $ex) {
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
+        }
     }
 
     /**
@@ -161,7 +190,7 @@ class GroupController extends Controller
             $group = (new Group())->checkCode($request->code);
 
             if ($group) {
-                return ['code' => 'This code is taken.'];
+                return response()->json(['code' => 'This code is taken.']);
             }
             return "true";
         }

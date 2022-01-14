@@ -18,7 +18,7 @@
                         <h5 class="card-title">Edit
                             {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}</h5>
                         <form class="formValidate" id="formValidate"
-                            action="{{ session('Data.company_nature') == 'B' ? route('groups.update', ['group' => $Group->id]) : route('classes.update', ['class' => $Group->id]) }}"
+                            action="{{ session('Data.company_nature') == 'B' ? route('groups.update', ['group' => $group->id]) : route('classes.update', ['class' => $group->id]) }}"
                             method="POST">
                             @csrf
                             @method('PATCH')
@@ -35,7 +35,7 @@
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="code" name="code" type="text" class="disabled" disabled
-                                        value="{{ $Group->code }}" maxlength="5">
+                                        value="{{ $group->code }}" maxlength="5">
                                     <label for="code">{{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }} ID
                                         *</label>
                                     @error('code')
@@ -45,7 +45,7 @@
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="name" name="name" type="text" class="@error('name') error @enderror"
-                                        value="{{ $Group->name }}">
+                                        value="{{ $group->name }}">
                                     <label for="name">{{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }} Name
                                         *</label>
                                     @error('name')

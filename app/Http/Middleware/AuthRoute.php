@@ -16,12 +16,17 @@ class AuthRoute
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!session()->has('Data.id') && !session()->has('Data.company_nature') && $request->path() != 'login') {
-            return redirect()->route('r.showlogin')->with('AlertType', 'danger')->with('AlertMsg', 'Please login first');
+        if (!request()->ajax()) {
+
+            if (!session()->has('Data.id') && !session()->has('Data.company_nature') && $request->path() != 'login') {
+                return redirect()->route('r.showlogin')->with('AlertType', 'danger')->with('AlertMsg', 'Please login first');
+            }
+            if (session()->has('Data.id') && session()->has('Data.company_nature') && $request->path() == 'login') {
+                return back();
+            }
+            return $next($request);
+        } else {
+            return ApiErrorResponse('ajax request is not supported');
         }
-        if (session()->has('Data.id') && session()->has('Data.company_nature') && $request->path() == 'login') {
-            return back();
-        }
-        return $next($request);
     }
 }

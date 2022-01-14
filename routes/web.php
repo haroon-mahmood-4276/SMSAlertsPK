@@ -1,12 +1,34 @@
 <?php
 
-use App\Exports\{DuesExport,    GroupsExport,    MembersExport,    SectionsExport,    StudentsExport,    SubjectsExport};
-use App\Http\Controllers\{AjaxController,    ExportPDFController,    UserController,    GroupController,    ImportController,    MobileDataController,    SettingController,    PackageController,    ReportController,    SectionController,    TemplateController,    SmsController,    SubjectController,    TeacherController};
-use App\Models\Group;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
+use App\Exports\{
+    DuesExport,
+    GroupsExport,
+    MembersExport,
+    SectionsExport,
+    StudentsExport,
+    SubjectsExport
+};
+use App\Http\Controllers\{
+    AjaxController,
+    ExportPDFController,
+    UserController,
+    GroupController,
+    ImportController,
+    MobileDataController,
+    SettingController,
+    PackageController,
+    ReportController,
+    SectionController,
+    TemplateController,
+    SmsController,
+    SubjectController,
+    TeacherController
+};
+use App\Models\{Group};
+use Illuminate\Http\{Request};
+use Illuminate\Support\{Carbon};
 use Illuminate\Support\Facades\{Route, Validator};
-use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Facades\{Excel};
 
 /*
 |--------------------------------------------------------------------------
