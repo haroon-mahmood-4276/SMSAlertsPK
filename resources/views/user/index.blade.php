@@ -159,8 +159,10 @@
                                             {{ $Users->onEachSide(2)->links('components.pagination') }}
                                         </td>
                                         <td colspan="3">
-                                            [{{ $Users->firstItem() }} ~ {{ $Users->lastItem() }}] out of
-                                            {{ $Users->total() }}
+                                            <div style="text-align: right">
+                                                [{{ $Users->firstItem() }} ~ {{ $Users->lastItem() }}] out of
+                                                {{ $Users->total() }}
+                                            </div>
                                         </td>
                                     </tr>
                                 </tfoot>

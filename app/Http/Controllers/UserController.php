@@ -17,12 +17,10 @@ use App\Models\{
 use App\Rules\CheckUserCode;
 use Carbon\Carbon;
 use DateTime;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use PDO;
 
 class UserController extends Controller
 {
@@ -33,16 +31,21 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = (new User)->getAllWithPagination($request,1);
+        if (!request()->ajax()) {
 
-        // dd($users->getMessage());
-        if (is_a($users, 'Exception')) {
-            $request->session()->flash('AlertType', 'danger');
-            $request->session()->flash('AlertMsg', $users->getMessage());
-            return view('user.index', ['Selection' => $request->user_type]);
+            $users = (new User())->getAllWithPagination($request);
+
+            // dd($users->getMessage());
+            if (is_a($users, 'Exception')) {
+                $request->session()->flash('AlertType', 'danger');
+                $request->session()->flash('AlertMsg', $users->getMessage());
+                return view('user.index', ['Selection' => $request->user_type]);
+            }
+
+            return view('user.index', ['Users' => $users, 'Selection' => $request->user_type]);
+        } else {
+            return ApiErrorResponse('ajax request is not supported');
         }
-
-        return view('user.index', ['Users' => $users, 'Selection' => $request->user_type]);
     }
 
     /**

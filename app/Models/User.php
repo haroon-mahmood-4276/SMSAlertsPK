@@ -46,14 +46,14 @@ class User extends Authenticatable
         }
     }
 
-    public function getAllWithPagination($request, $data)
+    public function getAllWithPagination($request)
     {
         try {
             return $this->where('company_nature', '!=', 'A')
                 ->when($request->user_type, function ($query) use ($request) {
                     return $query->where('company_nature', '=', $request->user_type);
                 })
-                ->paginate($data);
+                ->paginate(50);
         } catch (Exception $ex) {
             return $ex;
         }
