@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <form
-                                action="{{ session('Data.company_nature') == 'B' ? route('r.delete-selected-members') : route('r.delete-selected-students') }}"
+                                action="{{ session('Data.company_nature') == 'B' ? route('data.destroy', ['data' => '0']) : route('data.destroy', ['data' => '0']) }}"
                                 method="POST"> @csrf
                                 @method('DELETE')
                                 <table id="demo-foo-addrow2" class="table m-b-0 responsive-table toggle-arrow-tiny"
@@ -191,7 +191,8 @@
                                                             <p class="m-t-10 multidelchk">
                                                                 <label>
                                                                     <input type="checkbox" class="chkbox filled-in"
-                                                                        name="members_ids[]" value="{{ $MobileData->id }}" />
+                                                                        name="members_ids[]"
+                                                                        value="{{ $MobileData->id }}" />
                                                                     <span>&nbsp;</span>
                                                                 </label>
                                                             </p>

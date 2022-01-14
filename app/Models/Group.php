@@ -16,7 +16,16 @@ class Group extends Model
         'name',
     ];
 
-    public function getAll(){
+    public function getAll()
+    {
         return $this->where('user_id', '=', session('Data.id'))->get();
+    }
+
+    public function checkCode($code)
+    {
+        return $this->where([
+            'user_id' => session('Data.id'),
+            'code' => $code
+        ])->exists();
     }
 }

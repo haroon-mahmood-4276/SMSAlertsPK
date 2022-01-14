@@ -149,6 +149,8 @@ class SmsController extends Controller
             } else
                 return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
         }
+        return redirect()->route('r.dashboard')->with('AlertType', 'info')->with('AlertMsg', 'Please! Renew the SMS Package first');
+
     }
 
     public function BulkSMS(Request $request)

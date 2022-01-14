@@ -17,7 +17,9 @@
                     <div class="card-content">
                         <h5 class="card-title">Create
                             {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}</h5>
-                        <form class="formValidate" id="formValidate" action="{{ session('Data.company_nature') == 'B' ? route('groups.store') : route('classes.store') }}" method="POST">
+                        <form class="formValidate" id="formValidate"
+                            action="{{ session('Data.company_nature') == 'B' ? route('groups.store') : route('classes.store') }}"
+                            method="POST">
                             @csrf
                             @if (Session::get('AlertType') && Session::get('AlertMsg'))
                                 <div class="row">
@@ -43,7 +45,8 @@
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="name" name="name" type="text" class="@error('name') error @enderror"
                                         value="{{ old('name') }}">
-                                    <label for="name">{{session('Data.company_nature') == 'B' ? 'Group' : 'Class'}} Name *</label>
+                                    <label for="name">{{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }} Name
+                                        *</label>
                                     @error('name')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
@@ -79,5 +82,64 @@
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
     <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
+
+    <script src="{{ asset('dist/js/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jqueryvalidation.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jqueryadditionalvalidation.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#formValidate").validate({
+
+                rules: {
+                    code: {
+                        required: true,
+                        digits:true,
+                        minlength: 5,
+                        maxlength: 5,
+                        remote: {
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            url: "{{ session('Data.company_nature') == 'B' ? route('r.check-group-code') : route('r.check-class-code') }}",
+                            type: "GET",
+                        },
+                    },
+                    name: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50,
+                    }
+                },
+                validClass: "success",
+                errorClass: 'error',
+                errorElement: "span",
+                wrapper: "div",
+                submitHandler: function(form) {
+                    Swal.fire({
+                        allowOutsideClick: false,
+                        showConfirmButton: true,
+                        showDenyButton: true,
+                        allowEscapeKey: true,
+                        allowEnterKey: true,
+                        buttonsStyling: false,
+                        title: "Do you want to save this {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}?",
+                        backdrop: true,
+                        confirmButtonText: 'Yes',
+                        denyButtonText: 'No',
+                        customClass: {
+                            popup: 'rounded-5 p-t-3',
+                            confirmButton: 'btn btn-primary m-10',
+                            denyButton: 'btn btn-danger m-10',
+                        }
+                    }).then(function(confirm) {
+                        if (confirm.value) {
+                            form.submit();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
 @endsection
