@@ -104,7 +104,7 @@
                                         @php
                                             $Count = 0;
                                         @endphp
-                                        @foreach ($groups as $group)
+                                        @forelse ($groups as $group)
                                             <tr>
                                                 <td>{{ ++$Count }}</td>
                                                 <td>{{ $group->code }}</td>
@@ -130,7 +130,11 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="5">No data found.</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                     <tfoot>
                                         <tr>

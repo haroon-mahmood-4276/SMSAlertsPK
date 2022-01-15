@@ -94,7 +94,7 @@
                 rules: {
                     code: {
                         required: true,
-                        digits:true,
+                        digits: true,
                         minlength: 5,
                         maxlength: 5,
                         remote: {
@@ -130,7 +130,7 @@
                         customClass: {
                             popup: 'rounded-5 p-t-3',
                             confirmButton: 'btn btn-primary m-10',
-                            denyButton: 'btn btn-danger m-10',
+                            denyButton: 'btn btn-small waves-effect red waves-light m-10',
                         }
                     }).then(function(confirm) {
                         if (confirm.value) {

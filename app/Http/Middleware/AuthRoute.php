@@ -16,7 +16,7 @@ class AuthRoute
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!request()->ajax()) {
+        // if (!request()->ajax()) {
 
             if (!session()->has('Data.id') && !session()->has('Data.company_nature') && $request->path() != 'login') {
                 return redirect()->route('r.showlogin')->with('AlertType', 'danger')->with('AlertMsg', 'Please login first');
@@ -25,8 +25,8 @@ class AuthRoute
                 return back();
             }
             return $next($request);
-        } else {
-            return ApiErrorResponse('ajax request is not supported');
-        }
+        // } else {
+        //     return ApiErrorResponse('ajax request is not supported');
+        // }
     }
 }
