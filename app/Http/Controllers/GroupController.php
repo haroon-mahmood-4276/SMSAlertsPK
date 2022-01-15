@@ -117,19 +117,28 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode(true, $id)],
-        //     'name' => 'bail|required|between:1,50',
-        // ]);
+        try {
+            if (!request()->ajax()) {
+                $request->validate([
+                    'name' => 'bail|required|between:1,50',
+                ]);
 
-        $Groups = Group::find($id);
-        // $Groups->code = $request->code;
-        $Groups->name = $request->name;
+                $data = [
+                    'name' => $request->name,
+                ];
 
-        if ($Groups->save()) {
-            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
-        } else {
-            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
+                $response = (new Group())->where('id', $id)->update($data);
+
+                if ($response) {
+                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
+                } else {
+                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
+                }
+            } else {
+                return ApiErrorResponse('ajax request is not supported');
+            }
+        } catch (Exception $ex) {
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
     }
 
@@ -141,47 +150,52 @@ class GroupController extends Controller
      */
     public function destroy(Request $request)
     {
-        // dd($request->input())
-        $AlertType = "";
-        $AlertMsg = "";
         try {
-            if ($request->group_ids != null) {
-                Group::whereIn('id', $request->group_ids)->delete();
-                $AlertType = "success";
-                $AlertMsg = "Selected data deleted";
+            if (!request()->ajax()) {
+                $AlertType = "";
+                $AlertMsg = "";
+
+                if ($request->group_ids != null) {
+                    $response = (new Group())->whereIn('id', $request->group_ids)->delete();
+                    $AlertType = "success";
+                    $AlertMsg = "Selected data deleted";
+                } else {
+                    $AlertType = "warning";
+                    $AlertMsg = "Please select atleast one row.";
+                }
+
+                if ($response) {
+                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+                } else {
+                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+                }
             } else {
-                $AlertType = "warning";
-                $AlertMsg = "Please select atleast one row.";
+                return ApiErrorResponse('ajax request is not supported');
             }
-        } catch (\Illuminate\Database\QueryException $ex) {
-            if ($ex->getCode() == 23000 || $ex->getCode() == 42000) {
-                $AlertType = "warning";
-                $AlertMsg = "These selected " . (session('Data.company_nature') == 'B' ? 'groups' : 'classes') . " linked with other data, therefore system cannot delete them.";
-            } else {
-                $AlertType = "danger";
-                $AlertMsg = "Something went wrong";
-            }
+        } catch (Exception $ex) {
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
-        return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
     }
 
     public function deleteAll()
     {
-
         try {
-            Group::where('user_id', '=', session('Data.id'))->delete();
-            $AlertType = "success";
-            $AlertMsg = "Data deleted";
-        } catch (\Illuminate\Database\QueryException $ex) {
-            if ($ex->getCode() == 23000 || $ex->getCode() == 42000) {
-                $AlertType = "warning";
-                $AlertMsg = "These selected " . (session('Data.company_nature') == 'B' ? 'groups' : 'classes') . " linked with other data, therefore system cannot delete them.";
+            if (!request()->ajax()) {
+                $response = (new Group())->where('user_id', '=', session('Data.id'))->delete();
+                $AlertType = "success";
+                $AlertMsg = "Data deleted";
+
+                if ($response) {
+                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+                } else {
+                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+                }
             } else {
-                $AlertType = "danger";
-                $AlertMsg = "Something went wrong";
+                return ApiErrorResponse('ajax request is not supported');
             }
+        } catch (Exception $ex) {
+            return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
-        return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
     }
 
     public function CheckGroupCodeExistance(Request $request)
@@ -190,7 +204,7 @@ class GroupController extends Controller
             $group = (new Group())->checkCode($request->code);
 
             if ($group) {
-                return response()->json(['code' => 'This code is taken.']);
+                return response()->json(['This code is taken.']);
             }
             return "true";
         }

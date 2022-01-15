@@ -3,7 +3,7 @@
 if (!function_exists('ApiErrorResponse')) {
     function ApiErrorResponse($message, $key = null)
     {
-        if ($key != null) {
+        if (!is_null($key)) {
             $data = [
                 'status' => true,
                 'message' => [
