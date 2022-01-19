@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\{Session};
 use Illuminate\Notifications\Notifiable;
 
 class Group extends Model
@@ -28,5 +29,16 @@ class Group extends Model
             'user_id' => session('Data.id'),
             'code' => $code
         ])->exists();
+    }
+
+    public function storeGroup($request){
+        // dd($request);
+        $data = [
+            'user_id' => filter_strip_tags(Session::get('Data.id')) ,
+            'code' => filter_strip_tags($request['code']),
+            'name' => filter_strip_tags($request['name']),
+        ];
+        return $this->create($data);
+
     }
 }

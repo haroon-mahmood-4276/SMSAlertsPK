@@ -7,7 +7,7 @@ use App\Rules\{CheckGroupCode};
 use Exception;
 use Illuminate\Http\{Request};
 use Illuminate\Support\{Str};
-use Illuminate\Support\Facades\{Session};
+use Illuminate\Support\Facades\Crypt;
 
 class GroupController extends Controller
 {
@@ -53,13 +53,7 @@ class GroupController extends Controller
                     'name' => 'bail|required|between:1,50',
                 ]);
 
-                $data = [
-                    'user_id' => Session::get('Data.id'),
-                    'code' => $request->code,
-                    'name' => $request->name,
-                ];
-
-                $response = (new Group())->insert($data);
+                $response = (new Group())->storeGroup($request->post());
 
                 if ($response) {
                     return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
@@ -95,6 +89,7 @@ class GroupController extends Controller
     {
         try {
             if (!request()->ajax()) {
+                $id = Crypt::decryptString($id);
 
                 $data = [
                     'group' => (new Group())->find($id),
@@ -119,6 +114,7 @@ class GroupController extends Controller
     {
         try {
             if (!request()->ajax()) {
+                $id = Crypt::decryptString($id);
                 $request->validate([
                     'name' => 'bail|required|between:1,50',
                 ]);

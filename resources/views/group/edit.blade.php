@@ -15,7 +15,7 @@
                         <h5 class="card-title">Edit
                             {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}</h5>
                         <form class="formValidate" id="formValidate"
-                            action="{{ session('Data.company_nature') == 'B' ? route('groups.update', ['group' => $group->id]) : route('classes.update', ['class' => $group->id]) }}"
+                            action="{{ session('Data.company_nature') == 'B' ? route('groups.update', ['group' => Crypt::encryptString($group->id)]) : route('classes.update', ['class' => Crypt::encryptString($group->id)]) }}"
                             method="POST">
                             @csrf
                             @method('PATCH')

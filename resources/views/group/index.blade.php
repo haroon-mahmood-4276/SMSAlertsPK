@@ -112,7 +112,7 @@
                                                 <td class="chktd">
                                                     <div class="row">
                                                         <div class="col s6 m6 l6">
-                                                            <a href="{{ session('Data.company_nature') == 'B' ? route('groups.edit', ['group' => $group->id]) : route('classes.edit', ['class' => $group->id]) }}"
+                                                            <a href="{{ session('Data.company_nature') == 'B' ? route('groups.edit', ['group' => Crypt::encryptString($group->id) ]) : route('classes.edit', ['class' => Crypt::encryptString($group->id) ]) }}"
                                                                 type="button"
                                                                 class="btn btn-small blue m-5 waves-effect waves-light"><i
                                                                     class="material-icons">edit</i></a>
@@ -121,7 +121,7 @@
                                                             <p class="m-t-10 multidelchk">
                                                                 <label>
                                                                     <input type="checkbox" class="chkbox filled-in"
-                                                                        name="group_ids[]" value="{{ $group->id }}" />
+                                                                        name="group_ids[]" value="{{ Crypt::encryptString($group->id) }}" />
                                                                     <span>&nbsp;</span>
                                                                 </label>
                                                             </p>
