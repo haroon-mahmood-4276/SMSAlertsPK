@@ -14,10 +14,16 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap"
         rel="stylesheet">
-    @yield('BeforeCommonCss')
-    <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
 
-    @yield('AfterCommonCss')
+    <link href="{{ asset('assets/extra-libs/prism/prism.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('assets/libs/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}">
+    <link href="{{ asset('assets/libs/footable/css/footable.core.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/css/pages/footable-page.css') }}" rel="stylesheet">
+
+    @yield('CSS')
+
     <style>
         html {
             scroll-behavior: smooth;
@@ -83,7 +89,22 @@
 
     </div>
 
-    @yield('Js')
+    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/js/app.js') }}"></script>
+    <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
+    <script src="{{ asset('dist/js/custom.min.js') }}"></script>
+
+    {{-- <script src="{{asset('assets/extra-libs/prism/prism.js')}}"></script> --}}
+    <script src="{{ asset('assets/libs/moment/moment.js') }}"></script>
+    <script
+        src="{{ asset('assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js') }}">
+    </script>
+
+    <script src="{{ asset('dist/js/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jqueryvalidation.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jqueryadditionalvalidation.min.js') }}"></script>
     <script src="{{ asset('dist/js/nanobar.min.js') }}"></script>
     <script>
         var nanobar = new Nanobar({
@@ -124,8 +145,7 @@
         //     var scrollPercent = (currY / (scrollHeight - postHeight)) * 100;
         //     $('.bar-long').width(Math.abs(scrollPercent) + "%");
         // }
-    </script>
-    <script>
+
         let mybutton = document.getElementById("btn-back-to-top");
 
         window.onscroll = function() {
@@ -140,6 +160,8 @@
             document.documentElement.scrollTop = 0;
         });
     </script>
+    @yield('Js')
+
 </body>
 
 </html>

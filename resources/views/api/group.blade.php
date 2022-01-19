@@ -472,11 +472,5 @@
 @endsection
 
 @section('Js')
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/app.js') }}"></script>
-    <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
-    <script src="{{ asset('dist/js/custom.min.js') }}"></script>
-    <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
+
 @endsection

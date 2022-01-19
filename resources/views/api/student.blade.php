@@ -3,11 +3,8 @@
 @section('PageTitle',
     Str::of($company_nature)->plural()->ucfirst() . ' API',)
 
-@section('BeforeCommonCss')
-    <link href="{{ asset('assets/extra-libs/prism/prism.css') }}" rel="stylesheet">
-@endsection
 
-@section('AfterCommonCss')
+@section('CSS')
     <style>
         .collection {
             border-radius: 10px;
@@ -61,7 +58,7 @@
                                         </code>
                                     </pre>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -74,33 +71,33 @@
                                     </ul>
                                     <div id="1csdotnet">
                                         <pre>
-                                                <code class="language-markup">
-                                                    WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['class' => '00001', 'section' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}");
-                                                    WebResponse response = request.GetResponse();
+                                            <code class="language-markup">
+                                                WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['class' => '00001', 'section' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}");
+                                                WebResponse response = request.GetResponse();
 
-                                                    Stream dataStream = response.GetResponseStream();
-                                                    StreamReader reader = new StreamReader(dataStream);
+                                                Stream dataStream = response.GetResponseStream();
+                                                StreamReader reader = new StreamReader(dataStream);
 
-                                                    Console.WriteLine("Response: " + reader.ReadToEnd().toString());
-                                                    response.Close();
-                                                </code>
-                                            </pre>
+                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString());
+                                                response.Close();
+                                            </code>
+                                        </pre>
                                     </div>
                                     <div id="1vbdotnet">
                                         <pre>
-                                                <code class="language-markup">
-                                                    Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['class' => '00001', 'section' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}")
-                                                    Dim response As WebResponse = request.GetResponse()
+                                            <code class="language-markup">
+                                                Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.index', ['class' => '00001', 'section' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}")
+                                                Dim response As WebResponse = request.GetResponse()
 
-                                                    Dim dataStream As Stream = response.GetResponseStream()
-                                                    Dim reader As New StreamReader(dataStream)
+                                                Dim dataStream As Stream = response.GetResponseStream()
+                                                Dim reader As New StreamReader(dataStream)
 
-                                                    Console.WriteLine("Response: " + reader.ReadToEnd().toString())
-                                                    response.Close()
-                                                </code>
-                                            </pre>
+                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString())
+                                                response.Close()
+                                            </code>
+                                        </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
 
                             <h4 class="card-title m-t-40" id="data-of-{{ Str::of($company_nature) }}">2. Data of
@@ -113,7 +110,7 @@
                                     </code>
                                 </pre>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -126,33 +123,33 @@
                                     </ul>
                                     <div id="2csdotnet">
                                         <pre>
-                                                <code class="language-markup">
-                                                    WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', ['class' => '00001', 'section' => '00001', 'code' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}");
-                                                    WebResponse response = request.GetResponse();
+                                            <code class="language-markup">
+                                                WebRequest request = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', ['class' => '00001', 'section' => '00001', 'code' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}");
+                                                WebResponse response = request.GetResponse();
 
-                                                    Stream dataStream = response.GetResponseStream();
-                                                    StreamReader reader = new StreamReader(dataStream);
+                                                Stream dataStream = response.GetResponseStream();
+                                                StreamReader reader = new StreamReader(dataStream);
 
-                                                    Console.WriteLine("Response: " + reader.ReadToEnd().toString());
-                                                    response.Close();
-                                                </code>
-                                            </pre>
+                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString());
+                                                response.Close();
+                                            </code>
+                                        </pre>
                                     </div>
                                     <div id="2vbdotnet">
                                         <pre>
-                                                <code class="language-markup">
-                                                    Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', ['class' => '00001', 'section' => '00001', 'code' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}")
-                                                    Dim response As WebResponse = request.GetResponse()
+                                            <code class="language-markup">
+                                                Dim request As WebRequest = WebRequest.Create("{{ urldecode(route('api.' . Str::of($company_nature)->plural() . '.show', ['class' => '00001', 'section' => '00001', 'code' => '00001', 'email' => session('Data.email'), 'password' => '*********'])) }}")
+                                                Dim response As WebResponse = request.GetResponse()
 
-                                                    Dim dataStream As Stream = response.GetResponseStream()
-                                                    Dim reader As New StreamReader(dataStream)
+                                                Dim dataStream As Stream = response.GetResponseStream()
+                                                Dim reader As New StreamReader(dataStream)
 
-                                                    Console.WriteLine("Response: " + reader.ReadToEnd().toString())
-                                                    response.Close()
-                                                </code>
-                                            </pre>
+                                                Console.WriteLine("Response: " + reader.ReadToEnd().toString())
+                                                response.Close()
+                                            </code>
+                                        </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
 
                             <h4 class="card-title m-t-40" id="create-new-{{ Str::of($company_nature) }}">3. Create a new
@@ -212,7 +209,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -277,7 +274,7 @@
                                             </code>
                                         </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
 
                             <h4 class="card-title m-t-40" id="update-a-{{ Str::of($company_nature) }}">4. Update a
@@ -335,7 +332,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -400,7 +397,7 @@
                                             </code>
                                         </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
 
                             <h4 class="card-title m-t-40" id="delete-a-{{ Str::of($company_nature) }}">5. Delete a
@@ -436,7 +433,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <div>
+                                <div>
                                     <br>
                                     <h5>Coding Examples</h5>
                                     <ul class="tabs tab-demo z-depth-1">
@@ -501,7 +498,7 @@
                                                 </code>
                                             </pre>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -512,11 +509,5 @@
 @endsection
 
 @section('Js')
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/app.js') }}"></script>
-    <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
-    <script src="{{ asset('dist/js/custom.min.js') }}"></script>
-    <script src="{{ asset('assets/extra-libs/prism/prism.js') }}"></script>
+
 @endsection

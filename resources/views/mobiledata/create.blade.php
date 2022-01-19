@@ -236,22 +236,7 @@
 @endsection
 
 @section('Js')
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/app.js') }}"></script>
-    <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
-    <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
-    {{-- <script src="{{asset('assets/extra-libs/prism/prism.js')}}"></script> --}}
-    <script src="{{ asset('assets/libs/moment/moment.js') }}"></script>
-    <script
-        src="{{ asset('assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js') }}">
-    </script>
-
-    <script src="{{ asset('dist/js/sweetalert2.min.js') }}"></script>
-    <script src="{{ asset('dist/js/jqueryvalidation.min.js') }}"></script>
-    <script src="{{ asset('dist/js/jqueryadditionalvalidation.min.js') }}"></script>
 
     <script>
         $('#dob').bootstrapMaterialDatePicker({

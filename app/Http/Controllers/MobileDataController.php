@@ -19,15 +19,8 @@ class MobileDataController extends Controller
         try {
             if (!request()->ajax()) {
                 $data = [
-                    'groups' => (new Group)->where('user_id', '=', session('Data.id'))->orderBy('code')->get(),
-                    'members' => (new Mobiledatas)->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
-                        ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
-                        ->select('mobiledatas.*', 'groups.name AS group_name', 'sections.name AS section_name')
-                        ->where('mobiledatas.user_id', '=', session('Data.id'))
-                        ->when($request->group_id, function ($query, $groupid) {
-                            return $query->where('mobiledatas.group_id', $groupid);
-                        })
-                        ->paginate(50),
+                    'groups' => (new Group)->getAll(),
+                    'members' => (new Mobiledatas)->getMembersWithGroups($request, 50),
                     'group_id' => $request->group_id,
                 ];
 
@@ -52,7 +45,7 @@ class MobileDataController extends Controller
         try {
             if (!request()->ajax()) {
                 $data = [
-                    'groups' => (new Group)->where('user_id', '=', session('Data.id'))->orderBy('code')->get(),
+                    'groups' => (new Group)->getAll(),
                     'sections' => (new Section)->select('id', 'name')->where('user_id', '=', session('Data.id'))->get(),
                 ];
 

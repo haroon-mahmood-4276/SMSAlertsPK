@@ -19,7 +19,7 @@ class Group extends Model
 
     public function getAll()
     {
-        return $this->where('user_id', '=', session('Data.id'))->get();
+        return $this->where('user_id', '=', session('Data.id'))->orderBy('code')->get();
     }
 
     public function checkCode($code)

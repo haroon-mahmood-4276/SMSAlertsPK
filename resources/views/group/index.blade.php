@@ -7,8 +7,7 @@
 @endsection
 
 @section('AfterCommonCss')
-    <link href="{{ asset('assets/libs/footable/css/footable.core.css') }}" rel="stylesheet">
-    <link href="{{ asset('dist/css/pages/footable-page.css') }}" rel="stylesheet">
+
 @endsection
 
 @section('content')
@@ -161,16 +160,7 @@
 @endsection
 
 @section('Js')
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/app.js') }}"></script>
-    <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
-    <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
-    <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
-    <script src="{{ asset('dist/js/sweetalert2.min.js') }}"></script>
     <script>
         $(".sl-all").on('click', function() {
             $('.chkbox').prop('checked', this.checked);
