@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{Group, Mobiledatas, Section};
 use App\Rules\CheckMemberCode;
+use Exception;
 use Illuminate\Http\Request;
 
 class MobileDataController extends Controller
@@ -15,21 +16,30 @@ class MobileDataController extends Controller
      */
     public function index(Request $request)
     {
-        $Groups = Group::where('user_id', '=', session('Data.id'))->orderBy('code')->get();
-        if ($request->group_id != "") {
-            $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'))->where('group_id', '=', $request->group_id);
-        } else {
-            $MobileDatas = Mobiledatas::where('user_id', '=', session('Data.id'));
+        try {
+            if (!request()->ajax()) {
+                $data = [
+                    'groups' => (new Group)->where('user_id', '=', session('Data.id'))->orderBy('code')->get(),
+                    'members' => (new Mobiledatas)->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
+                        ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
+                        ->select('mobiledatas.*', 'groups.name AS group_name', 'sections.name AS section_name')
+                        ->where('mobiledatas.user_id', '=', session('Data.id'))
+                        ->when($request->group_id, function ($query, $groupid) {
+                            return $query->where('mobiledatas.group_id', $groupid);
+                        })
+                        ->paginate(50),
+                    'group_id' => $request->group_id,
+                ];
+
+                return view('mobiledata.index', $data);
+            } else {
+                return ApiErrorResponse('ajax request is not supported');
+            }
+        } catch (Exception $ex) {
+            $request->session()->flash('AlertType', 'danger');
+            $request->session()->flash('AlertMsg', $ex->getMessage());
+            return view('mobiledata.index');
         }
-
-        $MobileDatas = $MobileDatas->addSelect(['group_name' => Group::select('name')->whereColumn('id', '=', 'mobiledatas.group_id')]);
-        $MobileDatas = $MobileDatas->addSelect(['section_name' => Section::select('name')->whereColumn('id', '=', 'mobiledatas.section_id')])->orderBy('section_name')->get();
-        // return $MobileDatas;
-
-        // $MobileDatas = Mobiledatas::join('groups', 'mobiledatas.group_id', '=', 'groups.id')->join('sections', 'mobiledatas.section_id', '=', 'sections.id')->select('mobiledatas.*', 'groups.name AS group_name', 'sections.name AS section_name')->where('user_id', '=', session('Data.id'))->get();
-        //  return $MobileDatas;
-
-        return view('mobiledata.index', ['MobileDatas' => $MobileDatas, 'Groups' => $Groups, 'Current_Code' => $request->group_id]);
     }
 
     /**
@@ -37,11 +47,24 @@ class MobileDataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-        $Sections = Section::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-        return view('mobiledata.create', ['Groups' => $Groups, 'Sections' => $Sections]);
+        try {
+            if (!request()->ajax()) {
+                $data = [
+                    'groups' => (new Group)->where('user_id', '=', session('Data.id'))->orderBy('code')->get(),
+                    'sections' => (new Section)->select('id', 'name')->where('user_id', '=', session('Data.id'))->get(),
+                ];
+
+                return view('mobiledata.create', $data);
+            } else {
+                return ApiErrorResponse('ajax request is not supported');
+            }
+        } catch (Exception $ex) {
+            $request->session()->flash('AlertType', 'danger');
+            $request->session()->flash('AlertMsg', $ex->getMessage());
+            return view('mobiledata.create');
+        }
     }
 
     /**

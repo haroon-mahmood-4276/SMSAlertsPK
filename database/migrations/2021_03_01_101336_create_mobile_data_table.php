@@ -15,9 +15,9 @@ class CreateMobileDataTable extends Migration
     public function up()
     {
         Schema::create('mobiledatas', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('group_id')->nullable();
-            $table->unsignedBigInteger('section_id')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('group_id')->nullable()->constrained();
+            $table->foreignId('section_id')->nullable()->constrained();
             $table->id();
             $table->string('code', 20);
             $table->string('student_first_name', 50)->nullable();
@@ -31,11 +31,8 @@ class CreateMobileDataTable extends Migration
             $table->string('parent_mobile_1', 12);
             $table->string('parent_mobile_2', 12)->nullable();
             $table->string('active', 1);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('group_id')->references('id')->on('groups');
-            $table->foreign('section_id')->references('id')->on('sections');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -42,29 +42,23 @@
                                             </div>
                                         </div>
                                     @endif
-                                    Show &nbsp;
-                                    <div class="input-field inline">
-                                        <select id="demo-show-entries">
-                                            <option value="10">10</option>
-                                            <option value="15">15</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                            <option value="40">40</option>
-                                            <option value="50">50</option>
-                                        </select>
+                                    <div class="left">
+                                        <div class="form-group">
+                                            <input id="demo-input-search2" type="text" placeholder="Search"
+                                                autocomplete="off">
+                                        </div>
                                     </div>
-                                    &nbsp; entries
                                     <div class="right">
                                         <form action="{{ route('data.index') }}">
                                             <div class="input-field inline">
                                                 <select class="form-select inline" name="group_id"
                                                     onchange="this.form.submit()">
                                                     <option value="">All</option>
-                                                    @foreach ($Groups as $Group)
-                                                        <option value="{{ $Group->id }}"
-                                                            {{ $Group->id == $Current_Code ? 'selected' : '' }}>
-                                                            {{ $Group->name }}</option>
-                                                    @endforeach
+                                                    @if (isset($groups))
+                                                        @foreach ($groups as $group)
+                                                            <option value="{{ $group->id }}" {{ $group->id == $group_id ? 'selected' : '' }}>{{ $group->name }}</option>
+                                                        @endforeach
+                                                    @endif
                                                 </select>
                                                 <label for="group_name"
                                                     class="form-label">{{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}</label>
@@ -72,6 +66,10 @@
                                         </form>
                                     </div>
                                 </div>
+                            </div>
+                            <div>
+                                <a href="{{ session('Data.company_nature') == 'B' ? route('r.delete-all-groups') : route('r.delete-all-classes') }}"
+                                    class="btn btn-small waves-effect red waves-light right" id="delete-all">Delete all</a>
                             </div>
                             <form
                                 action="{{ session('Data.company_nature') == 'B' ? route('data.destroy', ['data' => '0']) : route('data.destroy', ['data' => '0']) }}"
@@ -137,79 +135,88 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="ml-auto">
-                                                <div class="form-group">
-                                                    <input id="demo-input-search2" type="text" placeholder="Search"
-                                                        autocomplete="off">
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                     <tbody>
-                                        @foreach ($MobileDatas as $MobileData)
-                                            <tr>
+                                        @if (isset($members))
+                                            @forelse ($members as $member)
+                                                <tr>
 
-                                                <td>{{ $MobileData->code }}</td>
-                                                <td>{{ $MobileData->student_first_name }}
-                                                    {{ $MobileData->student_last_name }}
-                                                </td>
-                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
-                                                    <td>{{ $MobileData->parent_first_name }}
-                                                        {{ $MobileData->parent_last_name }}
+                                                    <td>{{ $member->code }}</td>
+                                                    <td>{{ $member->student_first_name }}
+                                                        {{ $member->student_last_name }}
                                                     </td>
-                                                @endif
-                                                <td>{{ $MobileData->parent_mobile_1 }}</td>
-                                                <td>{{ $MobileData->parent_mobile_2 }}</td>
-                                                <td>{{ $MobileData->group_name }} @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
-                                                        - {{ $MobileData->section_name }}
+                                                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
+                                                        <td>{{ $member->parent_first_name }}
+                                                            {{ $member->parent_last_name }}
+                                                        </td>
                                                     @endif
-                                                </td>
-                                                @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
-                                                    <td>{{ $MobileData->student_mobile_1 }}</td>
-                                                    <td>{{ $MobileData->student_mobile_2 }}</td>
-                                                @endif
-                                                <td>{{ $MobileData->dob }}</td>
-                                                {{-- <td>{{ $MobileData->cnic }}</td> --}}
-                                                <td>{{ $MobileData->gender }}</td>
-                                                <td>{{ $MobileData->card_number }}</td>
-                                                <td>
-                                                    @if ($MobileData->active == 'Y')
-                                                        <span class="label label-table label-success">Active</span>
-                                                    @else
-                                                        <span class="label label-table label-danger">Not Active</span>
+                                                    <td>{{ $member->parent_mobile_1 }}</td>
+                                                    <td>{{ $member->parent_mobile_2 }}</td>
+                                                    <td>{{ $member->group_name }} @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
+                                                            - {{ $member->section_name }}
+                                                        @endif
+                                                    </td>
+                                                    @if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE')
+                                                        <td>{{ $member->student_mobile_1 }}</td>
+                                                        <td>{{ $member->student_mobile_2 }}</td>
                                                     @endif
+                                                    <td>{{ $member->dob }}</td>
+                                                    {{-- <td>{{ $member->cnic }}</td> --}}
+                                                    <td>{{ $member->gender }}</td>
+                                                    <td>{{ $member->card_number }}</td>
+                                                    <td>
+                                                        @if ($member->active == 'Y')
+                                                            <span class="label label-table label-success">Active</span>
+                                                        @else
+                                                            <span class="label label-table label-danger">Not Active</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <div class="row">
+                                                            <div class="col s6 m6 l6">
+                                                                <a href="{{ route('data.edit', ['data' => $member->id]) }}"
+                                                                    type="button"
+                                                                    class="btn btn-small blue m-5 left waves-effect waves-light"><i
+                                                                        class="material-icons">edit</i></a>
+                                                            </div>
+                                                            <div class="col s6 m6 l6">
+                                                                <p class="m-t-10 multidelchk">
+                                                                    <label>
+                                                                        <input type="checkbox" class="chkbox filled-in"
+                                                                            name="members_ids[]"
+                                                                            value="{{ $member->id }}" />
+                                                                        <span>&nbsp;</span>
+                                                                    </label>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="7">Data not found.</td>
+                                                </tr>
+                                            @endforelse
+                                        @endif
+                                    </tbody>
+                                    <tfoot>
+                                        @if (isset($members))
+                                            <tr>
+                                                <td colspan="3">
+                                                    {{ $members->onEachSide(2)->links('components.pagination') }}
                                                 </td>
-                                                <td>
-                                                    <div class="row">
-                                                        <div class="col s6 m6 l6">
-                                                            <a href="{{ route('data.edit', ['data' => $MobileData->id]) }}"
-                                                                type="button"
-                                                                class="btn btn-small blue m-5 left waves-effect waves-light"><i
-                                                                    class="material-icons">edit</i></a>
-                                                        </div>
-                                                        <div class="col s6 m6 l6">
-                                                            <p class="m-t-10 multidelchk">
-                                                                <label>
-                                                                    <input type="checkbox" class="chkbox filled-in"
-                                                                        name="members_ids[]"
-                                                                        value="{{ $MobileData->id }}" />
-                                                                    <span>&nbsp;</span>
-                                                                </label>
-                                                            </p>
-                                                        </div>
+                                                <td colspan="4">
+                                                    <div style="text-align: right">
+                                                        [{{ $members->firstItem() }} ~ {{ $members->lastItem() }}] out
+                                                        of
+                                                        {{ $members->total() }}
+
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="7">
-                                                <div class="text-right">
-                                                    <ul class="pagination pagination-split"> </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @endif
                                     </tfoot>
                                 </table>
                             </form>

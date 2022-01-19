@@ -20,7 +20,7 @@
                         <h5 class="card-title">Create
                             {{ session('Data.company_nature') == 'B' ? 'Member' : 'Student' }}
                         </h5>
-                        <form action="{{ route('data.store') }}" method="POST">
+                        <form action="{{ route('data.store') }}" method="POST" id="store-member-form">
                             @csrf
                             @if (Session::get('AlertType') && Session::get('AlertMsg'))
                                 <div class="row">
@@ -36,13 +36,14 @@
                                 <div class="input-field col s6">
                                     <select class="form-select" name="group" id="group">
                                         <option value="">Select</option>
-                                        @foreach ($Groups as $Group)
-                                            <option value="{{ $Group->id }}"
-                                                {{ old('group') == $Group->id ? ' selected' : '' }}>{{ $Group->name }}
+                                        @foreach ($groups as $group)
+                                            <option value="{{ $group->id }}"
+                                                {{ old('group') == $group->id ? ' selected' : '' }}>{{ $group->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <label for="group" class="form-label">{{session('Data.company_nature') == 'B' ? 'Groups' : 'Classes'}}</label>
+                                    <label for="group"
+                                        class="form-label">{{ session('Data.company_nature') == 'B' ? 'Groups' : 'Classes' }}</label>
                                     @error('group')
                                         <span style="color: red">{{ $message }}</span>
                                     @enderror
@@ -119,9 +120,9 @@
                                 </div>
 
                                 <div class="input-field col s12 m6 l6">
-                                        <input type="text" value="{{ old('dob') }}" id="dob" name="dob"
+                                    <input type="text" value="{{ old('dob') }}" id="dob" name="dob"
                                         placeholder="01/01/1999">
-                                        <label class="form-label">Date of Birth</label>
+                                    <label class="form-label">Date of Birth</label>
                                     @error('dob')
                                         <span style="color: rgb(255, 0, 0)">{{ $message }}</span>
                                     @enderror
@@ -157,8 +158,7 @@
                                 <div class="input-field col s12 m6 l6">
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="card_number" name="card_number" type="text"
-                                        class="@error('card_number') error @enderror"
-                                        value="{{ old('card_number') }}">
+                                        class="@error('card_number') error @enderror" value="{{ old('card_number') }}">
                                     <label for="card_number">Device Card Number (if any)</label>
                                     @error('card_number')
                                         <span style="color: red">{{ $message }}</span>
@@ -248,6 +248,11 @@
     <script
         src="{{ asset('assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js') }}">
     </script>
+
+    <script src="{{ asset('dist/js/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jqueryvalidation.min.js') }}"></script>
+    <script src="{{ asset('dist/js/jqueryadditionalvalidation.min.js') }}"></script>
+
     <script>
         $('#dob').bootstrapMaterialDatePicker({
             // format: 'DD/MM/YYYY',
@@ -256,30 +261,77 @@
         });
 
         $('#group').on('change', function() {
-
             var GroupId = $(this).val();
-
             var Data = "";
-
             $.ajax({
                 type: "get",
                 url: '/sections/' + GroupId + '/list',
                 dataType: 'json',
                 success: function(response) {
-
                     Data += '<option value="">Select</option>';
                     for (let index = 0; index < response.length; index++) {
                         Data += '<option value="' + response[index].id + '">' + response[index].name +
                             '</option>\n';
                     }
                     $('#section').html(Data);
-
                     var elem = document.querySelector('#section');
                     var instance = M.FormSelect.init(elem);
-
                 }
             });
+        });
 
+        var validator = $("#store-member-form").validate({
+
+            rules: {
+                group: {
+                    required: true,
+                },
+                group: {
+                    required: true,
+                    digits: true,
+                    minlength: 5,
+                    maxlength: 5,
+                    remote: {
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        url: "{{ session('Data.company_nature') == 'B' ? route('r.check-group-code') : route('r.check-class-code') }}",
+                        type: "GET",
+                    },
+                },
+                name: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 50,
+                }
+            },
+            validClass: "success",
+            errorClass: 'error',
+            errorElement: "span",
+            wrapper: "div",
+            submitHandler: function(form) {
+                Swal.fire({
+                    allowOutsideClick: false,
+                    showConfirmButton: true,
+                    showDenyButton: true,
+                    allowEscapeKey: true,
+                    allowEnterKey: true,
+                    buttonsStyling: false,
+                    title: "Do you want to save this {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}?",
+                    backdrop: true,
+                    confirmButtonText: 'Yes',
+                    denyButtonText: 'No',
+                    customClass: {
+                        popup: 'rounded-5 p-t-3',
+                        confirmButton: 'btn btn-primary m-10',
+                        denyButton: 'btn btn-small waves-effect red waves-light m-10',
+                    }
+                }).then(function(dialogue) {
+                    if (dialogue.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            }
         });
     </script>
 @endsection
