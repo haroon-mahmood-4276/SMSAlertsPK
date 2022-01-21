@@ -7,7 +7,7 @@ use App\Rules\{CheckGroupCode};
 use Exception;
 use Illuminate\Http\{Request};
 use Illuminate\Support\{Str};
-use Illuminate\Support\Facades\Crypt;
+
 
 class GroupController extends Controller
 {
@@ -20,7 +20,7 @@ class GroupController extends Controller
     {
         if (!request()->ajax()) {
             $data = [
-                'groups' => (new Group())->where('user_id', '=', session('Data.id'))->orderBy('code')->paginate(50),
+                'groups' => (new Group())->getAllWithPaginate(50),
             ];
             return view('group.index', $data);
         } else {
@@ -89,7 +89,7 @@ class GroupController extends Controller
     {
         try {
             if (!request()->ajax()) {
-                $id = Crypt::decryptString($id);
+                $id = decryptParams($id);
 
                 $data = [
                     'group' => (new Group())->find($id),
@@ -114,7 +114,7 @@ class GroupController extends Controller
     {
         try {
             if (!request()->ajax()) {
-                $id = Crypt::decryptString($id);
+                $id = decryptParams($id);
                 $request->validate([
                     'name' => 'bail|required|between:1,50',
                 ]);
@@ -152,6 +152,7 @@ class GroupController extends Controller
                 $AlertMsg = "";
 
                 if ($request->group_ids != null) {
+                    $request->group_ids = array_map('decryptParams', $request->group_ids);
                     $response = (new Group())->whereIn('id', $request->group_ids)->delete();
                     $AlertType = "success";
                     $AlertMsg = "Selected data deleted";
@@ -177,7 +178,7 @@ class GroupController extends Controller
     {
         try {
             if (!request()->ajax()) {
-                $response = (new Group())->where('user_id', '=', session('Data.id'))->delete();
+                $response = (new Group())->deleetAllGroups();
                 $AlertType = "success";
                 $AlertMsg = "Data deleted";
 

@@ -23,6 +23,11 @@ class Group extends Model
         return $this->where('user_id', '=', session('Data.id'))->orderBy('code')->get();
     }
 
+    public function getAllWithPaginate($limit)
+    {
+        return $this->where('user_id', '=', session('Data.id'))->orderBy('code')->paginate($limit);
+    }
+
     public function checkCode($code)
     {
         return $this->where([
@@ -31,14 +36,19 @@ class Group extends Model
         ])->exists();
     }
 
-    public function storeGroup($request){
+    public function storeGroup($request)
+    {
         // dd($request);
         $data = [
-            'user_id' => filter_strip_tags(Session::get('Data.id')) ,
+            'user_id' => filter_strip_tags(Session::get('Data.id')),
             'code' => filter_strip_tags($request['code']),
             'name' => filter_strip_tags($request['name']),
         ];
         return $this->create($data);
+    }
 
+    public function deleetAllGroups()
+    {
+        $this->where('user_id', '=', session('Data.id'))->delete();
     }
 }

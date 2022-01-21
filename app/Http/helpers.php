@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Crypt;
+
 if (!function_exists('ApiErrorResponse')) {
     function ApiErrorResponse($message, $key = null)
     {
@@ -119,5 +121,19 @@ if (!function_exists('base64ToImage')) {
         }
 
         return $filename;
+    }
+}
+
+if (!function_exists('encryptParams')) {
+    function encryptParams($params)
+    {
+        return Crypt::encryptString($params);
+    }
+}
+
+if (!function_exists('decryptParams')) {
+    function decryptParams($params)
+    {
+        return Crypt::decryptString($params);
     }
 }
