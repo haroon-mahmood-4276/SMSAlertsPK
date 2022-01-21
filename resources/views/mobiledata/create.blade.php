@@ -97,7 +97,8 @@
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_mobile_1" name="student_mobile_1" type="text"
                                         class="@error('student_mobile_1') error @enderror"
-                                        value="{{ old('student_mobile_1') }}" placeholder="923001234567">
+                                        value="{{ old('student_mobile_1') }}" placeholder="923001234567"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                     <label for="student_mobile_1">Primary Mobile Number *</label>
                                     @error('student_mobile_1')
                                         <span style="color: red">{{ $message }}</span>
@@ -110,7 +111,8 @@
                                     <i class="material-icons prefix">text_format</i>
                                     <input id="student_mobile_2" name="student_mobile_2" type="text"
                                         class="@error('student_mobile_2') error @enderror"
-                                        value="{{ old('student_mobile_2') }}" placeholder="923001234567">
+                                        value="{{ old('student_mobile_2') }}" placeholder="923001234567"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                     <label for="student_mobile_2">Secondary Mobile Number</label>
                                     @error('student_mobile_2')
                                         <span style="color: red">{{ $message }}</span>
@@ -239,84 +241,145 @@
 
 
     <script>
-        $('#dob').bootstrapMaterialDatePicker({
-            // format: 'DD/MM/YYYY',
-            weekStart: 1,
-            time: false
-        });
-
-        $('#group').on('change', function() {
-            var GroupId = $(this).val();
-            var Data = "";
-            $.ajax({
-                type: "get",
-                url: '/sections/' + GroupId + '/list',
-                dataType: 'json',
-                success: function(response) {
-                    Data += '<option value="">Select</option>';
-                    for (let index = 0; index < response.length; index++) {
-                        Data += '<option value="' + response[index].id + '">' + response[index].name +
-                            '</option>\n';
-                    }
-                    $('#section').html(Data);
-                    var elem = document.querySelector('#section');
-                    var instance = M.FormSelect.init(elem);
-                }
+        $(document).ready(function() {
+            $('#dob').bootstrapMaterialDatePicker({
+                // format: 'DD/MM/YYYY',
+                weekStart: 1,
+                time: false
             });
-        });
 
-        var validator = $("#store-member-form").validate({
-
-            rules: {
-                group: {
-                    required: true,
-                },
-                group: {
-                    required: true,
-                    digits: true,
-                    minlength: 5,
-                    maxlength: 5,
-                    remote: {
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        url: "{{ session('Data.company_nature') == 'B' ? route('r.check-group-code') : route('r.check-class-code') }}",
-                        type: "GET",
-                    },
-                },
-                name: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 50,
-                }
-            },
-            validClass: "success",
-            errorClass: 'error',
-            errorElement: "span",
-            wrapper: "div",
-            submitHandler: function(form) {
-                Swal.fire({
-                    allowOutsideClick: false,
-                    showConfirmButton: true,
-                    showDenyButton: true,
-                    allowEscapeKey: true,
-                    allowEnterKey: true,
-                    buttonsStyling: false,
-                    title: "Do you want to save this {{ session('Data.company_nature') == 'B' ? 'Group' : 'Class' }}?",
-                    backdrop: true,
-                    confirmButtonText: 'Yes',
-                    denyButtonText: 'No',
-                    customClass: {
-                        popup: 'rounded-5 p-t-3',
-                        confirmButton: 'btn btn-primary m-10',
-                        denyButton: 'btn btn-small waves-effect red waves-light m-10',
-                    }
-                }).then(function(dialogue) {
-                    if (dialogue.isConfirmed) {
-                        form.submit();
+            $('#group').on('change', function() {
+                var GroupId = $(this).val();
+                var Data = "";
+                $.ajax({
+                    type: "get",
+                    url: '/sections/' + GroupId + '/list',
+                    dataType: 'json',
+                    success: function(response) {
+                        Data += '<option value="">Select</option>';
+                        for (let index = 0; index < response.length; index++) {
+                            Data += '<option value="' + response[index].id + '">' + response[
+                                    index].name +
+                                '</option>\n';
+                        }
+                        $('#section').html(Data);
+                        var elem = document.querySelector('#section');
+                        var instance = M.FormSelect.init(elem);
                     }
                 });
-            }
+            });
+
+            $("#store-member-form").validate({
+
+                rules: {
+                    group: {
+                        required: true,
+                    },
+                    section: {
+                        required: function(element) {
+                            return '{{ session('Data.company_nature') }}' == 'S' ||
+                                '{{ session('Data.company_nature') }}' == 'HE';
+                        },
+                    },
+                    code: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 20,
+                        remote: {
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                            },
+                            url: "{{ route('r.check-data-code') }}",
+                            type: "GET",
+                        },
+                    },
+                    student_first_name: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50,
+                    },
+                    student_last_name: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 50,
+                    },
+                    student_mobile_1: {
+                        required: true,
+                        digits: true,
+                        minlength: 11,
+                        maxlength: 12,
+                    },
+                    student_mobile_2: {
+                        required: true,
+                        digits: true,
+                        minlength: 11,
+                        maxlength: 12,
+                    },
+                    dob: {
+                        required: true,
+                    },
+                    gender: {
+                        required: true,
+                    },
+                    active: {
+                        required: true,
+                    },
+                    card_number: {
+                        digits: true,
+                    },
+                    parent_first_name: {
+                        required: function(element) {
+                            return '{{ session('Data.company_nature') }}' == 'S' ||
+                                '{{ session('Data.company_nature') }}' == 'HE';
+                        },
+                    },
+                    parent_last_name: {
+                        required: function(element) {
+                            return '{{ session('Data.company_nature') }}' == 'S' ||
+                                '{{ session('Data.company_nature') }}' == 'HE';
+                        },
+                    },
+                    parent_mobile_1: {
+                        required: function(element) {
+                            return '{{ session('Data.company_nature') }}' == 'S' ||
+                                '{{ session('Data.company_nature') }}' == 'HE';
+                        },
+                    },
+                    parent_mobile_2: {
+                        required: function(element) {
+                            return '{{ session('Data.company_nature') }}' == 'S' ||
+                                '{{ session('Data.company_nature') }}' == 'HE';
+                        },
+                    },
+                },
+                validClass: "success",
+                errorClass: 'error',
+                errorElement: "span",
+                wrapper: "div",
+                submitHandler: function(form) {
+                    Swal.fire({
+                        allowOutsideClick: false,
+                        showConfirmButton: true,
+                        showDenyButton: true,
+                        allowEscapeKey: true,
+                        allowEnterKey: true,
+                        buttonsStyling: false,
+                        title: "Do you want to save this {{ session('Data.company_nature') == 'B' ? 'Member' : 'Student' }}?",
+                        backdrop: true,
+                        confirmButtonText: 'Yes',
+                        denyButtonText: 'No',
+                        customClass: {
+                            popup: 'rounded-5 p-t-3',
+                            confirmButton: 'btn btn-primary m-10',
+                            denyButton: 'btn btn-small waves-effect red waves-light m-10',
+                        }
+                    }).then(function(dialogue) {
+                        if (dialogue.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                }
+            });
         });
     </script>
 @endsection

@@ -64,6 +64,7 @@ Route::group(['middleware' => ['AuthRoute']], function () {
 
     Route::get('check/groups', [GroupController::class, 'CheckGroupCodeExistance'])->name('r.check-group-code');
     Route::get('check/classes', [GroupController::class, 'CheckGroupCodeExistance'])->name('r.check-class-code');
+    Route::get('check/data', [MobileDataController::class, 'CheckMobileDataCodeExistance'])->name('r.check-data-code');
 
     Route::resources([
         'users' => UserController::class,

@@ -46,12 +46,13 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode()],
+            'name' => 'bail|required|between:1,50',
+        ]);
         try {
             if (!request()->ajax()) {
-                $request->validate([
-                    'code' => ['bail', 'required', 'numeric', 'digits:5', new CheckGroupCode()],
-                    'name' => 'bail|required|between:1,50',
-                ]);
+
 
                 $response = (new Group())->storeGroup($request->post());
 
@@ -112,12 +113,13 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'bail|required|between:1,50',
+        ]);
         try {
             if (!request()->ajax()) {
                 $id = decryptParams($id);
-                $request->validate([
-                    'name' => 'bail|required|between:1,50',
-                ]);
+
 
                 $data = [
                     'name' => $request->name,
@@ -198,7 +200,7 @@ class GroupController extends Controller
     public function CheckGroupCodeExistance(Request $request)
     {
         if ($request->has('code')) {
-            $group = (new Group())->checkCode($request->code);
+            $group = (new Group())->checkCode(filter_strip_tags($request->code));
 
             if ($group) {
                 return response()->json(['This code is taken.']);

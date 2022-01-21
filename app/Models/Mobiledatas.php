@@ -44,7 +44,7 @@ class Mobiledatas extends Model
 
     public function storeMobileData($request)
     {
-        dd($request);
+        // dd($request);
         $data = [
             'group_id' => filter_strip_tags($request['group']),
             'section_id' => filter_strip_tags($request['section']),
@@ -64,5 +64,13 @@ class Mobiledatas extends Model
         ];
 
         return $this->create($data);
+    }
+
+    public function checkCode($code)
+    {
+        return $this->where([
+            'user_id' => session('Data.id'),
+            'code' => $code
+        ])->exists();
     }
 }
