@@ -238,8 +238,6 @@
 @endsection
 
 @section('Js')
-
-
     <script>
         $(document).ready(function() {
             $('#dob').bootstrapMaterialDatePicker({
@@ -310,7 +308,6 @@
                         maxlength: 12,
                     },
                     student_mobile_2: {
-                        required: true,
                         digits: true,
                         minlength: 11,
                         maxlength: 12,

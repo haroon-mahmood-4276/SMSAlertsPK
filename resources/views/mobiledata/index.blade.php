@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div>
-                                <a href="{{ session('Data.company_nature') == 'B' ? route('r.delete-all-groups') : route('r.delete-all-classes') }}"
+                                <a href="{{ session('Data.company_nature') == 'B' ? route('r.delete-all-members') : route('r.delete-all-students') }}"
                                     class="btn btn-small waves-effect red waves-light right" id="delete-all">Delete all</a>
                             </div>
                             <form
@@ -228,6 +228,32 @@
     <script>
         $(".sl-all").on('click', function() {
             $('.chkbox').prop('checked', this.checked);
+        });
+
+        $('#delete-all').on('click', function(e) {
+            e.preventDefault();
+            var hrefLink = $(this).attr('href');
+            Swal.fire({
+                allowOutsideClick: false,
+                showConfirmButton: true,
+                showDenyButton: true,
+                allowEscapeKey: true,
+                allowEnterKey: true,
+                buttonsStyling: false,
+                title: "Do you want to delete all {{ session('Data.company_nature') == 'B' ? 'Members' : 'Students' }}?",
+                backdrop: true,
+                confirmButtonText: 'Yes',
+                denyButtonText: 'No',
+                customClass: {
+                    popup: 'rounded-5 p-t-3',
+                    confirmButton: 'btn btn-primary m-10',
+                    denyButton: 'btn btn-danger m-10',
+                }
+            }).then(function(dialogue) {
+                if (dialogue.isConfirmed) {
+                    window.location.href = hrefLink;
+                }
+            });
         });
     </script>
 @endsection

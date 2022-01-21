@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 class Mobiledatas extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory, SoftDeletes, Notifiable;
 
     protected $fillable = [
         'user_id',
@@ -30,6 +31,11 @@ class Mobiledatas extends Model
         'active',
     ];
 
+    public function getById($id)
+    {
+        return $this->find($id);
+    }
+
     public function getMembersWithGroups($request, $limit)
     {
         return $this->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
@@ -44,26 +50,48 @@ class Mobiledatas extends Model
 
     public function storeMobileData($request)
     {
-        // dd($request);
         $data = [
-            'group_id' => filter_strip_tags($request['group']),
-            'section_id' => filter_strip_tags($request['section']),
+            'group_id' => isset($request['group']) ? filter_strip_tags($request['group']) : null,
+            'section_id' => isset($request['section']) ? filter_strip_tags($request['section']) : null,
             'user_id' => filter_strip_tags(session('Data.id')),
-            'code' => filter_strip_tags($request['code']),
-            'student_first_name' => filter_strip_tags($request['student_first_name']),
-            'student_last_name' => filter_strip_tags($request['student_last_name']),
-            'dob' => filter_strip_tags($request['dob']),
-            'gender' => filter_strip_tags($request['gender']),
-            'parent_first_name' => filter_strip_tags($request['parent_first_name'] ?? ''),
-            'parent_last_name' => filter_strip_tags($request['parent_last_name'] ?? ''),
-            'student_mobile_1' => filter_strip_tags($request['student_mobile_1']),
-            'student_mobile_2' => filter_strip_tags($request['student_mobile_2']),
-            'parent_mobile_1' => filter_strip_tags($request['parent_mobile_1'] ?? ''),
-            'parent_mobile_2' => filter_strip_tags($request['parent_mobile_2'] ?? ''),
-            'active' => filter_strip_tags($request['active']),
+            'code' => isset($request['code']) ? filter_strip_tags($request['code']) : null,
+            'student_first_name' => isset($request['student_first_name']) ? filter_strip_tags($request['student_first_name']) : null,
+            'student_last_name' => isset($request['student_last_name']) ? filter_strip_tags($request['student_last_name']) : null,
+            'dob' => isset($request['dob']) ? filter_strip_tags($request['dob']) : null,
+            'gender' => isset($request['gender']) ? filter_strip_tags($request['gender']) : null,
+            'parent_first_name' => isset($request['parent_first_name']) ? filter_strip_tags($request['parent_first_name']) : null,
+            'parent_last_name' => isset($request['parent_last_name']) ? filter_strip_tags($request['parent_last_name']) : null,
+            'student_mobile_1' => isset($request['student_mobile_1']) ? filter_strip_tags($request['student_mobile_1']) : null,
+            'student_mobile_2' => isset($request['student_mobile_2']) ? filter_strip_tags($request['student_mobile_2']) : null,
+            'parent_mobile_1' => isset($request['parent_mobile_1']) ? filter_strip_tags($request['parent_mobile_1']) : filter_strip_tags($request['student_mobile_1']),
+            'parent_mobile_2' => isset($request['parent_mobile_2']) ? filter_strip_tags($request['parent_mobile_2']) : filter_strip_tags($request['student_mobile_2']),
+            'active' => isset($request['active']) ? filter_strip_tags($request['active']) : null,
         ];
+        // dd($data);
 
         return $this->create($data);
+    }
+
+    public function updateMobileData($request, $id)
+    {
+        $data = [
+            'group_id' => isset($request['group']) ? filter_strip_tags($request['group']) : null,
+            'section_id' => isset($request['section']) ? filter_strip_tags($request['section']) : null,
+            'student_first_name' => isset($request['student_first_name']) ? filter_strip_tags($request['student_first_name']) : null,
+            'student_last_name' => isset($request['student_last_name']) ? filter_strip_tags($request['student_last_name']) : null,
+            'dob' => isset($request['dob']) ? filter_strip_tags($request['dob']) : null,
+            'gender' => isset($request['gender']) ? filter_strip_tags($request['gender']) : null,
+            'parent_first_name' => isset($request['parent_first_name']) ? filter_strip_tags($request['parent_first_name']) : null,
+            'parent_last_name' => isset($request['parent_last_name']) ? filter_strip_tags($request['parent_last_name']) : null,
+            'student_mobile_1' => isset($request['student_mobile_1']) ? filter_strip_tags($request['student_mobile_1']) : null,
+            'student_mobile_2' => isset($request['student_mobile_2']) ? filter_strip_tags($request['student_mobile_2']) : null,
+            'parent_mobile_1' => isset($request['parent_mobile_1']) ? filter_strip_tags($request['parent_mobile_1']) : filter_strip_tags($request['student_mobile_1']),
+            'parent_mobile_2' => isset($request['parent_mobile_2']) ? filter_strip_tags($request['parent_mobile_2']) : filter_strip_tags($request['student_mobile_2']),
+            'active' => isset($request['active']) ? filter_strip_tags($request['active']) : null,
+        ];
+        // dd($data);
+
+        return $this->where('id', $id)->update($data);
     }
 
     public function checkCode($code)
@@ -72,5 +100,10 @@ class Mobiledatas extends Model
             'user_id' => session('Data.id'),
             'code' => $code
         ])->exists();
+    }
+
+    public function deleteAllData()
+    {
+        $this->where('user_id', '=', session('Data.id'))->delete();
     }
 }

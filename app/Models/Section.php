@@ -17,7 +17,8 @@ class Section extends Model
         'name',
     ];
 
-    public function getAll(){
+    public function getAll()
+    {
         return $this->select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
     }
 
@@ -28,5 +29,13 @@ class Section extends Model
             ->groupBy('group_name', 'sections.code')
             ->where('sections.user_id', '=', session('Data.id'))
             ->paginate($page);
+    }
+
+    public function getByGroupId($group_id)
+    {
+        return $this->where([
+            'group_id' => $group_id,
+            'user_id' => session('Data.id'),
+        ])->get();
     }
 }

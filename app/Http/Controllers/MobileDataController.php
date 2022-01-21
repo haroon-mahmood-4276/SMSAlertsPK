@@ -104,7 +104,7 @@ class MobileDataController extends Controller
                 // dd($request->post());
 
                 $response = (new Mobiledatas())->storeMobileData($request->post());
-
+                // dd($response);
                 if ($response) {
                     return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
                 } else {
@@ -126,8 +126,7 @@ class MobileDataController extends Controller
      */
     public function show($id)
     {
-        // return session('Data');
-        return "asdasdasd";
+        abort(404);
     }
 
     /**
@@ -136,17 +135,28 @@ class MobileDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $id = decryptParams($id);
+        try {
+            if (!request()->ajax()) {
 
-        $MobileDatas = MobileDatas::find($id);
-        $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
-        if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE') {
-            $Sections = Section::select('id', 'name')->where('group_id', '=', $MobileDatas->group_id)->where('user_id', '=', session('Data.id'))->get();
-            return view('mobiledata.edit', ['Groups' => $Groups, 'Sections' => $Sections, 'MobileData' => $MobileDatas]);
-        } else
-            return view('mobiledata.edit', ['Groups' => $Groups, 'MobileData' => $MobileDatas]);
+                $data = [
+                    'mobiledata' => (new MobileDatas())->getById($id),
+                    'groups' => (new Group())->getAll(),
+                ];
+
+                if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE') {
+                    $data['sections'] = (new Section())->getByGroupId($data['mobiledata']->group_id);
+                    return view('mobiledata.edit', $data);
+                } else
+                    return view('mobiledata.edit', $data);
+            } else {
+                return ApiErrorResponse('ajax request is not supported');
+            }
+        } catch (Exception $ex) {
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
+        }
     }
 
     /**
@@ -191,28 +201,24 @@ class MobileDataController extends Controller
             // dd($request->input());
         }
 
-        $MobileDatas =  MobileDatas::find($id);
-        // $MobileDatas->code = $request->code;
-        $MobileDatas->student_first_name = $request->student_first_name;
-        $MobileDatas->student_last_name = $request->student_last_name;
-        $MobileDatas->student_mobile_1 = $request->student_mobile_1;
-        $MobileDatas->student_mobile_2 = $request->student_mobile_2;
-        $MobileDatas->dob = $request->dob;
-        // $MobileDatas->cnic = $request->cnic;
-        $MobileDatas->gender = $request->gender;
-        $MobileDatas->parent_first_name = $request->parent_first_name;
-        $MobileDatas->parent_last_name = $request->parent_last_name;
-        $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
-        $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
-        $MobileDatas->group_id = $request->group;
-        $MobileDatas->section_id = $request->section;
-        $MobileDatas->active = $request->active;
+        try {
+            if (!request()->ajax()) {
+                // dd($request->post());
 
+                $id = decryptParams($id);
 
-        if ($MobileDatas->save()) {
-            return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
-        } else {
-            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
+                $response = (new Mobiledatas())->updateMobileData($request->post(), $id);
+                // dd($response);
+                if ($response) {
+                    return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been updated.');
+                } else {
+                    return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not updated.');
+                }
+            } else {
+                return ApiErrorResponse('ajax request is not supported');
+            }
+        } catch (Exception $ex) {
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
     }
 
@@ -222,43 +228,55 @@ class MobileDataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $id = decryptParams($id);
-        $MobileDatas =  MobileDatas::find($id);
+        try {
+            // dd($request->input());
+            if (!request()->ajax()) {
+                $AlertType = "";
+                $AlertMsg = "";
+                $response = false;
 
-        if ($MobileDatas->delete()) {
-            return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been deleted.');
-        } else {
-            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not deleted.');
+                if ($request->members_ids != null) {
+                    $request->members_ids = array_map('decryptParams', $request->members_ids);
+                    $response = (new Mobiledatas())->whereIn('id', $request->members_ids)->delete();
+                    $AlertType = "success";
+                    $AlertMsg = "Selected data deleted";
+                } else {
+                    $AlertType = "warning";
+                    $AlertMsg = "Please select atleast one row.";
+                }
+
+                return redirect()->route('data.index')->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+            } else {
+                return ApiErrorResponse('ajax request is not supported');
+            }
+        } catch (Exception $ex) {
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
     }
 
     public function deleteAll(Request $request)
     {
-        // return $request->members_ids;
-        $AlertType = "";
-        $AlertMsg = "";
+        // dd ($request->members_ids);
+
         try {
-            if ($request->members_ids != null) {
-                $request->members_ids = array_map('decryptParams', $request->gromembers_idsup_ids);
-                Mobiledatas::whereIn('id', $request->members_ids)->delete();
+            if (!request()->ajax()) {
+                $response = (new Mobiledatas())->deleteAllData();
                 $AlertType = "success";
-                $AlertMsg = "Selected data deleted";
+                $AlertMsg = "Data deleted";
+
+                if ($response) {
+                    return redirect()->route('data.index')->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+                } else {
+                    return redirect()->route('data.index')->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
+                }
             } else {
-                $AlertType = "warning";
-                $AlertMsg = "Please select atleast one row.";
+                return ApiErrorResponse('ajax request is not supported');
             }
-        } catch (\Illuminate\Database\QueryException $ex) {
-            if ($ex->getCode() == 23000) {
-                $AlertType = "danger";
-                $AlertMsg = "These selected students linked with other data, therefore system cannot delete them.";
-            } else {
-                $AlertType = "danger";
-                $AlertMsg = "Something went wrong";
-            }
+        } catch (Exception $ex) {
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
-        return redirect()->route('data.index')->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
     }
 
     public function STDList($groupid, $sectionid)

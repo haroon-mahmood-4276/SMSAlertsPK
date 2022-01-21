@@ -54,12 +54,12 @@ Route::group(['middleware' => ['AuthRoute']], function () {
     Route::group(['prefix' => 'delete-all', 'as' => 'r.delete-all-'], function () {
         Route::get('groups', [GroupController::class, 'deleteAll'])->name('groups');
         Route::get('classes', [GroupController::class, 'deleteAll'])->name('classes');
-        Route::delete('sections', [SectionController::class, 'deleteAll'])->name('sections');
-        Route::delete('members', [MobileDataController::class, 'deleteAll'])->name('members');
-        Route::delete('students', [MobileDataController::class, 'deleteAll'])->name('students');
-        Route::delete('subjects', [SubjectController::class, 'deleteAll'])->name('subjects');
-        Route::delete('teachers', [TeacherController::class, 'deleteAll'])->name('teachers');
-        Route::delete('templates', [TemplateController::class, 'deleteAll'])->name('templates');
+        Route::get('sections', [SectionController::class, 'deleteAll'])->name('sections');
+        Route::get('members', [MobileDataController::class, 'deleteAll'])->name('members');
+        Route::get('students', [MobileDataController::class, 'deleteAll'])->name('students');
+        Route::get('subjects', [SubjectController::class, 'deleteAll'])->name('subjects');
+        Route::get('teachers', [TeacherController::class, 'deleteAll'])->name('teachers');
+        Route::get('templates', [TemplateController::class, 'deleteAll'])->name('templates');
     });
 
     Route::get('check/groups', [GroupController::class, 'CheckGroupCodeExistance'])->name('r.check-group-code');

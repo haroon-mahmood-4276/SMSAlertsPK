@@ -152,7 +152,7 @@ class GroupController extends Controller
             if (!request()->ajax()) {
                 $AlertType = "";
                 $AlertMsg = "";
-
+                $response = false;
                 if ($request->group_ids != null) {
                     $request->group_ids = array_map('decryptParams', $request->group_ids);
                     $response = (new Group())->whereIn('id', $request->group_ids)->delete();
@@ -163,11 +163,7 @@ class GroupController extends Controller
                     $AlertMsg = "Please select atleast one row.";
                 }
 
-                if ($response) {
-                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
-                } else {
-                    return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
-                }
+                return redirect()->route((session('Data.company_nature') == 'B' ? 'groups.index' : 'classes.index'))->with('AlertType', $AlertType)->with('AlertMsg', $AlertMsg);
             } else {
                 return ApiErrorResponse('ajax request is not supported');
             }
