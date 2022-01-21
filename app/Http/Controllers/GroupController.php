@@ -178,7 +178,7 @@ class GroupController extends Controller
     {
         try {
             if (!request()->ajax()) {
-                $response = (new Group())->deleetAllGroups();
+                $response = (new Group())->deleteAllGroups();
                 $AlertType = "success";
                 $AlertMsg = "Data deleted";
 

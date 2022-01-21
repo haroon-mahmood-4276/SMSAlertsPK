@@ -29,9 +29,7 @@ class MobileDataController extends Controller
                 return ApiErrorResponse('ajax request is not supported');
             }
         } catch (Exception $ex) {
-            $request->session()->flash('AlertType', 'danger');
-            $request->session()->flash('AlertMsg', $ex->getMessage());
-            return view('mobiledata.index');
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
     }
 
@@ -46,7 +44,7 @@ class MobileDataController extends Controller
             if (!request()->ajax()) {
                 $data = [
                     'groups' => (new Group)->getAll(),
-                    'sections' => (new Section)->select('id', 'name')->where('user_id', '=', session('Data.id'))->get(),
+                    'sections' => (new Section)->getAll(),
                 ];
 
                 return view('mobiledata.create', $data);
@@ -54,9 +52,7 @@ class MobileDataController extends Controller
                 return ApiErrorResponse('ajax request is not supported');
             }
         } catch (Exception $ex) {
-            $request->session()->flash('AlertType', 'danger');
-            $request->session()->flash('AlertMsg', $ex->getMessage());
-            return view('mobiledata.create');
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
     }
 
@@ -68,63 +64,58 @@ class MobileDataController extends Controller
      */
     public function store(Request $request)
     {
-        if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE') {
-            $request->validate([
-                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
-                'student_first_name' => 'bail|required|string|between:1,50',
-                'student_last_name' => 'bail|required|string|between:1,50',
-                'student_mobile_1' => 'bail|required|numeric|digits:12',
-                'student_mobile_2' => 'bail|nullable|numeric|digits:12',
-                'dob' => 'bail|required',
-                'gender' => 'required',
-                'parent_first_name' => 'bail|required|string|between:1,50',
-                'parent_last_name' => 'bail|required|string|between:1,50',
-                'parent_mobile_1' => 'required|numeric|digits:12',
-                'parent_mobile_2' => 'nullable|numeric|digits:12',
-                'group' => 'required',
-                'section' => 'required',
-                'active' => 'required',
-            ]);
-        } else {
-            $request->validate([
-                'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
-                'student_first_name' => 'bail|required|string|between:1,50',
-                'student_last_name' => 'bail|required|string|between:1,50',
-                'dob' => 'bail|required',
-                'gender' => 'required',
-                'student_mobile_1' => 'required|numeric|digits:12',
-                'student_mobile_2' => 'nullable|numeric|digits:12',
-                'group' => 'required',
-                'active' => 'required',
-            ]);
-            // dd($request->input());
+        try {
+            if (!request()->ajax()) {
+                if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE') {
 
-            $request->parent_mobile_1 = $request->student_mobile_1;
-            $request->parent_mobile_2 = $request->student_mobile_2;
-        }
+                    $request->validate([
+                        'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
+                        'student_first_name' => 'bail|required|string|between:1,50',
+                        'student_last_name' => 'bail|required|string|between:1,50',
+                        'student_mobile_1' => 'bail|required|numeric|digits:12',
+                        'student_mobile_2' => 'bail|nullable|numeric|digits:12',
+                        'dob' => 'bail|required',
+                        'gender' => 'required',
+                        'parent_first_name' => 'bail|required|string|between:1,50',
+                        'parent_last_name' => 'bail|required|string|between:1,50',
+                        'parent_mobile_1' => 'required|numeric|digits:12',
+                        'parent_mobile_2' => 'nullable|numeric|digits:12',
+                        'group' => 'required',
+                        'section' => 'required',
+                        'active' => 'required',
+                    ]);
+                } else {
+                    $request->validate([
+                        'code' => ['bail', 'required', 'alpha_num', 'between:1,20', new CheckMemberCode()],
+                        'student_first_name' => 'bail|required|string|between:1,50',
+                        'student_last_name' => 'bail|required|string|between:1,50',
+                        'dob' => 'bail|required',
+                        'gender' => 'required',
+                        'student_mobile_1' => 'required|numeric|digits:12',
+                        'student_mobile_2' => 'nullable|numeric|digits:12',
+                        'group' => 'required',
+                        'active' => 'required',
+                    ]);
+                    // dd($request->input());
 
+                    $request->parent_mobile_1 = $request->student_mobile_1;
+                    $request->parent_mobile_2 = $request->student_mobile_2;
+                }
 
-        $MobileDatas = new MobileDatas;
-        $MobileDatas->code = $request->code;
-        $MobileDatas->student_first_name = $request->student_first_name;
-        $MobileDatas->student_last_name = $request->student_last_name;
-        $MobileDatas->dob = $request->dob;
-        $MobileDatas->gender = $request->gender;
-        $MobileDatas->parent_first_name = $request->parent_first_name;
-        $MobileDatas->student_mobile_1 = $request->student_mobile_1;
-        $MobileDatas->student_mobile_2 = $request->student_mobile_2;
-        $MobileDatas->parent_mobile_1 = $request->parent_mobile_1;
-        $MobileDatas->parent_mobile_2 = $request->parent_mobile_2;
-        $MobileDatas->parent_last_name = $request->parent_last_name;
-        $MobileDatas->user_id = session('Data.id');
-        $MobileDatas->group_id = $request->group;
-        $MobileDatas->section_id = $request->section;
-        $MobileDatas->active = $request->active;
+                dd($request->post());
 
-        if ($MobileDatas->save()) {
-            return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
-        } else {
-            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+                $response = (new Mobiledatas())->storeMobileData($request->post());
+
+                if ($response) {
+                    return redirect()->route('data.index')->with('AlertType', 'success')->with('AlertMsg', 'Data has been saved.');
+                } else {
+                    return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', 'Data could not saved.');
+                }
+            } else {
+                return ApiErrorResponse('ajax request is not supported');
+            }
+        } catch (Exception $ex) {
+            return redirect()->route('data.index')->with('AlertType', 'danger')->with('AlertMsg', $ex->getMessage());
         }
     }
 
@@ -148,6 +139,8 @@ class MobileDataController extends Controller
      */
     public function edit($id)
     {
+        $id = decryptParams($id);
+
         $MobileDatas = MobileDatas::find($id);
         $Groups = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
         if (session('Data.company_nature') == 'S' || session('Data.company_nature') == 'HE') {
@@ -232,7 +225,7 @@ class MobileDataController extends Controller
      */
     public function destroy($id)
     {
-
+        $id = decryptParams($id);
         $MobileDatas =  MobileDatas::find($id);
 
         if ($MobileDatas->delete()) {
@@ -249,6 +242,7 @@ class MobileDataController extends Controller
         $AlertMsg = "";
         try {
             if ($request->members_ids != null) {
+                $request->members_ids = array_map('decryptParams', $request->gromembers_idsup_ids);
                 Mobiledatas::whereIn('id', $request->members_ids)->delete();
                 $AlertType = "success";
                 $AlertMsg = "Selected data deleted";

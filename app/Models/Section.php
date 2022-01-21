@@ -16,6 +16,11 @@ class Section extends Model
         'code',
         'name',
     ];
+
+    public function getAll(){
+        return $this->select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+    }
+
     public function getAllWithPagination($page)
     {
         return $this->join('groups', 'sections.group_id', '=', 'groups.id')

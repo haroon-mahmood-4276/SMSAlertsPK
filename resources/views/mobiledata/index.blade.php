@@ -2,13 +2,7 @@
 
 @section('PageTitle', @(session('Data.company_nature') == 'B') ? 'Members' : 'Students' . ' List')
 
-@section('BeforeCommonCss')
-
-@endsection
-
-@section('AfterCommonCss')
-    <link href="{{ asset('assets/libs/footable/css/footable.core.css') }}" rel="stylesheet">
-    <link href="{{ asset('dist/css/pages/footable-page.css') }}" rel="stylesheet">
+@section('CSS')
 @endsection
 
 @section('content')
@@ -56,7 +50,9 @@
                                                     <option value="">All</option>
                                                     @if (isset($groups))
                                                         @foreach ($groups as $group)
-                                                            <option value="{{ $group->id }}" {{ $group->id == $group_id ? 'selected' : '' }}>{{ $group->name }}</option>
+                                                            <option value="{{ $group->id }}"
+                                                                {{ $group->id == $group_id ? 'selected' : '' }}>
+                                                                {{ $group->name }}</option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -176,7 +172,7 @@
                                                     <td>
                                                         <div class="row">
                                                             <div class="col s6 m6 l6">
-                                                                <a href="{{ route('data.edit', ['data' => $member->id]) }}"
+                                                                <a href="{{ route('data.edit', ['data' => encryptParams($member->id)]) }}"
                                                                     type="button"
                                                                     class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                                         class="material-icons">edit</i></a>
@@ -186,7 +182,7 @@
                                                                     <label>
                                                                         <input type="checkbox" class="chkbox filled-in"
                                                                             name="members_ids[]"
-                                                                            value="{{ $member->id }}" />
+                                                                            value="{{ encryptParams($member->id) }}" />
                                                                         <span>&nbsp;</span>
                                                                     </label>
                                                                 </p>
@@ -229,15 +225,6 @@
 @endsection
 
 @section('Js')
-    <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/materialize.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/app.js') }}"></script>
-    <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
-    <script src="{{ asset('dist/js/custom.min.js') }}"></script>
-
-    <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
-    <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
     <script>
         $(".sl-all").on('click', function() {
             $('.chkbox').prop('checked', this.checked);
