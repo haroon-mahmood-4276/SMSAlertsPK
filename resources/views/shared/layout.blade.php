@@ -15,13 +15,12 @@
         href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap"
         rel="stylesheet">
 
-    <link href="{{ asset('assets/extra-libs/prism/prism.css') }}" rel="stylesheet">
-    <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css"
+        <link href="{{ asset('dist/css/style.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/extra-libs/prism/prism.css') }}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css"
         href="{{ asset('assets/libs/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}">
-    <link href="{{ asset('assets/libs/footable/css/footable.core.css') }}" rel="stylesheet">
-    <link href="{{ asset('dist/css/pages/footable-page.css') }}" rel="stylesheet">
-
+        <link href="{{ asset('assets/libs/footable/css/footable.core.css') }}" rel="stylesheet">
+        <link href="{{ asset('dist/css/pages/footable-page.css') }}" rel="stylesheet">
     @yield('CSS')
 
     <style>
@@ -96,7 +95,7 @@
     <script src="{{ asset('dist/js/app-style-switcher.js') }}"></script>
     <script src="{{ asset('dist/js/custom.min.js') }}"></script>
 
-    {{-- <script src="{{asset('assets/extra-libs/prism/prism.js')}}"></script> --}}
+    <script src="{{asset('assets/extra-libs/prism/prism.js')}}"></script>
     <script src="{{ asset('assets/libs/moment/moment.js') }}"></script>
     <script
         src="{{ asset('assets/libs/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker-custom.js') }}">
