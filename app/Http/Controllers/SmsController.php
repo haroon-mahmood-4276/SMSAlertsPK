@@ -197,7 +197,7 @@ class SmsController extends Controller
                 }
 
                 session()->put([ 'DuesData' => $newArray ]);
-                $Templates = Template::where('user_id', '=', session('Data.id'))->get();
+                $Templates = (new Template())->where('user_id', '=', session('Data.id'))->get();
 
                 return view('sms.duessms', [ 'DuesData' => $newArray, 'Templates' => $Templates, 'Template_Code' => $request->template, 'Message' => $request->message ]);
             } else
@@ -251,7 +251,7 @@ class SmsController extends Controller
         $Settings = Setting::where('user_id', session('Data.id'))->first();
         if( strval(new DateTime(Date('Y-m-d')) <= new DateTime($User->expiry_date)) ) {
             if( $User->remaining_of_sms > 0 ) {
-                $Classes = Group::select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
+                $Classes = (new Group())->select('id', 'name')->where('user_id', '=', session('Data.id'))->get();
 
                 return view('sms.manualattendance', [ 'Classes' => $Classes, 'Settings' => $Settings ]);
             } else
@@ -312,9 +312,11 @@ class SmsController extends Controller
                         ->join('groups', 'mobiledatas.group_id', '=', 'groups.id')
                         ->join('sections', 'mobiledatas.section_id', '=', 'sections.id')
                         ->select('mobiledatas.id', 'mobiledatas.code', 'mobiledatas.student_first_name', 'mobiledatas.student_last_name', 'mobiledatas.student_mobile_1', 'mobiledatas.student_mobile_2', 'mobiledatas.parent_first_name', 'mobiledatas.parent_last_name', 'mobiledatas.parent_mobile_1', 'mobiledatas.parent_mobile_2', 'mobiledatas.active', 'groups.name AS class_name', 'sections.name AS section_name')
-                        ->where('mobiledatas.user_id', '=', session('Data.id'))
-                        ->where('mobiledatas.card_number', '=', $record[ 'card_number' ])
-                        ->where('mobiledatas.active', '=', 'Y')->get();
+                        ->where([
+                                'mobiledatas.user_id'=> session('Data.id'),
+                                'mobiledatas.card_number' => $record[ 'card_number' ],
+                                'mobiledatas.active' => 'Y',
+                        ])->get();
                     if( $Rcd->count() > 0 )
                         $newArray[] = $Rcd;
                 }

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\{Session};
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method static select( string $string, string $string1 )
+ */
 class Group extends Model
 {
     use HasFactory, SoftDeletes, Notifiable;

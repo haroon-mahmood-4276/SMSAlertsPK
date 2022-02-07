@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method static join( string $string, string $string1, string $string2, string $string3 )
+ */
 class Mobiledatas extends Model
 {
     use HasFactory, SoftDeletes, Notifiable;

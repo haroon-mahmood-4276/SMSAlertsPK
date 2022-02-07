@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @method where( string $string, \Illuminate\Contracts\Foundation\Application|\Illuminate\Session\SessionManager|\Illuminate\Session\Store|mixed $session )
+ * @method static find( \Illuminate\Contracts\Foundation\Application|\Illuminate\Session\SessionManager|\Illuminate\Session\Store|mixed $session )
  */
 class User extends Authenticatable
 {
