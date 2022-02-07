@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @method where( string $string, \Illuminate\Contracts\Foundation\Application|\Illuminate\Session\SessionManager|\Illuminate\Session\Store|mixed $session )
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -22,6 +25,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'remaining_of_sms'
     ];
 
     /**
