@@ -2,11 +2,7 @@
 
 @section('PageTitle', (session('Data.company_nature') == 'B' ? 'Group' : 'Classes') . ' List')
 
-@section('BeforeCommonCss')
-
-@endsection
-
-@section('AfterCommonCss')
+@section('CSS')
 
 @endsection
 

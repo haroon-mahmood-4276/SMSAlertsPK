@@ -49,6 +49,6 @@ class Group extends Model
 
     public function deleteAllGroups()
     {
-        $this->where('user_id', '=', session('Data.id'))->delete();
+        return $this->where('user_id', '=', session('Data.id'))->delete();
     }
 }

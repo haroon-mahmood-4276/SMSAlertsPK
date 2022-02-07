@@ -38,7 +38,7 @@
                                     @endif
                                     <div class="left">
                                         <div class="form-group">
-                                            <input id="demo-input-search2" type="text" placeholder="Search"
+                                            <input id="search" type="text" placeholder="Search"
                                                 autocomplete="off">
                                         </div>
                                     </div>
@@ -253,6 +253,13 @@
                 if (dialogue.isConfirmed) {
                     window.location.href = hrefLink;
                 }
+            });
+        });
+
+        $("#search").on("keyup", function () {
+            let value = $(this).val().toLowerCase();
+            $("#demo-foo-addrow2 tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
     </script>

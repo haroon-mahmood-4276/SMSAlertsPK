@@ -2,19 +2,7 @@
 
 @section('PageTitle', 'Templates List')
 
-@section('BeforeCommonCss')
-    <style>
-        .truncate {
-            width: 400px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-    </style>
-@endsection
-
-@section('AfterCommonCss')
+@section('CSS')
     <link href="{{ asset('assets/libs/footable/css/footable.core.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/css/pages/footable-page.css') }}" rel="stylesheet">
 @endsection
@@ -46,6 +34,10 @@
                                     </div>
                                 </div>
                             @endif
+                            <div>
+                                <a href="{{ route('r.delete-all-templates') }}"
+                                   class="btn btn-small waves-effect red waves-light right" id="delete-all">Delete all</a>
+                            </div>
                             <form action="{{ route('templates.destroy', ['template' => '0']) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -80,17 +72,10 @@
                                                     <a href="{{ route('templates.create') }}" class="btn btn-small"><i
                                                             class="icon wb-plus waves-effect waves-light"
                                                             aria-hidden="true"></i>Add New Template</a>
-                                                    </a>
                                                     <button type="submit"
-                                                        class="btn btn-small waves-effect red waves-light">Delete selected
+                                                            class="btn btn-small waves-effect red waves-light">Delete selected
                                                         templates
                                                     </button>
-                                                </div>
-                                            </div>
-                                            <div class="ml-auto">
-                                                <div class="form-group">
-                                                    <input id="demo-input-search2" type="text" placeholder="Search"
-                                                        autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
@@ -108,7 +93,7 @@
                                                 <td>
                                                     <div class="row">
                                                         <div class="col s6 m6 l6">
-                                                            <a href="{{ route('templates.edit', ['template' => $Template->id]) }}"
+                                                            <a href="{{ route('templates.edit', ['template' => encryptParams($Template->id)]) }}"
                                                                 type="button"
                                                                 class="btn btn-small blue m-5 left waves-effect waves-light"><i
                                                                     class="material-icons">edit</i></a>
@@ -118,7 +103,7 @@
                                                                 <label>
                                                                     <input type="checkbox" class="chkbox filled-in"
                                                                         name="template_ids[]"
-                                                                        value="{{ $Template->id }}" />
+                                                                        value="{{ encryptParams($Template->id) }}" />
                                                                     <span>&nbsp;</span>
                                                                 </label>
                                                             </p>
@@ -159,8 +144,19 @@
     <script src="{{ asset('assets/libs/footable/dist/footable.all.min.js') }}"></script>
     <script src="{{ asset('dist/js/pages/footable/footable-init.js') }}"></script>
     <script>
-        $(".sl-all").on('click', function() {
-            $('.chkbox').prop('checked', this.checked);
+        $(document).ready(function () {
+            $(".sl-all").on('click', function() {
+                $('.chkbox').prop('checked', this.checked);
+            });
+
+            $("#search").on("keyup", function() {
+                let value = $(this).val().toLowerCase();
+                $("#demo-foo-addrow2 tbody tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
         });
+
+
     </script>
 @endsection

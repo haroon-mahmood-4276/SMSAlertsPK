@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-content">
                         <h5 class="card-title">Create Template</h5>
-                        <form action="{{ route('templates.update', ['template' => $Template->id]) }}" class="formValidate"
+                        <form action="{{ route('templates.update', ['template' => encryptParams($Template->id)]) }}" class="formValidate"
                             id="formValidate" method="POST">
                             @csrf
                             @method('PATCH')
