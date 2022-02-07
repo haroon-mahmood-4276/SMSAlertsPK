@@ -55,6 +55,9 @@
                                             <th>
                                                 Section Name
                                             </th>
+                                            <th>
+                                                Class Name
+                                            </th>
                                             <th>Status</th>
                                             <th data-sort-ignore="true" class="text-left">
                                                 <div class="row">
@@ -106,6 +109,7 @@
                                                 <td>{{ ++$Count }}</td>
                                                 <td>{{ $Section->code }}</td>
                                                 <td>{{ $Section->name }}</td>
+                                                <td>{{ $Section->group_name }}</td>
                                                 <td><span class="label label-table label-success">Active</span> </td>
                                                 <td class="chktd">
                                                     <div class="row">
