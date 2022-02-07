@@ -377,25 +377,25 @@
                                                         </div>
                                                         <div class="input-field col s12 m12 l6">
                                                             <i class="material-icons prefix">text_format</i>
-                                                            <input id="latitude" onchange="updateMap()" name="latitude" type="number"
+                                                            <input id="latitude" onchange="updateMap()" name="latitude" type="text"
                                                                 {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
-                                                                class="" value="{{ $Setting->latitude }}"
-                                                                step="0.005">
+                                                                class="" value="{{ $Setting->latitude }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
+                                                                >
                                                             <label for="latitude">Latitude</label>
                                                         </div>
                                                         <div class="input-field col s12 m12 l6">
                                                             <i class="material-icons prefix">text_format</i>
-                                                            <input id="longitude" onchange="updateMap()" name="longitude" type="number"
+                                                            <input id="longitude" onchange="updateMap()" name="longitude" type="text"
                                                                 {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
-                                                                class="" value="{{ $Setting->longitude }}"
-                                                                step="0.005">
+                                                                class="" value="{{ $Setting->longitude }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
+                                                                >
                                                             <label for="longitude">Longitude</label>
                                                         </div>
                                                         <div class="input-field col s12 m12 l6">
                                                             <i class="material-icons prefix">text_format</i>
-                                                            <input id="radius" onchange="updateMap()" name="radius" type="number"
+                                                            <input id="radius" onchange="updateMap()" name="radius" type="text"
                                                                 {{ $Setting->geo_location_enabled == 'Y' ? '' : 'disabled' }}
-                                                                class="" value="{{ $Setting->radius }}">
+                                                                class="" value="{{ $Setting->radius }}" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                                                             <label for="radius">Radius(m)</label>
                                                         </div>
                                                         <div class="col s12 m12 l12">
@@ -449,7 +449,7 @@
                 zoom: 17,
                 center: Coordinates,
                 scaleControl: true,
-                scrollwheel: false,
+                scrollwheel: true,
                 panControl: true,
                 zoomControl: true,
                 mapTypeControl: true,
@@ -484,6 +484,8 @@
 
             google.maps.event.addListener(map, 'click', function(event) {
                 marker.setPosition(event.latLng);
+                document.getElementById("latitude").value = parseFloat(event.latLng.lat().toFixed(7));
+                document.getElementById("longitude").value = parseFloat(event.latLng.lng().toFixed(7));
                 cityCircle.setCenter(event.latLng);
             });
         }
@@ -508,7 +510,8 @@
             document.getElementById("latitude").value = parseFloat(position.coords.latitude);
             document.getElementById("longitude").value = parseFloat(position.coords.longitude);
             document.getElementById("radius").value = parseFloat(0);
-            // initMap();
+
+            initMap();
         }
 
         function showError(error) {
@@ -598,7 +601,7 @@
             $('#longitude').prop("disabled", !this.checked);
             $('#radius').prop("disabled", !this.checked);
 
-            if ($('#geo_location_enabled').prop("checked") == false) {
+            if ($('#geo_location_enabled').prop("checked") === false) {
                 $('#latitude').val('0');
                 $('#longitude').val('0');
                 $('#radius').val('0');
